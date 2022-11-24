@@ -1,5 +1,3 @@
-## Hi there 👋
-
 🙋‍♀️ A short introduction
 
 This organization is used to locate reuse contents created by NEVSTOP.
