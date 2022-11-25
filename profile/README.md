@@ -1,13 +1,19 @@
-🙋‍♀️ A short introduction
+🙋‍♀️ **A short introduction**
 
 This organization is used to locate reuse contents created by NEVSTOP.
 
-👩‍💻 Useful resources
+🧙 **Toolkits Recommanded**
+
+1. [LabVEIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector): Useful tool if you have multiple LabVIEW Versions intalled.
+2. [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager): Orgnize your quickdrops to improve LabVIEW programming efficency. 
+
+👩‍💻 **Useful resources** 
 
 [`national-instruments`](https://github.com/search?q=topic%3Anational-instruments+org%3ANEVSTOP-LAB&type=Repositories)
 [`quickdrop`](https://github.com/search?q=topic%3Aquickdrop+org%3ANEVSTOP-LAB&type=Repositories)
 [`utilites`](https://github.com/search?q=topic%3Autilites+org%3ANEVSTOP-LAB&type=Repositories)
 [`labview-library`](https://github.com/search?q=topic%3Alabview-library+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
+
 
 <!--
 
