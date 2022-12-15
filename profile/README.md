@@ -25,6 +25,7 @@ This organization is used to locate reuse contents created by NEVSTOP.
 [`labview-xcontrol`](https://github.com/search?q=topic%3Alabview-xcontrol+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
 [`fpga`](https://github.com/search?q=topic%3Afpga+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
 [`exe`](https://github.com/search?q=topic%3Aexe+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
+[`framework`](https://github.com/search?q=topic%3Aframework+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
 
 <!--
 
