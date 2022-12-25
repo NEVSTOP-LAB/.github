@@ -26,6 +26,7 @@ This organization is used to locate reuse contents created by NEVSTOP.
 [`fpga`](https://github.com/search?q=topic%3Afpga+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
 [`exe`](https://github.com/search?q=topic%3Aexe+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
 [`framework`](https://github.com/search?q=topic%3Aframework+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
+[`lvcicd`](https://github.com/search?q=topic%3Alvcicd+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
 
 <!--
 
