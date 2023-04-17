@@ -9,6 +9,7 @@ This organization is used to locate reuse contents created by NEVSTOP.
 🧙 **Programming Enviroments**
 
 1. [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager): Orgnize your quickdrops to improve LabVIEW programming efficency. 
+2. [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider): Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed.
 
 🧙 **Suplyment of Basic Functions**
 
