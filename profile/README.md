@@ -1,4 +1,5 @@
 🙋‍♀️ **A short introduction**
+--------------------
 
 This organization is used to locate reuse contents created by NEVSTOP.
 
@@ -28,6 +29,14 @@ This organization is used to locate reuse contents created by NEVSTOP.
 [`exe`](https://github.com/search?q=topic%3Aexe+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
 [`framework`](https://github.com/search?q=topic%3Aframework+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
 [`lvcicd`](https://github.com/search?q=topic%3Alvcicd+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
+
+
+👀 **HELP WANTED**
+--------------------
+
+ - [Issues need your coorperation](https://github.com/issues?q=is%3Aopen+is%3Aissue+archived%3Afalse+user%3ANEVSTOP-LAB+label%3A%22help+wanted%22)
+ - Fork and push back you changes with PR.
+ - Your name will be listed in VIPM pacakge description.
 
 <!--
 
