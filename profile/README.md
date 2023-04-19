@@ -3,15 +3,15 @@
 
 This organization is dedicated to creating and sharing reusable content that can be used to enhance the LabVIEW programming experience. Our team has put together a collection of tools, programming environments, and supplementary functions that you might find useful.
 
-🧙 **Toolkits Recommanded**
+🧙 **Toolkits Recommended**
 --------------------
 
-🧙 **Programming Enviroments**
-1. [LabVEIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector): Useful tool if you have multiple LabVIEW Versions intalled.
-2. [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager): Orgnize your quickdrops to improve LabVIEW programming efficency. 
+🧙 **Programming Environments**
+1. [LabVIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector): Useful tool if you have multiple LabVIEW Versions installed.
+2. [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager): Organize your quickdrops to improve LabVIEW programming efficiency. 
 3. [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider): Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed.
 
-🧙 **Suplyment of Basic Functions**
+🧙 **Supplement of Basic Functions**
 
 1. [NEVSTOP-3rdParty-Dependencies](https://github.com/NEVSTOP-LAB/NEVSTOP-3rdParty-Dependencies): 3rd-party dependencies of NEVSTOP Lab Libraries
 2. [NEVSTOP-Programming-Palette](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette): 用于补充 LabVIEW 日常编程使用的常用VI 
@@ -21,7 +21,7 @@ This organization is dedicated to creating and sharing reusable content that can
 
  - **Issue List** ------> [Issues need your coorperation](https://github.com/issues?q=is%3Aopen+is%3Aissue+archived%3Afalse+user%3ANEVSTOP-LAB+label%3A%22help+wanted%22)
  - Fork and push back you changes with PR.
- - Your name will be listed in VIPM pacakge description.
+ - Your name will be listed in VIPM package description.
 
 👩‍💻 **Sorted By Tags** 
 --------------------
