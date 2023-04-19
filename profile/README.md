@@ -1,16 +1,15 @@
-🙋‍♀️ **A short introduction**
+🙋‍♀️ **Introduction**
 --------------------
 
-This organization is used to locate reuse contents created by NEVSTOP.
+This organization is dedicated to creating and sharing reusable content that can be used to enhance the LabVIEW programming experience. Our team has put together a collection of tools, programming environments, and supplementary functions that you might find useful.
 
 🧙 **Toolkits Recommanded**
-
-1. [LabVEIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector): Useful tool if you have multiple LabVIEW Versions intalled.
+--------------------
 
 🧙 **Programming Enviroments**
-
-1. [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager): Orgnize your quickdrops to improve LabVIEW programming efficency. 
-2. [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider): Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed.
+1. [LabVEIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector): Useful tool if you have multiple LabVIEW Versions intalled.
+2. [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager): Orgnize your quickdrops to improve LabVIEW programming efficency. 
+3. [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider): Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed.
 
 🧙 **Suplyment of Basic Functions**
 
