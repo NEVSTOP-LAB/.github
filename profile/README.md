@@ -7,14 +7,32 @@ This organization is dedicated to creating and sharing reusable content that can
 --------------------
 
 🧙 **Programming Environments**
-1. [LabVIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector): Useful tool if you have multiple LabVIEW Versions installed.
-2. [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager): Organize your quickdrops to improve LabVIEW programming efficiency. 
-3. [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider): Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed.
+
+| Name | Description                                                                                      |
+|--------------------------|--------------------------------------------------------------------------------------------------|
+| [LabVIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector) | Useful tool if you have multiple LabVIEW Versions installed. |
+| [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | Organize your quickdrops to improve LabVIEW programming efficiency. |
+| [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider) | Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed. |
+
 
 🧙 **Supplement of Basic Functions**
 
-1. [NEVSTOP-3rdParty-Dependencies](https://github.com/NEVSTOP-LAB/NEVSTOP-3rdParty-Dependencies): 3rd-party dependencies of NEVSTOP Lab Libraries
-2. [NEVSTOP-Programming-Palette](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette): 用于补充 LabVIEW 日常编程使用的常用VI 
+| Name | Description |
+|------|-------------|
+| [NEVSTOP-3rdParty-Dependencies](https://github.com/NEVSTOP-LAB/NEVSTOP-3rdParty-Dependencies) | 3rd-party dependencies of NEVSTOP Lab Libraries |
+| [NEVSTOP-Programming-Palette](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette) | 用于补充 LabVIEW 日常编程使用的常用VI |
+
+🧙 **Framework of Application**
+
+| Library Name | Description |
+| --- | --- |
+| [LabVIEW TagDB Library](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB) | This library sets are used to manage tag/configuration data in large applications. |
+| [LabVIEW TagDB Reference Manager Library](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB-RefMgr) | This library manage the front panel references and provide a shortcut Vis for UI refreshing |
+| [LabVIEW TagDB Configuration UI Frame](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB-cfgUIFrm) | Standard configuration dialogs solution based on tagdb libraries. |
+| [LabVIEW-Stop-Signal](https://github.com/NEVSTOP-LAB/LabVIEW-Stop-Signal) | This library provides the exit mechanism for large application. Application could stop its modules/components by starting orders or any strategy needed. It provides signal check, stop use event for both Event structure-based loop and background thread loop for multiple scenarios. |
+| [LabVIEW-GlobalStop-Library](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | Simple version of exit mechanism for small or medium scale project. |
+| [LabVIEW-MassData-Smart-Ptr](https://github.com/NEVSTOP-LAB/LabVIEW-MassData-Smart-Ptr) | Provide smart pointer for large memory data(waveform/DBL Array) to make it possible for sending with message in DQMH/Actor Framework. |
+
 
 👀 **HELP WANTED**
 --------------------
