@@ -6,7 +6,7 @@ This organization is dedicated to creating and sharing reusable content that can
 🧙 **Toolkits Recommended**
 --------------------
 
-🧙 **Programming Environments**
+🧙 **[Programming Environments](https://github.com/search?q=topic%3Aenvironments+org%3ANEVSTOP-LAB&type=Repositories)**
 
 | Name | Description                                                                                      |
 |--------------------------|--------------------------------------------------------------------------------------------------|
@@ -15,14 +15,14 @@ This organization is dedicated to creating and sharing reusable content that can
 | [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider) | Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed. |
 
 
-🧙 **Supplement of Basic Functions**
+🧙 **[Supplement of Base Functions](https://github.com/search?q=topic%3Abase-function+org%3ANEVSTOP-LAB&type=Repositories)**
 
 | Name | Description |
 |------|-------------|
 | [NEVSTOP-3rdParty-Dependencies](https://github.com/NEVSTOP-LAB/NEVSTOP-3rdParty-Dependencies) | 3rd-party dependencies of NEVSTOP Lab Libraries |
 | [NEVSTOP-Programming-Palette](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette) | 用于补充 LabVIEW 日常编程使用的常用VI |
 
-🧙 **Framework of Application**
+🧙 **[Framework of Application](https://github.com/search?q=topic%3Aframework+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)**
 
 | Library Name | Description |
 | --- | --- |
