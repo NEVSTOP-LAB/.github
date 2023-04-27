@@ -34,10 +34,9 @@ This organization is dedicated to creating and sharing reusable content that can
 | [LabVIEW-MassData-Smart-Ptr](https://github.com/NEVSTOP-LAB/LabVIEW-MassData-Smart-Ptr) | Provide smart pointer for large memory data(waveform/DBL Array) to make it possible for sending with message in DQMH/Actor Framework. |
 
 
-👀 **HELP WANTED**
+👀 **HELP WANTED** ------> [Issues need your coorperation](https://github.com/issues?q=is%3Aopen+is%3Aissue+archived%3Afalse+user%3ANEVSTOP-LAB+label%3A%22help+wanted%22)
 --------------------
 
- - **Issue List** ------> [Issues need your coorperation](https://github.com/issues?q=is%3Aopen+is%3Aissue+archived%3Afalse+user%3ANEVSTOP-LAB+label%3A%22help+wanted%22)
  - Fork and push back you changes with PR.
  - Your name will be listed in VIPM package description.
 
