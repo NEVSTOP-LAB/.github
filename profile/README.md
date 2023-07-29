@@ -10,7 +10,7 @@ This organization is dedicated to creating and sharing reusable content that can
 
 | Name | Description |
 |------|-------------|
-| [JKISM++]([https://github.com/NEVSTOP-LAB/NEVSTOP-3rdParty-Dependencies](https://github.com/NEVSTOP-LAB/JKI-State-Machine-Plus)) | LabVIEW Application Framework extended from JKI State Machine(JKISM). |
+| [JKISM++](https://github.com/NEVSTOP-LAB/JKI-State-Machine-Plus) | LabVIEW Application Framework extended from JKI State Machine(JKISM). |
 
 🧙 **[Programming Environments](https://github.com/search?q=topic%3Aenvironments+org%3ANEVSTOP-LAB&type=Repositories)**
 
