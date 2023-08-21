@@ -10,7 +10,7 @@ This organization is dedicated to creating and sharing reusable content that can
 
 | Name | Description |
 |------|-------------|
-| [JKISM++](https://github.com/NEVSTOP-LAB/JKI-State-Machine-Plus) | LabVIEW Application Framework extended from JKI State Machine(JKISM). |
+| [JKISM++ Framework](https://github.com/NEVSTOP-LAB/JKI-State-Machine-Plus) | LabVIEW Application Framework extended from JKI State Machine(JKISM). |
 | [JKISM++ MassData Arguments Support](https://github.com/NEVSTOP-LAB/JKI-State-Machine-Plus) | Addons for Data Arguments support of JKISM++. |
 | [JKISM++ Array Arguments Support](https://github.com/NEVSTOP-LAB/JKISMPP-Array-Parameter-Support) | Addons for Array Arguments support of JKISM++. |
 
