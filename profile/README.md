@@ -13,7 +13,7 @@ This organization is dedicated to creating and sharing reusable content that can
 | [Communicable State Machine(CSM) Framework](https://github.com/NEVSTOP-LAB/JKI-State-Machine-Plus) | LabVIEW Application Framework extended from JKI State Machine(JKISM). |
 | [CSM MassData Arguments Support](https://github.com/NEVSTOP-LAB/JKI-State-Machine-Plus) | Addons for Data Arguments support of CSM. |
 | [CSM Array Arguments Support](https://github.com/NEVSTOP-LAB/JKISMPP-Array-Parameter-Support) | Addons for Array Arguments support of CSM. |
-| [CSM String Arguments Support](https://github.com/NEVSTOP-LAB/JKISMPP-API-String-Arugments-Support) | Enhance String Arguments support of CSM. |
+| [CSM API String Arguments Support](https://github.com/NEVSTOP-LAB/JKISMPP-API-String-Arugments-Support) | Enhance API String Arguments support of CSM. |
 
 🧙 **[Programming Environments](https://github.com/search?q=topic%3Aenvironments+org%3ANEVSTOP-LAB&type=Repositories)**
 
@@ -44,6 +44,7 @@ This organization is dedicated to creating and sharing reusable content that can
 
 👩‍💻 **Sorted By Tags** 
 --------------------
+[`CSM`](https://github.com/search?q=topic%3Acsm+org%3ANEVSTOP-LAB&type=Repositories)
 [`application`](https://github.com/search?q=topic%3Aapplication+org%3ANEVSTOP-LAB&type=Repositories)
 [`national-instruments`](https://github.com/search?q=topic%3Anational-instruments+org%3ANEVSTOP-LAB&type=Repositories)
 [`quickdrop`](https://github.com/search?q=topic%3Aquickdrop+org%3ANEVSTOP-LAB&type=Repositories)
