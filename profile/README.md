@@ -8,20 +8,20 @@ This organization is dedicated to creating and sharing reusable content that can
 
 🧙 **[Framework of Application](https://github.com/search?q=topic%3AJKISM+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)**
 
-| Name | Description |
-|------|-------------|
-| [Communicable State Machine(CSM) Framework](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | LabVIEW Application Framework extended from JKI State Machine(JKISM). |
-| [CSM MassData Arguments Support](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | Addons for Data Arguments support of CSM. |
-| [CSM Array Arguments Support](https://github.com/NEVSTOP-LAB/CSM-Array-Parameter-Support) | Addons for Array Arguments support of CSM. |
-| [CSM API String Arguments Support](https://github.com/NEVSTOP-LAB/CSM-API-String-Arugments-Support) | Enhance API String Arguments support of CSM. |
+| Name | Description |VIPM|
+|------|-------------|-------------|
+| [Communicable State Machine(CSM) Framework](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | LabVIEW Application Framework extended from JKI State Machine(JKISM). | [![Image](https://www.vipm.io/package/nevstop_lib_communicable_state_machine/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_communicable_state_machine/)|
+| [CSM MassData Arguments Support](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | Addons for Data Arguments support of CSM. |[![Image](https://www.vipm.io/package/nevstop_lib_csm_massdata_parameter_support/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_massdata_parameter_support/)|
+| [CSM Array Arguments Support](https://github.com/NEVSTOP-LAB/CSM-Array-Parameter-Support) | Addons for Array Arguments support of CSM. |Not published yet|
+| [CSM API String Arguments Support](https://github.com/NEVSTOP-LAB/CSM-API-String-Arugments-Support) | Enhance API String Arguments support of CSM. |Not published yet|
 
 🧙 **[Programming Environments](https://github.com/search?q=topic%3Aenvironments+org%3ANEVSTOP-LAB&type=Repositories)**
 
-| Name | Description                                                                                      |
-|--------------------------|--------------------------------------------------------------------------------------------------|
-| [LabVIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector) | Useful tool if you have multiple LabVIEW Versions installed. |
-| [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | Organize your quickdrops to improve LabVIEW programming efficiency. |
-| [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider) | Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed. |
+| Name | Description                                                                                      |VIPM|
+|--------------------------|--------------------------------------------------------------------------------------------------|-------------|
+| [LabVIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector) | Useful tool if you have multiple LabVIEW Versions installed. |[![Image](https://www.vipm.io/package/labview_version_selector/badge.svg?metric=installs)](https://www.vipm.io/package/labview_version_selector/)|
+| [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | Organize your quickdrops to improve LabVIEW programming efficiency. |[![Image](https://www.vipm.io/package/labview_quickdrops_manager/badge.svg?metric=installs)](https://www.vipm.io/package/labview_quickdrops_manager/)|
+| [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider) | Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed. |Not published yet|
 
 
 🧙 **[Supplement of Base Functions](https://github.com/search?q=topic%3Abase-function+org%3ANEVSTOP-LAB&type=Repositories)**
