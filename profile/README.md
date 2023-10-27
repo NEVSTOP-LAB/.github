@@ -22,7 +22,7 @@ This organization is dedicated to creating and sharing reusable content that can
 |--------------------------|--------------------------------------------------------------------------------------------------|-------------|
 | [LabVIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector) | Useful tool if you have multiple LabVIEW Versions installed. |[![Image](https://www.vipm.io/package/labview_version_selector/badge.svg?metric=installs)](https://www.vipm.io/package/labview_version_selector/)|
 | [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | Organize your quickdrops to improve LabVIEW programming efficiency. |[![Image](https://www.vipm.io/package/labview_quickdrops_manager/badge.svg?metric=installs)](https://www.vipm.io/package/labview_quickdrops_manager/)|
-| [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider) | Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed. |Not published yet|
+| [SimpleGit-Provider](https://github.com/NEVSTOP-LAB/SimpleGit-Provider) | Simple git provider for daily workflow. Windows of Tortoisegit will be used if it's installed. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/SimpleGit-Provider/total)](https://github.com/NEVSTOP-LAB/SimpleGit-Provider/releases) |
 
 
 🧙 **[Supplement of Base Functions](https://github.com/search?q=topic%3Abase-function+org%3ANEVSTOP-LAB&type=Repositories)**
