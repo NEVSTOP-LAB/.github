@@ -27,10 +27,10 @@ This organization is dedicated to creating and sharing reusable content that can
 
 🧙 **[Supplement of Base Functions](https://github.com/search?q=topic%3Abase-function+org%3ANEVSTOP-LAB&type=Repositories)**
 
-| Name | Description |
-|------|-------------|
-| [NEVSTOP-3rdParty-Dependencies](https://github.com/NEVSTOP-LAB/NEVSTOP-3rdParty-Dependencies) | 3rd-party dependencies of NEVSTOP Lab Libraries |
-| [NEVSTOP-Programming-Palette](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette) | 用于补充 LabVIEW 日常编程使用的常用VI |
+| Name | Description | Download |
+|------|-------------|----------|
+| [NEVSTOP-3rdParty-Dependencies](https://github.com/NEVSTOP-LAB/NEVSTOP-3rdParty-Dependencies) | 3rd-party dependencies of NEVSTOP Lab Libraries | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/NEVSTOP-3rdParty-Dependencies/total)](https://github.com/NEVSTOP-LAB/NEVSTOP-3rdParty-Dependencies/releases) |
+| [NEVSTOP-Programming-Palette](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette) | 用于补充 LabVIEW 日常编程使用的常用VI |  [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/NEVSTOP-Programming-Palette/total)](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette/releases) |
 
 🧙 **[Libraries](https://github.com/search?q=topic%3Aframework+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)**
 
