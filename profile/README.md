@@ -8,7 +8,7 @@ This organization is dedicated to creating and sharing reusable content that can
 
 🧙 **[Framework of Application](https://github.com/search?q=topic%3AJKISM+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)**
 
-| Name | Description |VIPM|
+| Name | Description |Download|
 |------|-------------|-------------|
 | [Communicable State Machine(CSM) Framework](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | LabVIEW Application Framework extended from JKI State Machine(JKISM). | [![Image](https://www.vipm.io/package/nevstop_lib_communicable_state_machine/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_communicable_state_machine/)|
 | [CSM MassData Arguments Support](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | Addons for Data Arguments support of CSM. |[![Image](https://www.vipm.io/package/nevstop_lib_csm_massdata_parameter_support/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_massdata_parameter_support/)|
@@ -19,7 +19,7 @@ This organization is dedicated to creating and sharing reusable content that can
 
 🧙 **[Programming Environments](https://github.com/search?q=topic%3Aenvironments+org%3ANEVSTOP-LAB&type=Repositories)**
 
-| Name | Description                                                                                      |VIPM|
+| Name | Description                                                                                      |Download|
 |--------------------------|--------------------------------------------------------------------------------------------------|-------------|
 | [LabVIEW Version Selector](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector) | Useful tool if you have multiple LabVIEW Versions installed. |[![Image](https://www.vipm.io/package/labview_version_selector/badge.svg?metric=installs)](https://www.vipm.io/package/labview_version_selector/)|
 | [LabVIEW-QuickDrops-Manager](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | Organize your quickdrops to improve LabVIEW programming efficiency. |[![Image](https://www.vipm.io/package/labview_quickdrops_manager/badge.svg?metric=installs)](https://www.vipm.io/package/labview_quickdrops_manager/)|
@@ -35,14 +35,14 @@ This organization is dedicated to creating and sharing reusable content that can
 
 🧙 **[Libraries](https://github.com/search?q=topic%3Aframework+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)**
 
-| Library Name | Description |
-| --- | --- |
-| [LabVIEW TagDB Library](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB) | This library sets are used to manage tag/configuration data in large applications. |
-| [LabVIEW TagDB Reference Manager Library](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB-RefMgr) | This library manage the front panel references and provide a shortcut Vis for UI refreshing |
-| [LabVIEW TagDB Configuration UI Frame](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB-cfgUIFrm) | Standard configuration dialogs solution based on tagdb libraries. |
-| [LabVIEW-Stop-Signal](https://github.com/NEVSTOP-LAB/LabVIEW-Stop-Signal) | This library provides the exit mechanism for large application. Application could stop its modules/components by starting orders or any strategy needed. It provides signal check, stop use event for both Event structure-based loop and background thread loop for multiple scenarios. |
-| [LabVIEW-GlobalStop-Library](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | Simple version of exit mechanism for small or medium scale project. |
-| [LabVIEW-MassData-Smart-Ptr](https://github.com/NEVSTOP-LAB/LabVIEW-MassData-Smart-Ptr) | Provide smart pointer for large memory data(waveform/DBL Array) to make it possible for sending with message in DQMH/Actor Framework. |
+| Library Name | Description | Download| 
+| --- | --- |--- |
+| [LabVIEW TagDB Library](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB) | This library sets are used to manage tag/configuration data in large applications. |  [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/LabVIEW-TagDB/total)](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB/releases) |
+| [LabVIEW TagDB Reference Manager Library](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB-RefMgr) | This library manage the front panel references and provide a shortcut Vis for UI refreshing | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/LabVIEW-TagDB-RefMgr/total)](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB-RefMgr/releases) |
+| [LabVIEW TagDB Configuration UI Frame](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB-cfgUIFrm) | Standard configuration dialogs solution based on tagdb libraries. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/LabVIEW-TagDB-cfgUIFrm/total)](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB-cfgUIFrm/releases) |
+| [LabVIEW-Stop-Signal](https://github.com/NEVSTOP-LAB/LabVIEW-Stop-Signal) | This library provides the exit mechanism for large application. Application could stop its modules/components by starting orders or any strategy needed. It provides signal check, stop use event for both Event structure-based loop and background thread loop for multiple scenarios. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/LabVIEW-Stop-Signal/total)](https://github.com/NEVSTOP-LAB/LabVIEW-Stop-Signal/releases) |
+| [LabVIEW-GlobalStop-Library](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | Simple version of exit mechanism for small or medium scale project. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/LabVIEW-GlobalStop-Library/total)](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library/releases) |
+| [LabVIEW-MassData-Smart-Ptr](https://github.com/NEVSTOP-LAB/LabVIEW-MassData-Smart-Ptr) | Provide smart pointer for large memory data(waveform/DBL Array) to make it possible for sending with message in DQMH/Actor Framework. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/LabVIEW-MassData-Smart-Ptr/total)](https://github.com/NEVSTOP-LAB/LabVIEW-MassData-Smart-Ptr/releases) |
 
 👩‍💻 **Sorted By Tags** 
 --------------------
