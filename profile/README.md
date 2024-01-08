@@ -6,9 +6,7 @@ This organization is dedicated to creating and sharing reusable content that can
 🧙 **Toolkits Recommended**
 --------------------
 
-🧙 **[Communicable State Machine(CSM) Framework](https://github.com/search?q=topic%3Alabview-csm+org%3ANEVSTOP-LAB&type=Repositories)**
-
-->> [Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)
+🧙 **[Communicable State Machine(CSM) Framework](https://github.com/search?q=topic%3Alabview-csm+org%3ANEVSTOP-LAB&type=Repositories)** ->> [Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)
 
 | Name | Description |Download|
 |------|-------------|-------------|
