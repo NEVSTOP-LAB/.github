@@ -16,7 +16,7 @@ This organization is dedicated to creating and sharing reusable content that can
 | [CSM API String Arguments Support](https://github.com/NEVSTOP-LAB/CSM-API-String-Arugments-Support) | Enhance API String Arguments support of CSM. |[![Image](https://www.vipm.io/package/nevstop_lib_csm_api_string_arguments_support/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_api_string_arguments_support/)|
 | [CSM-INI-Static-Variable-Support](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | Support of Static Variables which are loaded from ini configuration file for CSM. |[![Image](https://www.vipm.io/package/nevstop_lib_csm_ini_static_variable_support/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_ini_static_variable_support/)|
 | [CSM Continuous Measurement and Logging Example](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | Accomplish application of Continuous Measurement and Logging with CSM. It's much more simple, intuitive and graceful. | [![Image](https://www.vipm.io/package/nevstop_lib_csm_continuous_meausrement_and_logging_example/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_continuous_meausrement_and_logging_example/) |
-| [CSM-Icon-Editor-Glyphs]([https://github.com/NEVSTOP-LAB/CSM-Wiki](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs)) | CSM glyphs in icon editor. | N/A |
+| [CSM-Icon-Editor-Glyphs](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs) | CSM glyphs in icon editor. | N/A |
 | [CSM-Wiki](https://github.com/NEVSTOP-LAB/CSM-Wiki) | CSM Wiki Repo. | N/A |
 
 🧙 **[Programming Environments](https://github.com/search?q=topic%3Aenvironments+org%3ANEVSTOP-LAB&type=Repositories)**
