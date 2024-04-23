@@ -48,6 +48,7 @@ This organization is dedicated to creating and sharing reusable content that can
 👩‍💻 **Sorted By Tags**
 --------------------
 [`LabVIEW-CSM`](https://github.com/search?q=topic%3Alabview-csm+org%3ANEVSTOP-LAB&type=Repositories)
+[`example`](https://github.com/search?q=topic%3Aexample+org%3ANEVSTOP-LAB&type=Repositories)
 [`application`](https://github.com/search?q=topic%3Aapplication+org%3ANEVSTOP-LAB&type=Repositories)
 [`national-instruments`](https://github.com/search?q=topic%3Anational-instruments+org%3ANEVSTOP-LAB&type=Repositories)
 [`quickdrop`](https://github.com/search?q=topic%3Aquickdrop+org%3ANEVSTOP-LAB&type=Repositories)
