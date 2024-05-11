@@ -17,6 +17,8 @@ This organization is dedicated to creating and sharing reusable content that can
 | [CSM Continuous Measurement and Logging Example](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | Accomplish application of Continuous Measurement and Logging with CSM. It's much more simple, intuitive and graceful. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging/total)](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_continuous_meausrement_and_logging_example/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_continuous_meausrement_and_logging_example/) |
 | [CSM-Icon-Editor-Glyphs](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs) | CSM glyphs in icon editor. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs/total)](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs/releases) <br> <a href="https://www.vipm.io/package/nevstop_lib_csm_icon_editor_glyphs/"> <img src="https://www.vipm.io/package/nevstop_lib_csm_icon_editor_glyphs/badge.svg?metric=installs"></a> |
 | [CSM-Wiki](https://github.com/NEVSTOP-LAB/CSM-Wiki) | CSM Wiki Repo. | N/A |
+| [CSM-Mermaid-Plugin](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | Mermaid Tool Plugin for CSM(In Development) | N/A |
+
 
 <!---
 | [CSM Array Arguments Support](https://github.com/NEVSTOP-LAB/CSM-Array-Parameter-Support) | Addons for Array Arguments support of CSM. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Array-Parameter-Support/total)](https://github.com/NEVSTOP-LAB/CSM-Array-Parameter-Support/releases) |
