@@ -24,6 +24,14 @@ This organization is dedicated to creating and sharing reusable content that can
 | [CSM Array Arguments Support](https://github.com/NEVSTOP-LAB/CSM-Array-Parameter-Support) | Addons for Array Arguments support of CSM. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Array-Parameter-Support/total)](https://github.com/NEVSTOP-LAB/CSM-Array-Parameter-Support/releases) |
 --->
 
+```mermaid
+    xychart-beta
+    title "Communicable State Machine(CSM) Framework VIPM Download"
+    x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, Icon-Glyphs, Mermaid-Tool]
+    y-axis "Download" 0 --> 1000
+    bar   [689, 403, 400, 333, 343, 171, 100, 22]
+```
+
 🧙 **[Programming Environments](https://github.com/search?q=topic%3Aenvironments+org%3ANEVSTOP-LAB&type=Repositories)**
 
 | Name | Description                                                                                      |Download|
