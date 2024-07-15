@@ -29,7 +29,7 @@ This organization is dedicated to creating and sharing reusable content that can
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, Icon-Glyphs, Mermaid-Tool]
     y-axis "Download" 0 --> 1000
-    bar   [741, 737, 420, 366, 355, 178, 28]
+    bar   [741, 437, 420, 366, 355, 178, 28]
     bar   [698, 412, 402, 341, 344, 172, 23]
 ```
 
