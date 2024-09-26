@@ -3,6 +3,10 @@
 
 This organization is dedicated to creating and sharing reusable content that can be used to enhance the LabVIEW programming experience. Our team has put together a collection of tools, programming environments, and supplementary functions that you might find useful.
 
+![org_stars](https://shields.io/github/stars/NEVSTOP-LAB)
+![org_followers](https://img.shields.io/github/followers/NEVSTOP-LAB)
+
+
 🧙 **Toolkits Recommended**
 --------------------
 
