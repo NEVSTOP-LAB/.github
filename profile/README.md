@@ -3,8 +3,8 @@
 
 This organization is dedicated to creating and sharing reusable content that can be used to enhance the LabVIEW programming experience. Our team has put together a collection of tools, programming environments, and supplementary functions that you might find useful.
 
-![org_stars](https://shields.io/github/stars/NEVSTOP-LAB)
-![org_followers](https://img.shields.io/github/followers/NEVSTOP-LAB)
+[![org_stars](https://shields.io/github/stars/NEVSTOP-LAB)](https://github.com/orgs/NEVSTOP-LAB/repositories?q=sort%3Astars)
+[![org_followers](https://img.shields.io/github/followers/NEVSTOP-LAB)](https://github.com/orgs/NEVSTOP-LAB/followers)
 
 
 🧙 **Toolkits Recommended**
@@ -33,7 +33,7 @@ This organization is dedicated to creating and sharing reusable content that can
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, Icon-Glyphs, Mermaid-Tool]
     y-axis "Download" 0 --> 1500
-    bar   [1504, 1000, 873, 904, 756, 546, 217]
+    bar   [1515, 1010, 887, 917, 765, 556, 223]
     bar   [1412, 929, 807, 837, 704, 497, 191]
     bar   [1255, 821, 703, 730, 604, 409, 153]
     bar   [1101, 703, 621, 615, 532, 341, 108]
