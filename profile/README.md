@@ -22,7 +22,7 @@ This organization is dedicated to creating and sharing reusable content that can
 | [CSM-Wiki](https://github.com/NEVSTOP-LAB/CSM-Wiki) | CSM Wiki Repo. | N/A |
 | [CSM-Mermaid-Plugin](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | Mermaid Tool Plugin for CSM (In Development) |  [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs/total)](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin/releases) <br>  |
 | [CSM Continuous Measurement and Logging Example](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | Accomplish application of Continuous Measurement and Logging with CSM. It's much more simple, intuitive and graceful. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging/total)](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_continuous_meausrement_and_logging_example/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_continuous_meausrement_and_logging_example/) |
-| [CSM-TCP-Router-App](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server. |N/A |
+| [CSM-TCP-Router-Example](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server. |N/A |
 
 
 <!---
@@ -32,17 +32,19 @@ This organization is dedicated to creating and sharing reusable content that can
 ```mermaid
     xychart-beta
     title "Communicable State Machine(CSM) Framework VIPM Download"
-    x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, Icon-Glyphs, Mermaid-Tool]
+    x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 2000
-    bar   [1578, 1065, 940, 970, 811, 609, 259]
-    bar   [1412, 929, 807, 837, 704, 497, 191]
-    bar   [1255, 821, 703, 730, 604, 409, 153]
-    bar   [1101, 703, 621, 615, 532, 341, 108]
-    bar   [987, 617, 565, 531, 461, 291, 75]
-    bar   [887, 541, 512, 459, 402, 241, 50]
-    bar   [776, 459, 435, 387, 369, 194, 30]
-    bar   [698, 412, 402, 341, 344, 172, 23]
+    bar   [1591, 1075, 946, 975, 814,1]
+    bar   [1590, 1074, 945, 974, 813]
+    bar   [1412, 929, 807, 837, 704]
+    bar   [1255, 821, 703, 730, 604]
+    bar   [1101, 703, 621, 615, 532]
+    bar   [987, 617, 565, 531, 461]
+    bar   [887, 541, 512, 459, 402]
+    bar   [776, 459, 435, 387, 369]
+    bar   [698, 412, 402, 341, 344]
 ```
+
 
 🧙 **[Programming Environments](https://github.com/search?q=topic%3Aenvironments+org%3ANEVSTOP-LAB&type=Repositories)**
 
