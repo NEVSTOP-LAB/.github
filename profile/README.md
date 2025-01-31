@@ -19,10 +19,10 @@ This organization is dedicated to creating and sharing reusable content that can
 | [CSM API String Arguments Support](https://github.com/NEVSTOP-LAB/CSM-API-String-Arugments-Support) | Enhance API String Arguments support of CSM. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-API-String-Arugments-Support/total)](https://github.com/NEVSTOP-LAB/CSM-API-String-Arugments-Support/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_api_string_arguments_support/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_api_string_arguments_support/)|
 | [CSM-INI-Static-Variable-Support](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | Support of Static Variables which are loaded from ini configuration file for CSM. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-INI-Static-Variable-Support/total)](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_ini_static_variable_support/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_ini_static_variable_support/)|
 | [CSM-Icon-Editor-Glyphs](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs) | CSM glyphs in icon editor. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs/total)](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs/releases) <br> <a href="https://www.vipm.io/package/nevstop_lib_csm_icon_editor_glyphs/"> <img src="https://www.vipm.io/package/nevstop_lib_csm_icon_editor_glyphs/badge.svg?metric=installs"></a> |
-| [CSM-Wiki](https://github.com/NEVSTOP-LAB/CSM-Wiki) | CSM Wiki Repo. | N/A |
 | [CSM-Mermaid-Plugin](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | Mermaid Tool Plugin for CSM (In Development) |  [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs/total)](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin/releases) <br>  |
 | [CSM Continuous Measurement and Logging Example](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | Accomplish application of Continuous Measurement and Logging with CSM. It's much more simple, intuitive and graceful. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging/total)](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_continuous_meausrement_and_logging_example/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_continuous_meausrement_and_logging_example/) |
 | [CSM-TCP-Router-Example](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server. |[![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-TCP-Router-App/total)](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_tcp_router_example/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_tcp_router_example/) |
+| [CSM-Wiki](https://github.com/NEVSTOP-LAB/CSM-Wiki) | CSM Wiki Repo. | N/A |
 
 <!---
 | [CSM Array Arguments Support](https://github.com/NEVSTOP-LAB/CSM-Array-Parameter-Support) | Addons for Array Arguments support of CSM. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Array-Parameter-Support/total)](https://github.com/NEVSTOP-LAB/CSM-Array-Parameter-Support/releases) |
@@ -33,7 +33,7 @@ This organization is dedicated to creating and sharing reusable content that can
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 2000
-    bar   [1591, 1075, 946, 975, 814,1]
+    bar   [1608, 1089, 952, 988, 824, 9]
     bar   [1590, 1074, 945, 974, 813]
     bar   [1412, 929, 807, 837, 704]
     bar   [1255, 821, 703, 730, 604]
