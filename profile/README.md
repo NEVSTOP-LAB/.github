@@ -32,8 +32,8 @@ This organization is dedicated to creating and sharing reusable content that can
     xychart-beta
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
-    y-axis "Download" 0 --> 4000
-    bar   [3946, 2917, 2276, 2694, 2171, 1128]
+    y-axis "Download" 0 --> 5000
+    bar   [4009, 2967, 2322, 2757, 2212, 1155]
     bar   [3687, 2699, 2064, 2533, 1974, 1019]
     bar   [3264, 2355, 1840, 2269, 1759, 801]
     bar   [2910, 2117, 1654, 1998, 1573, 612]
