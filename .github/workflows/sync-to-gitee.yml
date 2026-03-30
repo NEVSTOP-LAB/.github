@@ -21,5 +21,5 @@ jobs:
           gitee-token: ${{ secrets.SYNC_GITEE_TOKEN }}
           account-type: org
           sync-extra: 'releases,wiki,labels'
-          SHOW_PRIVATE_REPO_NAMES: 8
+          show-private-repo-names: 8
           direction: github2gitee
