@@ -20,6 +20,6 @@ jobs:
           gitee-owner: NEVSTOP-LAB
           gitee-token: ${{ secrets.SYNC_GITEE_TOKEN }}
           account-type: org
-          sync-extra: 'releases,wiki,labels'
+          sync-extra: 'releases,wiki'
           show-private-repo-names: 8
           direction: github2gitee
