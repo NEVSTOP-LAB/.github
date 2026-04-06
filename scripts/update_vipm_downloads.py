@@ -24,7 +24,7 @@ PACKAGES = [
     "nevstop_lib_csm_api_string_arguments_support",              # API String
     "nevstop_lib_csm_massdata_parameter_support",                # MassData
     "nevstop_lib_csm_ini_static_variable_support",               # INI-Variable
-    "nevstop_lib_csm_continuous_meausrement_and_logging_example",  # DAQ-Example
+    "nevstop_lib_csm_continuous_meausrement_and_logging_example",  # DAQ-Example (typo in official package name)
     "nevstop_lib_csm_tcp_router_example",                        # TCP-Example
 ]
 
