@@ -2,7 +2,7 @@ name: Update VIPM Downloads
 
 on:
   schedule:
-    - cron: '0 2 * * *'   # Daily at 02:00 UTC (Beijing time 10:00)
+    - cron: '0 17 * * *'   # 每天北京时间 1:00 自动同步 (UTC 17:00)
   workflow_dispatch:        # Allow manual triggering
 
 permissions:
