@@ -1,54 +1,53 @@
 # Star History
 
-_Last updated: 2026-04-11 14:09:33 UTC_  
-_Total external stars: 249_
+_Last updated: 2026-04-11 14:19:31 UTC_  
+_Total external stars: 216_
 
 ## Star Growth Chart
 
 ```mermaid
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
-    x-axis ["2016-06", "2018-04", "2018-11", "2019-08", "2020-04", "2020-10", "2021-04", "2021-08", "2022-05", "2022-10", "2023-04", "2023-09", "2024-01", "2024-06", "2024-11", "2025-03", "2025-07", "2025-11", "2026-03", "2026-04"]
-    y-axis "Cumulative Stars" 0 --> 300
-    line [1, 7, 11, 15, 20, 29, 37, 42, 46, 52, 61, 76, 90, 108, 118, 138, 184, 228, 246, 249]
+    x-axis ["2016-06", "2018-06", "2019-12", "2020-08", "2021-05", "2022-05", "2023-03", "2023-10", "2024-05", "2025-01", "2025-07", "2026-01", "2026-04"]
+    y-axis "Cumulative Stars" 0 --> 260
+    line [1, 9, 15, 26, 37, 43, 56, 76, 93, 114, 165, 209, 216]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | `Communicable-State-Machine` | 51 |
-| 2 | `LabVIEW-UI-XCtl` | 39 |
+| 1 | `Communicable-State-Machine` | 48 |
+| 2 | `LabVIEW-UI-XCtl` | 38 |
 | 3 | `LabVIEW-GlobalStop-Library` | 13 |
-| 4 | `LabVIEW-QuickDrops-Manager` | 11 |
-| 5 | `LabVIEW-OPCUA-XML-Library` | 10 |
-| 6 | `CSM-Continuous-Meausrement-and-Logging` | 10 |
-| 7 | `CSM-Wiki` | 9 |
-| 8 | `NEVSTOP-Programming-Palette` | 8 |
-| 9 | `CSM-MassData-Parameter-Support` | 8 |
-| 10 | `CSM-TCP-Router-App` | 8 |
+| 4 | `LabVIEW-OPCUA-XML-Library` | 10 |
+| 5 | `LabVIEW-QuickDrops-Manager` | 10 |
+| 6 | `CSM-Continuous-Meausrement-and-Logging` | 8 |
+| 7 | `NEVSTOP-Programming-Palette` | 7 |
+| 8 | `NEVSTOP-LoginWindow` | 6 |
+| 9 | `CSM-MassData-Parameter-Support` | 6 |
+| 10 | `CSM-Wiki` | 6 |
 
 ## Top 10 Users by Stars Given
 
 | Rank | User | Stars Given |
 |:----:|:-----|------------:|
-| 1 | [nevstop](https://github.com/nevstop) | 20 |
-| 2 | [DK-666-6](https://github.com/DK-666-6) | 13 |
-| 3 | [hanzihua123](https://github.com/hanzihua123) | 13 |
-| 4 | [ghwang-Harries](https://github.com/ghwang-Harries) | 10 |
-| 5 | [shennnw](https://github.com/shennnw) | 9 |
-| 6 | [wyxfhb](https://github.com/wyxfhb) | 8 |
-| 7 | [chenwm](https://github.com/chenwm) | 8 |
-| 8 | [junyang0412](https://github.com/junyang0412) | 8 |
-| 9 | [yao0928](https://github.com/yao0928) | 7 |
-| 10 | [KivenJia](https://github.com/KivenJia) | 6 |
+| 1 | [DK-666-6](https://github.com/DK-666-6) | 13 |
+| 2 | [hanzihua123](https://github.com/hanzihua123) | 13 |
+| 3 | [ghwang-Harries](https://github.com/ghwang-Harries) | 10 |
+| 4 | [shennnw](https://github.com/shennnw) | 9 |
+| 5 | [wyxfhb](https://github.com/wyxfhb) | 8 |
+| 6 | [chenwm](https://github.com/chenwm) | 8 |
+| 7 | [junyang0412](https://github.com/junyang0412) | 8 |
+| 8 | [SallyTYT](https://github.com/SallyTYT) | 5 |
+| 9 | [huipeng8](https://github.com/huipeng8) | 4 |
+| 10 | [philippe-nuaa](https://github.com/philippe-nuaa) | 4 |
 
 ## Star Log
 
 | Time (UTC) | Repository | User |
 |:-----------|:-----------|:-----|
 | 2026-04-10 17:26:47 | `LabVIEW-Version-Selector` | [matrixx567](https://github.com/matrixx567) |
-| 2026-04-06 12:37:00 | `GitHub-Gitee-Sync` | [nevstop](https://github.com/nevstop) |
 | 2026-04-05 11:52:38 | `Communicable-State-Machine` | [liumc](https://github.com/liumc) |
 | 2026-03-20 18:01:42 | `LabVIEW-UI-XCtl` | [Tang-WeiFeng](https://github.com/Tang-WeiFeng) |
 | 2026-03-20 16:50:27 | `LabVIEW-GlobalStop-Library` | [FatUltraman](https://github.com/FatUltraman) |
@@ -57,21 +56,12 @@ xychart-beta
 | 2026-02-02 03:35:46 | `csm-keynotes-collection` | [wwwymq](https://github.com/wwwymq) |
 | 2026-01-13 07:47:34 | `Communicable-State-Machine` | [kunixYao](https://github.com/kunixYao) |
 | 2026-01-09 13:05:06 | `Communicable-State-Machine` | [SiebenerRepublikII](https://github.com/SiebenerRepublikII) |
-| 2026-01-05 02:27:49 | `CSM-Wiki` | [yao0928](https://github.com/yao0928) |
-| 2026-01-05 02:27:48 | `CSM-TCP-Router-App` | [yao0928](https://github.com/yao0928) |
-| 2026-01-05 02:27:46 | `CSM-Continuous-Meausrement-and-Logging` | [yao0928](https://github.com/yao0928) |
-| 2026-01-05 02:27:44 | `CSM-INI-Static-Variable-Support` | [yao0928](https://github.com/yao0928) |
-| 2026-01-05 02:27:43 | `CSM-API-String-Arguments-Support` | [yao0928](https://github.com/yao0928) |
-| 2026-01-05 02:27:42 | `CSM-MassData-Parameter-Support` | [yao0928](https://github.com/yao0928) |
-| 2026-01-05 02:27:14 | `Communicable-State-Machine` | [yao0928](https://github.com/yao0928) |
 | 2025-12-18 14:55:36 | `Communicable-State-Machine` | [eastcheng1024](https://github.com/eastcheng1024) |
 | 2025-12-13 15:57:26 | `CSM-MassData-Parameter-Support` | [lang-hash](https://github.com/lang-hash) |
-| 2025-12-06 08:31:38 | `CSMScript-****-1106482218` | [nevstop](https://github.com/nevstop) |
 | 2025-12-04 06:33:31 | `Communicable-State-Machine` | [XiaoshuangZhou](https://github.com/XiaoshuangZhou) |
 | 2025-11-20 01:42:47 | `LabVIEW-UI-XCtl` | [996996](https://github.com/996996) |
 | 2025-11-14 06:57:13 | `Communicable-State-Machine` | [lijie19910806-del](https://github.com/lijie19910806-del) |
 | 2025-11-13 11:19:44 | `Communicable-State-Machine` | [chencfy](https://github.com/chencfy) |
-| 2025-11-13 03:56:25 | `CSM-Scenar****-1095438098` | [nevstop](https://github.com/nevstop) |
 | 2025-11-12 12:59:09 | `NEVSTOP-Programming-Palette` | [Renties](https://github.com/Renties) |
 | 2025-11-05 08:16:38 | `Communicable-State-Machine` | [jlfzhz](https://github.com/jlfzhz) |
 | 2025-10-31 01:15:27 | `Communicable-State-Machine` | [zhongweidi993](https://github.com/zhongweidi993) |
@@ -86,11 +76,8 @@ xychart-beta
 | 2025-10-26 10:38:27 | `CSM-TCP-Router-App` | [yangkkokk](https://github.com/yangkkokk) |
 | 2025-10-24 13:22:28 | `Communicable-State-Machine` | [FatUltraman](https://github.com/FatUltraman) |
 | 2025-10-16 14:29:31 | `Communicable-State-Machine` | [langrenchangling](https://github.com/langrenchangling) |
-| 2025-10-12 03:35:20 | `SimpleGit-Provider` | [nevstop](https://github.com/nevstop) |
-| 2025-10-12 03:34:08 | `LabVIEW-QuickDrops-Manager` | [nevstop](https://github.com/nevstop) |
 | 2025-10-11 06:15:51 | `LabVIEW-TagDB` | [wyxfhb](https://github.com/wyxfhb) |
 | 2025-10-10 00:44:14 | `Try-Beta-Version-of-CSMF` | [ghwang-Harries](https://github.com/ghwang-Harries) |
-| 2025-10-05 15:23:04 | `Try-Beta-Version-of-CSMF` | [nevstop](https://github.com/nevstop) |
 | 2025-09-23 11:37:16 | `Communicable-State-Machine` | [imthunderbird](https://github.com/imthunderbird) |
 | 2025-09-17 10:21:49 | `CSM-INI-Static-Variable-Support` | [eastcheng1024](https://github.com/eastcheng1024) |
 | 2025-09-15 13:25:41 | `LabVIEW-UI-XCtl` | [lypaser](https://github.com/lypaser) |
@@ -98,7 +85,6 @@ xychart-beta
 | 2025-09-09 10:00:20 | `Communicable-State-Machine` | [yangkkokk](https://github.com/yangkkokk) |
 | 2025-09-05 13:21:27 | `Communicable-State-Machine` | [liuyang1936](https://github.com/liuyang1936) |
 | 2025-09-05 01:06:35 | `LabVIEW-UI-XCtl` | [cht-ink](https://github.com/cht-ink) |
-| 2025-09-04 10:27:29 | `lvCICD` | [nevstop](https://github.com/nevstop) |
 | 2025-09-03 06:17:37 | `Communicable-State-Machine` | [zhangfgwis](https://github.com/zhangfgwis) |
 | 2025-09-02 09:40:27 | `Communicable-State-Machine` | [chenwm](https://github.com/chenwm) |
 | 2025-09-01 15:10:36 | `Communicable-State-Machine` | [imeteorite](https://github.com/imeteorite) |
@@ -122,10 +108,8 @@ xychart-beta
 | 2025-07-27 06:51:51 | `Communicable-State-Machine` | [ghwang-Harries](https://github.com/ghwang-Harries) |
 | 2025-07-27 06:41:17 | `CSM-ModSets-FileSync` | [ghwang-Harries](https://github.com/ghwang-Harries) |
 | 2025-07-22 10:25:38 | `NEVSTOP-Programming-Palette` | [Ali6114](https://github.com/Ali6114) |
-| 2025-07-19 11:34:37 | `NEVSTOP-LoginWindow` | [nevstop](https://github.com/nevstop) |
 | 2025-07-06 07:39:25 | `Communicable-State-Machine` | [1003727982](https://github.com/1003727982) |
 | 2025-07-04 01:01:01 | `LabVIEW-UI-XCtl` | [Automan-wfq](https://github.com/Automan-wfq) |
-| 2025-07-02 10:45:14 | `CSM-ModSet****-1012338149` | [nevstop](https://github.com/nevstop) |
 | 2025-06-28 16:10:59 | `NEVSTOP-LoginWindow` | [IkunYoung](https://github.com/IkunYoung) |
 | 2025-06-28 16:03:47 | `CSM-TCP-Router-App` | [IkunYoung](https://github.com/IkunYoung) |
 | 2025-06-25 12:09:47 | `Communicable-State-Machine` | [smileJF](https://github.com/smileJF) |
@@ -135,7 +119,6 @@ xychart-beta
 | 2025-06-11 05:32:06 | `CSM-ModSets-FileSync` | [wyxfhb](https://github.com/wyxfhb) |
 | 2025-06-11 00:17:22 | `CSM-ModSets-FileSync` | [huipeng8](https://github.com/huipeng8) |
 | 2025-06-09 01:08:36 | `Communicable-State-Machine` | [wwwymq](https://github.com/wwwymq) |
-| 2025-06-04 10:13:56 | `CSM-ModSets-FileSync` | [nevstop](https://github.com/nevstop) |
 | 2025-06-03 22:49:42 | `LabVIEW-QuickDrops-Manager` | [lypaser](https://github.com/lypaser) |
 | 2025-05-29 08:07:56 | `Communicable-State-Machine` | [2279790684](https://github.com/2279790684) |
 | 2025-05-29 05:46:49 | `NEVSTOP-LoginWindow` | [Router0824](https://github.com/Router0824) |
@@ -166,11 +149,8 @@ xychart-beta
 | 2025-03-26 04:17:47 | `lvCICD` | [junyang0412](https://github.com/junyang0412) |
 | 2025-02-16 09:31:45 | `LabVIEW-GlobalStop-Library` | [etfovac](https://github.com/etfovac) |
 | 2025-02-11 11:51:45 | `LabVIEW-UI-XCtl` | [0070707](https://github.com/0070707) |
-| 2025-01-25 13:24:22 | `CSM-Mermaid-Plugin` | [nevstop](https://github.com/nevstop) |
-| 2025-01-25 13:24:12 | `CSM-Icon-Editor-Glyphs` | [nevstop](https://github.com/nevstop) |
 | 2025-01-19 23:44:56 | `LabVIEW-UI-XCtl` | [Richi-Wu](https://github.com/Richi-Wu) |
 | 2025-01-19 16:20:17 | `LabVIEW-UI-XCtl` | [NIHAO12128](https://github.com/NIHAO12128) |
-| 2025-01-19 15:31:46 | `CSM-TCP-Router-App` | [nevstop](https://github.com/nevstop) |
 | 2025-01-14 11:05:38 | `TestStand-User-Interface-Messages-Demo` | [chenshuihong](https://github.com/chenshuihong) |
 | 2025-01-03 21:16:52 | `Communicable-State-Machine` | [etfovac](https://github.com/etfovac) |
 | 2025-01-03 04:10:08 | `CSM-Continuous-Meausrement-and-Logging` | [wyxfhb](https://github.com/wyxfhb) |
@@ -187,7 +167,6 @@ xychart-beta
 | 2024-10-16 06:31:03 | `Communicable-State-Machine` | [junyang0412](https://github.com/junyang0412) |
 | 2024-08-01 20:50:34 | `CSM-Continuous-Meausrement-and-Logging` | [Jend4s](https://github.com/Jend4s) |
 | 2024-08-01 01:29:06 | `LabVIEW-UI-XCtl` | [wyxfhb](https://github.com/wyxfhb) |
-| 2024-07-16 05:37:13 | `NEVSTOP-Programming-Palette` | [nevstop](https://github.com/nevstop) |
 | 2024-06-28 11:46:35 | `CSM-Icon-Editor-Glyphs` | [achuthaperumal](https://github.com/achuthaperumal) |
 | 2024-06-28 09:39:48 | `CSM-Icon-Editor-Glyphs` | [AntoineChalons](https://github.com/AntoineChalons) |
 | 2024-06-19 07:21:04 | `LabVIEW-UI-XCtl` | [chenduxiu01](https://github.com/chenduxiu01) |
@@ -202,20 +181,13 @@ xychart-beta
 | 2024-04-09 08:44:38 | `LabVIEW-UI-XCtl` | [JohnJiangsong](https://github.com/JohnJiangsong) |
 | 2024-04-09 08:39:50 | `Communicable-State-Machine` | [JohnJiangsong](https://github.com/JohnJiangsong) |
 | 2024-03-20 07:30:38 | `LabVIEW-QuickDrops-Manager` | [hanzihua123](https://github.com/hanzihua123) |
-| 2024-03-12 07:52:46 | `CSM-INI-Static-Variable-Support` | [nevstop](https://github.com/nevstop) |
-| 2024-03-12 07:52:04 | `CSM-MassData-Parameter-Support` | [nevstop](https://github.com/nevstop) |
-| 2024-03-12 07:51:49 | `CSM-Continuous-Meausrement-and-Logging` | [nevstop](https://github.com/nevstop) |
-| 2024-03-12 07:51:33 | `CSM-API-String-Arguments-Support` | [nevstop](https://github.com/nevstop) |
-| 2024-01-10 13:03:22 | `CSM-Wiki` | [nevstop](https://github.com/nevstop) |
 | 2024-01-09 23:18:25 | `NEVSTOP-LoginWindow` | [hanzihua123](https://github.com/hanzihua123) |
 | 2024-01-09 14:31:43 | `LabVIEW-UI-XCtl` | [okoscielny](https://github.com/okoscielny) |
-| 2024-01-09 07:17:31 | `CSM-Wiki` | [KivenJia](https://github.com/KivenJia) |
 | 2024-01-08 16:51:24 | `CSM-Wiki` | [jordanmsmith](https://github.com/jordanmsmith) |
 | 2023-12-22 09:09:12 | `Communicable-State-Machine` | [YunhuaLiu](https://github.com/YunhuaLiu) |
 | 2023-12-03 15:04:45 | `NEVSTOP-Programming-Palette` | [Alvin2110](https://github.com/Alvin2110) |
 | 2023-11-15 13:57:46 | `Communicable-State-Machine` | [YangZeCN](https://github.com/YangZeCN) |
 | 2023-10-27 09:03:25 | `labview_win_util32` | [LJS006](https://github.com/LJS006) |
-| 2023-10-08 06:50:47 | `Communicable-State-Machine` | [nevstop](https://github.com/nevstop) |
 | 2023-10-06 16:03:31 | `CSM-Benchmark` | [philippe-nuaa](https://github.com/philippe-nuaa) |
 | 2023-10-06 16:03:03 | `CSM-MassData-Parameter-Support` | [philippe-nuaa](https://github.com/philippe-nuaa) |
 | 2023-10-06 16:02:31 | `Communicable-State-Machine` | [philippe-nuaa](https://github.com/philippe-nuaa) |
@@ -231,7 +203,6 @@ xychart-beta
 | 2023-08-10 02:06:50 | `Communicable-State-Machine` | [DesBegonia](https://github.com/DesBegonia) |
 | 2023-08-02 03:01:42 | `Communicable-State-Machine` | [SallyTYT](https://github.com/SallyTYT) |
 | 2023-07-31 03:46:55 | `Communicable-State-Machine` | [ManGie2234](https://github.com/ManGie2234) |
-| 2023-07-29 11:58:58 | `Communicable-State-Machine` | [KivenJia](https://github.com/KivenJia) |
 | 2023-07-20 08:26:40 | `LabVIEW-MassData-Smart-Ptr` | [SallyTYT](https://github.com/SallyTYT) |
 | 2023-07-20 01:13:36 | `NEVSTOP-Programming-Palette` | [awolpe](https://github.com/awolpe) |
 | 2023-05-01 15:19:10 | `LabVIEW-OPCUA-XML-Library` | [nikristovski](https://github.com/nikristovski) |
@@ -244,7 +215,6 @@ xychart-beta
 | 2022-12-14 22:52:25 | `LabVIEW-QuickDrops-Manager` | [TheDomcio](https://github.com/TheDomcio) |
 | 2022-12-09 03:42:14 | `LabVIEW-UI-XCtl` | [LeafLhh](https://github.com/LeafLhh) |
 | 2022-11-11 09:42:04 | `LabVIEW-TimerEngine` | [SallyTYT](https://github.com/SallyTYT) |
-| 2022-10-24 09:51:57 | `SimpleGit-Provider` | [KivenJia](https://github.com/KivenJia) |
 | 2022-09-15 17:01:16 | `LabVIEW-GlobalStop-Library` | [ericddm](https://github.com/ericddm) |
 | 2022-09-15 16:59:46 | `LabVIEW-OPCUA-XML-Library` | [ericddm](https://github.com/ericddm) |
 | 2022-07-19 10:31:17 | `LabVIEW-GlobalStop-Library` | [babyfly](https://github.com/babyfly) |
@@ -253,7 +223,6 @@ xychart-beta
 | 2022-05-20 21:17:21 | `LabVIEW-OPCUA-XML-Library` | [davtrs](https://github.com/davtrs) |
 | 2022-02-28 15:35:50 | `mqtt-LabVIEW` | [FansenZhao](https://github.com/FansenZhao) |
 | 2021-12-01 15:10:18 | `mqtt-LabVIEW` | [eliauk-code](https://github.com/eliauk-code) |
-| 2021-09-04 02:14:41 | `LabVIEW-MassData-Smart-Ptr` | [KivenJia](https://github.com/KivenJia) |
 | 2021-08-19 16:46:25 | `LabVIEW-GlobalStop-Library` | [hanzihua123](https://github.com/hanzihua123) |
 | 2021-07-02 09:17:38 | `LabVIEW-UI-XCtl` | [Agilentvee](https://github.com/Agilentvee) |
 | 2021-06-11 05:58:49 | `LabVIEW-UI-XCtl` | [shennnw](https://github.com/shennnw) |
@@ -269,7 +238,6 @@ xychart-beta
 | 2020-12-11 09:27:22 | `LabVIEW-UI-XCtl` | [AxxOoOxxA](https://github.com/AxxOoOxxA) |
 | 2020-10-26 06:12:41 | `LabVIEW-UI-XCtl` | [clan4456](https://github.com/clan4456) |
 | 2020-08-30 08:49:00 | `mqtt-LabVIEW` | [XudongZhao-Iecube](https://github.com/XudongZhao-Iecube) |
-| 2020-08-19 17:32:23 | `LabVIEW-UI-XCtl` | [KivenJia](https://github.com/KivenJia) |
 | 2020-06-29 16:10:56 | `LabVIEW-UI-XCtl` | [gilbertpan1](https://github.com/gilbertpan1) |
 | 2020-06-28 08:36:55 | `LabVIEW-QuickDrops-Manager` | [SallyTYT](https://github.com/SallyTYT) |
 | 2020-06-20 00:25:38 | `LabVIEW-UI-XMSChart` | [Setchange](https://github.com/Setchange) |
@@ -282,7 +250,6 @@ xychart-beta
 | 2020-01-03 16:07:10 | `LabVIEW-OPCUA-XML-Library` | [traversaro](https://github.com/traversaro) |
 | 2019-12-07 15:05:44 | `LabVIEW-UI-XCtl` | [Rashid-Malik](https://github.com/Rashid-Malik) |
 | 2019-08-28 00:07:43 | `LabVIEW-MassData-Smart-Ptr` | [wogeguaiguai](https://github.com/wogeguaiguai) |
-| 2019-07-01 05:40:53 | `LabVIEW-Version-Selector` | [KivenJia](https://github.com/KivenJia) |
 | 2019-04-14 17:05:13 | `LabVIEW-UI-XCtl` | [dealwood](https://github.com/dealwood) |
 | 2019-02-16 06:42:44 | `LabVIEW-UI-XCtl` | [danaherzx](https://github.com/danaherzx) |
 | 2018-11-23 09:40:41 | `LabVIEW-GlobalStop-Library` | [willywf](https://github.com/willywf) |
