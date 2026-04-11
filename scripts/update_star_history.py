@@ -90,8 +90,9 @@ def get_repo_stars(repo_name):
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
 def mask_private(name):
-    """Show only the first PRIVATE_VISIBLE_CHARS characters then ****."""
-    return name[:PRIVATE_VISIBLE_CHARS] + "****"
+    """Show only a safe prefix of a private repo name, then ****."""
+    visible_chars = min(PRIVATE_VISIBLE_CHARS, max(len(name) - 1, 0))
+    return name[:visible_chars] + "****"
 
 
 # ── Markdown generation ────────────────────────────────────────────────────────
