@@ -56,7 +56,10 @@ def _paginate(url, headers, extra_params=None):
         params["page"] = page
         resp = requests.get(url, headers=headers, params=params, timeout=30)
         if resp.status_code == 404:
-            return
+            raise requests.HTTPError(
+                f"GitHub API endpoint not found or inaccessible: {resp.url}",
+                response=resp,
+            )
         resp.raise_for_status()
         data = resp.json()
         if not data:
