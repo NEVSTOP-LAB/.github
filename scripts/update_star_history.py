@@ -199,7 +199,7 @@ def build_markdown(all_stars, repo_counts):
     lines.append("|:-----------|:-----------|:-----|")
     for dt, repo, user in all_stars:
         lines.append(
-            f"| {dt.strftime('%Y-%m-%d %H:%M:%S')} | {repo} | [{user}](https://github.com/{user}) |"
+            f"| {dt.strftime('%Y-%m-%d %H:%M:%S')} | `{repo}` | [{user}](https://github.com/{user}) |"
         )
     lines.append("")
 
