@@ -92,10 +92,15 @@ def get_repo_stars(repo_name):
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
-def mask_private(name):
-    """Show only a safe prefix of a private repo name, then ****."""
+def mask_private(name, repo_id):
+    """Show only a safe prefix of a private repo name, then ****-<id>.
+
+    The numeric repo_id suffix ensures that two private repos sharing the same
+    first PRIVATE_VISIBLE_CHARS characters produce distinct display names so
+    star counts and log entries are never merged across repos.
+    """
     visible_chars = min(PRIVATE_VISIBLE_CHARS, max(len(name) - 1, 0))
-    return name[:visible_chars] + "****"
+    return f"{name[:visible_chars]}****-{repo_id}"
 
 
 # ── Markdown generation ────────────────────────────────────────────────────────
@@ -139,7 +144,7 @@ def _build_chart(all_stars):
     return (
         "```mermaid\n"
         "xychart-beta\n"
-        f'    title "NEVSTOP-LAB Star Growth"\n'
+        f'    title "{ORG} Star Growth"\n'
         f"    x-axis [{labels}]\n"
         f'    y-axis "Cumulative Stars" 0 --> {y_ceil}\n'
         f"    line [{values}]\n"
@@ -225,7 +230,7 @@ def main(output_file=OUTPUT_FILE):
     for repo in repos:
         name = repo["name"]
         is_private = repo.get("private", False)
-        display = mask_private(name) if is_private else name
+        display = mask_private(name, repo["id"]) if is_private else name
 
         label = f"{name} (private)" if is_private else name
         print(f"  Fetching stars for {label} …")
