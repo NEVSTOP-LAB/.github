@@ -124,8 +124,8 @@ def _build_chart(all_stars):
         total += monthly[m]
         cum_pairs.append((m, total))
 
-    # Reduce to at most 24 x-axis ticks to keep the chart readable
-    MAX_TICKS = 24
+    # Reduce to at most 12 x-axis ticks to keep the chart readable
+    MAX_TICKS = 12
     CHART_Y_PADDING = 1.2  # 20 % headroom above the highest value
     if len(cum_pairs) > MAX_TICKS:
         step = math.ceil(len(cum_pairs) / MAX_TICKS)
