@@ -180,13 +180,25 @@ def build_markdown(all_stars, repo_counts):
         lines.append(f"| {rank} | `{repo}` | {count} |")
     lines.append("")
 
+    # ── Top N users by number of repos starred ────────────────────────────
+    user_counts: dict[str, int] = defaultdict(int)
+    for _, _, user in all_stars:
+        user_counts[user] += 1
+    top_users = sorted(user_counts.items(), key=lambda x: -x[1])[:TOP_N]
+    lines.append(f"## Top {TOP_N} Users by Stars Given\n")
+    lines.append("| Rank | User | Stars Given |")
+    lines.append("|:----:|:-----|------------:|")
+    for rank, (user, count) in enumerate(top_users, 1):
+        lines.append(f"| {rank} | [{user}](https://github.com/{user}) | {count} |")
+    lines.append("")
+
     # ── Full star log table ────────────────────────────────────────────────
     lines.append("## Star Log\n")
     lines.append("| Time (UTC) | Repository | User |")
     lines.append("|:-----------|:-----------|:-----|")
     for dt, repo, user in all_stars:
         lines.append(
-            f"| {dt.strftime('%Y-%m-%d %H:%M:%S')} | {repo} | {user} |"
+            f"| {dt.strftime('%Y-%m-%d %H:%M:%S')} | {repo} | [{user}](https://github.com/{user}) |"
         )
     lines.append("")
 
