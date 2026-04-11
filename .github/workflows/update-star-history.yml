@@ -33,7 +33,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_TOKEN }}
           # Comma-separated GitHub usernames whose stars should be excluded
-          EXCLUDE_USERS: ""
+          # (org owners are excluded so rankings reflect external community interest)
+          EXCLUDE_USERS: "nevstop,yao0928,KivenJia"
           # Number of characters to reveal for private repo names
           PRIVATE_VISIBLE_CHARS: "10"
           # Number of top repos shown in the ranking table
