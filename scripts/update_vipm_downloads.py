@@ -18,7 +18,7 @@ import requests
 from datetime import datetime, timedelta, timezone
 
 # ── Beijing timezone (UTC+8) ───────────────────────────────────────────────────
-_BEIJING_TZ = timezone(timedelta(hours=8))
+BEIJING_TZ = timezone(timedelta(hours=8))
 
 # ── Package list – order matches x-axis: Core, API String, MassData,
 #    INI-Variable, DAQ-Example, TCP-Example ──────────────────────────────────
@@ -97,7 +97,7 @@ def update_readme(readme_path: str, counts: list[int]) -> str:
     with open(readme_path, encoding="utf-8") as f:
         content = f.read()
 
-    now = datetime.now(_BEIJING_TZ)
+    now = datetime.now(BEIJING_TZ)
     current_month = f"{now.year}.{now.month:02d}"
 
     # ── Locate the xychart-beta mermaid block ─────────────────────────────
