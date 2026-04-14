@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-04-14 00:58:12 UTC_  
-_Total stars: 249_
+_Last updated: 2026-04-14 01:52:20 UTC_  
+_Total stars: 251_
 
 ## Star Growth Chart
 
@@ -9,8 +9,8 @@ _Total stars: 249_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-04"]
-    y-axis "Cumulative Stars" 0 --> 260
-    line [1, 12, 26, 40, 56, 82, 114, 199, 216]
+    y-axis "Cumulative Stars" 0 --> 270
+    line [1, 12, 26, 40, 56, 82, 114, 199, 218]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,8 @@ xychart-beta
 
 | Time (UTC) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-04-14 01:44:38 | `CSMScript-Lite` | [1992yangkun](https://github.com/1992yangkun) | ⭐ add |
+| 2026-04-14 01:22:10 | `CSMScript-Lite` | [langrenchangling](https://github.com/langrenchangling) | ⭐ add |
 | 2026-04-10 17:26:47 | `LabVIEW-Version-Selector` | [matrixx567](https://github.com/matrixx567) | ⭐ add |
 | 2026-04-05 11:52:38 | `Communicable-State-Machine` | [liumc](https://github.com/liumc) | ⭐ add |
 | 2026-03-20 18:01:42 | `LabVIEW-UI-XCtl` | [Tang-WeiFeng](https://github.com/Tang-WeiFeng) | ⭐ add |
