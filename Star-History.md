@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-04-14 01:52:20 UTC_  
-_Total stars: 251_
+_Last updated: 2026-04-14 06:04:45 UTC_  
+_Total stars: 254_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-04"]
     y-axis "Cumulative Stars" 0 --> 270
-    line [1, 12, 26, 40, 56, 82, 114, 199, 218]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 221]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -34,7 +34,7 @@ xychart-beta
 |:----:|:-----|------------:|
 | 1 | [DK-666-6](https://github.com/DK-666-6) | 13 |
 | 2 | [hanzihua123](https://github.com/hanzihua123) | 13 |
-| 3 | [ghwang-Harries](https://github.com/ghwang-Harries) | 10 |
+| 3 | [ghwang-Harries](https://github.com/ghwang-Harries) | 11 |
 | 4 | [shennnw](https://github.com/shennnw) | 9 |
 | 5 | [wyxfhb](https://github.com/wyxfhb) | 8 |
 | 6 | [chenwm](https://github.com/chenwm) | 8 |
@@ -47,6 +47,9 @@ xychart-beta
 
 | Time (UTC) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-04-14 05:04:23 | `CSMScript-Lite` | [eastcheng1024](https://github.com/eastcheng1024) | ⭐ add |
+| 2026-04-14 04:14:59 | `CSMScript-Lite` | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
+| 2026-04-14 02:03:40 | `CSMScript-Lite` | [vanperxx](https://github.com/vanperxx) | ⭐ add |
 | 2026-04-14 01:44:38 | `CSMScript-Lite` | [1992yangkun](https://github.com/1992yangkun) | ⭐ add |
 | 2026-04-14 01:22:10 | `CSMScript-Lite` | [langrenchangling](https://github.com/langrenchangling) | ⭐ add |
 | 2026-04-10 17:26:47 | `LabVIEW-Version-Selector` | [matrixx567](https://github.com/matrixx567) | ⭐ add |
