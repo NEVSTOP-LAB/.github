@@ -128,7 +128,7 @@ def parse_existing_star_log(filepath):
         with open(filepath, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.rstrip("\n")
-                if "| Time (UTC)" in line and "Repository" in line and "User" in line:
+                if ("| Time (UTC" in line and "Repository" in line and "User" in line):
                     in_log_table = True
                     continue
                 if in_log_table and (line.startswith("|---") or line.startswith("| ---")):

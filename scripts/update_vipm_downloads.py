@@ -92,8 +92,12 @@ def get_install_count(package_name: str, max_retries: int = 3) -> int:
     raise RuntimeError(f"Failed to fetch count for {package_name}: {last_exc}") from last_exc
 
 
-def update_readme(readme_path: str, counts: list[int]) -> str:
-    """Update the mermaid chart in *readme_path* and return the month string."""
+def update_readme(readme_path: str, counts: list[int]) -> str | None:
+    """Update the mermaid chart in *readme_path* and return the month string.
+
+    Returns the current month string (e.g. '2026.04') if the file was updated,
+    or ``None`` if the content was already up-to-date and no write was needed.
+    """
     with open(readme_path, encoding="utf-8") as f:
         content = f.read()
 
