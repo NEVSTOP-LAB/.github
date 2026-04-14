@@ -19,7 +19,7 @@ import re
 import sys
 import time
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import requests
 
@@ -45,6 +45,9 @@ _BASE_HEADERS = {
     "X-GitHub-Api-Version": "2022-11-28",
 }
 _STAR_HEADERS = {**_BASE_HEADERS, "Accept": "application/vnd.github.star+v3+json"}
+
+# ── Timezone ──────────────────────────────────────────────────────────────────
+BEIJING_TZ = timezone(timedelta(hours=8))
 
 # ── Action constants ───────────────────────────────────────────────────────────
 ACTION_ADD = "add"
@@ -218,7 +221,7 @@ def build_markdown(all_stars, repo_counts):
                   newest first.  action is "add" or "delete".
     repo_counts : dict of {display_name: total_star_count} (unfiltered)
     """
-    now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    now_str = datetime.now(BEIJING_TZ).strftime("%Y-%m-%d %H:%M:%S UTC+8")
     total_stars = sum(repo_counts.values())
     lines = []
 
@@ -262,12 +265,12 @@ def build_markdown(all_stars, repo_counts):
 
     # ── Full star log table ────────────────────────────────────────────────
     lines.append("## Star Log\n")
-    lines.append("| Time (UTC) | Repository | User | Action |")
+    lines.append("| Time (UTC+8) | Repository | User | Action |")
     lines.append("|:-----------|:-----------|:-----|:------:|")
     for dt, repo, user, action in all_stars:
         action_icon = ICON_ADD if action == ACTION_ADD else ICON_DELETE
         lines.append(
-            f"| {dt.strftime('%Y-%m-%d %H:%M:%S')} | `{repo}` |"
+            f"| {dt.astimezone(BEIJING_TZ).strftime('%Y-%m-%d %H:%M:%S+08:00')} | `{repo}` |"
             f" [{user}](https://github.com/{user}) | {action_icon} |"
         )
     lines.append("")
@@ -345,9 +348,23 @@ def main(output_file=OUTPUT_FILE):
 
     total = sum(repo_counts.values())
     print(f"\nTotal: {total} stars across {len(repo_counts)} repos")
-    print(f"Writing {output_file} …")
 
     content = build_markdown(all_stars, repo_counts)
+
+    # Only write if the data content changed (ignore the "Last updated" timestamp line)
+    _timestamp_re = re.compile(r"^_Last updated:.*?_\s*$", re.MULTILINE)
+    existing_body = ""
+    try:
+        with open(output_file, "r", encoding="utf-8") as f:
+            existing_body = _timestamp_re.sub("", f.read())
+    except FileNotFoundError:
+        pass
+
+    if _timestamp_re.sub("", content) == existing_body:
+        print("No data changes detected. Skipping update.")
+        return
+
+    print(f"Writing {output_file} …")
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(content)
 

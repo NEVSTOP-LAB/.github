@@ -15,7 +15,10 @@ import sys
 import time
 
 import requests
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+
+# ── Beijing timezone (UTC+8) ───────────────────────────────────────────────────
+_BEIJING_TZ = timezone(timedelta(hours=8))
 
 # ── Package list – order matches x-axis: Core, API String, MassData,
 #    INI-Variable, DAQ-Example, TCP-Example ──────────────────────────────────
@@ -94,7 +97,7 @@ def update_readme(readme_path: str, counts: list[int]) -> str:
     with open(readme_path, encoding="utf-8") as f:
         content = f.read()
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(_BEIJING_TZ)
     current_month = f"{now.year}.{now.month:02d}"
 
     # ── Locate the xychart-beta mermaid block ─────────────────────────────
@@ -155,6 +158,9 @@ def update_readme(readme_path: str, counts: list[int]) -> str:
         + content[mermaid_match.end():]
     )
 
+    if new_content == content:
+        return None
+
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(new_content)
 
@@ -173,4 +179,7 @@ if __name__ == "__main__":
 
     print(f"\nUpdating {readme_path} …")
     month = update_readme(readme_path, counts)
-    print(f"Done – updated data for {month}: {counts}")
+    if month is None:
+        print("No changes detected. Skipping update.")
+    else:
+        print(f"Done – updated data for {month}: {counts}")

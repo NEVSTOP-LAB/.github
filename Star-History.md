@@ -1,6 +1,6 @@
 # Star History
 
-_Last updated: 2026-04-14 08:44:59 UTC_  
+_Last updated: 2026-04-14 16:44:59 UTC+8_  
 _Total stars: 254_
 
 ## Star Growth Chart
@@ -45,7 +45,7 @@ xychart-beta
 
 ## Star Log
 
-| Time (UTC) | Repository | User | Action |
+| Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
 | 2026-04-14 05:04:23 | `CSMScript-Lite` | [eastcheng1024](https://github.com/eastcheng1024) | ⭐ add |
 | 2026-04-14 04:14:59 | `CSMScript-Lite` | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
