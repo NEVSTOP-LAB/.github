@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-04-16 23:37:47 UTC+8_  
-_Total stars: 256_
+_Last updated: 2026-04-18 16:22:50 UTC+8_  
+_Total stars: 257_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-04"]
     y-axis "Cumulative Stars" 0 --> 270
-    line [1, 12, 26, 40, 56, 82, 114, 199, 223]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 224]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -24,9 +24,9 @@ xychart-beta
 | 5 | `LabVIEW-OPCUA-XML-Library` | 10 |
 | 6 | `CSM-Continuous-Meausrement-and-Logging` | 10 |
 | 7 | `CSM-Wiki` | 9 |
-| 8 | `NEVSTOP-Programming-Palette` | 8 |
-| 9 | `CSM-MassData-Parameter-Support` | 8 |
-| 10 | `CSM-TCP-Router-App` | 8 |
+| 8 | `CSMScript-Lite` | 9 |
+| 9 | `NEVSTOP-Programming-Palette` | 8 |
+| 10 | `CSM-MassData-Parameter-Support` | 8 |
 
 ## Top 10 Users by Stars Given
 
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-04-18 15:43:37+08:00 | `CSMScript-Lite` | [zheng-sq](https://github.com/zheng-sq) | ⭐ add |
 | 2026-04-16 19:57:52+08:00 | `CSMScript-Lite` | [blackhawk37](https://github.com/blackhawk37) | ⭐ add |
 | 2026-04-15 09:59:53+08:00 | `CSMScript-Lite` | [bigbirdone](https://github.com/bigbirdone) | ⭐ add |
 | 2026-04-14 13:04:23+08:00 | `CSMScript-Lite` | [eastcheng1024](https://github.com/eastcheng1024) | ⭐ add |
