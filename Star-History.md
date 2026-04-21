@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-04-20 16:57:30 UTC+8_  
-_Total stars: 259_
+_Last updated: 2026-04-21 16:48:30 UTC+8_  
+_Total stars: 261_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-04"]
     y-axis "Cumulative Stars" 0 --> 280
-    line [1, 12, 26, 40, 56, 82, 114, 199, 226]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 228]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -20,8 +20,8 @@ xychart-beta
 | 1 | `Communicable-State-Machine` | 51 |
 | 2 | `LabVIEW-UI-XCtl` | 39 |
 | 3 | `LabVIEW-GlobalStop-Library` | 13 |
-| 4 | `LabVIEW-QuickDrops-Manager` | 11 |
-| 5 | `CSMScript-Lite` | 11 |
+| 4 | `CSMScript-Lite` | 13 |
+| 5 | `LabVIEW-QuickDrops-Manager` | 11 |
 | 6 | `LabVIEW-OPCUA-XML-Library` | 10 |
 | 7 | `CSM-Continuous-Meausrement-and-Logging` | 10 |
 | 8 | `CSM-Wiki` | 9 |
@@ -47,6 +47,8 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-04-21 14:18:31+08:00 | `CSMScript-Lite` | [lf13051306139](https://github.com/lf13051306139) | ⭐ add |
+| 2026-04-21 09:58:59+08:00 | `CSMScript-Lite` | [huangyao15675150529](https://github.com/huangyao15675150529) | ⭐ add |
 | 2026-04-20 15:07:36+08:00 | `CSMScript-Lite` | [FatUltraman](https://github.com/FatUltraman) | ⭐ add |
 | 2026-04-19 19:18:02+08:00 | `CSMScript-Lite` | [Alvin2110](https://github.com/Alvin2110) | ⭐ add |
 | 2026-04-18 15:43:37+08:00 | `CSMScript-Lite` | [zheng-sq](https://github.com/zheng-sq) | ⭐ add |
