@@ -61,7 +61,7 @@ def get_public_repos() -> list[dict]:
 
     # Keep the first occurrence of each repository to avoid duplicated counts
     # if paginated API responses overlap between requests.
-    unique_repos: dict[int | str, dict] = {}
+    unique_repos: dict = {}
     for repo in repos:
         key = repo.get("id") or repo.get("full_name") or repo.get("name")
         if key is not None and key not in unique_repos:
@@ -92,7 +92,7 @@ def update_readme(readme_path: str, tag_lines: list[str]) -> bool:
         content = f.read()
 
     section_re = re.compile(
-        r"(^[^\n]*\*\*Sorted By Tags\*\*[^\n]*\n(?:-+\n)?)(.*?)(^<!--)",
+        r"(^[^\n]*\*\*Sorted By Tags\*\*[^\n]*\n(?:-+\n)?)(.*?)(^\s*<!--)",
         re.DOTALL | re.MULTILINE,
     )
     match = section_re.search(content)
