@@ -72,7 +72,7 @@ def build_tag_lines(repos: list[dict]) -> list[str]:
 
     lines: list[str] = []
     for tag, count in filtered:
-        query = quote(f"topic:{tag} org:{ORG} is:public", safe="")
+        query = quote(f"topic:{tag} org:{ORG} is:public", safe=":")
         url = f"https://github.com/search?q={query}&type=Repositories"
         lines.append(f"[`{tag}({count})`]({url})")
     return lines
