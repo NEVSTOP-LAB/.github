@@ -61,9 +61,11 @@ def get_public_repos() -> list[dict]:
 
     # Keep the first occurrence of each repository to avoid duplicated counts
     # if paginated API responses overlap between requests.
-    unique_repos: dict = {}
+    unique_repos: dict[object, dict] = {}
     for repo in repos:
-        key = repo.get("id") or repo.get("full_name") or repo.get("name")
+        key = repo.get("id")
+        if key is None:
+            key = repo.get("full_name") or repo.get("name")
         if key is not None and key not in unique_repos:
             unique_repos[key] = repo
     return list(unique_repos.values())
