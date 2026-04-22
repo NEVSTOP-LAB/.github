@@ -2,7 +2,7 @@ name: Update Sorted Tags
 
 on:
   schedule:
-    - cron: '0 0 1 * *'   # Monthly on day 1 (UTC)
+    - cron: '0 0 * * 0'   # Weekly on Sunday (UTC)
   workflow_dispatch:
 
 permissions:

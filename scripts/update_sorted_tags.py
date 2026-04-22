@@ -57,13 +57,26 @@ def _paginate(url: str, extra_params: dict | None = None):
 
 def get_public_repos() -> list[dict]:
     url = f"https://api.github.com/orgs/{ORG}/repos"
-    return list(_paginate(url, {"type": "public"}))
+    repos = list(_paginate(url, {"type": "public"}))
+
+    # Keep the first occurrence of each repository to avoid duplicated counts
+    # if paginated API responses overlap between requests.
+    unique_repos: dict[str, dict] = {}
+    for repo in repos:
+        repo_id = repo.get("id")
+        if repo_id is not None:
+            key = str(repo_id)
+        else:
+            key = repo.get("full_name") or repo.get("name")
+        if key is not None and key not in unique_repos:
+            unique_repos[key] = repo
+    return list(unique_repos.values())
 
 
 def build_tag_lines(repos: list[dict]) -> list[str]:
     counts: Counter[str] = Counter()
     for repo in repos:
-        for topic in repo.get("topics", []):
+        for topic in set(repo.get("topics", [])):
             if topic:
                 counts[topic] += 1
 
@@ -83,7 +96,7 @@ def update_readme(readme_path: str, tag_lines: list[str]) -> bool:
         content = f.read()
 
     section_re = re.compile(
-        r"(^.*\*\*Sorted By Tags\*\*.*\n(?:-+\n)?)(.*?)(\n<!--)",
+        r"(^[^\n]*\*\*Sorted By Tags\*\*[^\n]*\n(?:-+\n)?)(.*?)(\n\s*<!--)",
         re.DOTALL | re.MULTILINE,
     )
     match = section_re.search(content)
@@ -91,8 +104,6 @@ def update_readme(readme_path: str, tag_lines: list[str]) -> bool:
         raise ValueError('Could not find "Sorted By Tags" section in README')
 
     body = "\n".join(tag_lines)
-    if body:
-        body += "\n"
 
     new_content = (
         content[: match.start(2)]
