@@ -60,22 +60,6 @@ This organization is dedicated to creating and sharing reusable content that can
 
 👩‍💻 **Sorted By Tags**
 --------------------
-[`LabVIEW-CSM`](https://github.com/search?q=topic%3Alabview-csm+org%3ANEVSTOP-LAB&type=Repositories)
-[`LV-CSM-App`](https://github.com/search?q=topic%3Alv-csm-app+org%3ANEVSTOP-LAB&type=Repositories)
-[`csm-modsets`](https://github.com/search?q=topic%3Acsm-modsets+org%3ANEVSTOP-LAB&type=Repositories)
-[`example`](https://github.com/search?q=topic%3Aexample+org%3ANEVSTOP-LAB&type=Repositories)
-[`application`](https://github.com/search?q=topic%3Aapplication+org%3ANEVSTOP-LAB&type=Repositories)
-[`national-instruments`](https://github.com/search?q=topic%3Anational-instruments+org%3ANEVSTOP-LAB&type=Repositories)
-[`quickdrop`](https://github.com/search?q=topic%3Aquickdrop+org%3ANEVSTOP-LAB&type=Repositories)
-[`utilites`](https://github.com/search?q=topic%3Autilites+org%3ANEVSTOP-LAB&type=Repositories)
-[`labview-library`](https://github.com/search?q=topic%3Alabview-library+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
-[`labview-provider`](https://github.com/search?q=topic%3Alabview-provider+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
-[`labview-xcontrol`](https://github.com/search?q=topic%3Alabview-xcontrol+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
-[`fpga`](https://github.com/search?q=topic%3Afpga+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
-[`exe`](https://github.com/search?q=topic%3Aexe+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
-[`framework`](https://github.com/search?q=topic%3Aframework+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
-[`lvcicd`](https://github.com/search?q=topic%3Alvcicd+org%3ANEVSTOP-LAB+fork%3Atrue&type=repositories)
-[`hardware`](https://github.com/search?q=topic%3Ahardware+org%3ANEVSTOP-LAB&type=Repositories)
 [`labview(36)`](https://github.com/search?q=topic:labview%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`labview-csm(17)`](https://github.com/search?q=topic:labview-csm%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`cicd(11)`](https://github.com/search?q=topic:cicd%20org:NEVSTOP-LAB%20is:public&type=Repositories)
