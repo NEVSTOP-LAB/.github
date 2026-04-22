@@ -92,7 +92,7 @@ def update_readme(readme_path: str, tag_lines: list[str]) -> bool:
         content = f.read()
 
     section_re = re.compile(
-        r"(^.*\*\*Sorted By Tags\*\*.*\n(?:-+\n)?)(.*?)(\n<!--)",
+        r"(^[^\n]*\*\*Sorted By Tags\*\*[^\n]*\n(?:-+\n)?)(.*?)(^<!--)",
         re.DOTALL | re.MULTILINE,
     )
     match = section_re.search(content)
