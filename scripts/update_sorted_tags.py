@@ -27,6 +27,7 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
 _HEADERS = {
     "Accept": "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
+    "User-Agent": "NEVSTOP-LAB-sorted-tags-updater",
 }
 if GITHUB_TOKEN:
     _HEADERS["Authorization"] = f"Bearer {GITHUB_TOKEN}"
@@ -38,6 +39,11 @@ def _paginate(url: str, extra_params: dict | None = None):
     while True:
         params["page"] = page
         resp = requests.get(url, headers=_HEADERS, params=params, timeout=30)
+        if resp.status_code == 403 and not GITHUB_TOKEN:
+            raise requests.HTTPError(
+                "GitHub API rate limit reached. Set GITHUB_TOKEN or GH_TOKEN.",
+                response=resp,
+            )
         resp.raise_for_status()
         data = resp.json()
         if not data:
