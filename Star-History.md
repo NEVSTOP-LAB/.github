@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-04-23 00:33:21 UTC+8_  
-_Total stars: 263_
+_Last updated: 2026-04-24 00:43:02 UTC+8_  
+_Total stars: 264_
 
 ## Star Growth Chart
 
@@ -10,14 +10,14 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-04"]
     y-axis "Cumulative Stars" 0 --> 280
-    line [1, 12, 26, 40, 56, 82, 114, 199, 230]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 231]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | `Communicable-State-Machine` | 51 |
+| 1 | `Communicable-State-Machine` | 52 |
 | 2 | `LabVIEW-UI-XCtl` | 39 |
 | 3 | `LabVIEW-GlobalStop-Library` | 14 |
 | 4 | `CSMScript-Lite` | 14 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-04-23 17:37:44+08:00 | `Communicable-State-Machine` | [garyshere](https://github.com/garyshere) | ⭐ add |
 | 2026-04-22 23:52:11+08:00 | `LabVIEW-GlobalStop-Library` | [darren2023](https://github.com/darren2023) | ⭐ add |
 | 2026-04-22 23:46:17+08:00 | `CSMScript-Lite` | [darren2023](https://github.com/darren2023) | ⭐ add |
 | 2026-04-21 14:18:31+08:00 | `CSMScript-Lite` | [lf13051306139](https://github.com/lf13051306139) | ⭐ add |
