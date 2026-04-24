@@ -115,6 +115,13 @@ def mask_private(name, repo_id):
 
 # ── Markdown generation ────────────────────────────────────────────────────────
 
+def _repo_cell(repo):
+    """Format a repo name as a markdown link (public) or plain backtick text (private)."""
+    if "****" in repo:
+        return f"`{repo}`"
+    return f"[`{repo}`](https://github.com/{ORG}/{repo})"
+
+
 def parse_existing_star_log(filepath):
     """Parse the Star Log table from an existing output file.
 
@@ -139,7 +146,10 @@ def parse_existing_star_log(filepath):
                     if len(parts) < 3:
                         continue
                     time_str = parts[0]
-                    repo = parts[1].strip("`")
+                    # Handle both plain `name` and [`name`](url) link formats
+                    repo_raw = parts[1]
+                    m_link = re.match(r"\[`([^`]+)`\]", repo_raw)
+                    repo = m_link.group(1) if m_link else repo_raw.strip("`")
                     user_str = parts[2]
                     m = re.match(r"\[([^\]]+)\]", user_str)
                     user = m.group(1) if m else user_str
@@ -247,7 +257,7 @@ def build_markdown(all_stars, repo_counts):
     lines.append("| Rank | Repository | Stars |")
     lines.append("|:----:|:-----------|------:|")
     for rank, (repo, count) in enumerate(top_repos, 1):
-        lines.append(f"| {rank} | `{repo}` | {count} |")
+        lines.append(f"| {rank} | {_repo_cell(repo)} | {count} |")
     lines.append("")
 
     # ── Top N users by number of repos starred ────────────────────────────
@@ -270,7 +280,7 @@ def build_markdown(all_stars, repo_counts):
     for dt, repo, user, action in all_stars:
         action_icon = ICON_ADD if action == ACTION_ADD else ICON_DELETE
         lines.append(
-            f"| {dt.astimezone(BEIJING_TZ).strftime('%Y-%m-%d %H:%M:%S+08:00')} | `{repo}` |"
+            f"| {dt.astimezone(BEIJING_TZ).strftime('%Y-%m-%d %H:%M:%S+08:00')} | {_repo_cell(repo)} |"
             f" [{user}](https://github.com/{user}) | {action_icon} |"
         )
     lines.append("")
