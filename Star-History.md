@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-04-24 14:22:27 UTC+8_  
-_Total stars: 266_
+_Last updated: 2026-04-25 00:29:54 UTC+8_  
+_Total stars: 267_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-04"]
     y-axis "Cumulative Stars" 0 --> 280
-    line [1, 12, 26, 40, 56, 82, 114, 199, 232]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 233]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -19,8 +19,8 @@ xychart-beta
 |:----:|:-----------|------:|
 | 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 52 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 39 |
-| 3 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
-| 4 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 14 |
+| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 15 |
+| 4 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
 | 5 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
 | 6 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
 | 7 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 10 |
@@ -32,7 +32,7 @@ xychart-beta
 
 | Rank | User | Stars Given |
 |:----:|:-----|------------:|
-| 1 | [DK-666-6](https://github.com/DK-666-6) | 13 |
+| 1 | [DK-666-6](https://github.com/DK-666-6) | 14 |
 | 2 | [hanzihua123](https://github.com/hanzihua123) | 13 |
 | 3 | [ghwang-Harries](https://github.com/ghwang-Harries) | 11 |
 | 4 | [wyxfhb](https://github.com/wyxfhb) | 9 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-04-25 00:09:02+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [DK-666-6](https://github.com/DK-666-6) | ⭐ add |
 | 2026-04-24 13:06:59+08:00 | [`SimpleGit-Provider`](https://github.com/NEVSTOP-LAB/SimpleGit-Provider) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
 | 2026-04-23 17:37:44+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [garyshere](https://github.com/garyshere) | ⭐ add |
 | 2026-04-22 23:52:11+08:00 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | [darren2023](https://github.com/darren2023) | ⭐ add |
