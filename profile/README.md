@@ -9,27 +9,27 @@
 > **CSM Framework 目标是成长为一个多语言支持的测试系统基础框架**
 > 1. LabVEIW CSM Framework 作为基础长期维护，并拓展到 C#, python 等 <br/>
 > [Core](https://github.com/NEVSTOP-LAB/Communicable-State-Machine)
-> [API-String](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support)
-> [MassData](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support)
-> [INI-Variable](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support)
+> | [API-String](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support)
+> | [MassData](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support)
+> | [INI-Variable](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support)
 > 2. VSCode 插件：[csm-vsc-extension](https://github.com/NEVSTOP-LAB/csm-vsc-extension)
 > 3. LabVIEW 插件：[mermaid Tool](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin)
-> 4. Github CSM 复用模块: [topic:csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories)
+> 4. Github CSM 复用模块: github topic:[csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories)
 > 5. 应用场景的案例展示: <br/>
 > [DAQ-Application](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging)
 > | [TCP-Application](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App)
 > | [WebServer-Application](https://github.com/NEVSTOP-LAB/G-Web-Development-with-CSM)
 
 > [!NOTE]
-> **AI-Wiki 机制, 自动收集更新 CSM 信息** --> [CSM-Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)<br/>
-> - [施工中] 由 AI 负责整理和更新 CSM 相关文档，确保信息的及时性和准确性 [CSM Wiki Repo](https://github.com/NEVSTOP-LAB/CSM-Wiki)
-> - [施工中] 在 [Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions) 的问题，会得到 CSM-AI-Robot 的回复
-
-> [!NOTE]
 > **促进社区的分享和交流，形成良好的社区氛围，推动 CSM 生态的持续发展**<br/>
 > - [zhihu 专栏](https://www.zhihu.com/column/c_1681072169147342848) 作为信息发布的窗口
 > - [NEVSTOP-LAB Organization](https://github.com/NEVSTOP-LAB) 组织具有开发能力的核心成员开发
 > - [NEVSTOP-LAB Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions) 作为问答平台，回复 `LabVIEW`/`CSM`/`项目设计`等的讨论平台
+
+> [!NOTE]
+> **AI-Wiki 机制, 自动收集更新 CSM 信息** --> [CSM-Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)<br/>
+> - [施工中] 由 AI 负责整理和更新 CSM 相关文档，确保信息的及时性和准确性 [CSM Wiki Repo](https://github.com/NEVSTOP-LAB/CSM-Wiki)
+> - [施工中] NEVSTOP-LAB 成员在 [Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions) 的问题，会得到 CSM-AI-Robot 的回复
 
 ```mermaid
     xychart-beta
