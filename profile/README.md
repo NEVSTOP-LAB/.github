@@ -1,31 +1,37 @@
 🙋‍♀️ **Introduction**
 --------------------
 
-This organization is dedicated to creating and sharing reusable content that can be used to enhance the LabVIEW programming experience. Our team has put together a collection of tools, programming environments, and supplementary functions that you might find useful.
+<!-------
+本组织围绕可通讯状态机框架(CSM)架构、AI，提供LabVIEW/Python/C#语言下的自动化测试方案。
+----->
 
 [![org_stars](https://shields.io/github/stars/NEVSTOP-LAB)](https://github.com/orgs/NEVSTOP-LAB/repositories?q=sort%3Astars)
 [![org_followers](https://img.shields.io/github/followers/NEVSTOP-LAB)](https://github.com/orgs/NEVSTOP-LAB/followers)
 
-🧙 **Toolkits Recommended**
---------------------
+> [!NOTE]
+> **CSM Framework 目标是成长为一个多语言支持的测试系统基础框架**
+> 1. LabVEIW CSM Framework 作为基础长期维护，并拓展到 C#, python 等 <br/>
+> [Core](https://github.com/NEVSTOP-LAB/Communicable-State-Machine)
+> [API-String](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support)
+> [MassData](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support)
+> [INI-Variable](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support)
+> 2. VSCode 插件：[csm-vsc-extension](https://github.com/NEVSTOP-LAB/csm-vsc-extension)
+> 3. LabVIEW 插件：[mermaid Tool](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin)
+> 4. 应用场景的案例展示: <br/>
+> [DAQ-Application](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging)
+> | [TCP-Application](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App)
+> | [WebServer-Application](https://github.com/NEVSTOP-LAB/G-Web-Development-with-CSM)
 
-🧙 **[Communicable State Machine(CSM) Framework](https://github.com/search?q=topic%3Alabview-csm+org%3ANEVSTOP-LAB&type=Repositories)** ->> [Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)
+> [!NOTE]
+> **AI-Wiki 机制, 自动收集更新 CSM 信息** --> [CSM-Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)<br/>
+> - [施工中] 由 AI 负责整理和更新 CSM 相关文档，确保信息的及时性和准确性 [CSM Wiki Repo](https://github.com/NEVSTOP-LAB/CSM-Wiki)
+> - [施工中] 在 [Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions) 的问题，会得到 CSM-AI-Robot 的回复
 
-| Name | Description |Download|
-|------|-------------|-------------|
-| [Communicable State Machine(CSM) Framework](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | LabVIEW Application Framework extended from JKI State Machine(JKISM). |  [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/Communicable-State-Machine/total)](https://github.com/NEVSTOP-LAB/Communicable-State-Machine/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_communicable_state_machine/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_communicable_state_machine/)|
-| [CSM MassData Arguments Support](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | Addons for Data Arguments support of CSM. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-MassData-Parameter-Support/total)](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_massdata_parameter_support/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_massdata_parameter_support/)|
-| [CSM API String Arguments Support](https://github.com/NEVSTOP-LAB/CSM-API-String-Arugments-Support) | Enhance API String Arguments support of CSM. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-API-String-Arugments-Support/total)](https://github.com/NEVSTOP-LAB/CSM-API-String-Arugments-Support/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_api_string_arguments_support/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_api_string_arguments_support/)|
-| [CSM-INI-Static-Variable-Support](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | Support of Static Variables which are loaded from ini configuration file for CSM. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-INI-Static-Variable-Support/total)](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_ini_static_variable_support/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_ini_static_variable_support/)|
-| [CSM-Icon-Editor-Glyphs](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs) | CSM glyphs in icon editor. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs/total)](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs/releases) <br> <a href="https://www.vipm.io/package/nevstop_lib_csm_icon_editor_glyphs/"> <img src="https://www.vipm.io/package/nevstop_lib_csm_icon_editor_glyphs/badge.svg?metric=installs"></a> |
-| [CSM-Mermaid-Plugin](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | Mermaid Tool Plugin for CSM (In Development) |  [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs/total)](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin/releases) <br>  |
-| [CSM Continuous Measurement and Logging Example](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | Accomplish application of Continuous Measurement and Logging with CSM. It's much more simple, intuitive and graceful. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging/total)](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_continuous_meausrement_and_logging_example/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_continuous_meausrement_and_logging_example/) |
-| [CSM-TCP-Router-Example](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server. |[![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-TCP-Router-App/total)](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App/releases) <br> [![Image](https://www.vipm.io/package/nevstop_lib_csm_tcp_router_example/badge.svg?metric=installs)](https://www.vipm.io/package/nevstop_lib_csm_tcp_router_example/) |
-| [CSM-Wiki](https://github.com/NEVSTOP-LAB/CSM-Wiki) | CSM Wiki Repo. | N/A |
-
-<!---
-| [CSM Array Arguments Support](https://github.com/NEVSTOP-LAB/CSM-Array-Parameter-Support) | Addons for Array Arguments support of CSM. | [![GitHub all releases](https://img.shields.io/github/downloads/NEVSTOP-LAB/CSM-Array-Parameter-Support/total)](https://github.com/NEVSTOP-LAB/CSM-Array-Parameter-Support/releases) |
---->
+> [!NOTE]
+> **促进社区的分享和交流，形成良好的社区氛围，推动 CSM 生态的持续发展**<br/>
+> - [zhihu 专栏](https://www.zhihu.com/column/c_1681072169147342848) 作为信息发布的窗口
+> - [NEVSTOP-LAB Organization](https://github.com/NEVSTOP-LAB) 组织具有开发能力的核心成员开发
+> - [NEVSTOP-LAB Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions) 作为问答平台，回复 `LabVIEW`/`CSM`/`项目设计`等的讨论平台
 
 ```mermaid
     xychart-beta
