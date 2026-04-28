@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-04-27 17:02:32 UTC+8_  
-_Total stars: 268_
+_Last updated: 2026-04-28 17:01:09 UTC+8_  
+_Total stars: 270_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-04"]
     y-axis "Cumulative Stars" 0 --> 290
-    line [1, 12, 26, 40, 56, 82, 114, 199, 234]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 236]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -19,7 +19,7 @@ xychart-beta
 |:----:|:-----------|------:|
 | 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 53 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 39 |
-| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 15 |
+| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 17 |
 | 4 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
 | 5 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
 | 6 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
@@ -47,6 +47,8 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-04-28 13:18:39+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
+| 2026-04-28 11:24:58+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [chenshuihong](https://github.com/chenshuihong) | ⭐ add |
 | 2026-04-27 16:48:05+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [ahuang2023](https://github.com/ahuang2023) | ⭐ add |
 | 2026-04-25 00:09:02+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [DK-666-6](https://github.com/DK-666-6) | ⭐ add |
 | 2026-04-24 13:06:59+08:00 | [`SimpleGit-Provider`](https://github.com/NEVSTOP-LAB/SimpleGit-Provider) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
