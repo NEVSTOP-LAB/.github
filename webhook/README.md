@@ -53,7 +53,7 @@ scripts/discussion_bot.py --org-discussion-number <N>
 ### 2. 安装 App 到组织
 
 在 App 设置页 → 左侧 **Install App** → 选择目标组织 → 选择 "All repositories"
-或仅勾选 `CSM-QA-Robot`。
+或仅勾选 `.github`（即托管 `csm-discussion-bot.yml` 工作流的仓库）。
 
 ### 3. 把私钥转成 PKCS#8
 
@@ -98,7 +98,7 @@ wrangler deploy
 
 | Secret | 用途 |
 | --- | --- |
-| `CSM_QA_GH_TOKEN` | GitHub Fine-grained PAT，用于 GraphQL 读写 Discussions 以及 Actions checkout 拉取 submodule。**必须同时授权两个仓库**：`<org>/CSM-QA-Robot`（自身）和 `<org>/.github`（org-level Q&A discussions 的实际归属仓库），权限均需 `Discussions: Read & Write`（自身仓库还需 `Contents: Read`）。如组织级 discussions 实际归属其他仓库，请同步设置 workflow 的 `DISCUSSION_SOURCE_REPO` 环境变量。 |
+| `CSM_QA_GH_TOKEN` | GitHub Fine-grained PAT，用于 GraphQL 读写 Discussions 以及 Actions checkout。仅需授权 `<org>/.github` 仓库（既是工作流宿主，也是组织级 Q&A discussions 的实际归属），权限：`Discussions: Read & Write`、`Contents: Read`。如组织级 discussions 实际归属其他仓库，请同步设置 workflow 的 `DISCUSSION_SOURCE_REPO` 环境变量。 |
 | `LLM_API_KEY` | DeepSeek / 其他 LLM key |
 
 > Worker 的三个 secret（`WEBHOOK_SECRET` / `GITHUB_APP_ID` / `GITHUB_APP_PRIVATE_KEY`）
