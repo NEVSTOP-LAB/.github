@@ -6,7 +6,6 @@ import pytest
 from typing import Optional
 
 # 确保 scripts/ 目录在路径中
-import importlib.util
 import os
 import sys
 
