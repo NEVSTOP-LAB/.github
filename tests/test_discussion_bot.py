@@ -73,6 +73,49 @@ def test_build_reply_multiline_answer():
     assert "第三行" in reply
 
 
+def test_build_reply_strips_existing_footer_to_avoid_duplicate():
+    """若 LLM 返回的答案末尾已带页脚，build_reply 应剥离后再追加规范页脚，避免双页脚。"""
+    # 模拟 LLM 模仿历史写出的回答（含 BOT_FOOTER 与 BOT_MARKER）。
+    answer_with_footer = f"这是答案正文。{BOT_FOOTER}\n{BOT_MARKER}"
+    reply = build_reply(answer_with_footer)
+    # 正文保留
+    assert "这是答案正文。" in reply
+    # 页脚仅出现一次
+    assert reply.count("🤖 此回答由") == 1
+    # marker 也只出现一次
+    assert reply.count(BOT_MARKER) == 1
+
+
+def test_build_reply_strips_existing_footer_without_link_form():
+    """LLM 偶尔会去掉 markdown 链接、保留纯文字 ``CSM-QA-Robot``，也应剥离。"""
+    plain_footer = (
+        "\n\n---\n"
+        "> 🤖 此回答由 CSM-QA-Robot 自动生成。如有偏差，欢迎追问或修正。"
+    )
+    answer_with_plain_footer = f"答案正文{plain_footer}"
+    reply = build_reply(answer_with_plain_footer)
+    assert reply.count("🤖 此回答由") == 1
+    assert "答案正文" in reply
+
+
+def test_build_reply_strips_multiple_existing_footers():
+    """如果答案末尾出现连续多条页脚，全部剥离再追加规范页脚。"""
+    answer = f"答案{BOT_FOOTER}{BOT_FOOTER}"
+    reply = build_reply(answer)
+    assert reply.count("🤖 此回答由") == 1
+    assert "答案" in reply
+
+
+def test_build_reply_does_not_strip_footer_in_middle_of_answer():
+    """仅剥离尾部页脚；正文中间出现的相关文字不应被误删。"""
+    # 正文中间提到 robot 但其后还有真正的答案内容。
+    answer = "🤖 此回答由 CSM-QA-Robot 自动生成的格式如下：\n这是真正的正文末尾。"
+    reply = build_reply(answer)
+    assert "这是真正的正文末尾。" in reply
+    # 仅追加了一次规范页脚
+    assert reply.count("🤖 此回答由") == 2  # 一次在正文，一次在追加的页脚
+
+
 # ── has_bot_replied ───────────────────────────────────────────────────────────
 
 
@@ -471,7 +514,10 @@ def test_compute_reply_plan_followup_after_bot_reply():
     assert history[0]["role"] == "user"
     assert "怎么用 CSM？" in history[0]["content"]
     assert history[1]["role"] == "assistant"
-    assert BOT_MARKER in history[1]["content"]
+    # Bot 历史中应保留答案正文，但末尾的 BOT_MARKER 与页脚被剥离，
+    # 防止 LLM 在追问回答里模仿格式再次写出页脚（双页脚 bug）。
+    assert "先答" in history[1]["content"]
+    assert BOT_MARKER not in history[1]["content"]
 
 
 def test_compute_reply_plan_multiple_followups_picks_latest():
@@ -515,7 +561,40 @@ def test_compute_reply_plan_followup_with_intermediate_bot_reply():
     assert [h["role"] for h in history] == ["user", "assistant", "user", "assistant"]
 
 
-def test_compute_reply_plan_ignores_marker_from_wrong_author():
+def test_compute_reply_plan_strips_footer_from_assistant_history():
+    """历史中 Bot 评论的页脚 / 标记必须被剥离，避免 LLM 在追问回答里复写页脚。"""
+    from scripts.discussion_bot import build_reply
+
+    # 模拟一条真实的 Bot 历史评论（含完整页脚 + 标记）。
+    real_bot_reply = build_reply("这是上一轮的答案。")
+    assert BOT_MARKER in real_bot_reply
+    assert "🤖 此回答由" in real_bot_reply
+
+    disc = {
+        "title": "T",
+        "body": "原始问题",
+        "comments": {
+            "nodes": [
+                _comment(real_bot_reply, author="bot"),
+                _comment("追问内容", author="alice"),
+            ]
+        },
+    }
+    plan = compute_reply_plan(disc, bot_login="bot")
+    assert plan is not None
+    _, history = plan
+    # 原帖 + 剥离了页脚的 Bot 历史
+    assert len(history) == 2
+    assistant_msg = history[1]
+    assert assistant_msg["role"] == "assistant"
+    # 答案正文保留
+    assert "这是上一轮的答案。" in assistant_msg["content"]
+    # 页脚和标记都被剥离
+    assert BOT_MARKER not in assistant_msg["content"]
+    assert "🤖 此回答由" not in assistant_msg["content"]
+
+
+
     """不是 bot_login 发的 marker 评论不应视作 Bot 回复。"""
     disc = {
         "title": "T", "body": "B",

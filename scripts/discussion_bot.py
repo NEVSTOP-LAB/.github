@@ -29,6 +29,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import sys
 import urllib.error
 import urllib.parse
@@ -73,6 +74,46 @@ BOT_FOOTER = (
     "> 🤖 此回答由 [CSM-QA-Robot](https://github.com/NEVSTOP-LAB/CSM-QA-Robot) 自动生成。"
     "如有偏差，欢迎追问或修正。"
 )
+
+# 用于识别评论/回答末尾已经出现过的 Bot 页脚，以便剥离避免重复。
+# 兼容多种变体：
+#   * 是否带 ``---`` 分隔线、是否带前导空行；
+#   * 是否使用 ``> `` 引用块前缀；
+#   * 链接形式（``[CSM-QA-Robot](...)``）或纯文字 ``CSM-QA-Robot``；
+#   * 句末是否携带 ``BOT_MARKER`` HTML 注释。
+# 仅匹配字符串末尾，且尽量短，以免误删正文。
+_BOT_FOOTER_TAIL_RE = re.compile(
+    r"(?:\n+-{3,}[ \t]*)?"            # 可选的 ``---`` 分隔线
+    r"\n*[ \t]*>?[ \t]*🤖[^\n]*?"      # 以 🤖 开头的一行（可选 blockquote）
+    r"(?:CSM[-\s]?QA[-\s]?Robot|此回答由)[^\n]*?"  # 关键词
+    r"(?:自动生成|修正)[^\n]*"          # 必含 ``自动生成`` 或 ``修正``
+    r"(?:\n+[ \t]*<!--\s*csm-qa-bot\s*-->\s*)?"   # 可选的隐藏标记
+    r"\s*\Z"
+)
+# 单独剥离尾部隐藏标记（当页脚已被 LLM 改写、但标记仍残留时使用）。
+_BOT_MARKER_TAIL_RE = re.compile(
+    r"\s*<!--\s*csm-qa-bot\s*-->\s*\Z"
+)
+
+
+def _strip_trailing_bot_footer(text: str) -> str:
+    """剥离字符串末尾任意数量的 Bot 页脚 / 标记。
+
+    用于两个场景：
+    1. ``build_reply`` 在拼装最终回复前清理 LLM 偶尔自带的页脚，避免重复。
+    2. 历史拼装时去掉上一条 Bot 评论中的页脚，避免 LLM 模仿其格式再次写出。
+    """
+    if not text:
+        return text
+    prev = None
+    cur = text
+    # 反复剥离直到稳定：先 marker 后 footer，footer 内部也允许带 marker。
+    while prev != cur:
+        prev = cur
+        cur = _BOT_MARKER_TAIL_RE.sub("", cur)
+        cur = _BOT_FOOTER_TAIL_RE.sub("", cur)
+        cur = cur.rstrip()
+    return cur
 
 
 # ── GitHub GraphQL 客户端 ───────────────────────────────────────────────────
@@ -417,7 +458,14 @@ def compute_reply_plan(
         c_body = (comments[i].get("body") or "").strip()
         if not c_body:
             continue
-        role = "assistant" if _is_bot_comment(comments[i], bot_login) else "user"
+        is_bot = _is_bot_comment(comments[i], bot_login)
+        if is_bot:
+            # 去掉历史中 Bot 评论末尾的页脚 / 标记，避免 LLM 在追问回答里
+            # 模仿该格式再次写出页脚，导致最终回复出现两条 🤖 自动生成提示。
+            c_body = _strip_trailing_bot_footer(c_body)
+            if not c_body:
+                continue
+        role = "assistant" if is_bot else "user"
         history.append({"role": role, "content": c_body})
 
     return latest_followup_body, history
@@ -443,8 +491,14 @@ def post_comment(client: GitHubGraphQL, discussion_id: str, body: str) -> str:
 
 
 def build_reply(answer: str) -> str:
-    """拼装最终回复正文（答案 + 页脚 + 防重标记）。"""
-    return f"{answer.rstrip()}{BOT_FOOTER}\n{BOT_MARKER}"
+    """拼装最终回复正文（答案 + 页脚 + 防重标记）。
+
+    若 LLM 返回的 ``answer`` 末尾已携带 Bot 页脚（例如在追问场景下模仿了
+    历史中的上一条 Bot 评论），先剥离再追加规范页脚，避免出现两条
+    ``🤖 此回答由 CSM-QA-Robot 自动生成…`` 的重复尾巴。
+    """
+    cleaned = _strip_trailing_bot_footer(answer.rstrip())
+    return f"{cleaned}{BOT_FOOTER}\n{BOT_MARKER}"
 
 
 def resolve_org_qa_category_id(
