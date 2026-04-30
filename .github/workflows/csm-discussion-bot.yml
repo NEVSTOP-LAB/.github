@@ -5,9 +5,13 @@ on:
   discussion:
     types: [created]
 
+  # 当有新仓库级 Discussion 评论（追问）时自动触发；Bot 自身发布评论时跳过（防止无限循环）
+  discussion_comment:
+    types: [created]
+
   # 实时触发：由外部 Webhook Relay（Cloudflare Worker，详见 webhook/README.md）
-  # 在收到组织级 discussion.created webhook 后，调用 dispatches API 触发本事件。
-  # client_payload.discussion_number 必填。
+  # 在收到组织级 discussion.created / discussion_comment.created webhook 后，
+  # 调用 dispatches API 触发本事件。client_payload.discussion_number 必填。
   repository_dispatch:
     types: [org_discussion_created]
 
@@ -131,7 +135,7 @@ jobs:
           key: ${{ steps.cache-pip.outputs.cache-primary-key }}
 
       - name: Run bot (discussion event trigger)
-        if: github.event_name == 'discussion'
+        if: github.event_name == 'discussion' || (github.event_name == 'discussion_comment' && github.event.comment.user.type != 'bot')
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_EVENT_PATH: ${{ github.event_path }}
