@@ -91,15 +91,14 @@ jobs:
       #   - python 版本（写死 3.11，与 setup-python 保持一致）
       #   - hashFiles(requirements-bot.txt)：requirements 文件本身变更
       #   - csmqa-sha：CSM-QA-Robot 上游 commit 变更
+      # 不配置 restore-keys：venv 是已安装包的最终产物，部分匹配会保留旧版本/已移除
+      # 的依赖，污染运行时环境。要么完全命中（key 精确匹配）跳过安装，要么彻底重建。
       - name: Restore venv cache
         id: cache-venv
         uses: actions/cache/restore@v4
         with:
           path: .venv
           key: ${{ runner.os }}-venv-py3.11-${{ hashFiles('requirements-bot.txt') }}-${{ steps.csmqa-sha.outputs.sha }}
-          restore-keys: |
-            ${{ runner.os }}-venv-py3.11-${{ hashFiles('requirements-bot.txt') }}-
-            ${{ runner.os }}-venv-py3.11-
 
       - name: Restore HuggingFace models cache
         id: cache-hf
@@ -156,8 +155,9 @@ jobs:
       - name: Install dependencies
         id: install-deps
         # 安装 csm_qa SDK（托管于 NEVSTOP-LAB/CSM-QA-Robot），仅保留 LLM+RAG 核心库。
-        # - 缓存命中时直接复用 .venv，跳过解析与安装；
-        # - 未命中时用 uv（比 pip 快 5–10x）创建 venv 并安装依赖。
+        # - 精确命中（cache-hit == 'true'）时直接复用 .venv，跳过解析与安装；
+        # - 否则先 rm -rf .venv 再用 uv 重建（防御 partial restore 或残留目录），
+        #   确保不会保留上一次安装中已被移除/降级的包。
         # 无论是否命中，都把 VIRTUAL_ENV/PATH 写入 $GITHUB_ENV，
         # 让后续 "Run bot" 步骤的 `python` 指向 .venv/bin/python。
         run: |
@@ -165,6 +165,7 @@ jobs:
           if [ "${{ steps.cache-venv.outputs.cache-hit }}" = "true" ] && [ -x ".venv/bin/python" ]; then
             echo "venv cache hit; skipping install"
           else
+            rm -rf .venv
             python -m pip install --disable-pip-version-check --quiet uv
             python -m uv venv .venv
             python -m uv pip install --python .venv/bin/python -r requirements-bot.txt
