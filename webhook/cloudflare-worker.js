@@ -73,10 +73,15 @@ export default {
       return new Response(`Ignored action: ${payload.action}`, { status: 200 });
     }
 
-    // 对于 discussion_comment 事件，跳过 Bot 自身评论（含防重标记），防止无限循环
+    // 对于 discussion_comment 事件，仅在评论确认为 Bot 自身且含防重标记时跳过，防止无限循环
     if (eventType === "discussion_comment") {
       const commentBody = payload?.comment?.body || "";
-      if (commentBody.includes("<!-- csm-qa-bot -->")) {
+      const senderIsBot = payload?.sender?.type === "Bot";
+      const commentAuthorIsBot = payload?.comment?.user?.type === "Bot";
+      if (
+        commentBody.includes("<!-- csm-qa-bot -->") &&
+        (senderIsBot || commentAuthorIsBot)
+      ) {
         return new Response("Ignored: bot comment", { status: 200 });
       }
     }

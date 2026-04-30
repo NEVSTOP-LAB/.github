@@ -14,7 +14,7 @@ GitHub App Webhook  (event: discussion.created / discussion_comment.created)
     ▼
 Cloudflare Worker  (cloudflare-worker.js)
     │  1. 验签
-    │  2. 过滤 Bot 自身评论（含防重标记），防止无限循环
+    │  2. 过滤 Bot 自身评论（含防重标记且 sender/comment.user type 为 Bot），防止无限循环
     │  3. 用 App 私钥签 JWT
     │  4. 拿 installation access token
     │  5. POST /repos/<owner>/<repo>/dispatches
