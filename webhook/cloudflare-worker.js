@@ -3,9 +3,11 @@
  *
  * 工作流程
  * ────────
- * 1. 接收 GitHub App 推送的 webhook（事件订阅 `discussion`）。
+ * 1. 接收 GitHub App 推送的 webhook（事件订阅 `discussion` 与 `discussion_comment`）。
  * 2. 校验请求头 `X-Hub-Signature-256`（HMAC-SHA256，密钥 = WEBHOOK_SECRET）。
- * 3. 仅处理 `action == "created"` 的 discussion 事件，提取 `discussion.number`。
+ * 3. 仅处理 `action == "created"` 的 discussion / discussion_comment 事件，提取
+ *    `discussion.number`。discussion_comment 中含 Bot 防重标记的评论会被忽略以防止
+ *    无限循环。
  * 4. 用 GitHub App 的 App ID + 私钥（PKCS#8 PEM）签发 JWT
  *    → 调 `/repos/{owner}/{repo}/installation` 拿到 installation_id
  *    → 换取 installation access token。
@@ -49,12 +51,12 @@ export default {
       return new Response("Invalid signature", { status: 401 });
     }
 
-    // 3. 仅处理 discussion 事件
+    // 3. 仅处理 discussion 和 discussion_comment 事件
     const eventType = request.headers.get("x-github-event") || "";
     if (eventType === "ping") {
       return new Response("pong", { status: 200 });
     }
-    if (eventType !== "discussion") {
+    if (eventType !== "discussion" && eventType !== "discussion_comment") {
       return new Response(`Ignored event: ${eventType}`, { status: 200 });
     }
 
@@ -69,6 +71,14 @@ export default {
 
     if (payload.action !== "created") {
       return new Response(`Ignored action: ${payload.action}`, { status: 200 });
+    }
+
+    // 对于 discussion_comment 事件，跳过 Bot 自身评论（含防重标记），防止无限循环
+    if (eventType === "discussion_comment") {
+      const commentBody = payload?.comment?.body || "";
+      if (commentBody.includes("<!-- csm-qa-bot -->")) {
+        return new Response("Ignored: bot comment", { status: 200 });
+      }
     }
 
     const discussionNumber = payload?.discussion?.number;
