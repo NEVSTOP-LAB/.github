@@ -77,8 +77,14 @@ export default {
     }
 
     // 4. 取 installation token
-    const owner = env.REPO_OWNER || "NEVSTOP-LAB";
-    const repo = env.REPO_NAME || "CSM-QA-Robot";
+    const owner = env.REPO_OWNER;
+    const repo = env.REPO_NAME;
+    if (!owner || !repo) {
+      return new Response(
+        "Missing required env vars: REPO_OWNER and REPO_NAME must be configured",
+        { status: 500 },
+      );
+    }
 
     let installationToken;
     try {
