@@ -648,7 +648,7 @@ def _process_discussion_dict(
 
     plan = compute_reply_plan(discussion, bot_login=bot_login)
     if plan is None:
-        logger.info("Discussion #%d 已有 Bot 回复且无新追问，跳过", number)
+        logger.info("Discussion #%d 未生成回复计划，跳过", number)
         return False
 
     question, history = plan
