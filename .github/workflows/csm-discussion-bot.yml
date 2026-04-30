@@ -55,18 +55,50 @@ jobs:
         with:
           python-version: '3.11'
 
+      # 解析 CSM-QA-Robot 远程仓库当前 HEAD commit SHA，用于 venv 缓存 key。
+      # requirements-bot.txt 中的 csm_qa 依赖来自 git+https，未 pin 版本，
+      # 因此仅 hashFiles(requirements-bot.txt) 不足以区分上游变更。把上游 SHA
+      # 拼进 cache key，能在 CSM-QA-Robot 主线更新时自动让 venv 缓存失效，
+      # 避免"假命中"用到旧依赖。
+      - name: Resolve CSM-QA-Robot latest commit SHA
+        id: csmqa-sha
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          SLUG="NEVSTOP-LAB/CSM-QA-Robot"
+          REPO_API_URL="https://api.github.com/repos/${SLUG}"
+          DEFAULT_BRANCH=$(curl -fsSL \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            "$REPO_API_URL" | python -c "import sys,json; print(json.load(sys.stdin)['default_branch'])")
+          API_URL="https://api.github.com/repos/${SLUG}/commits/${DEFAULT_BRANCH}"
+          SHA=$(curl -fsSL \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            "$API_URL" | python -c "import sys,json; print(json.load(sys.stdin)['sha'])")
+          echo "CSM-QA-Robot ($SLUG) default branch: $DEFAULT_BRANCH, HEAD: $SHA"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+
       # 注意：使用 cache/restore + cache/save 的拆分写法，而不是 actions/cache@v4。
       # 原因：actions/cache@v4 的 post-save 仅在 job success 时执行；本 bot 早期
       # 失败（如配置不对）时缓存永远不会保存，导致下一次重跑仍然 miss，
       # 形成"永远命中不到"的死循环。拆开后用 if: always() 强制保存。
-      - name: Restore pip cache
-        id: cache-pip
+      #
+      # 缓存整个 .venv（已安装依赖的虚拟环境），命中时可完全跳过 pip install，
+      # 把 Install dependencies 从 ~60s 降到 ~秒级。key 包含：
+      #   - runner.os：跨平台环境不可复用
+      #   - python 版本（写死 3.11，与 setup-python 保持一致）
+      #   - hashFiles(requirements-bot.txt)：requirements 文件本身变更
+      #   - csmqa-sha：CSM-QA-Robot 上游 commit 变更
+      # 不配置 restore-keys：venv 是已安装包的最终产物，部分匹配会保留旧版本/已移除
+      # 的依赖，污染运行时环境。要么完全命中（key 精确匹配）跳过安装，要么彻底重建。
+      - name: Restore venv cache
+        id: cache-venv
         uses: actions/cache/restore@v4
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements-bot.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          path: .venv
+          key: ${{ runner.os }}-venv-py3.11-${{ hashFiles('requirements-bot.txt') }}-${{ steps.csmqa-sha.outputs.sha }}
 
       - name: Restore HuggingFace models cache
         id: cache-hf
@@ -123,16 +155,32 @@ jobs:
       - name: Install dependencies
         id: install-deps
         # 安装 csm_qa SDK（托管于 NEVSTOP-LAB/CSM-QA-Robot），仅保留 LLM+RAG 核心库。
-        run: pip install -r requirements-bot.txt
+        # - 精确命中（cache-hit == 'true'）时直接复用 .venv，跳过解析与安装；
+        # - 否则先 rm -rf .venv 再用 uv 重建（防御 partial restore 或残留目录），
+        #   确保不会保留上一次安装中已被移除/降级的包。
+        # 无论是否命中，都把 VIRTUAL_ENV/PATH 写入 $GITHUB_ENV，
+        # 让后续 "Run bot" 步骤的 `python` 指向 .venv/bin/python。
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.cache-venv.outputs.cache-hit }}" = "true" ] && [ -x ".venv/bin/python" ]; then
+            echo "venv cache hit; skipping install"
+          else
+            rm -rf .venv
+            python -m pip install --disable-pip-version-check --quiet uv
+            python -m uv venv .venv
+            python -m uv pip install --python .venv/bin/python -r requirements-bot.txt
+          fi
+          echo "VIRTUAL_ENV=$PWD/.venv" >> "$GITHUB_ENV"
+          echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
 
-      # pip 依赖已成功安装，立即保存 pip 缓存（独立于后续 bot 是否成功）。
-      # 仅在 install 步骤成功时保存，避免污染缓存为不完整状态。
-      - name: Save pip cache
-        if: always() && steps.install-deps.outcome == 'success' && steps.cache-pip.outputs.cache-hit != 'true'
+      # pip 依赖已成功安装，立即保存 venv 缓存（独立于后续 bot 是否成功）。
+      # 仅在 install 步骤成功且未命中时保存，避免污染缓存为不完整状态。
+      - name: Save venv cache
+        if: always() && steps.install-deps.outcome == 'success' && steps.cache-venv.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
-          path: ~/.cache/pip
-          key: ${{ steps.cache-pip.outputs.cache-primary-key }}
+          path: .venv
+          key: ${{ steps.cache-venv.outputs.cache-primary-key }}
 
       - name: Run bot (discussion event trigger)
         if: github.event_name == 'discussion' || (github.event_name == 'discussion_comment' && github.event.comment.user.type != 'bot')
