@@ -1,6 +1,6 @@
 # Star History
 
-_Last updated: 2026-04-28 17:01:09 UTC+8_  
+_Last updated: 2026-05-05 08:59:48 UTC+8_  
 _Total stars: 270_
 
 ## Star Growth Chart
@@ -8,7 +8,7 @@ _Total stars: 270_
 ```mermaid
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
-    x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-04"]
+    x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-05"]
     y-axis "Cumulative Stars" 0 --> 290
     line [1, 12, 26, 40, 56, 82, 114, 199, 236]
 ```
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-05-05 03:05:40+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [liumc](https://github.com/liumc) | ⭐ add |
 | 2026-04-28 13:18:39+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
 | 2026-04-28 11:24:58+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [chenshuihong](https://github.com/chenshuihong) | ⭐ add |
 | 2026-04-27 16:48:05+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [ahuang2023](https://github.com/ahuang2023) | ⭐ add |
@@ -68,7 +69,6 @@ xychart-beta
 | 2026-04-14 09:44:38+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [1992yangkun](https://github.com/1992yangkun) | ⭐ add |
 | 2026-04-14 09:22:10+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [langrenchangling](https://github.com/langrenchangling) | ⭐ add |
 | 2026-04-11 01:26:47+08:00 | [`LabVIEW-Version-Selector`](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector) | [matrixx567](https://github.com/matrixx567) | ⭐ add |
-| 2026-04-05 19:52:38+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [liumc](https://github.com/liumc) | ⭐ add |
 | 2026-03-21 02:01:42+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [Tang-WeiFeng](https://github.com/Tang-WeiFeng) | ⭐ add |
 | 2026-03-21 00:50:27+08:00 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | [FatUltraman](https://github.com/FatUltraman) | ⭐ add |
 | 2026-03-02 10:21:36+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [Foam123](https://github.com/Foam123) | ⭐ add |
