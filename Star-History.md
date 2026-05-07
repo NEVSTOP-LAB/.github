@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-05-05 08:59:48 UTC+8_  
-_Total stars: 270_
+_Last updated: 2026-05-07 17:05:44 UTC+8_  
+_Total stars: 271_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-05"]
     y-axis "Cumulative Stars" 0 --> 290
-    line [1, 12, 26, 40, 56, 82, 114, 199, 236]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 237]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -19,7 +19,7 @@ xychart-beta
 |:----:|:-----------|------:|
 | 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 53 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 39 |
-| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 17 |
+| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 18 |
 | 4 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
 | 5 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
 | 6 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-05-07 11:35:54+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [liutongxin2021](https://github.com/liutongxin2021) | ⭐ add |
 | 2026-05-05 03:05:40+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [liumc](https://github.com/liumc) | ⭐ add |
 | 2026-04-28 13:18:39+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
 | 2026-04-28 11:24:58+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [chenshuihong](https://github.com/chenshuihong) | ⭐ add |
