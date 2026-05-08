@@ -1,1 +1,1 @@
-git+https://github.com/NEVSTOP-LAB/CSM-QA-Robot.git
+csm-llm-qa>=0.1.0

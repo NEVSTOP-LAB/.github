@@ -55,31 +55,6 @@ jobs:
         with:
           python-version: '3.11'
 
-      # 解析 CSM-QA-Robot 远程仓库当前 HEAD commit SHA，用于 venv 缓存 key。
-      # requirements-bot.txt 中的 csm_qa 依赖来自 git+https，未 pin 版本，
-      # 因此仅 hashFiles(requirements-bot.txt) 不足以区分上游变更。把上游 SHA
-      # 拼进 cache key，能在 CSM-QA-Robot 主线更新时自动让 venv 缓存失效，
-      # 避免"假命中"用到旧依赖。
-      - name: Resolve CSM-QA-Robot latest commit SHA
-        id: csmqa-sha
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          SLUG="NEVSTOP-LAB/CSM-QA-Robot"
-          REPO_API_URL="https://api.github.com/repos/${SLUG}"
-          DEFAULT_BRANCH=$(curl -fsSL \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            "$REPO_API_URL" | python -c "import sys,json; print(json.load(sys.stdin)['default_branch'])")
-          API_URL="https://api.github.com/repos/${SLUG}/commits/${DEFAULT_BRANCH}"
-          SHA=$(curl -fsSL \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            "$API_URL" | python -c "import sys,json; print(json.load(sys.stdin)['sha'])")
-          echo "CSM-QA-Robot ($SLUG) default branch: $DEFAULT_BRANCH, HEAD: $SHA"
-          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
-
       # 注意：使用 cache/restore + cache/save 的拆分写法，而不是 actions/cache@v4。
       # 原因：actions/cache@v4 的 post-save 仅在 job success 时执行；本 bot 早期
       # 失败（如配置不对）时缓存永远不会保存，导致下一次重跑仍然 miss，
@@ -89,8 +64,7 @@ jobs:
       # 把 Install dependencies 从 ~60s 降到 ~秒级。key 包含：
       #   - runner.os：跨平台环境不可复用
       #   - python 版本（写死 3.11，与 setup-python 保持一致）
-      #   - hashFiles(requirements-bot.txt)：requirements 文件本身变更
-      #   - csmqa-sha：CSM-QA-Robot 上游 commit 变更
+      #   - hashFiles(requirements-bot.txt)：requirements 文件变更时自动失效
       # 不配置 restore-keys：venv 是已安装包的最终产物，部分匹配会保留旧版本/已移除
       # 的依赖，污染运行时环境。要么完全命中（key 精确匹配）跳过安装，要么彻底重建。
       - name: Restore venv cache
@@ -98,7 +72,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .venv
-          key: ${{ runner.os }}-venv-py3.11-${{ hashFiles('requirements-bot.txt') }}-${{ steps.csmqa-sha.outputs.sha }}
+          key: ${{ runner.os }}-venv-py3.11-${{ hashFiles('requirements-bot.txt') }}
 
       - name: Restore HuggingFace models cache
         id: cache-hf
