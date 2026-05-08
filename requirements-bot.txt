@@ -1,1 +1,1 @@
-csm-llm-qa>=0.1.0
+csm-llm-qa==0.1.0
