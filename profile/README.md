@@ -5,6 +5,10 @@
 [![org_stars](https://shields.io/github/stars/NEVSTOP-LAB)](https://github.com/orgs/NEVSTOP-LAB/repositories?q=sort%3Astars)
 [![org_followers](https://img.shields.io/github/followers/NEVSTOP-LAB)](https://github.com/orgs/NEVSTOP-LAB/followers)
 
+- [NEVSTOP-LAB@VIPM](https://www.vipm.io/publisher/nevstop/)：LabVIEW 包管理平台，使用 VIPM 安装
+- [NEVSTOP-LAB@PyPI](https://pypi.org/user/NEVSTOP-LAB/): Python 包管理平台，使用`PIP`指令安装
+- [NEVSTOP-LAB@marketplace.visualstudio](https://marketplace.visualstudio.com/publishers/NEVSTOP-LAB): Microsoft Marketplace, VSCode/Visual Studio 等插件发布平台
+
 > [!NOTE]
 > **CSM Framework 目标是成长为一个多语言支持的测试系统基础框架**
 > 1. LabVEIW CSM Framework 作为基础长期维护，并拓展到 C#, python 等 <br/>
