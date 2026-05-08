@@ -48,7 +48,7 @@ _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-from csm_qa import CSM_QA  # noqa: E402
+from csm_llm_qa import CSM_QA  # noqa: E402
 
 logger = logging.getLogger("discussion_bot")
 
