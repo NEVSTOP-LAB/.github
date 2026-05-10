@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-05-07 17:05:44 UTC+8_  
-_Total stars: 271_
+_Last updated: 2026-05-10 15:46:01 UTC+8_  
+_Total stars: 273_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-05"]
     y-axis "Cumulative Stars" 0 --> 290
-    line [1, 12, 26, 40, 56, 82, 114, 199, 237]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 239]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -22,11 +22,11 @@ xychart-beta
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 18 |
 | 4 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
 | 5 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
-| 6 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
-| 7 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 10 |
-| 8 | [`CSM-Wiki`](https://github.com/NEVSTOP-LAB/CSM-Wiki) | 9 |
-| 9 | [`NEVSTOP-Programming-Palette`](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette) | 8 |
-| 10 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 8 |
+| 6 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
+| 7 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
+| 8 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 9 |
+| 9 | [`CSM-Wiki`](https://github.com/NEVSTOP-LAB/CSM-Wiki) | 9 |
+| 10 | [`NEVSTOP-Programming-Palette`](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette) | 8 |
 
 ## Top 10 Users by Stars Given
 
@@ -39,14 +39,16 @@ xychart-beta
 | 5 | [shennnw](https://github.com/shennnw) | 9 |
 | 6 | [chenwm](https://github.com/chenwm) | 8 |
 | 7 | [junyang0412](https://github.com/junyang0412) | 8 |
-| 8 | [SallyTYT](https://github.com/SallyTYT) | 5 |
-| 9 | [huipeng8](https://github.com/huipeng8) | 4 |
-| 10 | [philippe-nuaa](https://github.com/philippe-nuaa) | 4 |
+| 8 | [eastcheng1024](https://github.com/eastcheng1024) | 5 |
+| 9 | [SallyTYT](https://github.com/SallyTYT) | 5 |
+| 10 | [huipeng8](https://github.com/huipeng8) | 4 |
 
 ## Star Log
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-05-10 12:55:42+08:00 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | [eastcheng1024](https://github.com/eastcheng1024) | ⭐ add |
+| 2026-05-10 11:18:21+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [eastcheng1024](https://github.com/eastcheng1024) | ⭐ add |
 | 2026-05-07 11:35:54+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [liutongxin2021](https://github.com/liutongxin2021) | ⭐ add |
 | 2026-05-05 03:05:40+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [liumc](https://github.com/liumc) | ⭐ add |
 | 2026-04-28 13:18:39+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
