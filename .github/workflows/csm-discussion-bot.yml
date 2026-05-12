@@ -85,7 +85,7 @@ jobs:
 
       # 解析 csm-wiki 远程仓库当前 HEAD commit SHA，用于 vector store 缓存 key。
       # 必须在 actions/cache 之前执行，否则 cache key 会与实际 wiki 内容脱节，
-      # 导致每次都重建 RAG（参见 csm_qa/wiki_updater.py 中的 commit 比对逻辑）。
+      # 导致每次都重建 RAG（参见 csm_llm_qa/wiki_updater.py 中的 commit 比对逻辑）。
       - name: Resolve csm-wiki latest commit SHA
         id: wiki-sha
         env:
@@ -98,7 +98,7 @@ jobs:
           # 形如 https://github.com/NEVSTOP-LAB/CSM-Wiki(.git)? → owner/repo
           SLUG=$(echo "$REPO_URL" | sed -E 's#^https?://github\.com/([^/]+/[^/]+?)(\.git)?/?$#\1#')
           # 不要硬编码分支名：先查询仓库 default_branch，与
-          # csm_qa/wiki_updater.fetch_latest_commit_id 的 main→master 兜底保持一致
+          # csm_llm_qa/wiki_updater.fetch_latest_commit_id 的 main→master 兜底保持一致
           REPO_API_URL="https://api.github.com/repos/${SLUG}"
           DEFAULT_BRANCH=$(curl -fsSL \
             -H "Accept: application/vnd.github.v3+json" \
@@ -119,7 +119,7 @@ jobs:
           # 同时缓存 wiki_source.json 与 wiki 克隆目录，
           # 使得 check_and_update_wiki 在缓存命中后能识别"已是最新"并跳过重建。
           path: |
-            .csm_qa/vector_store
+            .csm_llm_qa/vector_store
             csm-wiki/wiki_source.json
             csm-wiki/remote
           key: ${{ runner.os }}-vectorstore-${{ steps.wiki-sha.outputs.sha }}
@@ -128,7 +128,7 @@ jobs:
 
       - name: Install dependencies
         id: install-deps
-        # 安装 csm_qa SDK（托管于 NEVSTOP-LAB/CSM-QA-Robot），仅保留 LLM+RAG 核心库。
+        # 安装 csm_llm_qa SDK（托管于 NEVSTOP-LAB/CSM-QA-Robot），仅保留 LLM+RAG 核心库。
         # - 精确命中（cache-hit == 'true'）时直接复用 .venv，跳过解析与安装；
         # - 否则先 rm -rf .venv 再用 uv 重建（防御 partial restore 或残留目录），
         #   确保不会保留上一次安装中已被移除/降级的包。
@@ -224,11 +224,11 @@ jobs:
         id: check-vs-populated
         if: always() && steps.cache-vs.outputs.cache-hit != 'true'
         run: |
-          if [ -d ".csm_qa/vector_store" ] && [ -n "$(ls -A .csm_qa/vector_store 2>/dev/null)" ]; then
+          if [ -d ".csm_llm_qa/vector_store" ] && [ -n "$(ls -A .csm_llm_qa/vector_store 2>/dev/null)" ]; then
             echo "populated=true" >> "$GITHUB_OUTPUT"
           else
             echo "populated=false" >> "$GITHUB_OUTPUT"
-            echo "Skipping vector store cache save: .csm_qa/vector_store missing or empty"
+            echo "Skipping vector store cache save: .csm_llm_qa/vector_store missing or empty"
           fi
 
       - name: Save vector store cache
@@ -236,7 +236,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: |
-            .csm_qa/vector_store
+            .csm_llm_qa/vector_store
             csm-wiki/wiki_source.json
             csm-wiki/remote
           key: ${{ steps.cache-vs.outputs.cache-primary-key }}
