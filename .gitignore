@@ -1,6 +1,6 @@
 __pycache__/
 *.py[cod]
 
-# Discussion bot runtime artifacts (populated by csm_qa during workflow runs)
-.csm_qa/
+# Discussion bot runtime artifacts (populated by csm_llm_qa during workflow runs)
+.csm_llm_qa/
 csm-wiki/remote/
