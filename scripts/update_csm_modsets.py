@@ -154,8 +154,15 @@ def generate_csm_modsets_md(groups: dict[str, list[dict]], updated_at: str) -> s
         # count changes.  GitHub Markdown preserves id attributes on <a> tags.
         lines.append(f'## <a id="{owner}"></a>[{owner}](https://github.com/{owner}) ({count})')
         lines.append("")
+        lines.append("| 仓库 | ⭐ | 描述 |")
+        lines.append("|------|:---:|------|")
         for repo in repos:
-            lines.append(_repo_line_md(repo))
+            name = repo["name"]
+            url = repo["html_url"]
+            desc = (repo.get("description") or "").replace("|", "\\|")
+            stars = repo["stargazers_count"]
+            star_str = str(stars) if stars > 0 else ""
+            lines.append(f"| [{name}]({url}) | {star_str} | {desc} |")
         lines.append("")
 
     return "\n".join(lines)
