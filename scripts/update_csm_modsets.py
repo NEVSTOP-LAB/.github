@@ -226,10 +226,9 @@ def update_readme(readme_path: str, pre_content: str) -> bool:
     if pattern.search(content):
         new_content = pattern.sub(new_block, content)
     else:
-        # Insert before the trailing HTML comment block (if present) or append.
-        trailing_comment = re.search(r"\n<!--\s*\n", content)
-        if trailing_comment:
-            pos = trailing_comment.start()
+        # Insert before the last HTML comment block (if present) or append.
+        pos = content.rfind("\n<!--")
+        if pos != -1:
             new_content = content[:pos] + "\n\n" + new_block + "\n" + content[pos:]
         else:
             new_content = content.rstrip() + "\n\n" + new_block + "\n"
