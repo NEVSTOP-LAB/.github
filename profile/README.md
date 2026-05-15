@@ -104,6 +104,15 @@
 [`transformer(2)`](https://github.com/search?q=topic:transformer%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`utilites(2)`](https://github.com/search?q=topic:utilites%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 
+🔌 **CSM Modsets Repositories**
+------------------------------
+
+<!-- CSM_MODSETS_START -->
+<pre>
+（每日自动更新，首次运行后内容将显示在此处）
+</pre>
+<!-- CSM_MODSETS_END -->
+
 <!--
 
 **Here are some ideas to get you started:**
