@@ -14,6 +14,7 @@ Environment variables:
     CSM_MODSETS_URL   – override full URL prefix for csm-modsets.md (takes precedence)
 """
 
+import html
 import os
 import re
 import sys
@@ -68,9 +69,16 @@ def _get_with_retry(url: str, params: dict | None = None, max_retries: int = 3) 
 
 
 def fetch_repos_with_topic(topic: str) -> list[dict]:
-    """Return all public repos that carry *topic* (paginated, up to API limits)."""
+    """Return all public repos that carry *topic* (paginated, up to API limits).
+
+    Note: The GitHub Search API caps results at 1,000. If the topic has more than
+    1,000 public repositories only the first 1,000 will be returned and a warning
+    is printed to stderr.
+    """
+    SEARCH_API_MAX = 1000
     repos: list[dict] = []
     page = 1
+    total_count: int = 0
     while True:
         data = _get_with_retry(
             f"{GITHUB_API}/search/repositories",
@@ -78,13 +86,19 @@ def fetch_repos_with_topic(topic: str) -> list[dict]:
         )
         items: list[dict] = data.get("items", [])
         repos.extend(items)
-        total_count: int = data.get("total_count", 0)
+        total_count = data.get("total_count", 0)
         print(f"  Fetched page {page}: {len(items)} repos (total so far: {len(repos)}/{total_count})")
-        if len(repos) >= total_count or len(items) < 100:
+        if len(repos) >= total_count or len(items) < 100 or len(repos) >= SEARCH_API_MAX:
             break
         page += 1
         # Respect GitHub Search API secondary rate limits
         time.sleep(1)
+    if total_count > SEARCH_API_MAX:
+        print(
+            f"  WARNING: total_count={total_count} exceeds the GitHub Search API limit of "
+            f"{SEARCH_API_MAX} results. Only the first {SEARCH_API_MAX} repositories will be fetched.",
+            file=sys.stderr,
+        )
     return repos
 
 
@@ -157,7 +171,7 @@ def _csm_modsets_full_url(modsets_md_path: str) -> str:
     repo = os.environ.get("GITHUB_REPOSITORY")
     if repo:
         server = os.environ.get("GITHUB_SERVER_URL", "https://github.com").rstrip("/")
-        return f"{server}/{repo}/blob/main/{modsets_md_path}"
+        return f"{server}/{repo}/blob/HEAD/{modsets_md_path}"
 
     # Fall back to a relative path (works for local testing)
     return modsets_md_path
@@ -177,19 +191,21 @@ def generate_readme_pre_content(
         has_more = total > MAX_PER_OWNER_IN_README
 
         # Owner heading line
-        html_lines.append(f'<a href="https://github.com/{owner}">{owner}</a> ({total})')
+        html_lines.append(
+            f'<a href="https://github.com/{html.escape(owner)}">{html.escape(owner)}</a> ({total})'
+        )
 
         for repo in display:
-            name = repo["name"]
-            url = repo["html_url"]
-            desc = repo.get("description") or ""
+            name = html.escape(repo["name"])
+            url = html.escape(repo["html_url"])
+            desc = html.escape(repo.get("description") or "")
             stars = repo["stargazers_count"]
             star_str = f" ⭐{stars}" if stars > 0 else ""
             desc_str = f" {desc}" if desc else ""
             html_lines.append(f'  <a href="{url}">{name}</a>{star_str}{desc_str}')
 
         if has_more:
-            anchor_url = f"{base_url}#{owner}"
+            anchor_url = html.escape(f"{base_url}#{owner}")
             html_lines.append(f'  <a href="{anchor_url}">更多请查看 csm-modsets.md</a>')
 
         html_lines.append("")
