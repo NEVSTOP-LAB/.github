@@ -109,13 +109,11 @@
 
 <!-- CSM_MODSETS_START -->
 <pre>
-<a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (11)
+<a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (4)
   <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐18 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
   <a href="https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App">CSM-TCP-Router-App</a> ⭐8 Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server.
   <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync">CSM-ModSets-FileSync</a> ⭐4 基于 CSM 的文件同步模块
-  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-DAQmx">CSM-ModSets-DAQmx</a> ⭐1 基于 CSM（可通信状态机） 框架的 NI-DAQmx 采集模块
-  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI">CSM-ModSets-TagDB-UI</a> CSM 模块：围绕 TagDB 显示的 UI
-  <a href="https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md#NEVSTOP-LAB">更多请查看 csm-modsets.md</a>
+  <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow">CSM-Modsets-ScheduledCmdWindow</a> CSM模块：计划命令窗口
 </pre>
 <!-- CSM_MODSETS_END -->
 
