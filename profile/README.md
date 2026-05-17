@@ -107,7 +107,7 @@
 [`typescript(2)`](https://github.com/search?q=topic:typescript%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`utilites(2)`](https://github.com/search?q=topic:utilites%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 
-🔌 **CSM Modsets Repositories**
+🔌 [**CSM Modsets Repositories**](https://github.com/NEVSTOP-LAB/.github/blob/main/csm-modsets.md)
 ------------------------------
 
 <!-- CSM_MODSETS_START -->
