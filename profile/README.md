@@ -109,10 +109,11 @@
 
 <!-- CSM_MODSETS_START -->
 <pre>
-<a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (4)
+<a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (5)
   <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐19 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
   <a href="https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App">CSM-TCP-Router-App</a> ⭐8 Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server.
   <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync">CSM-ModSets-FileSync</a> ⭐4 基于 CSM 的文件同步模块
+  <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay">CSM-Modsets-WaveformDisplay</a> CSM 模块: 显示 Waveform
   <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow">CSM-Modsets-ScheduledCmdWindow</a> CSM模块：计划命令窗口
 </pre>
 <!-- CSM_MODSETS_END -->
