@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-05-19 17:25:00 UTC+8_  
-_Total stars: 275_
+_Last updated: 2026-05-21 19:30:33 UTC+8_  
+_Total stars: 276_
 
 ## Star Growth Chart
 
@@ -9,8 +9,8 @@ _Total stars: 275_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-05"]
-    y-axis "Cumulative Stars" 0 --> 290
-    line [1, 12, 26, 40, 56, 82, 114, 199, 241]
+    y-axis "Cumulative Stars" 0 --> 300
+    line [1, 12, 26, 40, 56, 82, 114, 199, 242]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-05-21 17:25:08+08:00 | [`CSM-ModSets-SplashWindow`](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | [degent007](https://github.com/degent007) | ⭐ add |
 | 2026-05-19 15:24:31+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [fergusLib](https://github.com/fergusLib) | ⭐ add |
 | 2026-05-16 10:52:09+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [ZhangJingWa](https://github.com/ZhangJingWa) | ⭐ add |
 | 2026-05-10 12:55:42+08:00 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | [eastcheng1024](https://github.com/eastcheng1024) | ⭐ add |
