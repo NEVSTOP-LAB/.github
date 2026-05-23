@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-05-23 00:54:34 UTC+8_  
-_Total stars: 283_
+_Last updated: 2026-05-23 16:51:39 UTC+8_  
+_Total stars: 284_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-05"]
     y-axis "Cumulative Stars" 0 --> 300
-    line [1, 12, 26, 40, 56, 82, 114, 199, 245]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 246]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -19,7 +19,7 @@ xychart-beta
 |:----:|:-----------|------:|
 | 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 54 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 39 |
-| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 19 |
+| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 20 |
 | 4 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
 | 5 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
 | 6 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-05-23 11:28:38+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [ZhaoLi-an](https://github.com/ZhaoLi-an) | ⭐ add |
 | 2026-05-22 00:04:56+08:00 | [`CSM-ModSets-SplashWindow`](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | [wulei2LabVIEW](https://github.com/wulei2LabVIEW) | ⭐ add |
 | 2026-05-22 00:04:21+08:00 | [`LabVIEW-TagDB-RefMgr`](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB-RefMgr) | [wulei2LabVIEW](https://github.com/wulei2LabVIEW) | ⭐ add |
 | 2026-05-22 00:02:43+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [wulei2LabVIEW](https://github.com/wulei2LabVIEW) | ⭐ add |
