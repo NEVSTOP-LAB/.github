@@ -1,10 +1,10 @@
 # CSM Modsets Repositories
 
-> 自动生成，最后更新时间：2026-05-25 03:18 UTC
+> 自动生成，最后更新时间：2026-05-26 03:16 UTC
 
 所有公开的、主题（topic）为 [`csm-modsets`](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) 的仓库列表。
 
-## <a id="NEVSTOP-LAB"></a>[NEVSTOP-LAB](https://github.com/NEVSTOP-LAB) (7)
+## <a id="NEVSTOP-LAB"></a>[NEVSTOP-LAB](https://github.com/NEVSTOP-LAB) (8)
 
 | 仓库 | ⭐ | 描述 |
 |------|:---:|------|
@@ -14,6 +14,7 @@
 | [CSM-ModSets-SplashWindow](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | 3 | CSM Module: Splash Window |
 | [CSM-Modsets-WaveformDisplay](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | 2 | CSM 模块: 显示 Waveform |
 | [CSM-ModSets-TagRouter](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | 1 | CSM Module: Waveform 转 TagDB 模块 |
+| [CSM-Module-Repo-Template](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) |  | 基于 CSM（可通信状态机） 框架的模块仓库模板 |
 | [CSM-Modsets-ScheduledCmdWindow](https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow) |  | CSM模块：计划命令窗口 |
 
 ## <a id="nevstop"></a>[nevstop](https://github.com/nevstop) (1)
