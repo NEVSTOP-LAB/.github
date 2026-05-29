@@ -1,6 +1,6 @@
 # CSM Modsets Repositories
 
-> 自动生成，最后更新时间：2026-05-28 03:18 UTC
+> 自动生成，最后更新时间：2026-05-29 03:17 UTC
 
 所有公开的、主题（topic）为 [`csm-modsets`](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) 的仓库列表。
 
@@ -17,8 +17,9 @@
 | [CSM-Module-Repo-Template](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) |  | 基于 CSM（可通信状态机） 框架的模块仓库模板 |
 | [CSM-Modsets-ScheduledCmdWindow](https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow) |  | CSM模块：计划命令窗口 |
 
-## <a id="nevstop"></a>[nevstop](https://github.com/nevstop) (1)
+## <a id="nevstop"></a>[nevstop](https://github.com/nevstop) (2)
 
 | 仓库 | ⭐ | 描述 |
 |------|:---:|------|
 | [CSM-Modsets-SimWaveform](https://github.com/nevstop/CSM-Modsets-SimWaveform) | 2 | CSM Module: 模拟波形 |
+| [CSM-Utils](https://github.com/nevstop/CSM-Utils) |  | 复用VI，还未被纳入到CSM的安装包中 |

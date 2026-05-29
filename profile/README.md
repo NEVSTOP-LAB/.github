@@ -117,8 +117,9 @@
   <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay">CSM-Modsets-WaveformDisplay</a> ⭐2 CSM 模块: 显示 Waveform
   <a href="https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md#NEVSTOP-LAB">更多请查看 csm-modsets.md</a>
 
-<a href="https://github.com/nevstop">nevstop</a> (1)
+<a href="https://github.com/nevstop">nevstop</a> (2)
   <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐2 CSM Module: 模拟波形
+  <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> 复用VI，还未被纳入到CSM的安装包中
 </pre>
 <!-- CSM_MODSETS_END -->
 
