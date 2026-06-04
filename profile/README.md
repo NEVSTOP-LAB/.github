@@ -120,7 +120,7 @@
 
 <a href="https://github.com/nevstop">nevstop</a> (2)
   <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐2 CSM Module: 模拟波形
-  <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> 复用VI，还未被纳入到CSM的安装包中
+  <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐1 复用VI，还未被纳入到CSM的安装包中
 </pre>
 <!-- CSM_MODSETS_END -->
 
