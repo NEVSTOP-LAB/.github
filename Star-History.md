@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-01 18:01:51 UTC+8_  
-_Total stars: 289_
+_Last updated: 2026-06-08 17:48:40 UTC+8_  
+_Total stars: 290_
 
 ## Star Growth Chart
 
@@ -9,8 +9,8 @@ _Total stars: 289_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
-    y-axis "Cumulative Stars" 0 --> 300
-    line [1, 12, 26, 40, 56, 82, 114, 199, 250]
+    y-axis "Cumulative Stars" 0 --> 310
+    line [1, 12, 26, 40, 56, 82, 114, 199, 251]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -34,7 +34,7 @@ xychart-beta
 |:----:|:-----|------------:|
 | 1 | [DK-666-6](https://github.com/DK-666-6) | 14 |
 | 2 | [hanzihua123](https://github.com/hanzihua123) | 13 |
-| 3 | [ghwang-Harries](https://github.com/ghwang-Harries) | 11 |
+| 3 | [ghwang-Harries](https://github.com/ghwang-Harries) | 12 |
 | 4 | [wyxfhb](https://github.com/wyxfhb) | 9 |
 | 5 | [shennnw](https://github.com/shennnw) | 9 |
 | 6 | [chenwm](https://github.com/chenwm) | 8 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-08 10:21:19+08:00 | [`csm-community-example`](https://github.com/NEVSTOP-LAB/csm-community-example) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
 | 2026-06-01 17:40:09+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [WZW-1234](https://github.com/WZW-1234) | ⭐ add |
 | 2026-05-30 08:12:15+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [leonhu1314](https://github.com/leonhu1314) | ⭐ add |
 | 2026-05-26 17:09:05+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [darren2023](https://github.com/darren2023) | ⭐ add |
