@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-09 15:14:51 UTC+8_  
-_Total stars: 295_
+_Last updated: 2026-06-10 01:04:48 UTC+8_  
+_Total stars: 296_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
     y-axis "Cumulative Stars" 0 --> 310
-    line [1, 12, 26, 40, 56, 82, 114, 199, 256]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 257]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -39,14 +39,15 @@ xychart-beta
 | 5 | [shennnw](https://github.com/shennnw) | 9 |
 | 6 | [chenwm](https://github.com/chenwm) | 8 |
 | 7 | [junyang0412](https://github.com/junyang0412) | 8 |
-| 8 | [eastcheng1024](https://github.com/eastcheng1024) | 5 |
-| 9 | [SallyTYT](https://github.com/SallyTYT) | 5 |
-| 10 | [LiXinxing77](https://github.com/LiXinxing77) | 4 |
+| 8 | [LiXinxing77](https://github.com/LiXinxing77) | 5 |
+| 9 | [eastcheng1024](https://github.com/eastcheng1024) | 5 |
+| 10 | [SallyTYT](https://github.com/SallyTYT) | 5 |
 
 ## Star Log
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-09 20:37:31+08:00 | [`CSM-ModSets-SplashWindow`](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | [LiXinxing77](https://github.com/LiXinxing77) | ⭐ add |
 | 2026-06-09 12:24:35+08:00 | [`CSM-ModSets-TagRouter`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | [LiXinxing77](https://github.com/LiXinxing77) | ⭐ add |
 | 2026-06-09 12:24:35+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [LiXinxing77](https://github.com/LiXinxing77) | ⭐ add |
 | 2026-06-09 12:24:34+08:00 | [`CSM-ModSets-TagDB-UI`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | [LiXinxing77](https://github.com/LiXinxing77) | ⭐ add |
