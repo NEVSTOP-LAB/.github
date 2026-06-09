@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-08 17:48:40 UTC+8_  
-_Total stars: 290_
+_Last updated: 2026-06-09 09:10:41 UTC+8_  
+_Total stars: 292_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
     y-axis "Cumulative Stars" 0 --> 310
-    line [1, 12, 26, 40, 56, 82, 114, 199, 251]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 253]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,8 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-09 08:56:59+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [Nil-Nov](https://github.com/Nil-Nov) | ⭐ add |
+| 2026-06-09 08:56:56+08:00 | [`CSM-ModSets-TagRouter`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | [Nil-Nov](https://github.com/Nil-Nov) | ⭐ add |
 | 2026-06-08 10:21:19+08:00 | [`csm-community-example`](https://github.com/NEVSTOP-LAB/csm-community-example) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
 | 2026-06-01 17:40:09+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [WZW-1234](https://github.com/WZW-1234) | ⭐ add |
 | 2026-05-30 08:12:15+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [leonhu1314](https://github.com/leonhu1314) | ⭐ add |
