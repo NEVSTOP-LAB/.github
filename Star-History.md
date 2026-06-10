@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-10 10:48:55 UTC+8_  
-_Total stars: 299_
+_Last updated: 2026-06-10 17:27:40 UTC+8_  
+_Total stars: 300_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
     y-axis "Cumulative Stars" 0 --> 320
-    line [1, 12, 26, 40, 56, 82, 114, 199, 260]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 261]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -32,7 +32,7 @@ xychart-beta
 
 | Rank | User | Stars Given |
 |:----:|:-----|------------:|
-| 1 | [ghwang-Harries](https://github.com/ghwang-Harries) | 15 |
+| 1 | [ghwang-Harries](https://github.com/ghwang-Harries) | 16 |
 | 2 | [DK-666-6](https://github.com/DK-666-6) | 14 |
 | 3 | [hanzihua123](https://github.com/hanzihua123) | 13 |
 | 4 | [wyxfhb](https://github.com/wyxfhb) | 9 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-10 13:08:26+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
 | 2026-06-10 10:12:24+08:00 | [`CSM-ModSets-TagDB-UI`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
 | 2026-06-10 10:10:29+08:00 | [`CSM-ModSets-SplashWindow`](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
 | 2026-06-10 08:34:27+08:00 | [`CSM-Modsets-ScheduledCmdWindow`](https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
