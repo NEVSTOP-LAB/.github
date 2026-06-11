@@ -759,17 +759,14 @@ def main(argv: Optional[list[str]] = None) -> int:
     _configure_logging()
     args = parse_args(argv)
 
-    token = os.environ.get("CSM_QA_GH_TOKEN", "")
-    if not token:
-        logger.error("CSM_QA_GH_TOKEN 未配置")
-        return 1
-
     logger.info(
-        "Router 启动: discussion=%d author=%s category=%s dry_run=%s",
+        "Router 启动: discussion=%d author=%s category=%s dry_run=%s classify_only=%s intent=%s",
         args.discussion_number,
         args.comment_author,
         args.category_name,
         args.dry_run,
+        args.classify_only,
+        args.intent,
     )
 
     # ── 解析意图 ─────────────────────────────────────────────────────────
@@ -806,10 +803,17 @@ def main(argv: Optional[list[str]] = None) -> int:
                 logger.info("空内容 + 非 Q&A + discussion.created → 跳过（不回复）")
                 return 0
 
-    # 3. --classify-only：仅输出意图供 workflow 捕获
+    # 3. --classify-only：仅输出意图供 workflow 捕获（无需 token）
     if args.classify_only:
         print(intent)
         return 0
+
+    # ── 后续操作需要 token ────────────────────────────────────────────
+
+    token = os.environ.get("CSM_QA_GH_TOKEN", "")
+    if not token:
+        logger.error("CSM_QA_GH_TOKEN 未配置")
+        return 1
 
     # ── 按意图分派 ───────────────────────────────────────────────────────
     if intent == "JOIN":
