@@ -651,6 +651,12 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
         default=False,
         help="只打印不发布评论",
     )
+    parser.add_argument(
+        "--event-type",
+        type=str,
+        default="",
+        help="GitHub 事件类型（discussion / discussion_comment）",
+    )
     return parser.parse_args(argv)
 
 
@@ -674,6 +680,15 @@ def main(argv: Optional[list[str]] = None) -> int:
     # 1. LLM 意图分类
     intent = classify_intent(args.comment_body)
     logger.info("意图分类: %s", intent)
+
+    # 1b. 空评论的特殊处理：discussion.created 事件无评论、但标题/正文可能是 QA
+    if not args.comment_body.strip() and args.event_type == "discussion":
+        if args.category_name == QA_CATEGORY_NAME:
+            logger.info("空评论 + Q&A 分类 + discussion.created → 按 QA 处理")
+            intent = "QA"
+        else:
+            logger.info("空评论 + 非 Q&A + discussion.created → 跳过（不回复）")
+            return 0
 
     # 2. 按意图分派
     if intent == "JOIN":

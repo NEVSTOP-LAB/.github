@@ -136,6 +136,7 @@ export default {
             comment_body: commentBody,
             comment_author: commentAuthor,
             category_name: categoryName,
+            event_type: eventType,
             source: "webhook",
           },
         }),

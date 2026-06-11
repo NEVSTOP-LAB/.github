@@ -48,8 +48,34 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Restore venv cache
+        id: cache-venv
+        uses: actions/cache/restore@v4
+        with:
+          path: .venv
+          key: ${{ runner.os }}-venv-py3.11-${{ hashFiles('requirements-bot.txt') }}
+
       - name: Install dependencies
-        run: pip install -r requirements-bot.txt
+        id: install-deps
+        run: |
+          set -euo pipefail
+          if [ "${{ steps.cache-venv.outputs.cache-hit }}" = "true" ] && [ -x ".venv/bin/python" ]; then
+            echo "venv cache hit; skipping install"
+          else
+            rm -rf .venv
+            python -m pip install --disable-pip-version-check --quiet uv
+            python -m uv venv .venv
+            python -m uv pip install --python .venv/bin/python -r requirements-bot.txt
+          fi
+          echo "VIRTUAL_ENV=$PWD/.venv" >> "$GITHUB_ENV"
+          echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+
+      - name: Save venv cache
+        if: always() && steps.install-deps.outcome == 'success' && steps.cache-venv.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .venv
+          key: ${{ steps.cache-venv.outputs.cache-primary-key }}
 
       - name: Run tests
         run: python -m pytest tests/test_router.py -v || true
@@ -59,6 +85,7 @@ jobs:
           CSM_QA_GH_TOKEN: ${{ secrets.CSM_QA_GH_TOKEN }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          DISCUSSION_SOURCE_REPO: ${{ github.repository_owner }}/.github
           JOIN_FOLLOW_ORG: ${{ vars.JOIN_FOLLOW_ORG || 'NEVSTOP-LAB' }}
           JOIN_STAR_REPOS: ${{ vars.JOIN_STAR_REPOS || 'csm-core,API String,MassData,INIVariable' }}
         run: |
@@ -67,4 +94,5 @@ jobs:
             --comment-body "${{ github.event.client_payload.comment_body || github.event.inputs.comment_body || '' }}" \
             --comment-author "${{ github.event.client_payload.comment_author || github.event.inputs.comment_author || '' }}" \
             --category-name "${{ github.event.client_payload.category_name || github.event.inputs.category_name || '' }}" \
+            --event-type "${{ github.event.client_payload.event_type || '' }}" \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
