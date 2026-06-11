@@ -17,6 +17,7 @@ from scripts.router import (
     classify_intent,
     _fallback_classify,
     build_condition_report,
+    _is_org_member,
     JOIN_FOLLOW_ORG,
     JOIN_STAR_REPOS,
 )
@@ -255,3 +256,34 @@ def test_join_defaults():
     assert JOIN_FOLLOW_ORG == os.getenv("JOIN_FOLLOW_ORG", "NEVSTOP-LAB")
     assert len(JOIN_STAR_REPOS) >= 4
     assert "Communicable-State-Machine" in JOIN_STAR_REPOS
+
+
+# ── _is_org_member ────────────────────────────────────────────────────────────
+
+
+class TestIsOrgMember:
+    def test_is_member(self, monkeypatch):
+        def mock_rest(token, method, path):
+            m = MagicMock()
+            m.status = 204
+            return m
+
+        monkeypatch.setattr("scripts.router._rest_req", mock_rest)
+
+        from scripts.router import _is_org_member
+
+        assert _is_org_member("fake-token", "NEVSTOP-LAB", "testuser") is True
+
+    def test_not_member(self, monkeypatch):
+        import urllib.error
+
+        def mock_rest(token, method, path):
+            raise urllib.error.HTTPError(
+                url=path, code=404, msg="Not Found", hdrs={}, fp=None
+            )
+
+        monkeypatch.setattr("scripts.router._rest_req", mock_rest)
+
+        from scripts.router import _is_org_member
+
+        assert _is_org_member("fake-token", "NEVSTOP-LAB", "testuser") is False
