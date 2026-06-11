@@ -1,0 +1,70 @@
+name: Org Discussion Router
+
+on:
+  repository_dispatch:
+    types: [org_msg_router]
+  workflow_dispatch:
+    inputs:
+      discussion_number:
+        description: 'Discussion 编号'
+        required: true
+        type: string
+      comment_body:
+        description: '评论正文（可选，用于手动模拟）'
+        required: false
+        type: string
+      comment_author:
+        description: '评论作者（可选）'
+        required: false
+        type: string
+      category_name:
+        description: '分类名（可选）'
+        required: false
+        type: string
+      dry_run:
+        description: 'Dry-run 模式（只打印不写评论）'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: org-router-${{ github.event.client_payload.discussion_number || github.event.inputs.discussion_number }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      discussions: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.CSM_QA_GH_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements-bot.txt
+
+      - name: Run tests
+        run: python -m pytest tests/test_router.py -v || true
+
+      - name: Route & Process
+        env:
+          CSM_QA_GH_TOKEN: ${{ secrets.CSM_QA_GH_TOKEN }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          JOIN_FOLLOW_ORG: ${{ vars.JOIN_FOLLOW_ORG || 'NEVSTOP-LAB' }}
+          JOIN_STAR_REPOS: ${{ vars.JOIN_STAR_REPOS || 'csm-core,API String,MassData,INIVariable' }}
+        run: |
+          python scripts/router.py \
+            --discussion-number "${{ github.event.client_payload.discussion_number || github.event.inputs.discussion_number }}" \
+            --comment-body "${{ github.event.client_payload.comment_body || github.event.inputs.comment_body || '' }}" \
+            --comment-author "${{ github.event.client_payload.comment_author || github.event.inputs.comment_author || '' }}" \
+            --category-name "${{ github.event.client_payload.category_name || github.event.inputs.category_name || '' }}" \
+            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
