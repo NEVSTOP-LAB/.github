@@ -330,8 +330,8 @@ def _check_following(token: str, username: str, org: str) -> tuple[bool, str]:
 def _is_org_member(token: str, org: str, username: str) -> bool:
     """通过 GraphQL 检查用户是否已在组织内。
 
-    REST ``GET /orgs/{org}/members/{username}`` 需要 org:read scope，
-    CSM_QA_GH_TOKEN 只有 discussions 权限。GraphQL 无需额外 scope。
+    均需 org read 权限；应传入 App installation token 而非 PAT。
+    失败时返回 False（不阻塞条件检测流程）。
     """
     gql = """
     query($username: String!, $org: String!) {
@@ -727,8 +727,18 @@ def _handle_join(
     source_owner, source_repo = _get_source_repo_parts()
     gql_client = GQL(token)
 
-    # 0. 先检查是否已在组织内
-    if _is_org_member(token, JOIN_FOLLOW_ORG, comment_author):
+    # 0. 获取 App installation token（用于 org membership 检查和邀请发送，
+    #    CSM_QA_GH_TOKEN 是 fine-grained PAT，无 org 相关权限）
+    app_token = _get_app_installation_token(source_owner, source_repo)
+    effective_token = app_token if app_token else token
+    if not app_token:
+        logger.info(
+            "未能获取 App token（GITHUB_APP_ID/PRIVATE_KEY 未配置或 JWT 失败），"
+            "成员检查和邀请发送将使用 PAT（可能无权限）"
+        )
+
+    # 1. 先检查是否已在组织内（使用 App token，PAT 无 org 权限）
+    if _is_org_member(effective_token, JOIN_FOLLOW_ORG, comment_author):
         discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
         disc_id = discussion.get("id", "")
         body = (
@@ -757,15 +767,10 @@ def _handle_join(
     report = build_condition_report(comment_author, all_met, results)
 
     if all_met:
-        # 通过 → 发送邀请（使用 App installation token 以获取 org Members 权限）
+        # 通过 → 发送邀请（复用已获取的 App token，有 org Members 权限）
         try:
             user_id = _resolve_user_id(token, comment_author)
-            invitation_token = _get_app_installation_token(source_owner, source_repo)
-            if invitation_token:
-                ok = send_invitation(invitation_token, JOIN_FOLLOW_ORG, user_id)
-            else:
-                # fallback: 尝试用 PAT（可能无权限，但不应阻塞流程）
-                ok = send_invitation(token, JOIN_FOLLOW_ORG, user_id)
+            ok = send_invitation(effective_token, JOIN_FOLLOW_ORG, user_id)
             if not ok:
                 report += "\n\n⚠️ 邀请发送失败，请联系管理员。"
         except Exception as exc:
