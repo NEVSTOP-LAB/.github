@@ -150,6 +150,8 @@ def _rest_req(token: str, method: str, path: str) -> Any:
     )
     try:
         return urllib.request.urlopen(req, timeout=15)
+    except urllib.error.HTTPError:
+        raise  # 4xx/5xx 原样抛出，由 _check_* 解析 404 语义
     except urllib.error.URLError as exc:
         raise RuntimeError(f"REST 请求失败 {method} {path}: {exc}") from exc
 
