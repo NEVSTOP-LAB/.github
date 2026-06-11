@@ -14,8 +14,14 @@
  * 5. 用 installation token 调
  *    POST /repos/{REPO_OWNER}/{REPO_NAME}/dispatches
  *    {
- *       event_type: "org_discussion_created",
- *       client_payload: { discussion_number: <N>, source: "webhook" }
+ *       event_type: "org_msg_router",
+ *       client_payload: {
+ *         discussion_number: <N>,
+ *         comment_body: <截断 800 字符>,
+ *         comment_author: <username>,
+ *         category_name: <分类名>,
+ *         source: "webhook"
+ *       }
  *    }
  *
  * 必需的 Worker 环境变量 / Secrets
@@ -108,7 +114,21 @@ export default {
       return new Response(`App auth failed: ${e.message}`, { status: 500 });
     }
 
-    // 5. 触发 repository_dispatch
+    // 5. 触发 repository_dispatch（统一路由到 org_msg_router）
+    // discussion 事件没有 comment 对象 → 取 discussion.body + sender.login
+    const isDiscussionEvent = eventType === "discussion";
+    const commentBody = (
+      isDiscussionEvent
+        ? (payload?.discussion?.body || "")
+        : (payload?.comment?.body || "")
+    ).slice(0, 800);
+    const commentAuthor = (
+      isDiscussionEvent
+        ? (payload?.sender?.login || "")
+        : (payload?.comment?.user?.login || "")
+    );
+    const categoryName = payload?.discussion?.category?.name || "";
+
     const dispatchResp = await fetch(
       `${GITHUB_API}/repos/${owner}/${repo}/dispatches`,
       {
@@ -120,9 +140,13 @@ export default {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          event_type: "org_discussion_created",
+          event_type: "org_msg_router",
           client_payload: {
             discussion_number: discussionNumber,
+            comment_body: commentBody,
+            comment_author: commentAuthor,
+            category_name: categoryName,
+            event_type: eventType,
             source: "webhook",
           },
         }),
