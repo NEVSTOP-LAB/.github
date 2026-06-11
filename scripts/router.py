@@ -261,14 +261,28 @@ def _check_following(token: str, username: str, org: str) -> tuple[bool, str]:
 
 
 def _is_org_member(token: str, org: str, username: str) -> bool:
-    """检查用户是否已在组织内。204=是，404=否。"""
+    """通过 GraphQL 检查用户是否已在组织内。
+
+    REST ``GET /orgs/{org}/members/{username}`` 需要 org:read scope，
+    CSM_QA_GH_TOKEN 只有 discussions 权限。GraphQL 无需额外 scope。
+    """
+    gql = """
+    query($username: String!, $org: String!) {
+      user(login: $username) {
+        organization(login: $org) { login }
+      }
+    }
+    """
+    gql_client = GQL(token)
     try:
-        _rest_req(token, "GET", f"/orgs/{org}/members/{username}")
-        return True  # 204
-    except urllib.error.HTTPError as exc:
-        if exc.code == 404:
-            return False
-        raise RuntimeError(f"检查成员资格失败: HTTP {exc.code}") from exc
+        data = gql_client.query(gql, {"username": username, "org": org})
+    except RuntimeError as exc:
+        logger.warning("GraphQL 成员检查失败: %s", exc)
+        return False
+    user = data.get("user")
+    if user is None:
+        return False
+    return user.get("organization") is not None
 
 
 def _get_starred_repos(token: str, username: str) -> set[str]:
