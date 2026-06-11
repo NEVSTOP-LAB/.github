@@ -360,7 +360,7 @@ def send_invitation(token: str, org: str, user_id: int) -> bool:
 def post_reply(token: str, discussion_id: str, body: str) -> str:
     """向 Discussion 发布评论，返回新评论的 node ID。"""
     gql_client = GQL(token)
-    full_body = f"{body}\n{BOT_FOOTER}\n{BOT_MARKER}"
+    full_body = f"{body}{BOT_FOOTER}\n{BOT_MARKER}"
     gql = """
     mutation($discussionId: ID!, $body: String!) {
       addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
@@ -462,13 +462,26 @@ def _get_source_repo_parts() -> tuple[str, str]:
     """获取组织 Discussion 实际归属的源仓库 owner/repo。
 
     默认 ``<org>/.github``，其中 ``<org>`` 取自 ``GITHUB_REPOSITORY``。
+    可通过环境变量 ``DISCUSSION_SOURCE_REPO`` 覆盖（格式 ``owner/repo``）。
     """
-    source_env = os.environ.get("DISCUSSION_SOURCE_REPO", "")
-    if source_env and "/" in source_env:
-        src_owner, src_repo = source_env.split("/", 1)
-    else:
-        src_owner, _ = _get_repo_parts()
-        src_repo = ".github"
+    source_env = (os.environ.get("DISCUSSION_SOURCE_REPO") or "").strip()
+    if source_env:
+        if "/" not in source_env:
+            logger.warning(
+                "DISCUSSION_SOURCE_REPO=%r 格式不正确（期望 owner/repo），回退默认",
+                source_env,
+            )
+        else:
+            parts = source_env.split("/", 1)
+            if parts[0] and parts[1]:
+                return parts[0], parts[1]
+            logger.warning(
+                "DISCUSSION_SOURCE_REPO=%r 含空 owner 或 repo，回退默认",
+                source_env,
+            )
+    src_owner, _ = _get_repo_parts()
+    src_repo = ".github"
+    logger.info("使用默认源仓库: %s/%s", src_owner, src_repo)
     return src_owner, src_repo
 
 
