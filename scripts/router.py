@@ -83,8 +83,7 @@ LLM_MODEL = os.getenv("LLM_MODEL", "deepseek-chat")
 # QA 分类名（大小写精确匹配）
 QA_CATEGORY_NAME = "Q&A"
 
-# 降级正则
-_RE_JOIN = re.compile(r"加入|申请加入|成为成员|想加入|申请成为|参与贡献|join", re.IGNORECASE)
+# 降级正则：JOIN 匹配在 _fallback_classify 内按强弱分层
 _RE_QA = re.compile(r"问|？|\?|怎么|如何|是什么|报错|bug|error|请教|求助", re.IGNORECASE)
 
 # ── GQL 客户端 ──────────────────────────────────────────────────────────────
@@ -162,9 +161,11 @@ def _rest_req(token: str, method: str, path: str) -> Any:
 def classify_intent(comment_body: str) -> str:
     """对评论正文做 LLM 三分类，返回 ``"JOIN"`` / ``"QA"`` / ``"OTHER"``。
 
-    失败时降级为正则匹配：
-    - 含 join/加入/申请/apply → JOIN
-    - 含问号/怎么/如何等 → QA
+    失败时降级为正则匹配（强弱分层）：
+    - 强关键词（加入/申请加入/成为成员/想加入/参与贡献）→ JOIN
+    - 弱关键词 join + QA 模式共存（如 "怎么 join 数组"）→ QA
+    - 仅弱关键词 join → JOIN
+    - QA 关键词 → QA
     - 其余 → OTHER
     """
     text = comment_body.strip()
@@ -212,12 +213,29 @@ def classify_intent(comment_body: str) -> str:
 
 
 def _fallback_classify(text: str) -> str:
-    if _RE_JOIN.search(text):
-        logger.info("正则降级分类: JOIN")
+    # 强 JOIN 模式（中文明确表达加入意图）
+    _RE_JOIN_STRONG = re.compile(r"加入|申请加入|成为成员|想加入|申请成为|参与贡献", re.IGNORECASE)
+    has_strong_join = _RE_JOIN_STRONG.search(text)
+    has_qa = _RE_QA.search(text)
+    has_weak_join = re.search(r"\bjoin\b", text, re.IGNORECASE) if not has_strong_join else None
+
+    if has_strong_join:
+        logger.info("正则降级分类: JOIN（强关键词）")
         return "JOIN"
-    if _RE_QA.search(text):
+
+    if has_qa and has_weak_join:
+        # "LabVIEW 怎么 join 数组" → QA 优先于弱 join
+        logger.info("正则降级分类: QA（弱 join + QA 模式共存）")
+        return "QA"
+
+    if has_weak_join:
+        logger.info("正则降级分类: JOIN（弱 join）")
+        return "JOIN"
+
+    if has_qa:
         logger.info("正则降级分类: QA")
         return "QA"
+
     logger.info("正则降级分类: OTHER")
     return "OTHER"
 

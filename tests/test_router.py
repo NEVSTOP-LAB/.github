@@ -66,7 +66,7 @@ class TestClassifyIntent:
 
     def test_no_api_key_falls_back(self, monkeypatch):
         monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
-        assert classify_intent("/join") == "JOIN"
+        assert classify_intent("想加入") == "JOIN"
         assert classify_intent("怎么用？") == "QA"
         assert classify_intent("hello") == "OTHER"
 
@@ -94,7 +94,7 @@ class TestBuildConditionReport:
         ]
         report = build_condition_report("testuser", False, results)
         assert "当前 1/2 项通过" in report
-        assert "再次发送 `/join`" in report
+        assert "请再次发送申请" in report
         assert "✅" in report
         assert "❌" in report
 
@@ -105,7 +105,7 @@ class TestBuildConditionReport:
         ]
         report = build_condition_report("testuser", False, results)
         assert "当前 0/2 项通过" in report
-        assert "再次发送 `/join`" in report
+        assert "请再次发送申请" in report
 
     def test_star_repo_list_in_report(self):
         results = [
