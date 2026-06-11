@@ -130,7 +130,7 @@ class GQL:
 # ── REST helper ──────────────────────────────────────────────────────────────
 
 
-def _rest_req(token: str, method: str, path: str, **kwargs: Any) -> urllib.request.Response:
+def _rest_req(token: str, method: str, path: str) -> Any:
     """发送 GitHub REST API 请求，返回 HTTP response 对象。"""
     url = f"{GITHUB_API_URL}{path}"
     req = urllib.request.Request(
@@ -141,7 +141,6 @@ def _rest_req(token: str, method: str, path: str, **kwargs: Any) -> urllib.reque
             "Accept": "application/vnd.github.v3+json",
             "User-Agent": "org-router/1.0",
         },
-        **kwargs,
     )
     return urllib.request.urlopen(req, timeout=15)
 
@@ -219,8 +218,8 @@ def _check_following(token: str, username: str, org: str) -> tuple[bool, str]:
     """检查用户是否已关注组织。返回 ``(passed, detail)``。"""
     try:
         resp = _rest_req(token, "GET", f"/users/{username}/following/{org}")
-        # 204 = 已关注
-        return True, "已关注" if resp.status == 204 else "已关注"
+        # 请求成功（未抛 HTTPError）→ 已关注
+        return True, f"已关注 @{org}"
     except urllib.error.HTTPError as exc:
         if exc.code == 404:
             return False, f"未关注 @{org}"
@@ -389,8 +388,6 @@ def _handle_qa(
     dry_run: bool,
 ) -> None:
     """处理 QA 意图：Q&A 分类下调用 CSM_QA 回答，否则引导。"""
-    repo_parts = _get_repo_parts()
-    owner = repo_parts[0]
     source_owner, source_repo = _get_source_repo_parts()
 
     if category_name != QA_CATEGORY_NAME:
@@ -415,6 +412,8 @@ def _handle_qa(
         GitHubGraphQL,
         compute_reply_plan,
         build_reply,
+        post_comment,
+        fetch_discussion as fetch_disc,
     )
     from csm_llm_qa import CSM_QA
 
@@ -428,7 +427,7 @@ def _handle_qa(
     except Exception:
         bot_login = None
 
-    discussion = fetch_discussion(client, source_owner, source_repo, discussion_number)
+    discussion = fetch_disc(client, source_owner, source_repo, discussion_number)
     disc_id = discussion.get("id", "")
 
     plan = compute_reply_plan(discussion, bot_login)
@@ -441,8 +440,8 @@ def _handle_qa(
 
     if not dry_run:
         answer = qa_engine.ask(question, history=history)
-        reply_body = build_reply(answer)
-        post_reply(token, disc_id, reply_body)
+        reply_body = build_reply(answer)  # build_reply 已含 footer + marker
+        post_comment(client, disc_id, reply_body)
     else:
         logger.info("[DRY-RUN] 将生成 QA 回答: question=%.100s", question)
 
