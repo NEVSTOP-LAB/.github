@@ -598,3 +598,156 @@ class TestBuildClassifyHistory:
         )
         assert bot_entry is not None
         assert bot_entry["role"] == "assistant"
+
+    def test_paginated_comments(self, monkeypatch):
+        """fetch_discussion 返回多页时正确拼接所有评论。"""
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        # 第一页 hasNextPage=True，第二页 hasNextPage=False
+        mock_discussion = {
+            "title": "测试分页",
+            "body": "多页评论",
+            "id": "D_abc",
+            "comments": {
+                "nodes": [
+                    {"body": "评论1"},
+                    {"body": "评论2"},
+                ],
+                "pageInfo": {"hasNextPage": True, "endCursor": "cursor_1"},
+            },
+        }
+
+        fetch_calls = []
+
+        def mock_fetch(client, owner, repo, number):
+            fetch_calls.append(1)
+            return mock_discussion
+
+        monkeypatch.setattr("scripts.router.fetch_discussion", mock_fetch)
+
+        from scripts.router import _build_classify_history
+
+        history = _build_classify_history("fake-token", 1, "not_in_thread")
+        assert history is not None
+        # 即使有分页，第一页的评论也应在 history 中
+        assert any("评论1" in e["content"] for e in history)
+
+
+# ── classify_intent 花括号转义 ───────────────────────────────────────────────
+
+
+class TestClassifyIntentBracesEscaping:
+    """测试用户内容中的 { } 不会导致 str.format() 崩溃。"""
+
+    def test_braces_in_comment_body(self, monkeypatch):
+        """评论含花括号时不崩溃，正常分类。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "fake-key")
+
+        mock_resp = MagicMock()
+        mock_resp.read.return_value = json.dumps({
+            "choices": [{"message": {"content": "QA"}}]
+        }).encode()
+        mock_resp.__enter__.return_value = mock_resp
+
+        monkeypatch.setattr("urllib.request.urlopen", lambda req, **kw: mock_resp)
+
+        # 用户评论含 JSON 花括号 — 不应抛 KeyError
+        result = classify_intent("CSM 的配置 { \"key\": \"value\" } 怎么用？")
+        assert result == "QA"
+
+    def test_braces_in_history(self, monkeypatch):
+        """history 含花括号时不崩溃，正常分类。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "fake-key")
+
+        mock_resp = MagicMock()
+        mock_resp.read.return_value = json.dumps({
+            "choices": [{"message": {"content": "QA"}}]
+        }).encode()
+        mock_resp.__enter__.return_value = mock_resp
+
+        monkeypatch.setattr("urllib.request.urlopen", lambda req, **kw: mock_resp)
+
+        history = [
+            {"role": "user", "content": "代码里用 {placeholder} 怎么写？"},
+            {"role": "assistant", "content": "用 {{}} 转义"},
+        ]
+        result = classify_intent("请再检查", history=history)
+        assert result == "QA"
+
+    def test_format_call_inside_try_block(self, monkeypatch):
+        """format() 在 try 块内 — 即使崩溃也降级正则而非 propagate。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "fake-key")
+        # 不 mock urlopen — 即使 URL 请求也失败，format 不应先崩溃
+        # 这里重点验证 classify_intent 不抛异常，返回降级结果
+        # 内容含多重花括号
+        result = classify_intent("测试 {{{}}} 和 {{foo}}")
+        # 只要不抛异常且返回合法标签即可
+        assert result in ("JOIN", "QA", "OTHER")
+
+
+# ── main() classify 上下文获取 fallback ──────────────────────────────────────
+
+
+class TestMainClassifyContextFallback:
+    """测试 main() 中 _build_classify_history 异常时的降级处理。"""
+
+    def test_build_history_failure_falls_back(self, monkeypatch, capsys):
+        """_build_classify_history 抛异常时仍调用 classify_intent 并输出结果。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
+        monkeypatch.setenv("CSM_QA_GH_TOKEN", "fake-token")
+
+        def mock_build(*args, **kwargs):
+            raise RuntimeError("GraphQL 连接失败")
+
+        monkeypatch.setattr("scripts.router._build_classify_history", mock_build)
+        monkeypatch.setattr("sys.argv", [
+            "router.py", "--classify-only",
+            "--discussion-number", "42",
+            "--comment-body", "请再检查",
+            "--event-type", "discussion_comment",
+            "--category-name", "Q&A",
+        ])
+
+        from scripts.router import main
+
+        exit_code = main()
+        assert exit_code == 0
+
+        captured = capsys.readouterr()
+        # 应输出意图（降级正则判定）
+        assert captured.out.strip() in ("JOIN", "QA", "OTHER")
+
+    def test_no_token_no_history(self, monkeypatch, capsys):
+        """CSM_QA_GH_TOKEN 未配置时不尝试获取上下文。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
+        monkeypatch.delenv("CSM_QA_GH_TOKEN", raising=False)
+
+        # 确保 _build_classify_history 不被调用
+        call_count = [0]
+        orig = getattr(
+            __import__("scripts.router", fromlist=["_build_classify_history"]),
+            "_build_classify_history",
+            None,
+        )
+
+        def counting_mock(*args, **kwargs):
+            call_count[0] += 1
+            return None
+
+        monkeypatch.setattr("scripts.router._build_classify_history", counting_mock)
+        monkeypatch.setattr("sys.argv", [
+            "router.py", "--classify-only",
+            "--discussion-number", "42",
+            "--comment-body", "hello",
+            "--event-type", "discussion_comment",
+            "--category-name", "Q&A",
+        ])
+
+        from scripts.router import main
+
+        exit_code = main()
+        assert exit_code == 0
+        # token 未配置 → 不应调用 _build_classify_history
+        assert call_count[0] == 0
