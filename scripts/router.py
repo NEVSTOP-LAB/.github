@@ -1102,7 +1102,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                 logger.info("空内容 + 非 Q&A + discussion.created → 跳过（不回复）")
                 return 0
 
-    # 3. --classify-only：仅输出意图供 workflow 捕获（无需 token）
+    # 3. --classify-only：仅输出意图供 workflow 捕获（token 仅用于获取讨论上下文，非必需）
     if args.classify_only:
         print(intent)
         return 0
