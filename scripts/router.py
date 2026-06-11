@@ -449,8 +449,7 @@ def build_condition_report(
     lines.append("")
     if all_met:
         lines.append(
-            f"🎉 全部通过 ({passed_count}/{total})！邀请已发送，"
-            f"请查收 GitHub 邮件并点击 Accept。"
+            f"🎉 全部通过 ({passed_count}/{total})！正在发送邀请…"
         )
     else:
         lines.append(
@@ -771,7 +770,12 @@ def _handle_join(
         try:
             user_id = _resolve_user_id(token, comment_author)
             ok = send_invitation(effective_token, JOIN_FOLLOW_ORG, user_id)
-            if not ok:
+            if ok:
+                report += (
+                    "\n\n✅ 邀请已成功发送！请查收 GitHub 注册邮箱，"
+                    "点击邮件中的 Accept invitation 即可加入组织。"
+                )
+            else:
                 report += "\n\n⚠️ 邀请发送失败，请联系管理员。"
         except Exception as exc:
             logger.error("邀请流程失败: %s", exc)

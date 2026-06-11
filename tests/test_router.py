@@ -84,7 +84,7 @@ class TestBuildConditionReport:
         report = build_condition_report("testuser", True, results)
         assert "## 📋 @testuser" in report
         assert "全部通过 (2/2)" in report
-        assert "邀请已发送" in report
+        assert "正在发送邀请" in report
         assert "✅" in report
         assert "❌" not in report
 
