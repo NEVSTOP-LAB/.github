@@ -43,13 +43,10 @@ on:
 
 jobs:
   route:
-    # Bot 自身评论不触发，防止无限循环（仅对 discussion_comment 事件）
+    # Bot 自身评论不触发，防止无限循环（已证 nevstop 非 Bot 类型，仅靠 marker 判断）
     if: |
       github.event_name != 'discussion_comment' ||
-      !(
-        contains(github.event.comment.body, '<!-- csm-qa-bot -->') &&
-        github.event.comment.user.type == 'Bot'
-      )
+      !contains(github.event.comment.body, '<!-- csm-qa-bot -->')
     runs-on: ubuntu-latest
     concurrency:
       group: org-router-${{ github.event.client_payload.discussion_number || github.event.discussion.number || github.event.inputs.discussion_number }}
@@ -108,6 +105,7 @@ jobs:
           JOIN_STAR_REPOS: ${{ vars.JOIN_STAR_REPOS || 'csm-core,API String,MassData,INIVariable' }}
           ROUTER_DISCUSSION_NUMBER: ${{ github.event.client_payload.discussion_number || github.event.discussion.number || github.event.inputs.discussion_number }}
           ROUTER_COMMENT_BODY: ${{ github.event.client_payload.comment_body || github.event.comment.body || github.event.discussion.body || github.event.inputs.comment_body || '' }}
+          ROUTER_DISCUSSION_TITLE: ${{ github.event.discussion.title || '' }}
           ROUTER_COMMENT_AUTHOR: ${{ github.event.client_payload.comment_author || github.event.comment.user.login || github.event.discussion.user.login || github.event.inputs.comment_author || '' }}
           ROUTER_CATEGORY_NAME: ${{ github.event.client_payload.category_name || github.event.discussion.category.name || github.event.inputs.category_name || '' }}
           ROUTER_EVENT_TYPE: ${{ github.event.client_payload.event_type || github.event_name || '' }}
@@ -115,6 +113,7 @@ jobs:
           python scripts/router.py \
             --discussion-number "${ROUTER_DISCUSSION_NUMBER}" \
             --comment-body "${ROUTER_COMMENT_BODY}" \
+            --discussion-title "${ROUTER_DISCUSSION_TITLE}" \
             --comment-author "${ROUTER_COMMENT_AUTHOR}" \
             --category-name "${ROUTER_CATEGORY_NAME}" \
             --event-type "${ROUTER_EVENT_TYPE}" \

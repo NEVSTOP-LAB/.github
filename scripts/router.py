@@ -649,6 +649,12 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
         help="评论正文（Webhook 传入，最大 800 字符）",
     )
     parser.add_argument(
+        "--discussion-title",
+        type=str,
+        default="",
+        help="Discussion 标题（discussion 事件时用于拼接分类输入）",
+    )
+    parser.add_argument(
         "--comment-author",
         type=str,
         default="",
@@ -692,17 +698,31 @@ def main(argv: Optional[list[str]] = None) -> int:
         args.dry_run,
     )
 
-    # 1. LLM 意图分类
-    intent = classify_intent(args.comment_body)
+    # 1. 构造分类输入：discussion 事件将标题拼入正文（标题承载主要意图）
+    classify_input = args.comment_body
+    if args.event_type == "discussion" and args.discussion_title.strip():
+        classify_input = f"{args.discussion_title.strip()}\n\n{args.comment_body}".strip()
+
+    intent = classify_intent(classify_input)
     logger.info("意图分类: %s", intent)
 
-    # 1b. 空评论的特殊处理：discussion.created 事件无评论、但标题/正文可能是 QA
-    if not args.comment_body.strip() and args.event_type == "discussion":
+    # 1b. Q&A 分类的 discussion.created：正文短 → 直接按 QA 处理
+    if (
+        args.event_type == "discussion"
+        and intent == "OTHER"
+        and args.category_name == QA_CATEGORY_NAME
+        and len(args.comment_body.strip()) <= 20
+    ):
+        logger.info("短正文 + Q&A 分类 + discussion.created → 按 QA 处理")
+        intent = "QA"
+
+    # 1c. 空评论的特殊处理：discussion.created 事件无评论、但正文可能是 QA
+    if not classify_input.strip() and args.event_type == "discussion":
         if args.category_name == QA_CATEGORY_NAME:
-            logger.info("空评论 + Q&A 分类 + discussion.created → 按 QA 处理")
+            logger.info("空内容 + Q&A 分类 + discussion.created → 按 QA 处理")
             intent = "QA"
         else:
-            logger.info("空评论 + 非 Q&A + discussion.created → 跳过（不回复）")
+            logger.info("空内容 + 非 Q&A + discussion.created → 跳过（不回复）")
             return 0
 
     # 2. 按意图分派
