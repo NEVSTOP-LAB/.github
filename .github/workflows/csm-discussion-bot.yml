@@ -1,22 +1,16 @@
 name: CSM Q&A Discussion Bot
 
 on:
-  # 当有新仓库级 Discussion 创建时自动触发
-  discussion:
-    types: [created]
+  # 注意：discussion / discussion_comment 原生事件已由 org-router.yml 接管，
+  # 经由 LLM 分类后按意图分派（JOIN 走条件检测，QA 走 CSM_QA，OTHER 走引导）。
+  # 此处仅保留 dispatch 回滚通道和手动全量扫描。
 
-  # 当有新仓库级 Discussion 评论（追问）时自动触发；Bot 自身发布评论时跳过（防止无限循环）
-  discussion_comment:
-    types: [created]
-
-  # 实时触发：由外部 Webhook Relay（Cloudflare Worker，详见 webhook/README.md）
-  # 在收到组织级 discussion.created / discussion_comment.created webhook 后，
-  # 调用 dispatches API 触发本事件。client_payload.discussion_number 必填。
+  # （回滚）旧 webhook relay 通道：Worker 改发 org_msg_router 后不再触发。
+  # 保留仅用于紧急回滚时 Worker 改回旧 event_type。
   repository_dispatch:
     types: [org_discussion_created]
 
-  # 手动触发：对组织 Q&A 分类下所有 open 的 discussion 做全量扫描，
-  # 自动回复未答复的 discussion 以及在 Bot 回复后又有新追问的 discussion。
+  # 手动触发：对组织 Q&A 分类下所有 open 的 discussion 做全量扫描。
   workflow_dispatch:
     inputs:
       dry_run:
@@ -30,7 +24,7 @@ on:
 
 # 同一时刻只允许一个实例运行，避免重复回复
 concurrency:
-  group: csm-qa-bot-${{ github.event.discussion.number || github.event.client_payload.discussion_number || 'scan' }}
+  group: csm-qa-bot-${{ github.event.client_payload.discussion_number || github.event.inputs.discussion_number || 'scan' }}
   cancel-in-progress: false
 
 jobs:
@@ -156,17 +150,6 @@ jobs:
           path: .venv
           key: ${{ steps.cache-venv.outputs.cache-primary-key }}
 
-      - name: Run bot (discussion event trigger)
-        if: github.event_name == 'discussion' || (github.event_name == 'discussion_comment' && github.event.comment.user.type != 'bot')
-        env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_EVENT_PATH: ${{ github.event_path }}
-          CSM_QA_GH_TOKEN: ${{ secrets.CSM_QA_GH_TOKEN }}
-          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-          # 组织级 Q&A discussions 实际归属源仓库 <org>/.github。
-          # 留空时代码会按 <github.repository_owner>/.github 推导。
-          DISCUSSION_SOURCE_REPO: ${{ github.repository_owner }}/.github
-        run: python scripts/discussion_bot.py --event
 
       - name: Run bot (repository_dispatch from webhook relay)
         if: github.event_name == 'repository_dispatch'

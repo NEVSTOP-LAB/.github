@@ -1,8 +1,19 @@
 name: Org Discussion Router
 
 on:
+  # 组织 Discussion 创建事件（包含 discussion.body 作为分类输入）
+  discussion:
+    types: [created]
+
+  # 组织 Discussion 新评论事件（comment.body 作为分类输入）
+  discussion_comment:
+    types: [created]
+
+  # Worker relay 通道（部署后生效，作为备用路径）
   repository_dispatch:
     types: [org_msg_router]
+
+  # 手动触发 / dry-run 灰度验证
   workflow_dispatch:
     inputs:
       discussion_number:
@@ -32,9 +43,16 @@ on:
 
 jobs:
   route:
+    # Bot 自身评论不触发，防止无限循环（仅对 discussion_comment 事件）
+    if: |
+      github.event_name != 'discussion_comment' ||
+      !(
+        contains(github.event.comment.body, '<!-- csm-qa-bot -->') &&
+        github.event.comment.user.type == 'Bot'
+      )
     runs-on: ubuntu-latest
     concurrency:
-      group: org-router-${{ github.event.client_payload.discussion_number || github.event.inputs.discussion_number }}
+      group: org-router-${{ github.event.client_payload.discussion_number || github.event.discussion.number || github.event.inputs.discussion_number }}
       cancel-in-progress: false
     permissions:
       contents: read
@@ -88,11 +106,11 @@ jobs:
           DISCUSSION_SOURCE_REPO: ${{ github.repository_owner }}/.github
           JOIN_FOLLOW_ORG: ${{ vars.JOIN_FOLLOW_ORG || 'NEVSTOP-LAB' }}
           JOIN_STAR_REPOS: ${{ vars.JOIN_STAR_REPOS || 'csm-core,API String,MassData,INIVariable' }}
-          ROUTER_DISCUSSION_NUMBER: ${{ github.event.client_payload.discussion_number || github.event.inputs.discussion_number }}
-          ROUTER_COMMENT_BODY: ${{ github.event.client_payload.comment_body || github.event.inputs.comment_body || '' }}
-          ROUTER_COMMENT_AUTHOR: ${{ github.event.client_payload.comment_author || github.event.inputs.comment_author || '' }}
-          ROUTER_CATEGORY_NAME: ${{ github.event.client_payload.category_name || github.event.inputs.category_name || '' }}
-          ROUTER_EVENT_TYPE: ${{ github.event.client_payload.event_type || '' }}
+          ROUTER_DISCUSSION_NUMBER: ${{ github.event.client_payload.discussion_number || github.event.discussion.number || github.event.inputs.discussion_number }}
+          ROUTER_COMMENT_BODY: ${{ github.event.client_payload.comment_body || github.event.comment.body || github.event.discussion.body || github.event.inputs.comment_body || '' }}
+          ROUTER_COMMENT_AUTHOR: ${{ github.event.client_payload.comment_author || github.event.comment.user.login || github.event.discussion.user.login || github.event.inputs.comment_author || '' }}
+          ROUTER_CATEGORY_NAME: ${{ github.event.client_payload.category_name || github.event.discussion.category.name || github.event.inputs.category_name || '' }}
+          ROUTER_EVENT_TYPE: ${{ github.event.client_payload.event_type || github.event_name || '' }}
         run: |
           python scripts/router.py \
             --discussion-number "${ROUTER_DISCUSSION_NUMBER}" \
