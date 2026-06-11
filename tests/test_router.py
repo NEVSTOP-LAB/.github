@@ -29,10 +29,11 @@ class TestFallbackClassify:
     """测试降级正则匹配逻辑。"""
 
     def test_join_keywords(self):
-        assert _fallback_classify("/join") == "JOIN"
         assert _fallback_classify("我想加入组织") == "JOIN"
         assert _fallback_classify("申请加入") == "JOIN"
-        assert _fallback_classify("apply to join") == "JOIN"
+        assert _fallback_classify("我想成为成员") == "JOIN"
+        assert _fallback_classify("I want to join") == "JOIN"
+        assert _fallback_classify("如何参与贡献") == "JOIN"
 
     def test_qa_keywords(self):
         assert _fallback_classify("怎么配置 CSM？") == "QA"
@@ -52,7 +53,7 @@ class TestFallbackClassify:
 
     def test_join_before_qa(self):
         """JOIN 关键词优先于 QA 关键词。"""
-        assert _fallback_classify("/join 怎么用") == "JOIN"
+        assert _fallback_classify("想加入 怎么用") == "JOIN"
 
 
 class TestClassifyIntent:
@@ -88,7 +89,7 @@ class TestBuildConditionReport:
     def test_partial_passed(self):
         results = [
             {"name": "关注 @NEVSTOP-LAB", "icon": "👀", "passed": True, "detail": "已关注"},
-            {"name": "Star 指定仓库", "icon": "⭐", "passed": False, "detail": "缺少：API String, INIVariable"},
+            {"name": "Star 指定仓库", "icon": "⭐", "passed": False, "detail": "缺少：CSM-API-String-Arguments-Support, CSM-INI-Static-Variable-Support"},
         ]
         report = build_condition_report("testuser", False, results)
         assert "当前 1/2 项通过" in report
@@ -99,7 +100,7 @@ class TestBuildConditionReport:
     def test_none_passed(self):
         results = [
             {"name": "关注 @NEVSTOP-LAB", "icon": "👀", "passed": False, "detail": "未关注 @NEVSTOP-LAB"},
-            {"name": "Star 指定仓库", "icon": "⭐", "passed": False, "detail": "缺少：csm-core, API String, MassData, INIVariable"},
+            {"name": "Star 指定仓库", "icon": "⭐", "passed": False, "detail": "缺少：Communicable-State-Machine, CSM-API-String-Arguments-Support, CSM-MassData-Parameter-Support, CSM-INI-Static-Variable-Support"},
         ]
         report = build_condition_report("testuser", False, results)
         assert "当前 0/2 项通过" in report
@@ -253,4 +254,4 @@ def test_join_defaults():
     """确保 JOIN 默认值与 plan 一致。"""
     assert JOIN_FOLLOW_ORG == os.getenv("JOIN_FOLLOW_ORG", "NEVSTOP-LAB")
     assert len(JOIN_STAR_REPOS) >= 4
-    assert "csm-core" in JOIN_STAR_REPOS
+    assert "Communicable-State-Machine" in JOIN_STAR_REPOS

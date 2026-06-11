@@ -102,7 +102,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           DISCUSSION_SOURCE_REPO: ${{ github.repository_owner }}/.github
           JOIN_FOLLOW_ORG: ${{ vars.JOIN_FOLLOW_ORG || 'NEVSTOP-LAB' }}
-          JOIN_STAR_REPOS: ${{ vars.JOIN_STAR_REPOS || 'csm-core,API String,MassData,INIVariable' }}
+          JOIN_STAR_REPOS: ${{ vars.JOIN_STAR_REPOS || 'Communicable-State-Machine,CSM-API-String-Arguments-Support,CSM-MassData-Parameter-Support,CSM-INI-Static-Variable-Support' }}
           ROUTER_DISCUSSION_NUMBER: ${{ github.event.client_payload.discussion_number || github.event.discussion.number || github.event.inputs.discussion_number }}
           ROUTER_COMMENT_BODY: ${{ github.event.client_payload.comment_body || github.event.comment.body || github.event.discussion.body || github.event.inputs.comment_body || '' }}
           ROUTER_DISCUSSION_TITLE: ${{ github.event.discussion.title || '' }}
