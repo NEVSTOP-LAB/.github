@@ -397,6 +397,38 @@ class TestBuildHistoryText:
         result = _build_history_text(history)
         assert len(result) < len(long_text) + 20  # 标签 + 截断后内容
 
+    def test_max_entries_cap(self):
+        """超过 20 条消息时，保留首条 + 最近 19 条。"""
+        from scripts.router import _build_history_text
+        history = [{"role": "user", "content": f"msg_{i}"} for i in range(30)]
+        result = _build_history_text(history)
+        # 应包含首条
+        assert "msg_0" in result
+        # 应包含最后一条
+        assert "msg_29" in result
+        # 第 2-10 条应被截掉（只保留首条 + 最近 19 条）
+        assert "msg_5" not in result
+
+    def test_total_chars_cap(self):
+        """总字符超过 8000 时应截断并添加省略提示。"""
+        from scripts.router import _build_history_text
+        # 每条 500 字符，20 条 = 10000 字符，超过 8000 上限
+        history = [
+            {"role": "user", "content": "X" * 600} for _ in range(20)
+        ]
+        result = _build_history_text(history)
+        assert len(result) <= 8100  # 8000 + 省略提示的余量
+        # 应有省略标记
+        assert "上文已省略" in result
+
+    def test_unknown_role_maps_to_user(self):
+        """未知角色应映射为"用户"而非"Bot"（防御性处理）。"""
+        from scripts.router import _build_history_text
+        history = [{"role": "system", "content": "系统消息"}]
+        result = _build_history_text(history)
+        assert "[用户]: 系统消息" in result
+        assert "[Bot]" not in result
+
 
 class TestClassifyIntentWithHistory:
     """测试 classify_intent 带 history 参数的上下文分类路径。"""
