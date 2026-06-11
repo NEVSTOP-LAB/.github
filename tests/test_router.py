@@ -5,6 +5,7 @@ from __future__ import annotations
 import pytest
 from unittest.mock import patch, MagicMock
 
+import json
 import os
 import sys
 
@@ -123,12 +124,17 @@ class TestBuildConditionReport:
 
 class TestCheckAllConditions:
     def test_all_pass(self, monkeypatch):
-        """Mock REST 全部返回 204（已关注/已 Star）。"""
+        """Mock 关注通过 + Star 列表包含全部 4 个仓库。"""
         import urllib.error
 
         def mock_rest(token, method, path):
-            # 所有请求都返回 204
             m = MagicMock()
+            if "/starred?" in path:
+                # 返回全部 4 个仓库的 Star 列表
+                m.read.return_value = json.dumps([
+                    {"full_name": f"NEVSTOP-LAB/{r}"} for r in JOIN_STAR_REPOS
+                ]).encode()
+                return m
             m.status = 204
             return m
 
@@ -143,19 +149,20 @@ class TestCheckAllConditions:
             assert r["passed"] is True
 
     def test_follow_fail(self, monkeypatch):
-        """Mock 关注返回 404，Star 全部返回 204。"""
+        """Mock 关注返回 404，Star 全部在列表中。"""
         import urllib.error
 
-        call_count = [0]
-
         def mock_rest(token, method, path):
-            call_count[0] += 1
             m = MagicMock()
             if "/following/" in path:
-                m.status = 404
                 raise urllib.error.HTTPError(
                     url=path, code=404, msg="Not Found", hdrs={}, fp=None
                 )
+            if "/starred?" in path:
+                m.read.return_value = json.dumps([
+                    {"full_name": f"NEVSTOP-LAB/{r}"} for r in JOIN_STAR_REPOS
+                ]).encode()
+                return m
             m.status = 204
             return m
 
@@ -166,10 +173,10 @@ class TestCheckAllConditions:
         all_met, results = check_all_conditions("fake-token", "testuser")
         assert all_met is False
         assert results[0]["passed"] is False  # 关注
-        assert results[1]["passed"] is True    # Star（关注失败后仍继续检查）
+        assert results[1]["passed"] is True    # Star
 
     def test_star_partial_fail(self, monkeypatch):
-        """Mock 关注通过，Star 部分失败。"""
+        """Mock 关注通过，Star 列表仅含 1 个仓库。"""
         import urllib.error
 
         def mock_rest(token, method, path):
@@ -177,14 +184,14 @@ class TestCheckAllConditions:
             if "/following/" in path:
                 m.status = 204
                 return m
-            # 第一个 Star 仓库通过，第二个失败
-            if JOIN_STAR_REPOS[0] in path:
-                m.status = 204
+            if "/starred?" in path:
+                # 只返回第一个仓库
+                m.read.return_value = json.dumps([
+                    {"full_name": f"NEVSTOP-LAB/{JOIN_STAR_REPOS[0]}"}
+                ]).encode()
                 return m
-            m.status = 404
-            raise urllib.error.HTTPError(
-                url=path, code=404, msg="Not Found", hdrs={}, fp=None
-            )
+            m.status = 204
+            return m
 
         monkeypatch.setattr("scripts.router._rest_req", mock_rest)
 

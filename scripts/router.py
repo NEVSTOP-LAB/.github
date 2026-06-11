@@ -271,16 +271,31 @@ def _is_org_member(token: str, org: str, username: str) -> bool:
         raise RuntimeError(f"检查成员资格失败: HTTP {exc.code}") from exc
 
 
-def _check_star(token: str, username: str, owner: str, repo: str) -> tuple[bool, str]:
-    """检查用户是否已 Star 指定仓库。返回 ``(passed, detail)``。"""
-    try:
-        resp = _rest_req(token, "GET", f"/users/{username}/starred/{owner}/{repo}")
-        # 204 = 已 Star
-        return True, f"已 Star {owner}/{repo}"
-    except urllib.error.HTTPError as exc:
-        if exc.code == 404:
-            return False, f"未 Star {owner}/{repo}"
-        raise RuntimeError(f"检查 Star 失败 {owner}/{repo}: HTTP {exc.code}") from exc
+def _get_starred_repos(token: str, username: str) -> set[str]:
+    """获取用户所有 Star 仓库的 full_name 集合（仅第一页 100 条）。
+
+    ``GET /users/{username}/starred/{owner}/{repo}`` 端点在 PAT 认证下
+    不可靠（始终返回 404），改用列表+过滤方式。
+    """
+    starred: set[str] = set()
+    page = 1
+    while page <= 5:  # 最多 500 条，够用
+        try:
+            resp = _rest_req(
+                token, "GET",
+                f"/users/{username}/starred?per_page=100&page={page}",
+            )
+            data = json.loads(resp.read())
+            if not data:
+                break
+            for item in data:
+                starred.add(item.get("full_name", ""))
+            page += 1
+        except urllib.error.HTTPError as exc:
+            raise RuntimeError(
+                f"获取 Star 列表失败 {username}: HTTP {exc.code}"
+            ) from exc
+    return starred
 
 
 def check_all_conditions(token: str, username: str) -> tuple[bool, list[dict[str, Any]]]:
@@ -301,16 +316,20 @@ def check_all_conditions(token: str, username: str) -> tuple[bool, list[dict[str
         "detail": detail_follow,
     })
 
-    # 条件 2：Star 全部指定仓库
+    # 条件 2：Star 全部指定仓库 — 先拉取全部 Star 列表，再逐个比对
+    try:
+        starred = _get_starred_repos(token, username)
+    except RuntimeError as exc:
+        logger.error("获取 Star 列表失败: %s", exc)
+        starred = set()
+
     star_details: list[str] = []
-    all_starred = True
     for repo in JOIN_STAR_REPOS:
-        ok_star, detail_star = _check_star(token, username, JOIN_STAR_OWNER, repo)
-        if not ok_star:
-            all_starred = False
+        full = f"{JOIN_STAR_OWNER}/{repo}"
+        if full not in starred:
             star_details.append(repo)
 
-    star_passed = all_starred
+    star_passed = len(star_details) == 0
     if star_passed:
         star_detail = "已 Star 全部"
     else:
