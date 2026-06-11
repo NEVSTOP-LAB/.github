@@ -240,7 +240,7 @@ router.py
 | `scripts/router.py` | **新建** ~280 行 | LLM 路由 + JOIN/QA/OTHER 逻辑 |
 | `.github/workflows/org-router.yml` | **新建** ~70 行 | 统一 workflow 入口 |
 | `scripts/discussion_bot.py` | 不碰 | 零风险 |
-| `.github/workflows/csm-discussion-bot.yml` | 不碰 | 保留仓库级触发和手动扫描 |
+| `.github/workflows/csm-discussion-bot.yml` | 移除 discussion/discussion_comment 触发器（避免双重触发），保留 repository_dispatch 回滚 + workflow_dispatch 手动扫描 |
 | `tests/test_discussion_bot.py` | 不碰 | 零风险 |
 | `tests/test_router.py` | **新建** ~120 行 | router.py 单元测试 |
 
