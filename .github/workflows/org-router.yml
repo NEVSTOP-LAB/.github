@@ -97,7 +97,7 @@ jobs:
       - name: Run tests
         run: python -m pytest tests/test_router.py -v
 
-      # ── LLM 分类：轻量，仅 LLM 调用 / 正则 ───────────────────────────
+      # ── LLM 分类：LLM 调用（含 thread 上下文）+ 正则降级 ──────────────
 
       - name: 🔍 Classify intent
         id: classify

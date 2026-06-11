@@ -130,9 +130,11 @@ def _build_history_text(history: list[dict[str, str]]) -> str:
     text = "\n\n".join(lines)
     if len(text) > MAX_CHARS:
         text = text[-MAX_CHARS:]
-        # 在截断处添加省略提示
-        cut_marker = "\n\n…[上文已省略]…\n\n"
-        text = cut_marker + text[text.find("\n\n") + 2:] if "\n\n" in text else text
+        # 寻找第一个换行符后的位置作为自然截断点
+        first_nl = text.find("\n")
+        if first_nl >= 0 and first_nl < len(text) - 1:
+            text = text[first_nl + 1:]
+        text = "…[上文已省略]…\n\n" + text
     return text
 
 # DeepSeek API（兼容 OpenAI 格式）
@@ -317,16 +319,19 @@ def classify_intent(comment_body: str, history: Optional[list[dict[str, str]]] =
         return _fallback_classify(text)
 
     # 构建 LLM 消息：有历史上下文时使用带上下文的 prompt
-    if history and len(history) > 0:
-        history_text = _build_history_text(history)
-        prompt = INTENT_CLASSIFY_PROMPT_WITH_CONTEXT.format(
-            history_text=history_text,
-            comment_body=text[:800],
-        )
-    else:
-        prompt = INTENT_CLASSIFY_PROMPT.format(comment_body=text[:800])
+    # 先转义用户内容中的花括号，避免 str.format() KeyError
+    safe_text = text[:800].replace("{", "{{").replace("}", "}}")
 
     try:
+        if history and len(history) > 0:
+            history_text = _build_history_text(history).replace("{", "{{").replace("}", "}}")
+            prompt = INTENT_CLASSIFY_PROMPT_WITH_CONTEXT.format(
+                history_text=history_text,
+                comment_body=safe_text,
+            )
+        else:
+            prompt = INTENT_CLASSIFY_PROMPT.format(comment_body=safe_text)
+
         payload = json.dumps({
             "model": LLM_MODEL,
             "messages": [
@@ -828,7 +833,7 @@ def fetch_discussion(
             id
             name
           }
-          comments(first: 100) {
+          comments(first: 100, orderBy: { field: CREATED_AT, direction: ASC }) {
             nodes {
               id
               body
@@ -857,7 +862,7 @@ def fetch_discussion(
         query($discussionId: ID!, $cursor: String!) {
           node(id: $discussionId) {
             ... on Discussion {
-              comments(first: 100, after: $cursor) {
+              comments(first: 100, after: $cursor, orderBy: { field: CREATED_AT, direction: ASC }) {
                 nodes {
                   id
                   body
