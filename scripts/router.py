@@ -86,6 +86,11 @@ QA_CATEGORY_NAME = "Q&A"
 # 降级正则：JOIN 匹配在 _fallback_classify 内按强弱分层
 _RE_QA = re.compile(r"问|？|\?|怎么|如何|是什么|报错|bug|error|请教|求助", re.IGNORECASE)
 
+
+def _repo_link(repo: str) -> str:
+    """把仓库名转为 Markdown 链接。"""
+    return f"[{repo}](https://github.com/{JOIN_STAR_OWNER}/{repo})"
+
 # ── GQL 客户端 ──────────────────────────────────────────────────────────────
 
 
@@ -306,7 +311,10 @@ def check_all_conditions(token: str, username: str) -> tuple[bool, list[dict[str
             star_details.append(repo)
 
     star_passed = all_starred
-    star_detail = "已 Star 全部" if star_passed else f"缺少：{', '.join(star_details)}"
+    if star_passed:
+        star_detail = "已 Star 全部"
+    else:
+        star_detail = "缺少：" + ", ".join(_repo_link(r) for r in star_details)
     results.append({
         "name": "Star 指定仓库",
         "icon": "⭐",
@@ -352,7 +360,7 @@ def build_condition_report(
 
     lines.append("")
     lines.append(
-        f"> ⭐ 需 Star 的仓库：{', '.join(JOIN_STAR_REPOS)}"
+        f"> ⭐ 需 Star 的仓库：{', '.join(_repo_link(r) for r in JOIN_STAR_REPOS)}"
     )
     lines.append("")
     lines.append(
