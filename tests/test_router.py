@@ -352,3 +352,217 @@ class TestIsOrgMember:
         from scripts.router import _is_org_member
 
         assert _is_org_member("fake-token", "NEVSTOP-LAB", "testuser") is False
+
+
+# ── classify_intent 带上下文 ─────────────────────────────────────────────────
+
+
+class TestBuildHistoryText:
+    """测试 _build_history_text 格式化。"""
+
+    def test_basic_formatting(self):
+        from scripts.router import _build_history_text
+        history = [
+            {"role": "user", "content": "我想加入组织"},
+            {"role": "assistant", "content": "已收到你的申请"},
+            {"role": "user", "content": "请再检查"},
+        ]
+        result = _build_history_text(history)
+        assert "[用户]: 我想加入组织" in result
+        assert "[Bot]: 已收到你的申请" in result
+        assert "[用户]: 请再检查" in result
+
+    def test_empty_history(self):
+        from scripts.router import _build_history_text
+        result = _build_history_text([])
+        assert result == ""
+
+    def test_empty_content_skipped(self):
+        from scripts.router import _build_history_text
+        history = [
+            {"role": "user", "content": "有效消息"},
+            {"role": "bot", "content": ""},
+            {"role": "user", "content": "另一条"},
+        ]
+        result = _build_history_text(history)
+        assert "有效消息" in result
+        assert "另一条" in result
+        # 空内容不应出现 Bot 标签
+        assert result.count("[Bot]") == 0
+
+    def test_long_content_truncated(self):
+        from scripts.router import _build_history_text
+        long_text = "A" * 600
+        history = [{"role": "user", "content": long_text}]
+        result = _build_history_text(history)
+        assert len(result) < len(long_text) + 20  # 标签 + 截断后内容
+
+
+class TestClassifyIntentWithHistory:
+    """测试 classify_intent 带 history 参数的上下文分类路径。"""
+
+    def test_history_with_no_api_key_falls_back(self, monkeypatch):
+        """无 API Key 时即使有 history 也走降级正则。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
+        history = [
+            {"role": "user", "content": "CSM 怎么安装？"},
+            {"role": "assistant", "content": "请参考文档..."},
+        ]
+        # "请再检查" 无关键词 → 降级为 OTHER（历史不影响正则）
+        assert classify_intent("请再检查", history=history) == "OTHER"
+
+    def test_history_passed_to_llm_prompt(self, monkeypatch):
+        """有 API Key + history 时，使用带上下文的 prompt 调用 LLM。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "fake-key")
+
+        # Mock urllib.request.urlopen 返回 QA
+        mock_resp = MagicMock()
+        mock_resp.read.return_value = json.dumps({
+            "choices": [{"message": {"content": "QA"}}]
+        }).encode()
+        # 使用 __enter__ 模拟 context manager
+        mock_resp.__enter__.return_value = mock_resp
+
+        called_payload = {}
+
+        def mock_urlopen(req, **kwargs):
+            nonlocal called_payload
+            called_payload = json.loads(req.data)
+            return mock_resp
+
+        monkeypatch.setattr("urllib.request.urlopen", mock_urlopen)
+
+        history = [
+            {"role": "user", "content": "CSM 怎么安装？"},
+            {"role": "assistant", "content": "请参考文档..."},
+        ]
+        result = classify_intent("请再检查", history=history)
+        assert result == "QA"
+
+        # 验证 prompt 包含了上下文
+        prompt_content = called_payload["messages"][0]["content"]
+        assert "CSM 怎么安装？" in prompt_content
+        assert "请再检查" in prompt_content
+        assert "请仅根据最后这条评论" in prompt_content
+
+    def test_no_history_uses_original_prompt(self, monkeypatch):
+        """无 history 时仍使用原始 prompt（向后兼容）。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "fake-key")
+
+        mock_resp = MagicMock()
+        mock_resp.read.return_value = json.dumps({
+            "choices": [{"message": {"content": "JOIN"}}]
+        }).encode()
+        mock_resp.__enter__.return_value = mock_resp
+
+        called_payload = {}
+
+        def mock_urlopen(req, **kwargs):
+            nonlocal called_payload
+            called_payload = json.loads(req.data)
+            return mock_resp
+
+        monkeypatch.setattr("urllib.request.urlopen", mock_urlopen)
+
+        result = classify_intent("我想加入组织")
+        assert result == "JOIN"
+
+        prompt_content = called_payload["messages"][0]["content"]
+        # 原始 prompt 不包含"请仅根据最后这条评论"
+        assert "请仅根据最后这条评论" not in prompt_content
+        assert "我想加入组织" in prompt_content
+
+
+class TestBuildClassifyHistory:
+    """测试 _build_classify_history 从 Discussion 构建上下文。"""
+
+    def test_basic_thread(self, monkeypatch):
+        """基本 thread 构建：标题 + 正文 + 评论。"""
+        # Mock _get_source_repo_parts
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        # Mock GQL and fetch_discussion
+        mock_discussion = {
+            "title": "CSM 安装问题",
+            "body": "我在安装时遇到错误",
+            "comments": {
+                "nodes": [
+                    {"body": "请提供错误日志", "author": {"login": "bot"}},
+                    {"body": "错误日志如下：..."},  # no BOT_MARKER → user
+                    {"body": "请再检查"},  # current classify_input
+                ]
+            },
+        }
+        monkeypatch.setattr(
+            "scripts.router.fetch_discussion",
+            lambda *args, **kwargs: mock_discussion,
+        )
+
+        from scripts.router import _build_classify_history
+
+        history = _build_classify_history("fake-token", 1, "请再检查")
+        assert history is not None
+        assert len(history) >= 3  # 至少：原帖 + 两条评论（跳过"请再检查"）
+        # "请再检查" 不应在 history 中
+        for entry in history:
+            assert entry["content"] != "请再检查"
+
+    def test_no_comments(self, monkeypatch):
+        """新 discussion 无评论时，history 只含标题+正文。"""
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        mock_discussion = {
+            "title": "我想加入",
+            "body": "申请加入组织",
+            "comments": {"nodes": []},
+        }
+        monkeypatch.setattr(
+            "scripts.router.fetch_discussion",
+            lambda *args, **kwargs: mock_discussion,
+        )
+
+        from scripts.router import _build_classify_history
+
+        history = _build_classify_history("fake-token", 1, "我想加入\n\n申请加入组织")
+        assert history is not None
+        assert len(history) == 1
+        assert history[0]["role"] == "user"
+        assert "我想加入" in history[0]["content"]
+
+    def test_bot_marker_detection(self, monkeypatch):
+        """通过 BOT_MARKER 识别 Bot 评论，设为 assistant 角色。"""
+        from scripts.router import BOT_MARKER as marker
+
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        mock_discussion = {
+            "title": "测试",
+            "body": "问题描述",
+            "comments": {
+                "nodes": [
+                    {"body": f"自动回复内容\n{marker}"},
+                    {"body": "谢谢"},  # current classify_input
+                ]
+            },
+        }
+        monkeypatch.setattr(
+            "scripts.router.fetch_discussion",
+            lambda *args, **kwargs: mock_discussion,
+        )
+
+        from scripts.router import _build_classify_history
+
+        history = _build_classify_history("fake-token", 1, "谢谢")
+        assert history is not None
+        # Bot 评论应为 assistant 角色
+        bot_entry = next(
+            (e for e in history if "自动回复内容" in e["content"]), None
+        )
+        assert bot_entry is not None
+        assert bot_entry["role"] == "assistant"
