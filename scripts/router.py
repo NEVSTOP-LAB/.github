@@ -833,7 +833,7 @@ def fetch_discussion(
             id
             name
           }
-          comments(first: 100, orderBy: { field: CREATED_AT, direction: ASC }) {
+          comments(first: 100) {
             nodes {
               id
               body
@@ -862,7 +862,7 @@ def fetch_discussion(
         query($discussionId: ID!, $cursor: String!) {
           node(id: $discussionId) {
             ... on Discussion {
-              comments(first: 100, after: $cursor, orderBy: { field: CREATED_AT, direction: ASC }) {
+              comments(first: 100, after: $cursor) {
                 nodes {
                   id
                   body
