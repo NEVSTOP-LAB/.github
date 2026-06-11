@@ -739,6 +739,19 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
         default="",
         help="GitHub 事件类型（discussion / discussion_comment）",
     )
+    parser.add_argument(
+        "--classify-only",
+        action="store_true",
+        default=False,
+        help="仅分类并输出意图，不执行任何操作",
+    )
+    parser.add_argument(
+        "--intent",
+        type=str,
+        default="",
+        choices=["JOIN", "QA", "OTHER"],
+        help="跳过 LLM 分类，直接使用指定意图处理",
+    )
     return parser.parse_args(argv)
 
 
@@ -759,34 +772,46 @@ def main(argv: Optional[list[str]] = None) -> int:
         args.dry_run,
     )
 
+    # ── 解析意图 ─────────────────────────────────────────────────────────
+
     # 1. 构造分类输入：discussion 事件将标题拼入正文（标题承载主要意图）
     classify_input = args.comment_body
     if args.event_type == "discussion" and args.discussion_title.strip():
         classify_input = f"{args.discussion_title.strip()}\n\n{args.comment_body}".strip()
 
-    intent = classify_intent(classify_input)
-    logger.info("意图分类: %s", intent)
+    # 2. 获取意图（--intent 跳过 LLM）
+    if args.intent:
+        intent = args.intent
+        logger.info("意图（手动指定）: %s", intent)
+    else:
+        intent = classify_intent(classify_input)
+        logger.info("意图分类: %s", intent)
 
-    # 1b. Q&A 分类的 discussion.created：正文短 → 直接按 QA 处理
-    if (
-        args.event_type == "discussion"
-        and intent == "OTHER"
-        and args.category_name == QA_CATEGORY_NAME
-        and len(args.comment_body.strip()) <= 20
-    ):
-        logger.info("短正文 + Q&A 分类 + discussion.created → 按 QA 处理")
-        intent = "QA"
-
-    # 1c. 空评论的特殊处理：discussion.created 事件无评论、但正文可能是 QA
-    if not classify_input.strip() and args.event_type == "discussion":
-        if args.category_name == QA_CATEGORY_NAME:
-            logger.info("空内容 + Q&A 分类 + discussion.created → 按 QA 处理")
+        # 2b. Q&A 分类的 discussion.created：正文短 → 直接按 QA 处理
+        if (
+            args.event_type == "discussion"
+            and intent == "OTHER"
+            and args.category_name == QA_CATEGORY_NAME
+            and len(args.comment_body.strip()) <= 20
+        ):
+            logger.info("短正文 + Q&A 分类 + discussion.created → 按 QA 处理")
             intent = "QA"
-        else:
-            logger.info("空内容 + 非 Q&A + discussion.created → 跳过（不回复）")
-            return 0
 
-    # 2. 按意图分派
+        # 2c. 空评论的特殊处理
+        if not classify_input.strip() and args.event_type == "discussion":
+            if args.category_name == QA_CATEGORY_NAME:
+                logger.info("空内容 + Q&A 分类 + discussion.created → 按 QA 处理")
+                intent = "QA"
+            else:
+                logger.info("空内容 + 非 Q&A + discussion.created → 跳过（不回复）")
+                return 0
+
+    # 3. --classify-only：仅输出意图供 workflow 捕获
+    if args.classify_only:
+        print(intent)
+        return 0
+
+    # ── 按意图分派 ───────────────────────────────────────────────────────
     if intent == "JOIN":
         _handle_join(token, args.discussion_number, args.comment_author, args.dry_run)
     elif intent == "QA":
