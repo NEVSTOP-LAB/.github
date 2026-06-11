@@ -131,8 +131,14 @@ class GQL:
 
 
 def _rest_req(token: str, method: str, path: str) -> Any:
-    """发送 GitHub REST API 请求，返回 HTTP response 对象。"""
-    url = f"{GITHUB_API_URL}{path}"
+    """发送 GitHub REST API 请求，返回 HTTP response 对象。
+
+    Raises:
+        RuntimeError: 网络错误或超时。
+        urllib.error.HTTPError: HTTP 4xx/5xx。
+    """
+    quoted = urllib.parse.quote(path, safe="/?:&=#")
+    url = f"{GITHUB_API_URL}{quoted}"
     req = urllib.request.Request(
         url,
         method=method,
@@ -142,7 +148,10 @@ def _rest_req(token: str, method: str, path: str) -> Any:
             "User-Agent": "org-router/1.0",
         },
     )
-    return urllib.request.urlopen(req, timeout=15)
+    try:
+        return urllib.request.urlopen(req, timeout=15)
+    except urllib.error.URLError as exc:
+        raise RuntimeError(f"REST 请求失败 {method} {path}: {exc}") from exc
 
 
 # ── LLM 意图分类 ────────────────────────────────────────────────────────────
