@@ -128,6 +128,8 @@ jobs:
         if: steps.classify.outputs.result == 'JOIN'
         env:
           CSM_QA_GH_TOKEN: ${{ secrets.CSM_QA_GH_TOKEN }}
+          GITHUB_APP_ID: ${{ secrets.WEBHOOK_APP_ID }}
+          GITHUB_APP_PRIVATE_KEY: ${{ secrets.WEBHOOK_APP_PRIVATE_KEY }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           DISCUSSION_SOURCE_REPO: ${{ github.repository_owner }}/.github
           JOIN_FOLLOW_ORG: ${{ vars.JOIN_FOLLOW_ORG || 'NEVSTOP-LAB' }}

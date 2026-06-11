@@ -21,6 +21,7 @@ import logging
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
 from typing import Any, Optional
@@ -91,7 +92,10 @@ def _repo_link(repo: str) -> str:
     """把仓库名转为 Markdown 链接。"""
     return f"[{repo}](https://github.com/{JOIN_STAR_OWNER}/{repo})"
 
-# ── GQL 客户端 ──────────────────────────────────────────────────────────────
+# App 安装信息（用于发送组织邀请，需要 org Members 写权限）
+_GITHUB_APP_ID = os.getenv("GITHUB_APP_ID", "")
+_GITHUB_APP_PRIVATE_KEY = os.getenv("GITHUB_APP_PRIVATE_KEY", "")
+_GITHUB_APP_INSTALL_ID = os.getenv("GITHUB_APP_INSTALL_ID", "")
 
 
 class GQL:
@@ -129,6 +133,69 @@ class GQL:
             messages = "; ".join(e.get("message", "") for e in result["errors"])
             raise RuntimeError(f"GitHub GraphQL errors: {messages}")
         return result.get("data", {})
+
+
+# ── REST helper ──────────────────────────────────────────────────────────────
+
+
+# ── App Installation Token ──────────────────────────────────────────────────
+
+def _get_app_installation_token(owner: str, repo: str) -> Optional[str]:
+    """获取 GitHub App installation token（含 org Members 权限）。
+
+    邀请 API ``POST /orgs/{org}/invitations`` 需要 org:write 权限，
+    ``CSM_QA_GH_TOKEN``（Fine-grained PAT）只有 discussions 权限，
+    因此需用 App 私钥签发 JWT 换取 installation token。
+    """
+    app_id = os.getenv("GITHUB_APP_ID", "")
+    key_pem = os.getenv("GITHUB_APP_PRIVATE_KEY", "")
+    if not app_id or not key_pem:
+        return None
+
+    try:
+        import jwt
+        now = int(time.time())
+        jwt_token = jwt.encode(
+            {"iat": now - 60, "exp": now + 10 * 60, "iss": str(app_id)},
+            key_pem,
+            algorithm="RS256",
+        )
+    except Exception as exc:
+        logger.warning("App JWT 签发失败: %s", exc)
+        return None
+
+    try:
+        resp = _rest_req(jwt_token, "GET", f"/repos/{owner}/{repo}/installation")
+        install = json.loads(resp.read())
+        install_id = install.get("id")
+        if not install_id:
+            raise RuntimeError("未找到 installation id")
+    except Exception as exc:
+        logger.warning("获取 installation id 失败: %s", exc)
+        return None
+
+    try:
+        data = json.dumps({}).encode()
+        req = urllib.request.Request(
+            f"{GITHUB_API_URL}/app/installations/{install_id}/access_tokens",
+            data=data,
+            headers={
+                "Authorization": f"Bearer {jwt_token}",
+                "Accept": "application/vnd.github.v3+json",
+                "Content-Type": "application/json",
+                "User-Agent": "org-router/1.0",
+            },
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            result = json.loads(resp.read())
+        token = result.get("token")
+        if token:
+            logger.info("App installation token 获取成功")
+        return token
+    except Exception as exc:
+        logger.warning("换取 installation token 失败: %s", exc)
+        return None
 
 
 # ── REST helper ──────────────────────────────────────────────────────────────
@@ -690,10 +757,15 @@ def _handle_join(
     report = build_condition_report(comment_author, all_met, results)
 
     if all_met:
-        # 通过 → 发送邀请
+        # 通过 → 发送邀请（使用 App installation token 以获取 org Members 权限）
         try:
             user_id = _resolve_user_id(token, comment_author)
-            ok = send_invitation(token, JOIN_FOLLOW_ORG, user_id)
+            invitation_token = _get_app_installation_token(source_owner, source_repo)
+            if invitation_token:
+                ok = send_invitation(invitation_token, JOIN_FOLLOW_ORG, user_id)
+            else:
+                # fallback: 尝试用 PAT（可能无权限，但不应阻塞流程）
+                ok = send_invitation(token, JOIN_FOLLOW_ORG, user_id)
             if not ok:
                 report += "\n\n⚠️ 邀请发送失败，请联系管理员。"
         except Exception as exc:
