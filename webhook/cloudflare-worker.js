@@ -115,8 +115,18 @@ export default {
     }
 
     // 5. 触发 repository_dispatch（统一路由到 org_msg_router）
-    const commentBody = (payload?.comment?.body || "").slice(0, 800);
-    const commentAuthor = payload?.comment?.user?.login || "";
+    // discussion 事件没有 comment 对象 → 取 discussion.body + sender.login
+    const isDiscussionEvent = eventType === "discussion";
+    const commentBody = (
+      isDiscussionEvent
+        ? (payload?.discussion?.body || "")
+        : (payload?.comment?.body || "")
+    ).slice(0, 800);
+    const commentAuthor = (
+      isDiscussionEvent
+        ? (payload?.sender?.login || "")
+        : (payload?.comment?.user?.login || "")
+    );
     const categoryName = payload?.discussion?.category?.name || "";
 
     const dispatchResp = await fetch(

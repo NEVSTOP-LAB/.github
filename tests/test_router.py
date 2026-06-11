@@ -42,6 +42,8 @@ class TestFallbackClassify:
         assert _fallback_classify("请教一个问题") == "QA"
         assert _fallback_classify("求助！安装出错") == "QA"
         assert _fallback_classify("LabVIEW 怎么 join 数组") == "QA"
+        assert _fallback_classify("出现了一个 BUG") == "QA"
+        assert _fallback_classify("Error happened") == "QA"
 
     def test_other_fallback(self):
         assert _fallback_classify("hello") == "OTHER"

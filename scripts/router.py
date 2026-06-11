@@ -85,7 +85,7 @@ QA_CATEGORY_NAME = "Q&A"
 
 # 降级正则
 _RE_JOIN = re.compile(r"/join|加入|申请|apply", re.IGNORECASE)
-_RE_QA = re.compile(r"问|？|\?|怎么|如何|是什么|报错|bug|error|请教|求助")
+_RE_QA = re.compile(r"问|？|\?|怎么|如何|是什么|报错|bug|error|请教|求助", re.IGNORECASE)
 
 # ── GQL 客户端 ──────────────────────────────────────────────────────────────
 
@@ -520,7 +520,8 @@ def fetch_discussion(
     }
     """
     data = client.query(gql, {"owner": owner, "repo": repo, "number": number})
-    disc = data.get("repository", {}).get("discussion")
+    repository = data.get("repository") or {}
+    disc = repository.get("discussion")
     if not disc:
         raise RuntimeError(f"Discussion #{number} 不存在或无权限访问")
 
@@ -548,7 +549,8 @@ def fetch_discussion(
         }
         """
         more_data = client.query(more_gql, {"discussionId": disc["id"], "cursor": cursor})
-        more = more_data.get("node", {}).get("comments", {})
+        node = more_data.get("node") or {}
+        more = node.get("comments", {})
         disc["comments"]["nodes"].extend(more.get("nodes", []))
         disc["comments"]["pageInfo"] = more.get(
             "pageInfo", {"hasNextPage": False, "endCursor": None}
