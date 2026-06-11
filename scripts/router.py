@@ -237,6 +237,17 @@ def _check_following(token: str, username: str, org: str) -> tuple[bool, str]:
         raise RuntimeError(f"检查关注失败: HTTP {exc.code}") from exc
 
 
+def _is_org_member(token: str, org: str, username: str) -> bool:
+    """检查用户是否已在组织内。204=是，404=否。"""
+    try:
+        _rest_req(token, "GET", f"/orgs/{org}/members/{username}")
+        return True  # 204
+    except urllib.error.HTTPError as exc:
+        if exc.code == 404:
+            return False
+        raise RuntimeError(f"检查成员资格失败: HTTP {exc.code}") from exc
+
+
 def _check_star(token: str, username: str, owner: str, repo: str) -> tuple[bool, str]:
     """检查用户是否已 Star 指定仓库。返回 ``(passed, detail)``。"""
     try:
@@ -582,6 +593,22 @@ def _handle_join(
         return
 
     source_owner, source_repo = _get_source_repo_parts()
+    gql_client = GQL(token)
+
+    # 0. 先检查是否已在组织内
+    if _is_org_member(token, JOIN_FOLLOW_ORG, comment_author):
+        discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
+        disc_id = discussion.get("id", "")
+        body = (
+            f"👋 @{comment_author}，你已经是 **{JOIN_FOLLOW_ORG}** 组织的成员了，无需重复申请。\n\n"
+            "如有疑问，欢迎在 Q&A 分类下提出。"
+        )
+        if not dry_run:
+            post_reply(token, disc_id, body)
+        else:
+            logger.info("[DRY-RUN] 用户已是成员: %s", comment_author)
+        return
+
     logger.info(
         "JOIN 检测: username=%s org=%s star_repos=%s",
         comment_author, JOIN_FOLLOW_ORG, JOIN_STAR_REPOS,
@@ -590,8 +617,7 @@ def _handle_join(
     # 条件检测
     all_met, results = check_all_conditions(token, comment_author)
 
-    # 拉取 discussion 获取 node ID
-    gql_client = GQL(token)
+    # 拉取 discussion 获取 node ID（复用已创建的 gql_client）
     discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
     disc_id = discussion.get("id", "")
 
