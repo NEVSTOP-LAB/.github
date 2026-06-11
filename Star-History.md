@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-10 17:27:40 UTC+8_  
-_Total stars: 300_
+_Last updated: 2026-06-11 17:42:07 UTC+8_  
+_Total stars: 305_
 
 ## Star Growth Chart
 
@@ -10,21 +10,21 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
     y-axis "Cumulative Stars" 0 --> 320
-    line [1, 12, 26, 40, 56, 82, 114, 199, 261]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 266]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 56 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 57 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 39 |
-| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 22 |
+| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 23 |
 | 4 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
 | 5 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
 | 6 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
 | 7 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
-| 8 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 9 |
+| 8 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 10 |
 | 9 | [`CSM-Wiki`](https://github.com/NEVSTOP-LAB/CSM-Wiki) | 9 |
 | 10 | [`NEVSTOP-Programming-Palette`](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette) | 8 |
 
@@ -47,6 +47,11 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-11 16:11:49+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [lainehan-web](https://github.com/lainehan-web) | ⭐ add |
+| 2026-06-11 16:11:48+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [lainehan-web](https://github.com/lainehan-web) | ⭐ add |
+| 2026-06-11 16:11:46+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [lainehan-web](https://github.com/lainehan-web) | ⭐ add |
+| 2026-06-11 16:11:44+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [lainehan-web](https://github.com/lainehan-web) | ⭐ add |
+| 2026-06-11 14:36:36+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [weirdweiwei](https://github.com/weirdweiwei) | ⭐ add |
 | 2026-06-10 13:08:26+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
 | 2026-06-10 10:12:24+08:00 | [`CSM-ModSets-TagDB-UI`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
 | 2026-06-10 10:10:29+08:00 | [`CSM-ModSets-SplashWindow`](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
