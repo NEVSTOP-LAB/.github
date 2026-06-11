@@ -60,6 +60,7 @@ JOIN_STAR_REPOS = [
     if r.strip()
 ]
 JOIN_STAR_OWNER = JOIN_FOLLOW_ORG  # Star 仓库所属组织与关注组织一致
+JOIN_DEFAULT_TEAM = os.getenv("JOIN_DEFAULT_TEAM", "csm-community")
 
 # LLM 分类提示词
 INTENT_CLASSIFY_PROMPT = """你是一个 GitHub 讨论区路由助手。请判断以下评论属于哪一类意图，只回复一个标签：
@@ -469,7 +470,18 @@ def build_condition_report(
     )
     lines.append("")
     lines.append(
-        "---\n"
+        "\n---\n"
+        "> ### 🏷️ 团队分组说明\n"
+        "> 加入组织后默认邀请至 **CSM-Community**（CSM 社区爱好者）团队，\n"
+        "> 脚本会根据贡献自动提升到对应分组：\n"
+        "> \n"
+        "> | 团队 | 说明 |\n"
+        "> |------|------|\n"
+        "> | **CSM-Community** | CSM 社区爱好者（默认加入） |\n"
+        "> | ├─ **CSM-Module-Author** | CSM 模块的贡献者 |\n"
+        "> |    └─ **CSM-Developer** | CSM 开发人员 |\n"
+        "> \n"
+        "> ---\n"
         "> ⚠️ **加入后要求**：成员需每月有公开贡献（commit / Issue / PR），"
         "长期无贡献将被自动移出组织。请保持活跃，为社区做出贡献！"
     )
@@ -521,6 +533,36 @@ def send_invitation(token: str, org: str, user_id: int) -> bool:
             "%s token 邀请失败: org=%s user_id=%d HTTP %d body=%s",
             token_type, org, user_id, exc.code, body[:400],
         )
+        return False
+
+
+def _add_team_membership(token: str, org: str, team_slug: str, username: str) -> bool:
+    """将用户添加到指定团队。需要 org Members:Write 权限。
+
+    ``PUT /orgs/{org}/teams/{team_slug}/memberships/{username}``
+    成功返回 True，失败返回 False。
+    """
+    try:
+        team_url = f"/orgs/{org}/teams/{team_slug}/memberships/{username}"
+        _rest_req(token, "PUT", team_url)
+        logger.info(
+            "用户已添加到团队: %s → %s/%s",
+            username, org, team_slug,
+        )
+        return True
+    except urllib.error.HTTPError as exc:
+        if exc.code == 409:
+            # 用户已在团队中 → 视为成功
+            logger.info("用户已在团队中: %s/%s", username, team_slug)
+            return True
+        body = exc.read().decode("utf-8", errors="replace")
+        logger.error(
+            "添加团队失败: %s → %s/%s HTTP %d body=%s",
+            username, org, team_slug, exc.code, body[:300],
+        )
+        return False
+    except Exception as exc:
+        logger.error("添加团队网络异常: %s/%s %s", username, team_slug, exc)
         return False
 
 
@@ -789,6 +831,19 @@ def _handle_join(
                     "\n\n✅ 邀请已成功发送！请查收 GitHub 注册邮箱，"
                     "点击邮件中的 Accept invitation 即可加入组织。"
                 )
+                # 邀请成功后，尝试添加到默认团队
+                team_ok = _add_team_membership(
+                    effective_token, JOIN_FOLLOW_ORG, JOIN_DEFAULT_TEAM, comment_author,
+                )
+                if team_ok:
+                    report += (
+                        f"\n\n✅ 已邀请加入 **CSM-Community** 团队。"
+                        f"根据后续贡献会自动提升至 CSM-Module-Author / CSM-Developer。"
+                    )
+                else:
+                    report += (
+                        "\n\n⚠️ 团队邀请暂未自动发送（需 App Members 权限），请管理员手动处理。"
+                    )
             else:
                 report += "\n\n⚠️ 邀请发送失败，请联系管理员。"
         except Exception as exc:

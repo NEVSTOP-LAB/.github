@@ -21,6 +21,7 @@ from scripts.router import (
     _is_org_member,
     JOIN_FOLLOW_ORG,
     JOIN_STAR_REPOS,
+    JOIN_DEFAULT_TEAM,
 )
 
 
@@ -87,6 +88,9 @@ class TestBuildConditionReport:
         assert "正在发送邀请" in report
         assert "✅" in report
         assert "❌" not in report
+        assert "CSM-Community" in report
+        assert "CSM-Module-Author" in report
+        assert "CSM-Developer" in report
 
     def test_partial_passed(self):
         results = [
@@ -98,6 +102,7 @@ class TestBuildConditionReport:
         assert "请再次发送申请" in report
         assert "✅" in report
         assert "❌" in report
+        assert "CSM-Community" in report
 
     def test_none_passed(self):
         results = [
@@ -263,6 +268,56 @@ def test_join_defaults():
     assert JOIN_FOLLOW_ORG == os.getenv("JOIN_FOLLOW_ORG", "NEVSTOP-LAB")
     assert len(JOIN_STAR_REPOS) >= 4
     assert "Communicable-State-Machine" in JOIN_STAR_REPOS
+    assert JOIN_DEFAULT_TEAM in ("csm-community", os.getenv("JOIN_DEFAULT_TEAM", "csm-community"))
+
+
+# ── _add_team_membership ──────────────────────────────────────────────────────
+
+
+class TestAddTeamMembership:
+    def test_add_success(self, monkeypatch):
+        """PUT 返回 200 → True。"""
+
+        def mock_rest(token, method, path):
+            m = MagicMock()
+            m.status = 200
+            return m
+
+        monkeypatch.setattr("scripts.router._rest_req", mock_rest)
+
+        from scripts.router import _add_team_membership
+
+        assert _add_team_membership("fake-token", "NEVSTOP-LAB", "csm-community", "testuser") is True
+
+    def test_already_member(self, monkeypatch):
+        """409 已成员 → 视作成功。"""
+        import urllib.error
+
+        def mock_rest(token, method, path):
+            raise urllib.error.HTTPError(
+                url=path, code=409, msg="Conflict", hdrs={}, fp=None
+            )
+
+        monkeypatch.setattr("scripts.router._rest_req", mock_rest)
+
+        from scripts.router import _add_team_membership
+
+        assert _add_team_membership("fake-token", "NEVSTOP-LAB", "csm-community", "testuser") is True
+
+    def test_fail(self, monkeypatch):
+        """403 → False。"""
+        import urllib.error
+
+        def mock_rest(token, method, path):
+            raise urllib.error.HTTPError(
+                url=path, code=403, msg="Forbidden", hdrs={}, fp=None
+            )
+
+        monkeypatch.setattr("scripts.router._rest_req", mock_rest)
+
+        from scripts.router import _add_team_membership
+
+        assert _add_team_membership("fake-token", "NEVSTOP-LAB", "csm-community", "testuser") is False
 
 
 # ── _is_org_member ────────────────────────────────────────────────────────────
