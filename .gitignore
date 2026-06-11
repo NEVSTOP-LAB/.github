@@ -4,3 +4,6 @@ __pycache__/
 # Discussion bot runtime artifacts (populated by csm_llm_qa during workflow runs)
 .csm_llm_qa/
 csm-wiki/remote/
+.codegraph/*
+.reasonix/*
+reasonix.toml
