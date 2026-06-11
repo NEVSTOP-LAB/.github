@@ -270,24 +270,29 @@ def test_join_defaults():
 
 class TestIsOrgMember:
     def test_is_member(self, monkeypatch):
-        from scripts.router import GQL
+        """204 = 成员。"""
 
-        def mock_query(self, gql, variables=None):
-            return {"user": {"organization": {"login": "NEVSTOP-LAB"}}}
+        def mock_rest(token, method, path):
+            m = MagicMock()
+            m.status = 204
+            return m
 
-        monkeypatch.setattr(GQL, "query", mock_query)
+        monkeypatch.setattr("scripts.router._rest_req", mock_rest)
 
         from scripts.router import _is_org_member
 
         assert _is_org_member("fake-token", "NEVSTOP-LAB", "testuser") is True
 
     def test_not_member(self, monkeypatch):
-        from scripts.router import GQL
+        """404 = 非成员。"""
+        import urllib.error
 
-        def mock_query(self, gql, variables=None):
-            return {"user": {"organization": None}}
+        def mock_rest(token, method, path):
+            raise urllib.error.HTTPError(
+                url=path, code=404, msg="Not Found", hdrs={}, fp=None
+            )
 
-        monkeypatch.setattr(GQL, "query", mock_query)
+        monkeypatch.setattr("scripts.router._rest_req", mock_rest)
 
         from scripts.router import _is_org_member
 

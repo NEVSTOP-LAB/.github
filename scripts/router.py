@@ -191,7 +191,13 @@ def _get_app_installation_token(owner: str, repo: str) -> Optional[str]:
             result = json.loads(resp.read())
         token = result.get("token")
         if token:
-            logger.info("App installation token 获取成功")
+            perms = result.get("permissions", {})
+            logger.info(
+                "App installation token 获取成功 (id=%s, permissions=%s)",
+                install_id, json.dumps(perms),
+            )
+        else:
+            logger.warning("installation token 响应为空: %s", json.dumps(result)[:300])
         return token
     except Exception as exc:
         logger.warning("换取 installation token 失败: %s", exc)
@@ -328,28 +334,28 @@ def _check_following(token: str, username: str, org: str) -> tuple[bool, str]:
 
 
 def _is_org_member(token: str, org: str, username: str) -> bool:
-    """通过 GraphQL 检查用户是否已在组织内。
+    """通过 REST API 检查用户是否已在组织内。
 
-    均需 org read 权限；应传入 App installation token 而非 PAT。
-    失败时返回 False（不阻塞条件检测流程）。
+    App installation token 需要 org Members:Read 权限。
+    204 = 是成员，404 = 非成员，其他状态码 = 查询失败返回 False。
     """
-    gql = """
-    query($username: String!, $org: String!) {
-      user(login: $username) {
-        organization(login: $org) { login }
-      }
-    }
-    """
-    gql_client = GQL(token)
     try:
-        data = gql_client.query(gql, {"username": username, "org": org})
-    except RuntimeError as exc:
-        logger.warning("GraphQL 成员检查失败: %s", exc)
+        _rest_req(token, "GET", f"/orgs/{org}/members/{username}")
+        logger.info("_is_org_member: %s 已在 %s 组织内 (204)", username, org)
+        return True
+    except urllib.error.HTTPError as exc:
+        if exc.code == 404:
+            logger.info("_is_org_member: %s 不在 %s 组织内 (404)", username, org)
+            return False
+        logger.warning(
+            "_is_org_member 查询失败: %s org=%s HTTP %d body=%s",
+            username, org, exc.code,
+            exc.read().decode("utf-8", errors="replace")[:200],
+        )
         return False
-    user = data.get("user")
-    if user is None:
+    except Exception as exc:
+        logger.warning("_is_org_member 网络异常: %s %s %s", username, org, exc)
         return False
-    return user.get("organization") is not None
 
 
 def _get_starred_repos(token: str, username: str) -> set[str]:
@@ -488,6 +494,8 @@ def _resolve_user_id(token: str, username: str) -> int:
 def send_invitation(token: str, org: str, user_id: int) -> bool:
     """发送组织邀请。返回 True 表示成功。"""
     try:
+        # 标记 token 类型方便日志排查
+        token_type = "App" if token != os.environ.get("CSM_QA_GH_TOKEN", "") else "PAT"
         data = json.dumps({"invitee_id": user_id}).encode()
         req = urllib.request.Request(
             f"{GITHUB_API_URL}/orgs/{org}/invitations",
@@ -502,11 +510,17 @@ def send_invitation(token: str, org: str, user_id: int) -> bool:
         )
         with urllib.request.urlopen(req, timeout=15) as resp:
             resp.read()
-        logger.info("邀请已发送: org=%s user_id=%d status=%d", org, user_id, resp.status)
+        logger.info(
+            "%s token 邀请成功: org=%s user_id=%d status=%d",
+            token_type, org, user_id, resp.status,
+        )
         return resp.status in (201, 200)
     except urllib.error.HTTPError as exc:
         body = exc.read().decode("utf-8", errors="replace")
-        logger.error("邀请发送失败: HTTP %d %s", exc.code, body[:400])
+        logger.error(
+            "%s token 邀请失败: org=%s user_id=%d HTTP %d body=%s",
+            token_type, org, user_id, exc.code, body[:400],
+        )
         return False
 
 
