@@ -55,7 +55,7 @@ BOT_FOOTER = (
 JOIN_FOLLOW_ORG = os.getenv("JOIN_FOLLOW_ORG", "NEVSTOP-LAB")
 JOIN_STAR_REPOS = [
     r.strip() for r in
-    os.getenv("JOIN_STAR_REPOS", "csm-core,API String,MassData,INIVariable").split(",")
+    os.getenv("JOIN_STAR_REPOS", "Communicable-State-Machine,CSM-API-String-Arguments-Support,CSM-MassData-Parameter-Support,CSM-INI-Static-Variable-Support").split(",")
     if r.strip()
 ]
 JOIN_STAR_OWNER = JOIN_FOLLOW_ORG  # Star 仓库所属组织与关注组织一致

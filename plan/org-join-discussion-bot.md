@@ -83,7 +83,7 @@ jobs:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           JOIN_FOLLOW_ORG: ${{ vars.JOIN_FOLLOW_ORG || 'NEVSTOP-LAB' }}
-          JOIN_STAR_REPOS: ${{ vars.JOIN_STAR_REPOS || 'csm-core,API String,MassData,INIVariable' }}
+          JOIN_STAR_REPOS: ${{ vars.JOIN_STAR_REPOS || 'Communicable-State-Machine,CSM-API-String-Arguments-Support,CSM-MassData-Parameter-Support,CSM-INI-Static-Variable-Support' }}
         run: |
           python scripts/router.py \
             --discussion-number ${{ github.event.client_payload.discussion_number || github.event.inputs.discussion_number }} \
@@ -98,7 +98,7 @@ jobs:
 >
 > **配置说明**：`JOIN_FOLLOW_ORG` / `JOIN_STAR_REPOS` 使用 GitHub Actions 变量（`vars`）而非 secret，
 > 方便随时调整无需重新部署。在仓库 **Settings → Secrets and variables → Actions → Variables**
-> 中创建即可。未设置时使用默认值（`NEVSTOP-LAB` / `csm-core,API String,MassData,INIVariable`）。
+> 中创建即可。未设置时使用默认值（`NEVSTOP-LAB` / `Communicable-State-Machine,CSM-API-String-Arguments-Support,CSM-MassData-Parameter-Support,CSM-INI-Static-Variable-Support`）。
 
 ### 步骤 3 — 新建 `scripts/router.py`（~280 行）
 
@@ -109,7 +109,7 @@ router.py
 ├── 全局常量
 │   ├── BOT_MARKER = "<!-- csm-qa-bot -->"  （复用现有标记，Worker 过滤无需改动）
 │   ├── JOIN_FOLLOW_ORG = os.getenv("JOIN_FOLLOW_ORG", "NEVSTOP-LAB")
-│   ├── JOIN_STAR_REPOS = os.getenv("JOIN_STAR_REPOS", "csm-core,API String,MassData,INIVariable").split(",")
+│   ├── JOIN_STAR_REPOS = os.getenv("JOIN_STAR_REPOS", "Communicable-State-Machine,CSM-API-String-Arguments-Support,CSM-MassData-Parameter-Support,CSM-INI-Static-Variable-Support").split(",")
 │   │                    （从 GitHub Actions vars 注入，逗号分隔，可随时调整无需改代码）
 │   └── INTENT_CLASSIFY_PROMPT  (LLM 分类提示词)
 │
@@ -176,7 +176,7 @@ router.py
 | 关注组织 | `GET /users/{username}/following/{org}` | 204 = 已关注 NEVSTOP-LAB，404 = 未关注 |
 | Star 指定仓库 | `GET /users/{user}/starred/{owner}/{repo}` | 204 = 已 Star，404 = 未 Star；需全部 Star |
 
-> **Star 仓库清单**：通过 GitHub Actions 变量 `JOIN_STAR_REPOS` 配置，逗号分隔（默认：`csm-core,API String,MassData,INIVariable`）。
+> **Star 仓库清单**：通过 GitHub Actions 变量 `JOIN_STAR_REPOS` 配置，逗号分隔（默认：`Communicable-State-Machine,CSM-API-String-Arguments-Support,CSM-MassData-Parameter-Support,CSM-INI-Static-Variable-Support`）。
 > 均为 `NEVSTOP-LAB` 组织下仓库。变更只需在仓库 Settings → Variables 中修改，无需改代码或重新部署。
 
 > **邀请发送流程**：`send_invitation` 调用前需先通过 `_resolve_user_id(token, username)` 获取用户数字 ID（`GET /users/{username}` → `id` 字段），再以 `invitee_id` 调用 `POST /orgs/{org}/invitations`。GitHub 邀请 API 要求数字 ID 而非用户名。
@@ -189,12 +189,12 @@ router.py
 | 条件 | 状态 | 详情 |
 |------|:----:|------|
 | 👀 关注 @NEVSTOP-LAB | ✅ | 已关注 |
-| ⭐ Star 指定仓库 | ❌ | 缺少：API String、INIVariable |
+| ⭐ Star 指定仓库 | ❌ | 缺少：CSM-API-String-Arguments-Support、CSM-INI-Static-Variable-Support |
 
 {通过时} 🎉 全部通过 (2/2)！邀请已发送，请查收 GitHub 邮件并点击 Accept。
 {未通过} 🔴 需要全部满足，当前 1/2 项通过。满足后再次发送 /join 重试。
 
-> ⭐ 需 Star 的仓库：csm-core, API String, MassData, INIVariable
+> ⭐ 需 Star 的仓库：Communicable-State-Machine, CSM-API-String-Arguments-Support, CSM-MassData-Parameter-Support, CSM-INI-Static-Variable-Support
 ```
 
 ### 步骤 4 — 测试（新建 `tests/test_router.py`）
@@ -219,7 +219,7 @@ router.py
 | Variable | 默认值 | 说明 |
 |----------|--------|------|
 | `JOIN_FOLLOW_ORG` | `NEVSTOP-LAB` | 用户需关注的组织 |
-| `JOIN_STAR_REPOS` | `csm-core,API String,MassData,INIVariable` | 需 Star 的仓库名，逗号分隔 |
+| `JOIN_STAR_REPOS` | `Communicable-State-Machine,CSM-API-String-Arguments-Support,CSM-MassData-Parameter-Support,CSM-INI-Static-Variable-Support` | 需 Star 的仓库名，逗号分隔 |
 
 > 变量均为可选：未设置时使用默认值。变更后即时生效，无需改代码或重新部署。
 
