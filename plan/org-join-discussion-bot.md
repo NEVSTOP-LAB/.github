@@ -150,7 +150,7 @@ router.py
 你是一个 GitHub 讨论区路由助手。请判断以下评论属于哪一类意图，只回复一个标签：
 
 标签说明：
-- JOIN：用户申请加入组织、想成为成员
+- JOIN：用户表达了加入组织的意愿（说明想加入、申请成为成员、想参与贡献等，无需特定命令）
 - QA：用户提出技术问题或框架使用问题（可能包含 join/加入 等技术术语）
 - OTHER：其他与上述无关的评论
 
@@ -165,7 +165,7 @@ router.py
 - 使用 DeepSeek API（已有 `LLM_API_KEY`）
 - `temperature=0`，`max_tokens=10`
 - LLM 调用失败 → 降级为正则匹配：
-  - 匹配 `/join|加入|申请|apply/` → JOIN
+  - 匹配 `加入|申请加入|成为成员|想加入|申请成为|参与贡献|join` → JOIN
   - 匹配 `/(问|？|\?|怎么|如何|是什么|报错|bug|error|请教|求助)/` → QA
   - 其余 → OTHER（避免 LLM 故障时所有评论触发完整 RAG + LLM 回答链路）
 
@@ -192,9 +192,11 @@ router.py
 | ⭐ Star 指定仓库 | ❌ | 缺少：CSM-API-String-Arguments-Support、CSM-INI-Static-Variable-Support |
 
 {通过时} 🎉 全部通过 (2/2)！邀请已发送，请查收 GitHub 邮件并点击 Accept。
-{未通过} 🔴 需要全部满足，当前 1/2 项通过。满足后再次发送 /join 重试。
+{未通过} 🔴 需要全部满足，当前 1/2 项通过。满足后请再次说明来意，无需特定格式。
 
 > ⭐ 需 Star 的仓库：Communicable-State-Machine, CSM-API-String-Arguments-Support, CSM-MassData-Parameter-Support, CSM-INI-Static-Variable-Support
+
+> ⚠️ **加入后要求**：成员需每月有公开贡献（commit / Issue / PR），长期无贡献将被自动移出组织。
 ```
 
 ### 步骤 4 — 测试（新建 `tests/test_router.py`）

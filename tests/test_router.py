@@ -29,10 +29,11 @@ class TestFallbackClassify:
     """测试降级正则匹配逻辑。"""
 
     def test_join_keywords(self):
-        assert _fallback_classify("/join") == "JOIN"
         assert _fallback_classify("我想加入组织") == "JOIN"
         assert _fallback_classify("申请加入") == "JOIN"
-        assert _fallback_classify("apply to join") == "JOIN"
+        assert _fallback_classify("我想成为成员") == "JOIN"
+        assert _fallback_classify("I want to join") == "JOIN"
+        assert _fallback_classify("如何参与贡献") == "JOIN"
 
     def test_qa_keywords(self):
         assert _fallback_classify("怎么配置 CSM？") == "QA"
@@ -52,7 +53,7 @@ class TestFallbackClassify:
 
     def test_join_before_qa(self):
         """JOIN 关键词优先于 QA 关键词。"""
-        assert _fallback_classify("/join 怎么用") == "JOIN"
+        assert _fallback_classify("想加入 怎么用") == "JOIN"
 
 
 class TestClassifyIntent:
