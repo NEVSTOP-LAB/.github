@@ -1,6 +1,6 @@
 # CSM Modsets Repositories
 
-> 自动生成，最后更新时间：2026-06-14 03:18 UTC
+> 自动生成，最后更新时间：2026-06-15 03:19 UTC
 
 所有公开的、主题（topic）为 [`csm-modsets`](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) 的仓库列表。
 
@@ -13,8 +13,8 @@
 | [CSM-Modsets-WaveformDisplay](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | 5 | CSM 模块: 显示 Waveform |
 | [CSM-ModSets-SplashWindow](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | 5 | CSM Module: Splash Window |
 | [CSM-ModSets-FileSync](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | 4 | 基于 CSM 的文件同步模块 |
-| [CSM-ModSets-TagDB-UI](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | 3 | CSM 模块：围绕 TagDB 显示的 UI |
 | [CSM-ModSets-TagRouter](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | 3 | CSM Module: Waveform 转 TagDB 模块 |
+| [CSM-ModSets-TagDB-UI](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | 3 | CSM 模块：围绕 TagDB 显示的 UI |
 | [CSM-Modsets-ScheduledCmdWindow](https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow) | 1 | CSM模块：计划命令窗口 |
 | [CSM-Module-Repo-Template](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) |  | 基于 CSM（可通信状态机） 框架的模块仓库模板 |
 
