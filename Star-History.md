@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-11 17:42:07 UTC+8_  
-_Total stars: 305_
+_Last updated: 2026-06-15 09:24:20 UTC+8_  
+_Total stars: 309_
 
 ## Star Growth Chart
 
@@ -9,8 +9,8 @@ _Total stars: 305_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
-    y-axis "Cumulative Stars" 0 --> 320
-    line [1, 12, 26, 40, 56, 82, 114, 199, 266]
+    y-axis "Cumulative Stars" 0 --> 330
+    line [1, 12, 26, 40, 56, 82, 114, 199, 270]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -22,31 +22,35 @@ xychart-beta
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 23 |
 | 4 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
 | 5 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
-| 6 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
-| 7 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
-| 8 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 10 |
-| 9 | [`CSM-Wiki`](https://github.com/NEVSTOP-LAB/CSM-Wiki) | 9 |
-| 10 | [`NEVSTOP-Programming-Palette`](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette) | 8 |
+| 6 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 11 |
+| 7 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
+| 8 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
+| 9 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 9 |
+| 10 | [`CSM-Wiki`](https://github.com/NEVSTOP-LAB/CSM-Wiki) | 9 |
 
 ## Top 10 Users by Stars Given
 
 | Rank | User | Stars Given |
 |:----:|:-----|------------:|
-| 1 | [ghwang-Harries](https://github.com/ghwang-Harries) | 16 |
+| 1 | [ghwang-Harries](https://github.com/ghwang-Harries) | 17 |
 | 2 | [DK-666-6](https://github.com/DK-666-6) | 14 |
 | 3 | [hanzihua123](https://github.com/hanzihua123) | 13 |
 | 4 | [wyxfhb](https://github.com/wyxfhb) | 9 |
 | 5 | [shennnw](https://github.com/shennnw) | 9 |
 | 6 | [chenwm](https://github.com/chenwm) | 8 |
 | 7 | [junyang0412](https://github.com/junyang0412) | 8 |
-| 8 | [LiXinxing77](https://github.com/LiXinxing77) | 5 |
-| 9 | [eastcheng1024](https://github.com/eastcheng1024) | 5 |
-| 10 | [SallyTYT](https://github.com/SallyTYT) | 5 |
+| 8 | [yangkkokk](https://github.com/yangkkokk) | 5 |
+| 9 | [LiXinxing77](https://github.com/LiXinxing77) | 5 |
+| 10 | [eastcheng1024](https://github.com/eastcheng1024) | 5 |
 
 ## Star Log
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-15 09:22:58+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [yangkkokk](https://github.com/yangkkokk) | ⭐ add |
+| 2026-06-15 09:22:53+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [yangkkokk](https://github.com/yangkkokk) | ⭐ add |
+| 2026-06-15 09:22:46+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [yangkkokk](https://github.com/yangkkokk) | ⭐ add |
+| 2026-06-15 08:40:31+08:00 | [`vsc-labview-vi-support`](https://github.com/NEVSTOP-LAB/vsc-labview-vi-support) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
 | 2026-06-11 16:11:49+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [lainehan-web](https://github.com/lainehan-web) | ⭐ add |
 | 2026-06-11 16:11:48+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [lainehan-web](https://github.com/lainehan-web) | ⭐ add |
 | 2026-06-11 16:11:46+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [lainehan-web](https://github.com/lainehan-web) | ⭐ add |
