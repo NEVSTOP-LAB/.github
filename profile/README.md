@@ -35,6 +35,7 @@
 > - [施工中] 由 AI 负责整理和更新 CSM 相关文档，确保信息的及时性和准确性 [CSM Wiki Repo](https://github.com/NEVSTOP-LAB/CSM-Wiki)
 > - [Discussion:Q&A分组](https://github.com/orgs/NEVSTOP-LAB/discussions/categories/q-a?discussions_q=) 中的问题，会得到 CSM-AI-Robot 的回复(deepseek-v4-pro) 
 
+<!-- VIPM_DOWNLOADS_START -->
 ```mermaid
     xychart-beta
     title "Communicable State Machine(CSM) Framework VIPM Download"
@@ -67,9 +68,11 @@
     bar   [776, 459, 435, 387, 369, 0, 2024.06]
     bar   [698, 412, 402, 341, 344, 0, 2024.05]
 ```
+<!-- VIPM_DOWNLOADS_END -->
 
 👩‍💻 **Sorted By Tags**
 --------------------
+<!-- SORTED_TAGS_START -->
 [`labview(65)`](https://github.com/search?q=topic:labview%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`labview-csm(27)`](https://github.com/search?q=topic:labview-csm%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`vipm(15)`](https://github.com/search?q=topic:vipm%20org:NEVSTOP-LAB%20is:public&type=Repositories)
@@ -107,6 +110,7 @@
 [`transformer(2)`](https://github.com/search?q=topic:transformer%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`typescript(2)`](https://github.com/search?q=topic:typescript%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`utilites(2)`](https://github.com/search?q=topic:utilites%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+<!-- SORTED_TAGS_END -->
 
 <!-- CSM_MODSETS_START -->
 <pre>
