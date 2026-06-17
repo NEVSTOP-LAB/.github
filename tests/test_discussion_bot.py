@@ -16,6 +16,7 @@ if _REPO_ROOT not in sys.path:
 from scripts.discussion_bot import (
     BOT_MARKER,
     BOT_FOOTER,
+    SKIP_AUTHORS,
     build_reply,
     has_bot_replied,
     compute_reply_plan,
@@ -332,6 +333,7 @@ def _make_org_discussion_payload(number: int = 31, comments: list[dict] | None =
                 "body": "Body text",
                 "url": f"https://github.com/NEVSTOP-LAB/.github/discussions/{number}",
                 "closed": False,
+                "author": {"login": "someone"},
                 "category": {"id": "cat2", "name": "Q&A"},
                 "comments": {
                     "nodes": comments or [],
@@ -372,6 +374,7 @@ def test_scan_org_qa_discussions_returns_list():
                         "body": "body1",
                         "url": "https://github.com/NEVSTOP-LAB/.github/discussions/1",
                         "closed": False,
+                        "author": {"login": "someone"},
                         "category": {"id": "cat2", "name": "Q&A"},
                         "comments": {
                             "nodes": [],
@@ -418,6 +421,7 @@ def test_process_discussion_dict_skips_wrong_category():
     disc = {
         "id": "D1", "number": 1, "title": "Q", "body": "",
         "url": "https://github.com/orgs/NEVSTOP-LAB/discussions/1",
+        "author": {"login": "someone"},
         "category": {"id": "other-cat", "name": "General"},
         "comments": {"nodes": []},
     }
@@ -432,6 +436,7 @@ def test_process_discussion_dict_skips_already_replied():
     disc = {
         "id": "D1", "number": 1, "title": "Q", "body": "",
         "url": "https://github.com/orgs/NEVSTOP-LAB/discussions/1",
+        "author": {"login": "someone"},
         "category": {"id": "qa-cat", "name": "Q&A"},
         "comments": {"nodes": [{"id": "c0", "body": f"reply {BOT_MARKER}", "author": {"login": "bot"}}]},
     }
@@ -444,6 +449,48 @@ def test_process_discussion_dict_dry_run_returns_true():
     client = _MockGraphQL({})
     disc = {
         "id": "D1", "number": 1, "title": "How does CSM work?", "body": "",
+        "url": "https://github.com/orgs/NEVSTOP-LAB/discussions/1",
+        "author": {"login": "someone"},
+        "category": {"id": "qa-cat", "name": "Q&A"},
+        "comments": {"nodes": []},
+    }
+    result = _process_discussion_dict(client, _FakeQAEngine(), disc, "qa-cat", dry_run=True)
+    assert result is True
+
+
+def test_process_discussion_dict_skips_nevstop_author():
+    """作者为 nevstop 时应跳过（返回 False）。"""
+    client = _MockGraphQL({})
+    disc = {
+        "id": "D1", "number": 1, "title": "Q", "body": "",
+        "url": "https://github.com/orgs/NEVSTOP-LAB/discussions/1",
+        "author": {"login": "nevstop"},
+        "category": {"id": "qa-cat", "name": "Q&A"},
+        "comments": {"nodes": []},
+    }
+    result = _process_discussion_dict(client, _FakeQAEngine(), disc, "qa-cat", dry_run=True)
+    assert result is False
+
+
+def test_process_discussion_dict_does_not_skip_other_author():
+    """非 nevstop 作者应正常处理。"""
+    client = _MockGraphQL({})
+    disc = {
+        "id": "D1", "number": 1, "title": "Q", "body": "",
+        "url": "https://github.com/orgs/NEVSTOP-LAB/discussions/1",
+        "author": {"login": "other-user"},
+        "category": {"id": "qa-cat", "name": "Q&A"},
+        "comments": {"nodes": []},
+    }
+    result = _process_discussion_dict(client, _FakeQAEngine(), disc, "qa-cat", dry_run=True)
+    assert result is True
+
+
+def test_process_discussion_dict_skips_when_author_missing():
+    """author 字段缺失时不崩溃，也不跳过。"""
+    client = _MockGraphQL({})
+    disc = {
+        "id": "D1", "number": 1, "title": "Q", "body": "",
         "url": "https://github.com/orgs/NEVSTOP-LAB/discussions/1",
         "category": {"id": "qa-cat", "name": "Q&A"},
         "comments": {"nodes": []},
@@ -660,6 +707,63 @@ def test_compute_reply_plan_no_bot_login_treats_clean_thread_as_new_question():
     assert history == []
 
 
+def test_compute_reply_plan_skips_nevstop_followup():
+    """Bot 回复后 nevstop 留言 → 跳过，不将其视为追问（返回 None）。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment(f"答 {BOT_MARKER}", author="bot"),
+                _comment("nevstop 的留言", author="nevstop"),
+            ]
+        },
+    }
+    assert compute_reply_plan(disc, bot_login="bot") is None
+
+
+def test_compute_reply_plan_normal_user_after_nevstop():
+    """nevstop 留言后，普通用户继续追问 → 应回复该用户追问，跳过 nevstop。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment(f"答 {BOT_MARKER}", author="bot"),
+                _comment("nevstop 的留言", author="nevstop"),
+                _comment("用户追问", author="alice"),
+            ]
+        },
+    }
+    plan = compute_reply_plan(disc, bot_login="bot")
+    assert plan is not None
+    question, history = plan
+    assert question == "用户追问"
+    # nevstop 的留言不应出现在 history 中
+    for h in history:
+        assert "nevstop" not in h.get("content", "")
+
+
+def test_compute_reply_plan_nevstop_in_history_is_skipped():
+    """nevstop 留言在 history 中间位置 → 排除该留言，roles 连续正确。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment(f"答1 {BOT_MARKER}", author="bot"),
+                _comment("用户追问1", author="alice"),
+                _comment("nevstop 插话", author="nevstop"),
+                _comment("用户追问2", author="alice"),
+            ]
+        },
+    }
+    plan = compute_reply_plan(disc, bot_login="bot")
+    assert plan is not None
+    question, history = plan
+    assert question == "用户追问2"
+    # history 应不含 nevstop 的留言
+    for h in history:
+        assert "nevstop" not in h.get("content", "")
+
+
 def test_is_bot_comment_fails_closed_without_bot_login():
     """_is_bot_comment 在 bot_login=None 时一律返回 False（不信任 marker）。"""
     from scripts.discussion_bot import _is_bot_comment
@@ -678,6 +782,7 @@ def test_process_discussion_dict_skips_closed():
     disc = {
         "id": "D1", "number": 1, "title": "Q", "body": "",
         "url": "https://github.com/orgs/NEVSTOP-LAB/discussions/1",
+        "author": {"login": "someone"},
         "category": {"id": "qa-cat", "name": "Q&A"},
         "closed": True,
         "comments": {"nodes": []},
@@ -704,6 +809,7 @@ def test_process_discussion_dict_followup_calls_ask_with_history():
     disc = {
         "id": "D1", "number": 1, "title": "T", "body": "B",
         "url": "https://github.com/orgs/NEVSTOP-LAB/discussions/1",
+        "author": {"login": "someone"},
         "category": {"id": "qa-cat", "name": "Q&A"},
         "comments": {
             "nodes": [
@@ -736,6 +842,7 @@ def test_scan_org_qa_discussions_filters_closed():
                     {
                         "id": "D1", "number": 1, "title": "open", "body": "",
                         "url": "u1", "closed": False,
+                        "author": {"login": "someone"},
                         "category": {"id": "cat2", "name": "Q&A"},
                         "comments": {
                             "nodes": [],
@@ -745,6 +852,7 @@ def test_scan_org_qa_discussions_filters_closed():
                     {
                         "id": "D2", "number": 2, "title": "closed", "body": "",
                         "url": "u2", "closed": True,
+                        "author": {"login": "someone"},
                         "category": {"id": "cat2", "name": "Q&A"},
                         "comments": {
                             "nodes": [],
