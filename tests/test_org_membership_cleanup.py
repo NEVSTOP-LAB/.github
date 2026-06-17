@@ -1,0 +1,658 @@
+"""tests/test_org_membership_cleanup.py — org_membership_cleanup.py 单元测试."""
+
+from __future__ import annotations
+
+import json
+import os
+import sys
+from datetime import datetime, timedelta, timezone
+from unittest.mock import MagicMock, patch
+
+import pytest
+import requests
+
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
+from scripts.org_membership_cleanup import (
+    discover_team_chain,
+    get_user_level,
+    query_last_contribution_time,
+    downgrade_user,
+    load_state,
+    save_state,
+    list_org_members,
+    run,
+    ORG,
+    ANCHOR_TEAM,
+    CHECK_INTERVAL_DAYS,
+    STATE_FILE,
+    _parse_iso_datetime,
+)
+
+# ── Fixtures ─────────────────────────────────────────────────────────────────
+
+FAKE_TOKEN = "fake-token"
+
+CHAIN = ["csm-community", "csm-module-author", "csm-developer"]
+
+
+@pytest.fixture
+def mock_team_api(monkeypatch):
+    """Mock team GET API: return a chain of parent-linked teams."""
+    team_data = {
+        "csm-developer": {
+            "slug": "csm-developer",
+            "parent": {"slug": "csm-module-author"},
+        },
+        "csm-module-author": {
+            "slug": "csm-module-author",
+            "parent": {"slug": "csm-community"},
+        },
+        "csm-community": {
+            "slug": "csm-community",
+            "parent": None,
+        },
+    }
+
+    def mock_rest_get(token, path, **params):
+        for slug, data in team_data.items():
+            if path == f"/orgs/{ORG}/teams/{slug}":
+                return data
+        raise requests.HTTPError(response=MagicMock(status_code=404))
+
+    monkeypatch.setattr(
+        "scripts.org_membership_cleanup._rest_get", mock_rest_get
+    )
+
+
+@pytest.fixture
+def mock_membership_api(monkeypatch):
+    """Mock team membership check API."""
+    memberships = {
+        "alice": "csm-developer",
+        "bob": "csm-module-author",
+        "charlie": "csm-community",
+    }
+
+    def mock_get(url, headers, timeout=30):
+        resp = MagicMock()
+        for user, team in memberships.items():
+            if f"/teams/{team}/memberships/{user}" in url:
+                resp.status_code = 200
+                return resp
+        resp.status_code = 404
+        http_error = requests.HTTPError(response=resp)
+        http_error.response = resp
+        raise http_error
+
+    monkeypatch.setattr("requests.get", mock_get)
+
+
+@pytest.fixture
+def mock_list_members(monkeypatch):
+    """Mock org member listing."""
+    def mock_paginate(url, headers, extra_params=None):
+        return [
+            {"login": "alice"},
+            {"login": "bob"},
+            {"login": "charlie"},
+            {"login": "dave"},  # not in any CSM team
+        ]
+
+    monkeypatch.setattr(
+        "scripts.org_membership_cleanup.paginate", mock_paginate
+    )
+
+
+@pytest.fixture
+def temp_state_file(tmp_path, monkeypatch):
+    """Use a temporary state file."""
+    import scripts.org_membership_cleanup as _mod
+    state_path = tmp_path / "member_check_state.json"
+    monkeypatch.setattr(_mod, "STATE_FILE", str(state_path))
+    return state_path
+
+
+# ── Team Chain Discovery ──────────────────────────────────────────────────────
+
+
+class TestDiscoverTeamChain:
+    def test_basic_chain(self, mock_team_api):
+        chain = discover_team_chain(FAKE_TOKEN, ORG, ANCHOR_TEAM)
+        assert chain == CHAIN
+
+    def test_single_team(self, monkeypatch):
+        """If only anchor exists with no parent."""
+        def mock_get(token, path, **params):
+            if path == f"/orgs/{ORG}/teams/csm-developer":
+                return {"slug": "csm-developer", "parent": None}
+            raise requests.HTTPError(response=MagicMock(status_code=404))
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_get", mock_get
+        )
+        chain = discover_team_chain(FAKE_TOKEN, ORG, ANCHOR_TEAM)
+        assert chain == ["csm-developer"]
+
+
+# ── User Level Detection ─────────────────────────────────────────────────────
+
+
+class TestGetUserLevel:
+    def test_developer(self, monkeypatch):
+        """Developer returns highest index."""
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            if "csm-developer/memberships/alice" in url:
+                resp.status_code = 200
+                return resp
+            resp.status_code = 404
+            http_error = requests.HTTPError(response=resp)
+            http_error.response = resp
+            raise http_error
+
+        monkeypatch.setattr("requests.get", mock_get)
+        level = get_user_level(FAKE_TOKEN, ORG, "alice", CHAIN)
+        assert level == 2
+
+    def test_community(self, monkeypatch):
+        """Community returns index 0."""
+        call_count = [0]
+
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            call_count[0] += 1
+            if "csm-community/memberships/bob" in url and call_count[0] == 1:
+                resp.status_code = 200
+                return resp
+            resp.status_code = 404
+            http_error = requests.HTTPError(response=resp)
+            http_error.response = resp
+            raise http_error
+
+        monkeypatch.setattr("requests.get", mock_get)
+        level = get_user_level(FAKE_TOKEN, ORG, "bob", CHAIN)
+        assert level == 0
+
+    def test_not_in_any(self, monkeypatch):
+        """Returns -1 when not in any team."""
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            resp.status_code = 404
+            http_error = requests.HTTPError(response=resp)
+            http_error.response = resp
+            raise http_error
+
+        monkeypatch.setattr("requests.get", mock_get)
+        level = get_user_level(FAKE_TOKEN, ORG, "dave", CHAIN)
+        assert level == -1
+
+
+# ── Contribution Query ────────────────────────────────────────────────────────
+
+
+class TestQueryLastContributionTime:
+    def test_has_contribution(self, monkeypatch):
+        """User has a recent closed issue."""
+        now = datetime.now(timezone.utc)
+        since = now - timedelta(days=14)
+
+        def mock_rest_get(token, path, **params):
+            if "/search/issues" in path:
+                return {
+                    "items": [
+                        {"updated_at": (now - timedelta(days=3)).isoformat()}
+                    ]
+                }
+            return {"items": []}
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_get", mock_rest_get
+        )
+
+        # Also mock commits search
+        def mock_commits_get(url, headers, params, timeout=30):
+            resp = MagicMock()
+            resp.json.return_value = {"items": []}
+            resp.status_code = 200
+            return resp
+
+        monkeypatch.setattr("requests.get", mock_commits_get)
+
+        result = query_last_contribution_time(FAKE_TOKEN, ORG, "alice", since)
+        assert result is not None
+
+    def test_no_contribution(self, monkeypatch):
+        """User has no contributions."""
+        now = datetime.now(timezone.utc)
+        since = now - timedelta(days=14)
+
+        def mock_rest_get(token, path, **params):
+            return {"items": []}
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_get", mock_rest_get
+        )
+
+        def mock_commits_get(url, headers, params, timeout=30):
+            resp = MagicMock()
+            resp.json.return_value = {"items": []}
+            resp.status_code = 200
+            return resp
+
+        monkeypatch.setattr("requests.get", mock_commits_get)
+
+        result = query_last_contribution_time(FAKE_TOKEN, ORG, "alice", since)
+        assert result is None
+
+    def test_commit_contribution(self, monkeypatch):
+        """User has a recent commit."""
+        now = datetime.now(timezone.utc)
+        since = now - timedelta(days=14)
+
+        def mock_rest_get(token, path, **params):
+            return {"items": []}
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_get", mock_rest_get
+        )
+
+        def mock_commits_get(url, headers, params, timeout=30):
+            resp = MagicMock()
+            resp.json.return_value = {
+                "items": [
+                    {
+                        "commit": {
+                            "committer": {
+                                "date": (now - timedelta(days=5)).isoformat()
+                            }
+                        }
+                    }
+                ]
+            }
+            resp.status_code = 200
+            return resp
+
+        monkeypatch.setattr("requests.get", mock_commits_get)
+
+        result = query_last_contribution_time(FAKE_TOKEN, ORG, "alice", since)
+        assert result is not None
+
+
+# ── Downgrade ─────────────────────────────────────────────────────────────────
+
+
+class TestDowngradeUser:
+    def test_downgrade_module_author(self, monkeypatch):
+        """Module-Author → Community."""
+        calls = []
+
+        def mock_delete(token, path):
+            calls.append(path)
+            return True
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_delete", mock_delete
+        )
+
+        result = downgrade_user(FAKE_TOKEN, ORG, "bob", 1, CHAIN)
+        assert result == "csm-community"
+        assert f"/teams/csm-module-author/memberships/bob" in calls[0]
+
+    def test_remove_from_org(self, monkeypatch):
+        """Community → removed from org."""
+        calls = []
+
+        def mock_delete(token, path):
+            calls.append(path)
+            return True
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_delete", mock_delete
+        )
+
+        result = downgrade_user(FAKE_TOKEN, ORG, "charlie", 0, CHAIN)
+        assert result is None
+        assert f"/orgs/{ORG}/memberships/charlie" in calls[0]
+
+    def test_already_removed_404(self, monkeypatch):
+        """404 on delete → still succeeds."""
+        def mock_delete(token, path):
+            resp = MagicMock()
+            resp.status_code = 404
+            raise requests.HTTPError(response=resp)
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_delete", mock_delete
+        )
+
+        # Should not raise
+        result = downgrade_user(FAKE_TOKEN, ORG, "charlie", 0, CHAIN)
+        assert result is None
+
+
+# ── State File ────────────────────────────────────────────────────────────────
+
+
+class TestStateFile:
+    def test_load_nonexistent(self, tmp_path, monkeypatch):
+        import scripts.org_membership_cleanup as _mod
+        state_path = tmp_path / "nonexistent.json"
+        monkeypatch.setattr(_mod, "STATE_FILE", str(state_path))
+        state = load_state()
+        assert "users" in state
+        assert state["users"] == {}
+
+    def test_save_and_load(self, tmp_path, monkeypatch):
+        import scripts.org_membership_cleanup as _mod
+        state_path = tmp_path / "test_state.json"
+        monkeypatch.setattr(_mod, "STATE_FILE", str(state_path))
+        state = {
+            "_comment": "test",
+            "users": {
+                "alice": {"last_check": "2025-01-01T00:00:00+00:00", "team": "csm-developer"},
+            },
+        }
+        save_state(state)
+        loaded = load_state()
+        assert loaded == state
+
+    def test_load_legacy_format(self, tmp_path, monkeypatch):
+        """Legacy format without team field should not crash."""
+        import scripts.org_membership_cleanup as _mod
+        state_path = tmp_path / "legacy.json"
+        state_path.write_text(json.dumps({
+            "_comment": "old",
+            "users": {"bob": {"last_check": "2025-01-01T00:00:00+00:00"}},
+        }))
+        monkeypatch.setattr(_mod, "STATE_FILE", str(state_path))
+        state = load_state()
+        assert "bob" in state["users"]
+        # Missing 'team' key is tolerated — handled in run() logic
+
+
+# ── Org Members List ──────────────────────────────────────────────────────────
+
+
+class TestListOrgMembers:
+    def test_paginated(self, monkeypatch):
+        def mock_paginate(url, headers, extra_params=None):
+            return [
+                {"login": "alice"},
+                {"login": "bob"},
+            ]
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup.paginate", mock_paginate
+        )
+
+        members = list_org_members(FAKE_TOKEN, ORG)
+        assert members == ["alice", "bob"]
+
+
+# ── ISO datetime parsing ─────────────────────────────────────────────────────
+
+
+class TestParseIsoDatetime:
+    def test_z_suffix(self):
+        dt = _parse_iso_datetime("2025-06-15T08:30:00Z")
+        assert dt.tzinfo is not None
+        assert dt.hour == 8
+
+    def test_offset(self):
+        dt = _parse_iso_datetime("2025-06-15T08:30:00+00:00")
+        assert dt.tzinfo is not None
+
+
+# ── Main Run Loop (integration-level) ────────────────────────────────────────
+
+
+class TestRun:
+    def _setup_mocks(self, monkeypatch, temp_state_file, members, memberships,
+                     contributions=None):
+        """Shared setup for run() tests."""
+        # Token
+        monkeypatch.setenv("SYNC_GITHUB_TOKEN", FAKE_TOKEN)
+
+        # Team chain
+        def mock_rest_get(token, path, **params):
+            team_map = {
+                f"/orgs/{ORG}/teams/csm-developer": {
+                    "slug": "csm-developer",
+                    "parent": {"slug": "csm-module-author"},
+                },
+                f"/orgs/{ORG}/teams/csm-module-author": {
+                    "slug": "csm-module-author",
+                    "parent": {"slug": "csm-community"},
+                },
+                f"/orgs/{ORG}/teams/csm-community": {
+                    "slug": "csm-community",
+                    "parent": None,
+                },
+            }
+            if path in team_map:
+                return team_map[path]
+
+            # Contribution search — controlled by contributions dict
+            if "/search/issues" in path:
+                q = params.get("q", "")
+                for user, has_contrib in (contributions or {}).items():
+                    if f"author:{user}" in q or f"assignee:{user}" in q:
+                        if has_contrib:
+                            return {"items": [{"updated_at": "2025-06-20T08:00:00Z"}]}
+                        return {"items": []}
+                return {"items": []}
+
+            raise requests.HTTPError(response=MagicMock(status_code=404))
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_get", mock_rest_get
+        )
+
+        # Commit search — no commits by default
+        def mock_commits_get(url, headers, params, timeout=30):
+            resp = MagicMock()
+            resp.json.return_value = {"items": []}
+            resp.status_code = 200
+            return resp
+
+        monkeypatch.setattr("requests.get", mock_commits_get)
+
+        # Org members
+        def mock_paginate(url, headers, extra_params=None):
+            return [{"login": m} for m in members]
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup.paginate", mock_paginate
+        )
+
+        # Delete (downgrade)
+        delete_calls = []
+
+        def mock_delete(token, path):
+            delete_calls.append(path)
+            return True
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_delete", mock_delete
+        )
+
+        return delete_calls
+
+    def test_dry_run_no_actions(self, monkeypatch, temp_state_file):
+        """Dry-run should log but not call delete."""
+        now = datetime.now(timezone.utc)
+        monkeypatch.setenv("SYNC_GITHUB_TOKEN", FAKE_TOKEN)
+        import scripts.org_membership_cleanup as _mod
+        monkeypatch.setattr(_mod, "STATE_FILE", str(temp_state_file))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["bob"],
+            memberships={},
+            contributions={"bob": False},  # no contribution
+        )
+
+        # Also need membership mock for get_user_level
+        real_get = __import__("requests").get
+
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            if "csm-module-author/memberships/bob" in url:
+                resp.status_code = 200
+                return resp
+            resp.status_code = 404
+            raise requests.HTTPError(response=resp)
+
+        monkeypatch.setattr("requests.get", mock_get)
+
+        run(dry_run=True)
+        assert len(delete_calls) == 0  # No real deletions in dry-run
+
+    def test_anchor_skipped(self, monkeypatch, temp_state_file):
+        """CSM-Developer should always be skipped."""
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["alice"],
+            memberships={},
+        )
+
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            if "csm-developer/memberships/alice" in url:
+                resp.status_code = 200
+                return resp
+            resp.status_code = 404
+            raise requests.HTTPError(response=resp)
+
+        monkeypatch.setattr("requests.get", mock_get)
+
+        run(dry_run=False)
+        assert len(delete_calls) == 0
+
+    def test_user_not_in_csm_team_skipped(self, monkeypatch, temp_state_file):
+        """User not in any CSM team should be skipped."""
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["dave"],
+            memberships={},
+        )
+
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            resp.status_code = 404
+            raise requests.HTTPError(response=resp)
+
+        monkeypatch.setattr("requests.get", mock_get)
+
+        run(dry_run=False)
+        assert len(delete_calls) == 0
+
+    def test_first_time_user_triggers_check(self, monkeypatch, temp_state_file):
+        """New user with no state should be checked immediately."""
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["charlie"],
+            memberships={},
+            contributions={"charlie": False},
+        )
+
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            if "csm-community/memberships/charlie" in url:
+                resp.status_code = 200
+                return resp
+            resp.status_code = 404
+            raise requests.HTTPError(response=resp)
+
+        monkeypatch.setattr("requests.get", mock_get)
+
+        run(dry_run=False)
+        # No contributions → should be removed from org
+        removed = any(f"memberships/charlie" in c for c in delete_calls)
+        assert removed, f"Expected charlie removal, got calls: {delete_calls}"
+
+    def test_within_window_skipped(self, monkeypatch, temp_state_file):
+        """User checked recently should be skipped."""
+        now = datetime.now(timezone.utc)
+        recent = (now - timedelta(days=3)).isoformat()
+
+        # Pre-populate state file
+        state = {
+            "_comment": "test",
+            "users": {
+                "bob": {"last_check": recent, "team": "csm-module-author"},
+            },
+        }
+        temp_state_file.write_text(json.dumps(state))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["bob"],
+            memberships={},
+        )
+
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            if "csm-module-author/memberships/bob" in url:
+                resp.status_code = 200
+                return resp
+            resp.status_code = 404
+            raise requests.HTTPError(response=resp)
+
+        monkeypatch.setattr("requests.get", mock_get)
+
+        run(dry_run=False)
+        # Should be skipped — within 14 days
+        assert len(delete_calls) == 0
+
+    def test_window_expired_no_contrib_downgrade(self, monkeypatch, temp_state_file):
+        """User past 14 days with no contributions → downgrade."""
+        now = datetime.now(timezone.utc)
+        old = (now - timedelta(days=20)).isoformat()
+
+        state = {
+            "_comment": "test",
+            "users": {
+                "bob": {"last_check": old, "team": "csm-module-author"},
+            },
+        }
+        temp_state_file.write_text(json.dumps(state))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["bob"],
+            memberships={},
+            contributions={"bob": False},
+        )
+
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            if "csm-module-author/memberships/bob" in url:
+                resp.status_code = 200
+                return resp
+            resp.status_code = 404
+            raise requests.HTTPError(response=resp)
+
+        monkeypatch.setattr("requests.get", mock_get)
+
+        run(dry_run=False)
+        # Bob should be removed from module-author
+        downgraded = any("csm-module-author/memberships/bob" in c for c in delete_calls)
+        assert downgraded, f"Expected bob downgrade, got calls: {delete_calls}"
+
+
+# ── Constants ─────────────────────────────────────────────────────────────────
+
+
+class TestConstants:
+    def test_org(self):
+        assert ORG == "NEVSTOP-LAB"
+
+    def test_anchor(self):
+        assert ANCHOR_TEAM == "csm-developer"
+
+    def test_interval(self):
+        assert CHECK_INTERVAL_DAYS == 14
