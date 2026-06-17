@@ -57,7 +57,8 @@ logger = logging.getLogger("discussion_bot")
 QA_CATEGORY_NAME = "Q&A"
 # 追加在 Bot 回复末尾的 HTML 注释，用于防重复检测（用户不可见）
 BOT_MARKER = "<!-- csm-qa-bot -->"
-# 需要跳过的 Discussion 作者登录名集合（不回复这些用户的讨论）
+# 需要跳过的 Discussion 作者登录名集合（不回复这些用户的讨论和评论）
+# 注意：GitHub login 大小写不敏感，所有值与比较均应统一 casefold。
 SKIP_AUTHORS: frozenset[str] = frozenset({"nevstop"})
 # Bot 回复页脚（可见文字）
 BOT_FOOTER = (
@@ -392,7 +393,7 @@ def compute_reply_plan(
         i
         for i in range(last_bot_idx + 1, len(comments))
         if not _is_bot_comment(comments[i], bot_login)
-        and (comments[i].get("author") or {}).get("login", "") not in SKIP_AUTHORS
+        and (comments[i].get("author") or {}).get("login", "").casefold() not in SKIP_AUTHORS
     ]
     if not followup_user_indices:
         return None  # 已回复且无追问 → 跳过
@@ -412,7 +413,7 @@ def compute_reply_plan(
         c_body = (comments[i].get("body") or "").strip()
         if not c_body:
             continue
-        comment_author = (comments[i].get("author") or {}).get("login", "")
+        comment_author = (comments[i].get("author") or {}).get("login", "").casefold()
         if comment_author in SKIP_AUTHORS:
             continue
         is_bot = _is_bot_comment(comments[i], bot_login)
@@ -658,7 +659,7 @@ def _process_discussion_dict(
         logger.info("Discussion #%d 已关闭，跳过", number)
         return False
 
-    author_login = (discussion.get("author") or {}).get("login", "")
+    author_login = (discussion.get("author") or {}).get("login", "").casefold()
     if author_login in SKIP_AUTHORS:
         logger.info(
             "Discussion #%d 作者 %r 在跳过列表中，跳过",
