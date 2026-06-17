@@ -235,6 +235,7 @@ def _user_in_other_teams(
     """检查用户是否属于 CSM 链之外的任何团队。
 
     遍历组织所有团队，排除链内团队，检查用户是否仍有成员身份。
+    查询失败时保守处理：视为有其他团队，保留组织身份。
     """
     chain_set = set(chain)
     try:
@@ -242,8 +243,8 @@ def _user_in_other_teams(
         headers = api_headers(token)
         all_teams = paginate(url, headers)
     except Exception as exc:
-        logger.warning("获取组织团队列表失败，保守处理：视为无其他团队: %s", exc)
-        return False
+        logger.warning("获取组织团队列表失败，保守处理：保留组织身份: %s", exc)
+        return True  # 无法确认 → 保留，避免误移除
 
     for team in all_teams:
         slug = team.get("slug", "")
@@ -301,7 +302,7 @@ def downgrade_user(
                 "%s 在其他团队中仍有身份，保留组织成员资格",
                 username,
             )
-            return None
+            return "kept"
 
         # 无其他团队 → 移出组织
         logger.warning("⛔ %s: 无其他团队，移出组织", username)
@@ -512,13 +513,26 @@ def run(dry_run: bool = False) -> None:
             else:
                 try:
                     new_team = downgrade_user(token, ORG, username, level_idx, chain)
-                    users_state[username] = {
-                        "last_check": now.isoformat(),
-                        "team": new_team if new_team else "removed",
-                    }
                     if new_team is None:
+                        # 已移出组织
+                        users_state[username] = {
+                            "last_check": now.isoformat(),
+                            "team": "removed",
+                        }
                         summary["removed"] += 1
+                    elif new_team == "kept":
+                        # 有其他团队，保留组织身份
+                        users_state[username] = {
+                            "last_check": now.isoformat(),
+                            "team": current_team,
+                        }
+                        summary["downgraded"] += 1
                     else:
+                        # 降级到父团队
+                        users_state[username] = {
+                            "last_check": now.isoformat(),
+                            "team": new_team,
+                        }
                         summary["downgraded"] += 1
                 except Exception as exc:
                     logger.error("降级 %s 失败: %s", username, exc)

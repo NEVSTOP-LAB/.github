@@ -380,7 +380,7 @@ class TestDowngradeUser:
         monkeypatch.setattr("requests.get", mock_get)
 
         result = downgrade_user(FAKE_TOKEN, ORG, "charlie", 0, CHAIN)
-        assert result is None
+        assert result == "kept"
         # Only one call: remove from CSM-Community team
         assert len(calls) == 1
         assert f"/teams/csm-community/memberships/charlie" in calls[0]
