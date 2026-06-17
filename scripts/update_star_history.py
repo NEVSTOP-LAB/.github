@@ -24,7 +24,12 @@ from datetime import datetime, timezone
 
 import requests
 
-from scripts._utils import BEIJING_TZ, api_headers, paginate_generator
+# ── 确保包根目录在 sys.path（直接运行 scripts/ 时使用）──────────────────────
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
+from scripts._utils import BEIJING_TZ, api_headers, paginate_generator  # noqa: E402
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 ORG = os.environ.get("ORG", "NEVSTOP-LAB")

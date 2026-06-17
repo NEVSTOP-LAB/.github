@@ -94,6 +94,12 @@ def paginate(
     while True:
         params["page"] = page
         resp = requests.get(url, headers=headers, params=params, timeout=30)
+        if resp.status_code == 403:
+            raise requests.HTTPError(
+                "GitHub API rate limit reached (HTTP 403). "
+                "Set GITHUB_TOKEN or GH_TOKEN for higher limits.",
+                response=resp,
+            )
         if resp.status_code == 404:
             raise requests.HTTPError(
                 f"GitHub API endpoint not found or inaccessible: {resp.url}",
@@ -125,6 +131,12 @@ def paginate_generator(
     while True:
         params["page"] = page
         resp = requests.get(url, headers=headers, params=params, timeout=30)
+        if resp.status_code == 403:
+            raise requests.HTTPError(
+                "GitHub API rate limit reached (HTTP 403). "
+                "Set GITHUB_TOKEN or GH_TOKEN for higher limits.",
+                response=resp,
+            )
         if resp.status_code == 404:
             raise requests.HTTPError(
                 f"GitHub API endpoint not found or inaccessible: {resp.url}",

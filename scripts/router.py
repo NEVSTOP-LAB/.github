@@ -153,7 +153,7 @@ _GITHUB_APP_PRIVATE_KEY = os.getenv("GITHUB_APP_PRIVATE_KEY", "")
 _GITHUB_APP_INSTALL_ID = os.getenv("GITHUB_APP_INSTALL_ID", "")
 
 
-# ── REST helper ────────────────────────────────────────────────────────────── ──────────────────────────────────────────────────────────────
+# ── REST helper ──────────────────────────────────────────────────────────────
 
 
 # ── App Installation Token ──────────────────────────────────────────────────
