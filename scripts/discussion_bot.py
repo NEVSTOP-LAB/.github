@@ -50,20 +50,12 @@ if _REPO_ROOT not in sys.path:
 
 from csm_llm_qa import CSM_QA  # noqa: E402
 
+from scripts._utils import configure_logging  # noqa: E402
+from scripts._github import GitHubGraphQL  # noqa: E402
+
 logger = logging.getLogger("discussion_bot")
 
-
-def _configure_logging() -> None:
-    """配置根日志（仅在脚本直接运行时调用，避免作为库导入时污染全局日志配置）。"""
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s %(levelname)-8s %(name)s %(message)s",
-        datefmt="%Y-%m-%dT%H:%M:%S",
-    )
-
 # ── 常量 ────────────────────────────────────────────────────────────────────
-
-GITHUB_GRAPHQL_URL = "https://api.github.com/graphql"
 # Q&A Category 名称（大小写精确匹配）
 QA_CATEGORY_NAME = "Q&A"
 # 追加在 Bot 回复末尾的 HTML 注释，用于防重复检测（用户不可见）
@@ -117,48 +109,6 @@ def _strip_trailing_bot_footer(text: str) -> str:
 
 
 # ── GitHub GraphQL 客户端 ───────────────────────────────────────────────────
-
-
-class GitHubGraphQL:
-    """轻量级 GitHub GraphQL 客户端（仅依赖 stdlib urllib）。"""
-
-    def __init__(self, token: str) -> None:
-        if not token:
-            raise ValueError("GitHub token (CSM_QA_GH_TOKEN) 未配置")
-        self._token = token
-
-    def query(self, gql: str, variables: Optional[dict] = None) -> dict:
-        """执行 GraphQL 查询，返回 ``data`` 节点。
-
-        Raises:
-            RuntimeError: HTTP 错误或 GraphQL errors 字段存在。
-        """
-        payload = json.dumps({"query": gql, "variables": variables or {}}).encode()
-        req = urllib.request.Request(
-            GITHUB_GRAPHQL_URL,
-            data=payload,
-            headers={
-                "Authorization": f"Bearer {self._token}",
-                "Content-Type": "application/json",
-                "Accept": "application/vnd.github.v3+json",
-                "User-Agent": "csm-qa-bot/1.0",
-            },
-            method="POST",
-        )
-        try:
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                raw = resp.read()
-        except urllib.error.HTTPError as exc:
-            body = exc.read().decode("utf-8", errors="replace")
-            raise RuntimeError(
-                f"GitHub GraphQL HTTP {exc.code}: {body[:400]}"
-            ) from exc
-
-        result: dict = json.loads(raw)
-        if result.get("errors"):
-            messages = "; ".join(e.get("message", "") for e in result["errors"])
-            raise RuntimeError(f"GitHub GraphQL errors: {messages}")
-        return result.get("data", {})
 
 
 # ── 业务逻辑 ────────────────────────────────────────────────────────────────
@@ -936,7 +886,7 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    _configure_logging()
+    configure_logging()
     args = parse_args(argv)
 
     # ── 读取 Token ──────────────────────────────────────────────────────────
@@ -952,7 +902,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         logger.error("%s", exc)
         return 1
 
-    client = GitHubGraphQL(gh_token)
+    client = GitHubGraphQL(gh_token, user_agent="csm-qa-bot/1.0")
 
     # ── 获取 Bot 登录名（用于作者身份校验，失败时降级为仅 marker 检测）──────
     bot_login = get_viewer_login(client)
