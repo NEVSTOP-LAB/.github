@@ -94,6 +94,11 @@ def paginate(
     while True:
         params["page"] = page
         resp = requests.get(url, headers=headers, params=params, timeout=30)
+        if resp.status_code == 404:
+            raise requests.HTTPError(
+                f"GitHub API endpoint not found or inaccessible: {resp.url}",
+                response=resp,
+            )
         resp.raise_for_status()
         data = resp.json()
         if not data:
@@ -120,6 +125,11 @@ def paginate_generator(
     while True:
         params["page"] = page
         resp = requests.get(url, headers=headers, params=params, timeout=30)
+        if resp.status_code == 404:
+            raise requests.HTTPError(
+                f"GitHub API endpoint not found or inaccessible: {resp.url}",
+                response=resp,
+            )
         resp.raise_for_status()
         data = resp.json()
         if not data:
@@ -129,3 +139,24 @@ def paginate_generator(
             return
         page += 1
         time.sleep(0.05)
+
+
+# ── Marker helpers ────────────────────────────────────────────────────────────
+
+
+def marker_start(region: str) -> str:
+    """Build a start marker string from a region name.
+
+    >>> marker_start("VIPM_DOWNLOADS")
+    '<!-- VIPM_DOWNLOADS_START -->'
+    """
+    return f"<!-- {region}_START -->"
+
+
+def marker_end(region: str) -> str:
+    """Build an end marker string from a region name.
+
+    >>> marker_end("VIPM_DOWNLOADS")
+    '<!-- VIPM_DOWNLOADS_END -->'
+    """
+    return f"<!-- {region}_END -->"

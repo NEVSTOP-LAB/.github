@@ -27,18 +27,10 @@ _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-from scripts._utils import BEIJING_TZ  # noqa: E402
+from scripts._utils import BEIJING_TZ, marker_start, marker_end  # noqa: E402
 
 # ── Region marker ─────────────────────────────────────────────────────────────
 DEFAULT_REGION = "VIPM_DOWNLOADS"
-
-
-def _marker_start(region: str) -> str:
-    return f"<!-- {region}_START -->"
-
-
-def _marker_end(region: str) -> str:
-    return f"<!-- {region}_END -->"
 
 # ── Package list – order matches x-axis: Core, API String, MassData,
 #    INI-Variable, DAQ-Example, TCP-Example ──────────────────────────────────
@@ -129,18 +121,18 @@ def update_readme(
     now = datetime.now(BEIJING_TZ)
     current_month = f"{now.year}.{now.month:02d}"
 
-    marker_start = _marker_start(region)
-    marker_end = _marker_end(region)
+    marker_s = marker_start(region)
+    marker_e = marker_end(region)
 
     # ── Locate the marker block ────────────────────────────────────────
-    start_pos = content.find(marker_start)
-    end_pos = content.find(marker_end)
+    start_pos = content.find(marker_s)
+    end_pos = content.find(marker_e)
     if start_pos == -1 or end_pos == -1 or end_pos <= start_pos:
         raise ValueError(f"Markers for region {region!r} not found in {readme_path}")
 
     before = content[:start_pos]
-    block = content[start_pos:end_pos + len(marker_end)]
-    after = content[end_pos + len(marker_end):]
+    block = content[start_pos:end_pos + len(marker_e)]
+    after = content[end_pos + len(marker_e):]
 
     # ── Locate the xychart-beta mermaid block within the markers ──────────
     mermaid_re = re.compile(r"(```mermaid\n)(.*?)(```)", re.DOTALL)

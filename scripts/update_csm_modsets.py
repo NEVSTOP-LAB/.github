@@ -35,7 +35,7 @@ _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-from scripts._utils import api_headers  # noqa: E402
+from scripts._utils import api_headers, marker_start, marker_end  # noqa: E402
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 GITHUB_API = "https://api.github.com"
@@ -101,14 +101,6 @@ def fetch_repos_with_topic(topic: str) -> list[dict]:
             file=sys.stderr,
         )
     return repos
-
-
-def _marker_start(region: str) -> str:
-    return f"<!-- {region}_START -->"
-
-
-def _marker_end(region: str) -> str:
-    return f"<!-- {region}_END -->"
 
 
 # ── Data processing ────────────────────────────────────────────────────────────
@@ -249,17 +241,17 @@ def update_readme(
     with open(readme_path, encoding="utf-8") as fh:
         content = fh.read()
 
-    marker_start = _marker_start(region)
-    marker_end = _marker_end(region)
+    marker_s = marker_start(region)
+    marker_e = marker_end(region)
 
     new_block = (
-        f"{marker_start}\n"
+        f"{marker_s}\n"
         f"<pre>\n{pre_content}\n</pre>\n"
-        f"{marker_end}"
+        f"{marker_e}"
     )
 
     pattern = re.compile(
-        re.escape(marker_start) + r".*?" + re.escape(marker_end),
+        re.escape(marker_s) + r".*?" + re.escape(marker_e),
         re.DOTALL,
     )
 
