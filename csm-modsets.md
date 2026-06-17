@@ -1,6 +1,6 @@
 # CSM Modsets Repositories
 
-> 自动生成，最后更新时间：2026-06-17 03:46 UTC
+> 自动生成，最后更新时间：2026-06-17 15:38 UTC
 
 所有公开的、主题（topic）为 [`csm-modsets`](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) 的仓库列表。
 
@@ -24,3 +24,9 @@
 |------|:---:|------|
 | [CSM-Modsets-SimWaveform](https://github.com/nevstop/CSM-Modsets-SimWaveform) | 4 | CSM Module: 模拟波形 |
 | [CSM-Utils](https://github.com/nevstop/CSM-Utils) | 3 | 复用VI，还未被纳入到CSM的安装包中 |
+
+## <a id="LiXinxing77"></a>[LiXinxing77](https://github.com/LiXinxing77) (1)
+
+| 仓库 | ⭐ | 描述 |
+|------|:---:|------|
+| [Curve-Editor](https://github.com/LiXinxing77/Curve-Editor) |  | 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比 |

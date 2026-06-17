@@ -41,7 +41,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 8000
-    bar   [6794, 5272, 4480, 4969, 4094, 2671, 2026.06]
+    bar   [6794, 5291, 4480, 4969, 4094, 2671, 2026.06]
     bar   [6538, 5050, 4260, 4752, 3914, 2501, 2026.05]
     bar   [6142, 4736, 3956, 4445, 3678, 2271, 2026.04]
     bar   [5708, 4379, 3605, 4097, 3441, 2024, 2026.03]
@@ -125,6 +125,9 @@
 <a href="https://github.com/nevstop">nevstop</a> (2)
   <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐4 CSM Module: 模拟波形
   <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐3 复用VI，还未被纳入到CSM的安装包中
+
+<a href="https://github.com/LiXinxing77">LiXinxing77</a> (1)
+  <a href="https://github.com/LiXinxing77/Curve-Editor">Curve-Editor</a> 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比
 </pre>
 <!-- CSM_MODSETS_END -->
 

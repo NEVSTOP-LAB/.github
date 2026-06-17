@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-15 09:24:20 UTC+8_  
-_Total stars: 309_
+_Last updated: 2026-06-17 23:38:53 UTC+8_  
+_Total stars: 316_
 
 ## Star Growth Chart
 
@@ -9,24 +9,24 @@ _Total stars: 309_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
-    y-axis "Cumulative Stars" 0 --> 330
-    line [1, 12, 26, 40, 56, 82, 114, 199, 270]
+    y-axis "Cumulative Stars" 0 --> 340
+    line [1, 12, 26, 40, 56, 82, 114, 199, 277]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 57 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 58 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 39 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 23 |
 | 4 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
-| 5 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
-| 6 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 11 |
+| 5 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 13 |
+| 6 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
 | 7 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
-| 8 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
-| 9 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 9 |
-| 10 | [`CSM-Wiki`](https://github.com/NEVSTOP-LAB/CSM-Wiki) | 9 |
+| 8 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 11 |
+| 9 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
+| 10 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 10 |
 
 ## Top 10 Users by Stars Given
 
@@ -39,14 +39,21 @@ xychart-beta
 | 5 | [shennnw](https://github.com/shennnw) | 9 |
 | 6 | [chenwm](https://github.com/chenwm) | 8 |
 | 7 | [junyang0412](https://github.com/junyang0412) | 8 |
-| 8 | [yangkkokk](https://github.com/yangkkokk) | 5 |
-| 9 | [LiXinxing77](https://github.com/LiXinxing77) | 5 |
-| 10 | [eastcheng1024](https://github.com/eastcheng1024) | 5 |
+| 8 | [paynechen521](https://github.com/paynechen521) | 5 |
+| 9 | [yangkkokk](https://github.com/yangkkokk) | 5 |
+| 10 | [LiXinxing77](https://github.com/LiXinxing77) | 5 |
 
 ## Star Log
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-17 21:15:21+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
+| 2026-06-17 21:15:11+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
+| 2026-06-17 21:15:03+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
+| 2026-06-17 21:14:54+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
+| 2026-06-17 17:54:42+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [fergusLib](https://github.com/fergusLib) | ⭐ add |
+| 2026-06-17 17:54:35+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [fergusLib](https://github.com/fergusLib) | ⭐ add |
+| 2026-06-17 17:54:24+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [fergusLib](https://github.com/fergusLib) | ⭐ add |
 | 2026-06-15 09:22:58+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [yangkkokk](https://github.com/yangkkokk) | ⭐ add |
 | 2026-06-15 09:22:53+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [yangkkokk](https://github.com/yangkkokk) | ⭐ add |
 | 2026-06-15 09:22:46+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [yangkkokk](https://github.com/yangkkokk) | ⭐ add |
