@@ -53,6 +53,14 @@
 ```json
 {
   "_comment": "Per-user state for org-membership-cleanup workflow. DO NOT edit manually.",
+  "_schema": {
+    "users": {
+      "<github-username>": {
+        "last_check": "ISO-8601 datetime",
+        "team": "current CSM team slug or 'removed'"
+      }
+    }
+  },
   "users": {
     "alice": {
       "last_check": "2025-06-20T08:30:00+00:00",
@@ -66,6 +74,7 @@
 }
 ```
 
+- `_schema`：自描述字段，记录 `users` 中各字段的含义与格式（仅文档作用，不影响运行时逻辑）
 - `last_check`：ISO-8601 UTC 时间，距上次检查或最近贡献的时间
 - `team`：用户当前所在 CSM 团队 slug（运行时以 API 查询为准，此处仅作记录）
 - `"removed"` 表示该用户已从组织移除

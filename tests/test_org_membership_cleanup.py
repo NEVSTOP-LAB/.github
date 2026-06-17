@@ -6,7 +6,7 @@ import json
 import os
 import sys
 from datetime import datetime, timedelta, timezone
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
 import requests
@@ -166,12 +166,9 @@ class TestGetUserLevel:
 
     def test_community(self, monkeypatch):
         """Community returns index 0."""
-        call_count = [0]
-
         def mock_get(url, headers, timeout=30):
             resp = MagicMock()
-            call_count[0] += 1
-            if "csm-community/memberships/bob" in url and call_count[0] == 1:
+            if "csm-community/memberships/bob" in url:
                 resp.status_code = 200
                 return resp
             resp.status_code = 404
@@ -195,6 +192,32 @@ class TestGetUserLevel:
         monkeypatch.setattr("requests.get", mock_get)
         level = get_user_level(FAKE_TOKEN, ORG, "dave", CHAIN)
         assert level == -1
+
+    def test_user_in_multiple_teams_returns_highest(self, monkeypatch):
+        """User in both csm-community and csm-module-author → returns higher index (2)."""
+        call_count = [0]
+
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            call_count[0] += 1
+            # First call (anchor → root): csm-developer? return 404
+            if "csm-developer/memberships/eve" in url and call_count[0] == 1:
+                resp.status_code = 404
+                http_error = requests.HTTPError(response=resp)
+                http_error.response = resp
+                raise http_error
+            # Second call: csm-module-author? return 200
+            if "csm-module-author/memberships/eve" in url and call_count[0] == 2:
+                resp.status_code = 200
+                return resp
+            resp.status_code = 404
+            http_error = requests.HTTPError(response=resp)
+            http_error.response = resp
+            raise http_error
+
+        monkeypatch.setattr("requests.get", mock_get)
+        level = get_user_level(FAKE_TOKEN, ORG, "eve", CHAIN)
+        assert level == 1  # csm-module-author (index 1), not csm-community (index 0)
 
 
 # ── Contribution Query ────────────────────────────────────────────────────────

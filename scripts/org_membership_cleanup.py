@@ -109,8 +109,12 @@ def discover_team_chain(token: str, org: str, anchor_slug: str) -> list[str]:
 
 
 def get_user_level(token: str, org: str, username: str, chain: list[str]) -> int:
-    """返回用户在团队链中的索引，-1 表示不在任何 CSM 团队中。"""
-    for i, slug in enumerate(chain):
+    """返回用户在团队链中的索引，-1 表示不在任何 CSM 团队中。
+
+    从锚点向根遍历（高→低），确保在多团队场景下返回最高级别。
+    """
+    for i in range(len(chain) - 1, -1, -1):
+        slug = chain[i]
         try:
             resp = requests.get(
                 f"{GITHUB_API_URL}/orgs/{org}/teams/{slug}/memberships/{username}",
@@ -262,8 +266,16 @@ def _user_in_other_teams(
                     username, slug,
                 )
                 return True
-        except requests.HTTPError:
-            continue  # 404 = 不在该团队，继续检查下一个
+        except requests.HTTPError as exc:
+            if exc.response is not None and exc.response.status_code == 404:
+                continue  # 不在该团队，检查下一个
+            # 403/429/5xx → 向上抛出，避免在不可靠状态下误判
+            logger.error(
+                "查询其他团队成员失败 %s/%s: HTTP %s",
+                slug, username,
+                exc.response.status_code if exc.response is not None else "?",
+            )
+            raise
     return False
 
 
