@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Update the "Sorted By Tags" section in profile/README.md.
 
+Operates within ``<!-- SORTED_TAGS_START -->`` / ``<!-- SORTED_TAGS_END -->``
+markers to avoid touching unrelated content.
+
 Logic:
 - Fetch all public repositories in the organization.
 - Count topic/tag usage across repositories.
@@ -9,55 +12,30 @@ Logic:
 - Render each line as: [`tag(count)`](search-url)
 """
 
-from collections import Counter
+from __future__ import annotations
+
 import os
 import re
 import sys
-import time
+from collections import Counter
 from urllib.parse import quote
 
-import requests
-
+from scripts._utils import api_headers, paginate
 
 ORG = os.environ.get("ORG", "NEVSTOP-LAB")
 OUTPUT_FILE = os.environ.get("OUTPUT_FILE", "profile/README.md")
 MIN_TAG_COUNT = int(os.environ.get("MIN_TAG_COUNT", "1"))
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
 
-_HEADERS = {
-    "Accept": "application/vnd.github+json",
-    "X-GitHub-Api-Version": "2022-11-28",
-    "User-Agent": "NEVSTOP-LAB-sorted-tags-updater",
-}
-if GITHUB_TOKEN:
-    _HEADERS["Authorization"] = f"Bearer {GITHUB_TOKEN}"
-
-
-def _paginate(url: str, extra_params: dict | None = None):
-    params = {"per_page": 100, **(extra_params or {})}
-    page = 1
-    while True:
-        params["page"] = page
-        resp = requests.get(url, headers=_HEADERS, params=params, timeout=30)
-        if resp.status_code == 403 and not GITHUB_TOKEN:
-            raise requests.HTTPError(
-                "GitHub API rate limit reached. Set GITHUB_TOKEN or GH_TOKEN.",
-                response=resp,
-            )
-        resp.raise_for_status()
-        data = resp.json()
-        if not data:
-            return
-        yield from data
-        if len(data) < 100:
-            return
-        page += 1
-        time.sleep(0.05)
+# ── Markers ───────────────────────────────────────────────────────────────────
+TAGS_START = "<!-- SORTED_TAGS_START -->"
+TAGS_END = "<!-- SORTED_TAGS_END -->"
 
 
 def get_public_repos() -> list[dict]:
     url = f"https://api.github.com/orgs/{ORG}/repos"
-    repos = list(_paginate(url, {"type": "public"}))
+    headers = api_headers(GITHUB_TOKEN, user_agent="NEVSTOP-LAB-sorted-tags-updater")
+    repos = paginate(url, headers, {"type": "public"})
 
     # Keep the first occurrence of each repository to avoid duplicated counts
     # if paginated API responses overlap between requests.
@@ -92,24 +70,24 @@ def build_tag_lines(repos: list[dict]) -> list[str]:
 
 
 def update_readme(readme_path: str, tag_lines: list[str]) -> bool:
+    """Replace the content between SORTED_TAGS markers with *tag_lines*.
+
+    Returns ``True`` if the file was modified, ``False`` otherwise.
+    """
     with open(readme_path, encoding="utf-8") as f:
         content = f.read()
 
-    section_re = re.compile(
-        r"(^[^\n]*\*\*Sorted By Tags\*\*[^\n]*\n(?:-+\n)?)(.*?)(\n\s*<!--)",
-        re.DOTALL | re.MULTILINE,
-    )
-    match = section_re.search(content)
-    if not match:
-        raise ValueError('Could not find "Sorted By Tags" section in README')
+    # ── Locate the marker block ───────────────────────────────────────────
+    start_pos = content.find(TAGS_START)
+    end_pos = content.find(TAGS_END)
+    if start_pos == -1 or end_pos == -1 or end_pos <= start_pos:
+        raise ValueError(f"SORTED_TAGS markers not found in {readme_path}")
+
+    before = content[:start_pos + len(TAGS_START)]
+    after = content[end_pos:]
 
     body = "\n".join(tag_lines)
-
-    new_content = (
-        content[: match.start(2)]
-        + body
-        + content[match.end(2):]
-    )
+    new_content = before + "\n" + body + "\n" + after
 
     if new_content == content:
         return False
@@ -119,15 +97,13 @@ def update_readme(readme_path: str, tag_lines: list[str]) -> bool:
     return True
 
 
-def main(output_file: str):
+def main(output_file: str) -> None:
     print(f"Fetching public repositories for org: {ORG}")
     repos = get_public_repos()
     print(f"  Found {len(repos)} public repositories")
 
     tag_lines = build_tag_lines(repos)
-    print(
-        f"  Keeping {len(tag_lines)} tags with count > {MIN_TAG_COUNT}"
-    )
+    print(f"  Keeping {len(tag_lines)} tags with count > {MIN_TAG_COUNT}")
 
     changed = update_readme(output_file, tag_lines)
     if changed:
