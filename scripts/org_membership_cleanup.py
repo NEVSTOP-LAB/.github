@@ -33,7 +33,7 @@ _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-from scripts._utils import api_headers, configure_logging, paginate, BEIJING_TZ  # noqa: E402
+from scripts._utils import api_headers, configure_logging, paginate  # noqa: E402
 
 logger = logging.getLogger("org_membership_cleanup")
 
