@@ -20,6 +20,7 @@ from scripts.org_membership_cleanup import (
     get_user_level,
     query_last_contribution_time,
     downgrade_user,
+    _user_in_other_teams,
     load_state,
     save_state,
     list_org_members,
@@ -316,7 +317,7 @@ class TestDowngradeUser:
         assert f"/teams/csm-module-author/memberships/bob" in calls[0]
 
     def test_remove_from_org(self, monkeypatch):
-        """Community → removed from org."""
+        """Community, no other teams → removed from org."""
         calls = []
 
         def mock_delete(token, path):
@@ -327,12 +328,66 @@ class TestDowngradeUser:
             "scripts.org_membership_cleanup._rest_delete", mock_delete
         )
 
+        # Mock paginate for _user_in_other_teams: only CSM-chain teams (no others)
+        def mock_paginate(url, headers, extra_params=None):
+            return [{"slug": s} for s in CHAIN]
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup.paginate", mock_paginate
+        )
+
+        # Mock membership check for non-CSM teams (none exist, so no calls expected)
+        monkeypatch.setattr("requests.get", lambda *a, **kw: MagicMock(status_code=404))
+
         result = downgrade_user(FAKE_TOKEN, ORG, "charlie", 0, CHAIN)
         assert result is None
-        assert f"/orgs/{ORG}/memberships/charlie" in calls[0]
+        # First: remove from CSM-Community team
+        assert f"/teams/csm-community/memberships/charlie" in calls[0]
+        # Second: remove from org (no other teams)
+        assert f"/orgs/{ORG}/memberships/charlie" in calls[1]
+
+    def test_community_with_other_teams(self, monkeypatch):
+        """Community + other team → only removed from CSM-Community, kept in org."""
+        calls = []
+
+        def mock_delete(token, path):
+            calls.append(path)
+            return True
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_delete", mock_delete
+        )
+
+        # Mock paginate: CSM-chain teams + one extra team
+        def mock_paginate(url, headers, extra_params=None):
+            return [{"slug": s} for s in CHAIN] + [{"slug": "project-x"}]
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup.paginate", mock_paginate
+        )
+
+        # Mock membership check: user IS in project-x
+        def mock_get(url, headers, timeout=30):
+            resp = MagicMock()
+            if "project-x/memberships/charlie" in url:
+                resp.status_code = 200
+                return resp
+            resp.status_code = 404
+            http_error = requests.HTTPError(response=resp)
+            http_error.response = resp
+            raise http_error
+
+        monkeypatch.setattr("requests.get", mock_get)
+
+        result = downgrade_user(FAKE_TOKEN, ORG, "charlie", 0, CHAIN)
+        assert result is None
+        # Only one call: remove from CSM-Community team
+        assert len(calls) == 1
+        assert f"/teams/csm-community/memberships/charlie" in calls[0]
+        # No org removal call
 
     def test_already_removed_404(self, monkeypatch):
-        """404 on delete → still succeeds."""
+        """404 on team delete + no other teams → second delete also 404 → still succeeds."""
         def mock_delete(token, path):
             resp = MagicMock()
             resp.status_code = 404
@@ -342,7 +397,15 @@ class TestDowngradeUser:
             "scripts.org_membership_cleanup._rest_delete", mock_delete
         )
 
-        # Should not raise
+        # Mock paginate: only CSM teams (no others)
+        def mock_paginate(url, headers, extra_params=None):
+            return [{"slug": s} for s in CHAIN]
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup.paginate", mock_paginate
+        )
+
+        # Should not raise — both deletes return 404
         result = downgrade_user(FAKE_TOKEN, ORG, "charlie", 0, CHAIN)
         assert result is None
 
@@ -491,8 +554,11 @@ class TestRun:
 
         monkeypatch.setattr("requests.get", mock_requests_get)
 
-        # Org members
+        # Org members / teams listing (paginate handles both)
         def mock_paginate(url, headers, extra_params=None):
+            if "/teams" in url:
+                # Return only CSM-chain teams, so _user_in_other_teams finds nothing
+                return [{"slug": s} for s in CHAIN]
             return [{"login": m} for m in members]
 
         monkeypatch.setattr(

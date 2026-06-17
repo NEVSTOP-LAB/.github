@@ -229,6 +229,43 @@ def query_last_contribution_time(
 # ── 降级操作 ────────────────────────────────────────────────────────────────
 
 
+def _user_in_other_teams(
+    token: str, org: str, username: str, chain: list[str],
+) -> bool:
+    """检查用户是否属于 CSM 链之外的任何团队。
+
+    遍历组织所有团队，排除链内团队，检查用户是否仍有成员身份。
+    """
+    chain_set = set(chain)
+    try:
+        url = f"{GITHUB_API_URL}/orgs/{org}/teams"
+        headers = api_headers(token)
+        all_teams = paginate(url, headers)
+    except Exception as exc:
+        logger.warning("获取组织团队列表失败，保守处理：视为无其他团队: %s", exc)
+        return False
+
+    for team in all_teams:
+        slug = team.get("slug", "")
+        if slug in chain_set:
+            continue
+        try:
+            resp = requests.get(
+                f"{GITHUB_API_URL}/orgs/{org}/teams/{slug}/memberships/{username}",
+                headers=api_headers(token),
+                timeout=15,
+            )
+            if resp.status_code == 200:
+                logger.info(
+                    "用户 %s 仍在其他团队 %s 中，保留组织身份",
+                    username, slug,
+                )
+                return True
+        except requests.HTTPError:
+            continue  # 404 = 不在该团队，继续检查下一个
+    return False
+
+
 def downgrade_user(
     token: str, org: str, username: str, current_idx: int, chain: list[str],
 ) -> Optional[str]:
@@ -244,8 +281,30 @@ def downgrade_user(
     current_team = chain[current_idx]
 
     if current_idx == 0:
-        # 已在链底（如 csm-community）→ 移出组织
-        logger.warning("⛔ 降级 %s: 移出组织（原在 %s）", username, current_team)
+        # 已在链底（如 csm-community）
+        # 先移除 CSM-Community 团队身份
+        logger.warning("⬇ 降级 %s: 移除 %s 团队", username, current_team)
+        try:
+            _rest_delete(
+                token,
+                f"/orgs/{org}/teams/{current_team}/memberships/{username}",
+            )
+        except requests.HTTPError as exc:
+            if exc.response is not None and exc.response.status_code == 404:
+                logger.info("%s 已不在 %s 中", username, current_team)
+            else:
+                raise
+
+        # 检查是否还在其他团队中
+        if _user_in_other_teams(token, org, username, chain):
+            logger.info(
+                "%s 在其他团队中仍有身份，保留组织成员资格",
+                username,
+            )
+            return None
+
+        # 无其他团队 → 移出组织
+        logger.warning("⛔ %s: 无其他团队，移出组织", username)
         try:
             _rest_delete(token, f"/orgs/{org}/memberships/{username}")
             logger.info("已移除 %s 的组织成员身份", username)

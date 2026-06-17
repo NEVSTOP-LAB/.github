@@ -38,10 +38,10 @@
 
 ## 4. 降级操作细节
 
-| 当前级别 | 操作 | API 调用 |
-|----------|------|----------|
-| `CSM-Module-Author` | 从该团队移除（用户自然留在父团队 `CSM-Community`） | `DELETE /orgs/{org}/teams/csm-module-author/memberships/{user}` |
-| `CSM-Community` | 从组织移除 | `DELETE /orgs/{org}/memberships/{user}` |
+| 当前级别 | 操作 | 说明 |
+|----------|------|------|
+| `CSM-Module-Author` | 从该团队移除 | 用户自然留在父团队 `CSM-Community` |
+| `CSM-Community` | 先移除 `CSM-Community` 团队 → 检查是否在其他团队中 → 有其他团队则保留组织身份，无则移出组织 | 避免误移除仍活跃于其他项目的成员 |
 | `CSM-Developer` | 不做任何操作（锚点豁免） | — |
 
 降级后 `last_check` 重置为当前时间，14 天后再次进入检查窗口。
