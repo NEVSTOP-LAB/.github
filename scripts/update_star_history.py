@@ -13,15 +13,23 @@ Environment variables:
     OUTPUT_FILE             Output markdown path (default: Star-History.md)
 """
 
+from __future__ import annotations
+
 import math
 import os
 import re
 import sys
-import time
 from collections import defaultdict
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 import requests
+
+# ── 确保包根目录在 sys.path（直接运行 scripts/ 时使用）──────────────────────
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
+from scripts._utils import BEIJING_TZ, api_headers, paginate_generator  # noqa: E402
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 ORG = os.environ.get("ORG", "NEVSTOP-LAB")
@@ -39,15 +47,8 @@ if not GITHUB_TOKEN:
     print("ERROR: Set GITHUB_TOKEN or GH_TOKEN environment variable.", file=sys.stderr)
     sys.exit(1)
 
-_BASE_HEADERS = {
-    "Authorization": f"Bearer {GITHUB_TOKEN}",
-    "Accept": "application/vnd.github+json",
-    "X-GitHub-Api-Version": "2022-11-28",
-}
-_STAR_HEADERS = {**_BASE_HEADERS, "Accept": "application/vnd.github.star+v3+json"}
-
-# ── Timezone ──────────────────────────────────────────────────────────────────
-BEIJING_TZ = timezone(timedelta(hours=8))
+_BASE_HEADERS = api_headers(GITHUB_TOKEN)
+_STAR_HEADERS = api_headers(GITHUB_TOKEN, extra_accept="application/vnd.github.star+v3+json")
 
 # ── Action constants ───────────────────────────────────────────────────────────
 ACTION_ADD = "add"
@@ -58,40 +59,17 @@ ICON_DELETE = "❌ delete"
 
 # ── GitHub API helpers ─────────────────────────────────────────────────────────
 
-def _paginate(url, headers, extra_params=None):
-    """Yield all items from a paginated GitHub API endpoint."""
-    params = {"per_page": 100, **(extra_params or {})}
-    page = 1
-    while True:
-        params["page"] = page
-        resp = requests.get(url, headers=headers, params=params, timeout=30)
-        if resp.status_code == 404:
-            raise requests.HTTPError(
-                f"GitHub API endpoint not found or inaccessible: {resp.url}",
-                response=resp,
-            )
-        resp.raise_for_status()
-        data = resp.json()
-        if not data:
-            return
-        yield from data
-        if len(data) < 100:
-            return
-        page += 1
-        time.sleep(0.05)  # be polite to the API
-
-
 def get_repos():
     """Return list of all repos in the org (public + private)."""
     url = f"https://api.github.com/orgs/{ORG}/repos"
-    return list(_paginate(url, _BASE_HEADERS, {"type": "all"}))
+    return list(paginate_generator(url, _BASE_HEADERS, {"type": "all"}))
 
 
 def get_repo_stars(repo_name):
     """Return list of (starred_at datetime, username) for a repo."""
     url = f"https://api.github.com/repos/{ORG}/{repo_name}/stargazers"
     result = []
-    for item in _paginate(url, _STAR_HEADERS):
+    for item in paginate_generator(url, _STAR_HEADERS):
         starred_at = item.get("starred_at")
         user = item.get("user", {}).get("login", "")
         if starred_at and user:

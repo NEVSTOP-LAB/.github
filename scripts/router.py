@@ -31,20 +31,14 @@ _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
+from scripts._utils import configure_logging  # noqa: E402
+from scripts._github import GitHubGraphQL  # noqa: E402
+
 logger = logging.getLogger("org_router")
-
-
-def _configure_logging() -> None:
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s %(levelname)-8s %(name)s %(message)s",
-        datefmt="%Y-%m-%dT%H:%M:%S",
-    )
 
 
 # ── 常量 ────────────────────────────────────────────────────────────────────
 
-GITHUB_GRAPHQL_URL = "https://api.github.com/graphql"
 GITHUB_API_URL = "https://api.github.com"
 BOT_MARKER = "<!-- csm-qa-bot -->"
 BOT_FOOTER = (
@@ -157,43 +151,6 @@ def _repo_link(repo: str) -> str:
 _GITHUB_APP_ID = os.getenv("GITHUB_APP_ID", "")
 _GITHUB_APP_PRIVATE_KEY = os.getenv("GITHUB_APP_PRIVATE_KEY", "")
 _GITHUB_APP_INSTALL_ID = os.getenv("GITHUB_APP_INSTALL_ID", "")
-
-
-class GQL:
-    """最小化 GitHub GraphQL 客户端（stdlib urllib）。"""
-
-    def __init__(self, token: str) -> None:
-        if not token:
-            raise ValueError("GitHub token (CSM_QA_GH_TOKEN) 未配置")
-        self._token = token
-
-    def query(self, gql: str, variables: Optional[dict] = None) -> dict:
-        payload = json.dumps({"query": gql, "variables": variables or {}}).encode()
-        req = urllib.request.Request(
-            GITHUB_GRAPHQL_URL,
-            data=payload,
-            headers={
-                "Authorization": f"Bearer {self._token}",
-                "Content-Type": "application/json",
-                "Accept": "application/vnd.github.v3+json",
-                "User-Agent": "org-router/1.0",
-            },
-            method="POST",
-        )
-        try:
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                raw = resp.read()
-        except urllib.error.HTTPError as exc:
-            body = exc.read().decode("utf-8", errors="replace")
-            raise RuntimeError(
-                f"GitHub GraphQL HTTP {exc.code}: {body[:400]}"
-            ) from exc
-
-        result: dict = json.loads(raw)
-        if result.get("errors"):
-            messages = "; ".join(e.get("message", "") for e in result["errors"])
-            raise RuntimeError(f"GitHub GraphQL errors: {messages}")
-        return result.get("data", {})
 
 
 # ── REST helper ──────────────────────────────────────────────────────────────
@@ -644,7 +601,7 @@ def _add_team_membership(token: str, org: str, team_slug: str, username: str) ->
 
 def post_reply(token: str, discussion_id: str, body: str) -> str:
     """向 Discussion 发布评论，返回新评论的 node ID。"""
-    gql_client = GQL(token)
+    gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
     full_body = f"{body}{BOT_FOOTER}\n{BOT_MARKER}"
     gql = """
     mutation($discussionId: ID!, $body: String!) {
@@ -677,7 +634,7 @@ def _handle_qa(
 
     if category_name != QA_CATEGORY_NAME:
         # 非 Q&A 分类 → 引导到 Q&A 区
-        gql_client = GQL(token)
+        gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
         discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
         disc_id = discussion.get("id", "")
         qa_url = f"https://github.com/orgs/{source_owner}/discussions/categories/q-a"
@@ -782,7 +739,7 @@ def _build_classify_history(
     格式与 compute_reply_plan 一致：``[{"role": "user"|"assistant", "content": str}]``。
     """
     source_owner, source_repo = _get_source_repo_parts()
-    gql_client = GQL(token)
+    gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
     discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
 
     title = (discussion.get("title") or "").strip()
@@ -901,7 +858,7 @@ def _handle_join(
         return
 
     source_owner, source_repo = _get_source_repo_parts()
-    gql_client = GQL(token)
+    gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
 
     # 0. 获取 App installation token（用于 org membership 检查和邀请发送，
     #    CSM_QA_GH_TOKEN 是 fine-grained PAT，无 org 相关权限）
@@ -984,7 +941,7 @@ def _handle_other(
 ) -> None:
     """处理 OTHER 意图：友好引导回复。"""
     source_owner, source_repo = _get_source_repo_parts()
-    gql_client = GQL(token)
+    gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
     discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
     disc_id = discussion.get("id", "")
 
@@ -1068,7 +1025,7 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
 
 
 def main(argv: Optional[list[str]] = None) -> int:
-    _configure_logging()
+    configure_logging()
     args = parse_args(argv)
 
     logger.info(

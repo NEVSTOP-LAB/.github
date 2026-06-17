@@ -3,22 +3,34 @@
 
 Logic:
 - Fetch install counts from VIPM badge SVGs for the 6 CSM packages.
-- Find the xychart-beta mermaid block in the README.
+- Find the xychart-beta mermaid block within ``<!-- VIPM_DOWNLOADS_START -->`` /
+  ``<!-- VIPM_DOWNLOADS_END -->`` markers.
 - If the most-recent bar line already belongs to the current month (its last
   value is YYYY.MM matching today), replace it with the freshly-fetched counts.
 - Otherwise insert a new bar line at the top for the current month.
 - Auto-expand the y-axis ceiling when the maximum count reaches it.
 """
 
+from __future__ import annotations
+
+import argparse
+import os
 import re
 import sys
 import time
+from datetime import datetime
 
 import requests
-from datetime import datetime, timedelta, timezone
 
-# ── Beijing timezone (UTC+8) ───────────────────────────────────────────────────
-BEIJING_TZ = timezone(timedelta(hours=8))
+# ── 确保包根目录在 sys.path（直接运行 scripts/ 时使用）──────────────────────
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
+from scripts._utils import BEIJING_TZ, marker_start, marker_end  # noqa: E402
+
+# ── Region marker ─────────────────────────────────────────────────────────────
+DEFAULT_REGION = "VIPM_DOWNLOADS"
 
 # ── Package list – order matches x-axis: Core, API String, MassData,
 #    INI-Variable, DAQ-Example, TCP-Example ──────────────────────────────────
@@ -92,8 +104,13 @@ def get_install_count(package_name: str, max_retries: int = 3) -> int:
     raise RuntimeError(f"Failed to fetch count for {package_name}: {last_exc}") from last_exc
 
 
-def update_readme(readme_path: str, counts: list[int]) -> str | None:
-    """Update the mermaid chart in *readme_path* and return the month string.
+def update_readme(
+    readme_path: str,
+    counts: list[int],
+    *,
+    region: str = DEFAULT_REGION,
+) -> str | None:
+    """Update the mermaid chart within *region* markers and return the month string.
 
     Returns the current month string (e.g. '2026.04') if the file was updated,
     or ``None`` if the content was already up-to-date and no write was needed.
@@ -104,11 +121,24 @@ def update_readme(readme_path: str, counts: list[int]) -> str | None:
     now = datetime.now(BEIJING_TZ)
     current_month = f"{now.year}.{now.month:02d}"
 
-    # ── Locate the xychart-beta mermaid block ─────────────────────────────
+    marker_s = marker_start(region)
+    marker_e = marker_end(region)
+
+    # ── Locate the marker block ────────────────────────────────────────
+    start_pos = content.find(marker_s)
+    end_pos = content.find(marker_e)
+    if start_pos == -1 or end_pos == -1 or end_pos <= start_pos:
+        raise ValueError(f"Markers for region {region!r} not found in {readme_path}")
+
+    before = content[:start_pos]
+    block = content[start_pos:end_pos + len(marker_e)]
+    after = content[end_pos + len(marker_e):]
+
+    # ── Locate the xychart-beta mermaid block within the markers ──────────
     mermaid_re = re.compile(r"(```mermaid\n)(.*?)(```)", re.DOTALL)
-    mermaid_match = mermaid_re.search(content)
+    mermaid_match = mermaid_re.search(block)
     if not mermaid_match:
-        raise ValueError("Mermaid block not found in README.md")
+        raise ValueError("Mermaid block not found within markers")
 
     chart_prefix = mermaid_match.group(1)   # ```mermaid\n
     chart_content = mermaid_match.group(2)  # body
@@ -154,13 +184,10 @@ def update_readme(readme_path: str, counts: list[int]) -> str | None:
                 f'{y_axis_match.group(1)}{new_y_max}',
             )
 
-    new_content = (
-        content[: mermaid_match.start()]
-        + chart_prefix
-        + new_chart_content
-        + chart_suffix
-        + content[mermaid_match.end():]
-    )
+    # ── Reconstruct the file ──────────────────────────────────────────────
+    new_chart = chart_prefix + new_chart_content + chart_suffix
+    new_block = block[:mermaid_match.start()] + new_chart + block[mermaid_match.end():]
+    new_content = before + new_block + after
 
     if new_content == content:
         return None
@@ -172,7 +199,16 @@ def update_readme(readme_path: str, counts: list[int]) -> str | None:
 
 
 if __name__ == "__main__":
-    readme_path = sys.argv[1] if len(sys.argv) > 1 else "profile/README.md"
+    parser = argparse.ArgumentParser(description="Update VIPM download counts in profile/README.md")
+    parser.add_argument(
+        "readme_path", nargs="?", default="profile/README.md",
+        help="Path to profile/README.md (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--region", default=DEFAULT_REGION,
+        help="Region marker name (default: %(default)s)",
+    )
+    args = parser.parse_args()
 
     print("Fetching VIPM download counts …")
     counts: list[int] = []
@@ -181,8 +217,8 @@ if __name__ == "__main__":
         print(f"  {pkg}: {count:,}")
         counts.append(count)
 
-    print(f"\nUpdating {readme_path} …")
-    month = update_readme(readme_path, counts)
+    print(f"\nUpdating {args.readme_path} …")
+    month = update_readme(args.readme_path, counts, region=args.region)
     if month is None:
         print("No changes detected. Skipping update.")
     else:

@@ -1,0 +1,84 @@
+name: Update Profile README
+
+on:
+  schedule:
+    - cron: '0 16 * * *'   # 每日北京时间 00:00 (UTC 16:00)
+  workflow_dispatch:          # Allow manual triggering
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-profile-readme
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SYNC_GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      # ── 1. VIPM Downloads ──────────────────────────────────────────────
+      - name: Update VIPM download counts
+        run: python scripts/update_vipm_downloads.py profile/README.md
+
+      # ── 2. Sorted By Tags ──────────────────────────────────────────────
+      - name: Update Sorted By Tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_TOKEN }}
+          ORG: NEVSTOP-LAB
+          MIN_TAG_COUNT: "1"
+        run: python scripts/update_sorted_tags.py profile/README.md
+
+      # ── 3. CSM Modsets ─────────────────────────────────────────────────
+      - name: Update CSM modsets listings
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/update_csm_modsets.py profile/README.md csm-modsets.md
+
+      # ── 4. Star History ────────────────────────────────────────────────
+      - name: Update Star History
+        env:
+          GITHUB_TOKEN: ${{ secrets.SYNC_GITHUB_TOKEN }}
+          EXCLUDE_USERS: "nevstop,yao0928,KivenJia"
+          PRIVATE_VISIBLE_CHARS: "10"
+          TOP_N: "10"
+        run: python scripts/update_star_history.py Star-History.md
+
+      # ── Commit & push ──────────────────────────────────────────────────
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add profile/README.md csm-modsets.md Star-History.md
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "chore: update profile README"
+
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+
+            echo "git push failed on attempt ${attempt}; fetching and rebasing onto origin/main before retrying"
+            git fetch origin main
+            git rebase origin/main
+          done
+
+          echo "Failed to push changes after 3 attempts"
+          exit 1
