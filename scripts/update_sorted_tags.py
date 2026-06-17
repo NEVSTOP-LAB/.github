@@ -14,22 +14,27 @@ Logic:
 
 from __future__ import annotations
 
+import argparse
 import os
-import re
 import sys
 from collections import Counter
 from urllib.parse import quote
 
-from scripts._utils import api_headers, paginate
+# ── 确保包根目录在 sys.path（直接运行 scripts/ 时使用）──────────────────────
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
+from scripts._utils import api_headers, paginate  # noqa: E402
 
 ORG = os.environ.get("ORG", "NEVSTOP-LAB")
 OUTPUT_FILE = os.environ.get("OUTPUT_FILE", "profile/README.md")
 MIN_TAG_COUNT = int(os.environ.get("MIN_TAG_COUNT", "1"))
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
 
-# ── Markers ───────────────────────────────────────────────────────────────────
-TAGS_START = "<!-- SORTED_TAGS_START -->"
-TAGS_END = "<!-- SORTED_TAGS_END -->"
+# ── Default markers ───────────────────────────────────────────────────────────
+DEFAULT_MARKER_START = "<!-- SORTED_TAGS_START -->"
+DEFAULT_MARKER_END = "<!-- SORTED_TAGS_END -->"
 
 
 def get_public_repos() -> list[dict]:
@@ -69,8 +74,14 @@ def build_tag_lines(repos: list[dict]) -> list[str]:
     return lines
 
 
-def update_readme(readme_path: str, tag_lines: list[str]) -> bool:
-    """Replace the content between SORTED_TAGS markers with *tag_lines*.
+def update_readme(
+    readme_path: str,
+    tag_lines: list[str],
+    *,
+    marker_start: str = DEFAULT_MARKER_START,
+    marker_end: str = DEFAULT_MARKER_END,
+) -> bool:
+    """Replace the content between *marker_start* / *marker_end* with *tag_lines*.
 
     Returns ``True`` if the file was modified, ``False`` otherwise.
     """
@@ -78,12 +89,14 @@ def update_readme(readme_path: str, tag_lines: list[str]) -> bool:
         content = f.read()
 
     # ── Locate the marker block ───────────────────────────────────────────
-    start_pos = content.find(TAGS_START)
-    end_pos = content.find(TAGS_END)
+    start_pos = content.find(marker_start)
+    end_pos = content.find(marker_end)
     if start_pos == -1 or end_pos == -1 or end_pos <= start_pos:
-        raise ValueError(f"SORTED_TAGS markers not found in {readme_path}")
+        raise ValueError(
+            f"Markers {marker_start!r} / {marker_end!r} not found in {readme_path}"
+        )
 
-    before = content[:start_pos + len(TAGS_START)]
+    before = content[:start_pos + len(marker_start)]
     after = content[end_pos:]
 
     body = "\n".join(tag_lines)
@@ -97,7 +110,7 @@ def update_readme(readme_path: str, tag_lines: list[str]) -> bool:
     return True
 
 
-def main(output_file: str) -> None:
+def main(output_file: str, *, marker_start: str = DEFAULT_MARKER_START, marker_end: str = DEFAULT_MARKER_END) -> None:
     print(f"Fetching public repositories for org: {ORG}")
     repos = get_public_repos()
     print(f"  Found {len(repos)} public repositories")
@@ -105,7 +118,11 @@ def main(output_file: str) -> None:
     tag_lines = build_tag_lines(repos)
     print(f"  Keeping {len(tag_lines)} tags with count > {MIN_TAG_COUNT}")
 
-    changed = update_readme(output_file, tag_lines)
+    changed = update_readme(
+        output_file, tag_lines,
+        marker_start=marker_start,
+        marker_end=marker_end,
+    )
     if changed:
         print(f"Updated {output_file}")
     else:
@@ -113,5 +130,18 @@ def main(output_file: str) -> None:
 
 
 if __name__ == "__main__":
-    out = sys.argv[1] if len(sys.argv) > 1 else OUTPUT_FILE
-    main(out)
+    parser = argparse.ArgumentParser(description="Update Sorted By Tags in profile/README.md")
+    parser.add_argument(
+        "output_file", nargs="?", default=OUTPUT_FILE,
+        help="Path to profile/README.md (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--marker-start", default=DEFAULT_MARKER_START,
+        help="HTML comment marking the start of the editable region (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--marker-end", default=DEFAULT_MARKER_END,
+        help="HTML comment marking the end of the editable region (default: %(default)s)",
+    )
+    args = parser.parse_args()
+    main(args.output_file, marker_start=args.marker_start, marker_end=args.marker_end)
