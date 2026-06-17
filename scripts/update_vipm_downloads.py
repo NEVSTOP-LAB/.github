@@ -3,22 +3,28 @@
 
 Logic:
 - Fetch install counts from VIPM badge SVGs for the 6 CSM packages.
-- Find the xychart-beta mermaid block in the README.
+- Find the xychart-beta mermaid block within ``<!-- VIPM_DOWNLOADS_START -->`` /
+  ``<!-- VIPM_DOWNLOADS_END -->`` markers.
 - If the most-recent bar line already belongs to the current month (its last
   value is YYYY.MM matching today), replace it with the freshly-fetched counts.
 - Otherwise insert a new bar line at the top for the current month.
 - Auto-expand the y-axis ceiling when the maximum count reaches it.
 """
 
+from __future__ import annotations
+
 import re
 import sys
 import time
+from datetime import datetime
 
 import requests
-from datetime import datetime, timedelta, timezone
 
-# ── Beijing timezone (UTC+8) ───────────────────────────────────────────────────
-BEIJING_TZ = timezone(timedelta(hours=8))
+from scripts._utils import BEIJING_TZ
+
+# ── Markers ───────────────────────────────────────────────────────────────────
+VIPM_START = "<!-- VIPM_DOWNLOADS_START -->"
+VIPM_END = "<!-- VIPM_DOWNLOADS_END -->"
 
 # ── Package list – order matches x-axis: Core, API String, MassData,
 #    INI-Variable, DAQ-Example, TCP-Example ──────────────────────────────────
@@ -93,7 +99,7 @@ def get_install_count(package_name: str, max_retries: int = 3) -> int:
 
 
 def update_readme(readme_path: str, counts: list[int]) -> str | None:
-    """Update the mermaid chart in *readme_path* and return the month string.
+    """Update the mermaid chart within VIPM_DOWNLOADS markers and return the month string.
 
     Returns the current month string (e.g. '2026.04') if the file was updated,
     or ``None`` if the content was already up-to-date and no write was needed.
@@ -104,11 +110,21 @@ def update_readme(readme_path: str, counts: list[int]) -> str | None:
     now = datetime.now(BEIJING_TZ)
     current_month = f"{now.year}.{now.month:02d}"
 
-    # ── Locate the xychart-beta mermaid block ─────────────────────────────
+    # ── Locate the VIPM_DOWNLOADS marker block ────────────────────────────
+    start_pos = content.find(VIPM_START)
+    end_pos = content.find(VIPM_END)
+    if start_pos == -1 or end_pos == -1 or end_pos <= start_pos:
+        raise ValueError(f"VIPM_DOWNLOADS markers not found in {readme_path}")
+
+    before = content[:start_pos]
+    block = content[start_pos:end_pos + len(VIPM_END)]
+    after = content[end_pos + len(VIPM_END):]
+
+    # ── Locate the xychart-beta mermaid block within the markers ──────────
     mermaid_re = re.compile(r"(```mermaid\n)(.*?)(```)", re.DOTALL)
-    mermaid_match = mermaid_re.search(content)
+    mermaid_match = mermaid_re.search(block)
     if not mermaid_match:
-        raise ValueError("Mermaid block not found in README.md")
+        raise ValueError("Mermaid block not found within VIPM_DOWNLOADS markers")
 
     chart_prefix = mermaid_match.group(1)   # ```mermaid\n
     chart_content = mermaid_match.group(2)  # body
@@ -154,13 +170,10 @@ def update_readme(readme_path: str, counts: list[int]) -> str | None:
                 f'{y_axis_match.group(1)}{new_y_max}',
             )
 
-    new_content = (
-        content[: mermaid_match.start()]
-        + chart_prefix
-        + new_chart_content
-        + chart_suffix
-        + content[mermaid_match.end():]
-    )
+    # ── Reconstruct the file ──────────────────────────────────────────────
+    new_chart = chart_prefix + new_chart_content + chart_suffix
+    new_block = block[:mermaid_match.start()] + new_chart + block[mermaid_match.end():]
+    new_content = before + new_block + after
 
     if new_content == content:
         return None
