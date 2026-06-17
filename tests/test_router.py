@@ -119,6 +119,7 @@ class TestBuildConditionReport:
         report = build_condition_report("testuser", False, results)
         assert "当前 0/2 项通过" in report
         assert "请再次发送申请" in report
+        assert "CSM-Community" not in report
 
     def test_star_repo_list_in_report(self):
         results = [
