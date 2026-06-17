@@ -31,9 +31,6 @@ import logging
 import os
 import re
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
 from typing import Any, Optional
 
 try:
