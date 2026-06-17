@@ -709,6 +709,7 @@ def test_compute_reply_plan_no_bot_login_treats_clean_thread_as_new_question():
 
 def test_compute_reply_plan_skips_nevstop_followup():
     """Bot 回复后 nevstop 留言 → 跳过，不将其视为追问（返回 None）。"""
+    assert "nevstop" in SKIP_AUTHORS  # 验证 SKIP_AUTHORS 配置正确
     disc = {
         "title": "T", "body": "B",
         "comments": {

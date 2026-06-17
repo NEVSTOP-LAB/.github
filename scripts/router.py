@@ -673,8 +673,8 @@ def _handle_qa(
     discussion = fetch_disc(client, source_owner, source_repo, discussion_number)
     disc_id = discussion.get("id", "")
 
-    # 检查 discussion 作者是否在跳过列表中
-    author_login = (discussion.get("author") or {}).get("login", "")
+    # 检查 discussion 作者是否在跳过列表中（GitHub login 大小写不敏感）
+    author_login = (discussion.get("author") or {}).get("login", "").casefold()
     if author_login in SKIP_AUTHORS:
         logger.info(
             "Discussion #%d 作者 %r 在跳过列表中，跳过", discussion_number, author_login
