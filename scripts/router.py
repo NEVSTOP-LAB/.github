@@ -652,6 +652,7 @@ def _handle_qa(
     logger.info("Q&A 分类下的 QA 请求，初始化 CSM_QA…")
     from scripts.discussion_bot import (  # type: ignore[import-not-found]
         GitHubGraphQL,
+        SKIP_AUTHORS,
         compute_reply_plan,
         build_reply,
         post_comment,
@@ -671,6 +672,14 @@ def _handle_qa(
 
     discussion = fetch_disc(client, source_owner, source_repo, discussion_number)
     disc_id = discussion.get("id", "")
+
+    # 检查 discussion 作者是否在跳过列表中
+    author_login = (discussion.get("author") or {}).get("login", "")
+    if author_login in SKIP_AUTHORS:
+        logger.info(
+            "Discussion #%d 作者 %r 在跳过列表中，跳过", discussion_number, author_login
+        )
+        return
 
     plan = compute_reply_plan(discussion, bot_login)
     if plan is None:

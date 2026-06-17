@@ -57,6 +57,8 @@ logger = logging.getLogger("discussion_bot")
 QA_CATEGORY_NAME = "Q&A"
 # 追加在 Bot 回复末尾的 HTML 注释，用于防重复检测（用户不可见）
 BOT_MARKER = "<!-- csm-qa-bot -->"
+# 需要跳过的 Discussion 作者登录名集合（不回复这些用户的讨论）
+SKIP_AUTHORS: frozenset[str] = frozenset({"nevstop"})
 # Bot 回复页脚（可见文字）
 BOT_FOOTER = (
     "\n\n---\n"
@@ -246,6 +248,7 @@ def fetch_discussion(
           body
           url
           closed
+          author { login }
           category {
             id
             name
@@ -352,6 +355,9 @@ def compute_reply_plan(
       组装为 ``history``。
     * 否则（已回复且无后续追问）→ 返回 ``None`` 表示无需回复。
 
+    来自 ``SKIP_AUTHORS`` 的评论（如 nevstop）在查找追问和构建历史时会被忽略，
+    如同 Bot 评论一样跳过。
+
     Returns:
         ``(question, history)`` 或 ``None``。``history`` 元素形如
         ``{"role": "user"|"assistant", "content": str}``。
@@ -386,6 +392,7 @@ def compute_reply_plan(
         i
         for i in range(last_bot_idx + 1, len(comments))
         if not _is_bot_comment(comments[i], bot_login)
+        and (comments[i].get("author") or {}).get("login", "") not in SKIP_AUTHORS
     ]
     if not followup_user_indices:
         return None  # 已回复且无追问 → 跳过
@@ -404,6 +411,9 @@ def compute_reply_plan(
     for i in range(latest_followup_idx):
         c_body = (comments[i].get("body") or "").strip()
         if not c_body:
+            continue
+        comment_author = (comments[i].get("author") or {}).get("login", "")
+        if comment_author in SKIP_AUTHORS:
             continue
         is_bot = _is_bot_comment(comments[i], bot_login)
         if is_bot:
@@ -550,6 +560,7 @@ def scan_org_qa_discussions(
             body
             url
             closed
+            author { login }
             category {
               id
               name
@@ -645,6 +656,15 @@ def _process_discussion_dict(
 
     if discussion.get("closed"):
         logger.info("Discussion #%d 已关闭，跳过", number)
+        return False
+
+    author_login = (discussion.get("author") or {}).get("login", "")
+    if author_login in SKIP_AUTHORS:
+        logger.info(
+            "Discussion #%d 作者 %r 在跳过列表中，跳过",
+            number,
+            author_login,
+        )
         return False
 
     plan = compute_reply_plan(discussion, bot_login=bot_login)
