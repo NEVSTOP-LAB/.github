@@ -72,8 +72,6 @@ def _rest_delete(token: str, path: str) -> bool:
     """DELETE 请求 GitHub REST API。成功返回 True。"""
     url = f"{GITHUB_API_URL}{path}"
     resp = requests.delete(url, headers=api_headers(token), timeout=30)
-    if resp.status_code == 204:
-        return True
     resp.raise_for_status()
     return True
 
@@ -124,8 +122,16 @@ def get_user_level(token: str, org: str, username: str, chain: list[str]) -> int
             if resp.status_code == 404:
                 continue
             resp.raise_for_status()
-        except requests.HTTPError:
-            continue
+        except requests.HTTPError as exc:
+            if exc.response is not None and exc.response.status_code == 404:
+                continue
+            # 403 限速 / 5xx 服务端错误 → 向上抛出避免误判
+            logger.error(
+                "查询团队成员失败 %s/%s: HTTP %s",
+                slug, username,
+                exc.response.status_code if exc.response is not None else "?",
+            )
+            raise
     return -1
 
 
@@ -149,25 +155,29 @@ def query_last_contribution_time(
     latest: Optional[datetime] = None
 
     # ── Issues / PRs 综合查询 ──────────────────────────────────────────
-    # 用 OR 合并 author + assignee 减少 API 调用
+    # 用 created / closed 替代 updated 避免误判（其他人的更新不算用户贡献）
     issue_queries = [
-        f"org:{org} author:{username} updated:>={since_iso}",
-        f"org:{org} assignee:{username} updated:>={since_iso}",
+        f"org:{org} author:{username} created:>={since_iso}",
+        f"org:{org} assignee:{username} closed:>={since_iso}",
     ]
     for q in issue_queries:
         try:
             data = _rest_get(
                 token, "/search/issues",
-                q=q, sort="updated", order="desc", per_page=SEARCH_PER_PAGE,
+                q=q, sort="created", order="desc", per_page=SEARCH_PER_PAGE,
             )
             for item in data.get("items", []):
-                updated_str = item.get("updated_at") or item.get("closed_at")
-                if updated_str:
-                    dt = _parse_iso_datetime(updated_str)
+                # 取 closed_at / created_at（与查询类型对应）
+                time_str = item.get("closed_at") or item.get("created_at")
+                if time_str:
+                    dt = _parse_iso_datetime(time_str)
                     if latest is None or dt > latest:
                         latest = dt
         except Exception as exc:
             logger.warning("Issues 搜索失败 (%s): %s", q[:60], exc)
+        # 搜索 API 限速 30 req/min，加短暂延迟
+        import time
+        time.sleep(2.0)
 
     # ── Commits 查询（需特殊 Accept 头）───────────────────────────────
     try:
@@ -337,7 +347,15 @@ def run(dry_run: bool = False) -> None:
         user_state = users_state.get(username, {})
         last_check_str: Optional[str] = user_state.get("last_check")
         if last_check_str:
-            last_check = datetime.fromisoformat(last_check_str)
+            try:
+                last_check = _parse_iso_datetime(last_check_str)
+            except (ValueError, TypeError):
+                # 状态文件被篡改或旧格式无时区 → 按首次处理
+                logger.warning(
+                    "%s: last_check 解析失败 (%s)，按首次检查处理",
+                    username, last_check_str,
+                )
+                last_check = now - timedelta(days=CHECK_INTERVAL_DAYS + 1)
         else:
             # 首次遇见 → 初始化为 14 天前，立即触发检查
             last_check = now - timedelta(days=CHECK_INTERVAL_DAYS + 1)
