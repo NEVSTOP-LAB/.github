@@ -19,6 +19,7 @@ Environment variables:
 
 from __future__ import annotations
 
+import argparse
 import html
 import os
 import re
@@ -29,14 +30,18 @@ from datetime import datetime, timezone
 
 import requests
 
-from scripts._utils import api_headers
+# ── 确保包根目录在 sys.path（直接运行 scripts/ 时使用）──────────────────────
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
+from scripts._utils import api_headers  # noqa: E402
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 GITHUB_API = "https://api.github.com"
 TOPIC = "csm-modsets"
 MAX_PER_OWNER_IN_README = 5
-README_MARKER_START = "<!-- CSM_MODSETS_START -->"
-README_MARKER_END = "<!-- CSM_MODSETS_END -->"
+DEFAULT_REGION = "CSM_MODSETS"
 
 
 # ── GitHub API helpers ─────────────────────────────────────────────────────────
@@ -96,6 +101,14 @@ def fetch_repos_with_topic(topic: str) -> list[dict]:
             file=sys.stderr,
         )
     return repos
+
+
+def _marker_start(region: str) -> str:
+    return f"<!-- {region}_START -->"
+
+
+def _marker_end(region: str) -> str:
+    return f"<!-- {region}_END -->"
 
 
 # ── Data processing ────────────────────────────────────────────────────────────
@@ -222,8 +235,13 @@ def generate_readme_pre_content(
 
 # ── File updaters ──────────────────────────────────────────────────────────────
 
-def update_readme(readme_path: str, pre_content: str) -> bool:
-    """Replace the CSM_MODSETS marker block in *readme_path*.
+def update_readme(
+    readme_path: str,
+    pre_content: str,
+    *,
+    region: str = DEFAULT_REGION,
+) -> bool:
+    """Replace the *region* marker block in *readme_path*.
 
     If the markers are absent the block is appended before any trailing HTML
     comment.  Returns True when the file was actually changed.
@@ -231,14 +249,17 @@ def update_readme(readme_path: str, pre_content: str) -> bool:
     with open(readme_path, encoding="utf-8") as fh:
         content = fh.read()
 
+    marker_start = _marker_start(region)
+    marker_end = _marker_end(region)
+
     new_block = (
-        f"{README_MARKER_START}\n"
+        f"{marker_start}\n"
         f"<pre>\n{pre_content}\n</pre>\n"
-        f"{README_MARKER_END}"
+        f"{marker_end}"
     )
 
     pattern = re.compile(
-        re.escape(README_MARKER_START) + r".*?" + re.escape(README_MARKER_END),
+        re.escape(marker_start) + r".*?" + re.escape(marker_end),
         re.DOTALL,
     )
 
@@ -277,8 +298,20 @@ def write_csm_modsets_md(path: str, content: str) -> bool:
 # ── Entry point ────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    readme_path = sys.argv[1] if len(sys.argv) > 1 else "profile/README.md"
-    modsets_md_path = sys.argv[2] if len(sys.argv) > 2 else "csm-modsets.md"
+    parser = argparse.ArgumentParser(description="Update CSM modsets listings")
+    parser.add_argument(
+        "readme_path", nargs="?", default="profile/README.md",
+        help="Path to profile/README.md (default: %(default)s)",
+    )
+    parser.add_argument(
+        "modsets_md_path", nargs="?", default="csm-modsets.md",
+        help="Path to csm-modsets.md (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--region", default=DEFAULT_REGION,
+        help="Region marker name (default: %(default)s)",
+    )
+    args = parser.parse_args()
 
     print(f"Fetching public repos with topic '{TOPIC}' from GitHub …")
     repos = fetch_repos_with_topic(TOPIC)
@@ -291,15 +324,15 @@ if __name__ == "__main__":
     updated_at = now.strftime("%Y-%m-%d %H:%M UTC")
 
     # ── Update csm-modsets.md ────────────────────────────────────────────────
-    print(f"\nUpdating {modsets_md_path} …")
+    print(f"\nUpdating {args.modsets_md_path} …")
     modsets_content = generate_csm_modsets_md(groups, updated_at)
-    changed = write_csm_modsets_md(modsets_md_path, modsets_content)
+    changed = write_csm_modsets_md(args.modsets_md_path, modsets_content)
     print("  Updated." if changed else "  No changes.")
 
     # ── Update profile/README.md ─────────────────────────────────────────────
-    print(f"\nUpdating {readme_path} …")
-    pre_content = generate_readme_pre_content(groups, modsets_md_path)
-    changed = update_readme(readme_path, pre_content)
+    print(f"\nUpdating {args.readme_path} …")
+    pre_content = generate_readme_pre_content(groups, args.modsets_md_path)
+    changed = update_readme(args.readme_path, pre_content, region=args.region)
     print("  Updated." if changed else "  No changes.")
 
     print("\nDone.")
