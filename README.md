@@ -36,14 +36,14 @@
 | [Update VIPM Downloads](./docs/workflows/update-vipm-downloads.md) | [`update-vipm-downloads.yml`](./.github/workflows/update-vipm-downloads.yml) | 抓取 VIPM 包下载量并刷新 `profile/README.md` 中相关徽章数据 | 定时 + `workflow_dispatch` | 每天 01:00（北京时间） |
 
 > [!NOTE]
-> **Org Membership Cleanup 背后逻辑**
+> **组织成员活跃度管理说明**
 >
-> - **锚点豁免**：以 `CSM-Developer` 为锚点，通过 GitHub API 的 team `parent` 字段动态发现完整团队层级链（`CSM-Community → CSM-Module-Author → CSM-Developer`），不硬编码团队名称。锚点团队永久豁免清理。
-> - **滑动窗口**：每个用户 14 天窗口从**上次贡献时间**（而非上次检查时间）起算。若窗口内发现贡献，`last_check` 更新为最近贡献时间，窗口自动后移；无贡献者继续下一轮判定。
-> - **逐级降级**：每次降一级 —— `CSM-Module-Author` → `CSM-Community` → 移出组织。
-> - **贡献判定**：综合查询过去窗口内的 commits（`committer-date`）、authored issues/PRs（`created`）、assigned 且已关闭的 issues/PRs（`closed`）。任一命中即视为活跃。
-> - **安全策略**：Search API 限速（403/429）时跳过该用户本轮检查（不降级），等待下次重试；dry-run 模式不落盘状态文件，避免错误推进检查窗口。
-> - 状态持久化在 `data/member_check_state.json`，每天 workflow 运行后自动 commit 回仓库。详见 [维护文档](./docs/workflows/org-membership-cleanup.md)。
+> - **Developer 永久保留**：达到 `CSM-Developer` 级别的成员不受活跃度检查影响。
+> - **逐级调整**：每次调整一级 —— `CSM-Module-Author` → `CSM-Community` → 离开组织。不会越级变动。
+> - **滑动窗口**：14 天从成员的**最近一次公开贡献时间**起算（而非固定日期）。只要持续参与，窗口会自动跟着走，不会被"误伤"。
+> - **贡献怎么算**：在组织仓库中的代码提交、新建或关闭的 Issue/PR 都计入。任一类型的公开记录即视为活跃。
+> - **容错保护**：查询服务偶发异常时，本轮跳过该成员不做调整，等待下次重新评估；手动模拟运行不会实际修改任何状态。
+> - 成员状态记录在 `data/member_check_state.json`，每日评估后自动归档。详见 [维护文档](./docs/workflows/org-membership-cleanup.md)。
 
 > 所有“自动更新”类 workflow 在 push 失败时会自动 `fetch + rebase origin/main` 最多重试 3 次，并使用 `secrets.SYNC_GITHUB_TOKEN` 进行鉴权与提交。
 
