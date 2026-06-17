@@ -67,8 +67,9 @@ jobs:
               exit 0
             fi
 
-            echo "git push failed on attempt ${attempt}; pulling with rebase before retrying"
-            git pull --rebase --autostash origin main
+            echo "git push failed on attempt ${attempt}; fetching and rebasing onto origin/main before retrying"
+            git fetch origin main
+            git rebase origin/main
           done
 
           echo "Failed to push changes after 3 attempts"

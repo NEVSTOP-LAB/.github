@@ -23,6 +23,7 @@ import json
 import logging
 import os
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from typing import Any, Optional
 
@@ -156,15 +157,15 @@ def query_last_contribution_time(
 
     # ── Issues / PRs 综合查询 ──────────────────────────────────────────
     # 用 created / closed 替代 updated 避免误判（其他人的更新不算用户贡献）
-    issue_queries = [
-        f"org:{org} author:{username} created:>={since_iso}",
-        f"org:{org} assignee:{username} closed:>={since_iso}",
+    issue_queries: list[tuple[str, str]] = [
+        (f"org:{org} author:{username} created:>={since_iso}", "created"),
+        (f"org:{org} assignee:{username} closed:>={since_iso}", "updated"),
     ]
-    for q in issue_queries:
+    for q, sort_field in issue_queries:
         try:
             data = _rest_get(
                 token, "/search/issues",
-                q=q, sort="created", order="desc", per_page=SEARCH_PER_PAGE,
+                q=q, sort=sort_field, order="desc", per_page=SEARCH_PER_PAGE,
             )
             for item in data.get("items", []):
                 # 取 closed_at / created_at（与查询类型对应）
@@ -176,7 +177,6 @@ def query_last_contribution_time(
         except Exception as exc:
             logger.warning("Issues 搜索失败 (%s): %s", q[:60], exc)
         # 搜索 API 限速 30 req/min，加短暂延迟
-        import time
         time.sleep(2.0)
 
     # ── Commits 查询（需特殊 Accept 头）───────────────────────────────
