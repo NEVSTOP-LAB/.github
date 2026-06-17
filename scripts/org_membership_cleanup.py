@@ -141,7 +141,11 @@ def get_user_level(token: str, org: str, username: str, chain: list[str]) -> int
 
 def _parse_iso_datetime(date_str: str) -> datetime:
     """将 ISO-8601 字符串解析为 UTC datetime。"""
-    return datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+    dt = datetime.fromisoformat(date_str.replace("Z", "+00:00"))
+    # 无时区偏移的旧格式字段 → 强制设为 UTC，避免后续 aware/naive 混合运算崩溃
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt
 
 
 def query_last_contribution_time(
@@ -176,6 +180,10 @@ def query_last_contribution_time(
                         latest = dt
         except Exception as exc:
             logger.warning("Issues 搜索失败 (%s): %s", q[:60], exc)
+            # 403/429 限速 → 向上抛出，避免误判为"无贡献"导致错误降级
+            if isinstance(exc, requests.HTTPError) and exc.response is not None:
+                if exc.response.status_code in (403, 429):
+                    raise
         # 搜索 API 限速 30 req/min，加短暂延迟
         time.sleep(2.0)
 
@@ -208,6 +216,12 @@ def query_last_contribution_time(
                     latest = dt
     except Exception as exc:
         logger.warning("Commits 搜索失败: %s", exc)
+        # 403/429 限速 → 向上抛出，避免误判
+        if isinstance(exc, requests.HTTPError) and exc.response is not None:
+            if exc.response.status_code in (403, 429):
+                raise
+    # Commits 搜索也计入 Search API 配额，加延迟
+    time.sleep(2.0)
 
     return latest
 
@@ -269,6 +283,14 @@ def load_state() -> dict:
             return json.load(f)
     return {
         "_comment": "Per-user state for org-membership-cleanup workflow. DO NOT edit manually.",
+        "_schema": {
+            "users": {
+                "<github-username>": {
+                    "last_check": "ISO-8601 datetime of last check or last known contribution",
+                    "team": "current CSM team slug (e.g. csm-community, csm-module-author) or 'removed'",
+                }
+            }
+        },
         "users": {},
     }
 
@@ -385,9 +407,18 @@ def run(dry_run: bool = False) -> None:
             last_check.isoformat(), days_since,
         )
 
-        last_contribution = query_last_contribution_time(
-            token, ORG, username, last_check,
-        )
+        try:
+            last_contribution = query_last_contribution_time(
+                token, ORG, username, last_check,
+            )
+        except Exception as exc:
+            # Search API 限速或其他不可恢复错误 → 跳过该用户，不降级
+            logger.error(
+                "⚠️ %s: 贡献查询失败 (%s)，跳过本次检查（不降级）",
+                username, exc,
+            )
+            summary["skipped"] += 1
+            continue
 
         if last_contribution is not None:
             # 有贡献 → 更新 last_check 到最近贡献时间
@@ -438,9 +469,12 @@ def run(dry_run: bool = False) -> None:
                         "team": current_team,
                     }
 
-    # 5. 保存状态
-    save_state(state)
-    logger.info("状态已保存至 %s", STATE_FILE)
+    # 5. 保存状态（dry-run 不落盘，避免错误推进 last_check）
+    if not dry_run:
+        save_state(state)
+        logger.info("状态已保存至 %s", STATE_FILE)
+    else:
+        logger.info("[DRY-RUN] 跳过状态保存，无文件变更")
 
     # 6. 汇总
     logger.info(

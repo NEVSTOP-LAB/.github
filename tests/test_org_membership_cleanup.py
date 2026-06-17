@@ -38,6 +38,12 @@ FAKE_TOKEN = "fake-token"
 CHAIN = ["csm-community", "csm-module-author", "csm-developer"]
 
 
+@pytest.fixture(autouse=True)
+def _mock_time_sleep(monkeypatch):
+    """全局 mock time.sleep，避免搜索 API 延迟拖慢单元测试。"""
+    monkeypatch.setattr("time.sleep", lambda _: None)
+
+
 @pytest.fixture
 def mock_team_api(monkeypatch):
     """Mock team GET API: return a chain of parent-linked teams."""
