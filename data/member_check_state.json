@@ -1,0 +1,12 @@
+{
+  "_comment": "Per-user state for org-membership-cleanup workflow. DO NOT edit manually.",
+  "_schema": {
+    "users": {
+      "<github-username>": {
+        "last_check": "ISO-8601 datetime of last check or last known contribution",
+        "team": "current CSM team slug (e.g. csm-community, csm-module-author) or 'removed'"
+      }
+    }
+  },
+  "users": {}
+}

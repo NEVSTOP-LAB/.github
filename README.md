@@ -24,7 +24,7 @@
 
 ## 🤖 自动化 Workflow 概览
 
-下表汇总了本仓库当前运行的 5 个 workflow，详细维护说明请点击对应文档链接。
+下表汇总了本仓库当前运行的 6 个 workflow，详细维护说明请点击对应文档链接。
 
 | Workflow | 文件 | 功能简介 | 触发条件 | 运行频率 |
 |----------|------|----------|----------|----------|
@@ -32,7 +32,18 @@
 | [Sync GitHub to Gitee](./docs/workflows/sync-to-gitee.md) | [`sync-to-gitee.yml`](./.github/workflows/sync-to-gitee.yml) | 将 NEVSTOP-LAB 组织下的所有仓库（含 releases、wiki）同步到 Gitee 镜像 | 定时 + `workflow_dispatch` | 每天 02:00（北京时间） |
 | [Update Sorted Tags](./docs/workflows/update-sorted-tags.md) | [`update-sorted-tags.yml`](./.github/workflows/update-sorted-tags.yml) | 拉取组织所有仓库 topic 信息，按标签聚合后写回 `profile/README.md` | 定时 + `workflow_dispatch` | 每周日 00:00 UTC |
 | [Update Star History](./docs/workflows/update-star-history.md) | [`update-star-history.yml`](./.github/workflows/update-star-history.yml) | 统计组织 star 历史与 Top 仓库排行，更新 `Star-History.md`（含 Mermaid 图表） | 定时 + `workflow_dispatch` | 每 8 小时一次（00:00 / 08:00 / 16:00 UTC） |
+| [Org Membership Cleanup](./docs/workflows/org-membership-cleanup.md) | [`org-membership-cleanup.yml`](./.github/workflows/org-membership-cleanup.yml) | 每日检查组织成员活跃度，14 天无贡献者逐级降级（CSM-Developer 豁免）直至移出组织 | 定时 + `workflow_dispatch` | 每天 09:00（北京时间） |
 | [Update VIPM Downloads](./docs/workflows/update-vipm-downloads.md) | [`update-vipm-downloads.yml`](./.github/workflows/update-vipm-downloads.yml) | 抓取 VIPM 包下载量并刷新 `profile/README.md` 中相关徽章数据 | 定时 + `workflow_dispatch` | 每天 01:00（北京时间） |
+
+> [!NOTE]
+> **组织成员活跃度管理说明**
+>
+> - **Developer 永久保留**：达到 `CSM-Developer` 级别的成员不受活跃度检查影响。
+> - **逐级调整**：每次调整一级 —— `CSM-Module-Author` → `CSM-Community` → 离开组织。在最后一步离开组织前，会检查成员是否还参与其他团队；若有则仅移除 CSM 团队身份、保留组织成员资格。
+> - **滑动窗口**：14 天从成员的**最近一次公开贡献时间**起算（而非固定日期）。只要持续参与，窗口会自动跟着走，不会被"误伤"。
+> - **贡献怎么算**：在组织仓库中的代码提交、新建或关闭的 Issue/PR 都计入。任一类型的公开记录即视为活跃。
+> - **容错保护**：查询服务偶发异常时，本轮跳过该成员不做调整，等待下次重新评估；手动模拟运行不会实际修改任何状态。
+> - 成员状态记录在 `data/member_check_state.json`，每日评估后自动归档。详见 [维护文档](./docs/workflows/org-membership-cleanup.md)。
 
 > 所有“自动更新”类 workflow 在 push 失败时会自动 `fetch + rebase origin/main` 最多重试 3 次，并使用 `secrets.SYNC_GITHUB_TOKEN` 进行鉴权与提交。
 
@@ -51,7 +62,7 @@
 
 | Secret | 用于 |
 |--------|------|
-| `SYNC_GITHUB_TOKEN` | `update-*` 与 `sync-to-gitee` workflow 的 checkout / push / GitHub API |
+| `SYNC_GITHUB_TOKEN` | `update-*`、`sync-to-gitee` 与 `org-membership-cleanup` workflow 的 checkout / push / GitHub API |
 | `SYNC_GITEE_TOKEN`  | `sync-to-gitee` 推送到 Gitee 的鉴权 |
 | `CSM_QA_GH_TOKEN`   | discussion bot 读写组织级 Q&A discussions（Fine-grained PAT） |
 | `LLM_API_KEY`       | discussion bot 调用 LLM（默认 deepseek-chat）所需的 API Key |

@@ -12,6 +12,7 @@
 | [`update-sorted-tags.yml`](../../.github/workflows/update-sorted-tags.yml) | [update-sorted-tags.md](./update-sorted-tags.md) | 按 topic 聚合仓库列表写入 profile |
 | [`update-star-history.yml`](../../.github/workflows/update-star-history.yml) | [update-star-history.md](./update-star-history.md) | 维护 `Star-History.md` |
 | [`update-vipm-downloads.yml`](../../.github/workflows/update-vipm-downloads.yml) | [update-vipm-downloads.md](./update-vipm-downloads.md) | 抓取 VIPM 下载数刷新 profile |
+| [`org-membership-cleanup.yml`](../../.github/workflows/org-membership-cleanup.yml) | [org-membership-cleanup.md](./org-membership-cleanup.md) | 自动降级不活跃组织成员 |
 
 ## 通用约定
 
