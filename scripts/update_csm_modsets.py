@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Update CSM modsets repository listings in profile/README.md and csm-modsets.md.
 
+Operates within ``<!-- CSM_MODSETS_START -->`` / ``<!-- CSM_MODSETS_END -->``
+markers in profile/README.md to avoid touching unrelated content.
+
 Usage:
     python scripts/update_csm_modsets.py [readme_path] [modsets_md_path]
 
@@ -14,6 +17,8 @@ Environment variables:
     CSM_MODSETS_URL   – override full URL prefix for csm-modsets.md (takes precedence)
 """
 
+from __future__ import annotations
+
 import html
 import os
 import re
@@ -23,6 +28,8 @@ from collections import defaultdict
 from datetime import datetime, timezone
 
 import requests
+
+from scripts._utils import api_headers
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 GITHUB_API = "https://api.github.com"
@@ -34,20 +41,9 @@ README_MARKER_END = "<!-- CSM_MODSETS_END -->"
 
 # ── GitHub API helpers ─────────────────────────────────────────────────────────
 
-def _api_headers() -> dict:
-    token = os.environ.get("GITHUB_TOKEN")
-    headers = {
-        "Accept": "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-    }
-    if token:
-        headers["Authorization"] = f"Bearer {token}"
-    return headers
-
-
 def _get_with_retry(url: str, params: dict | None = None, max_retries: int = 3) -> dict:
     """GET a GitHub API endpoint with retry and rate-limit handling."""
-    headers = _api_headers()
+    headers = api_headers()
     last_exc: Exception | None = None
     for attempt in range(max_retries):
         try:
