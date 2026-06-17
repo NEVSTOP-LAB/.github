@@ -501,23 +501,35 @@ def build_condition_report(
     lines.append(
         f"> ⭐ 需 Star 的仓库：{', '.join(_repo_link(r) for r in JOIN_STAR_REPOS)}"
     )
-    lines.append("")
-    lines.append(
-        "\n---\n"
-        "> ### 🏷️ 团队分组说明\n"
-        "> 加入组织后默认邀请至 **CSM-Community**（CSM 社区爱好者）团队，\n"
-        "> 脚本会根据贡献自动提升到对应分组：\n"
-        "> \n"
-        "> | 团队 | 说明 |\n"
-        "> |------|------|\n"
-        "> | **CSM-Community** | CSM 社区爱好者（默认加入） |\n"
-        "> | ├─ **CSM-Module-Author** | CSM 模块的贡献者 |\n"
-        "> |    └─ **CSM-Developer** | CSM 开发人员 |\n"
-        "> \n"
-        "> ---\n"
-        "> ⚠️ **加入后要求**：成员需每月有公开贡献（commit / Issue / PR），"
-        "长期无贡献将被自动移出组织。请保持活跃，为社区做出贡献！"
-    )
+
+    if all_met:
+        lines.append("")
+        lines.append(
+            "\n---\n"
+            "> ### 🏷️ 团队分组说明\n"
+            "> 加入组织后默认邀请至 **CSM-Community**（CSM 社区爱好者）团队。\n"
+            "> \n"
+            "> | 团队 | 说明 |\n"
+            "> |------|------|\n"
+            "> | **CSM-Community** | CSM 社区爱好者（默认加入） |\n"
+            "> | ├─ **CSM-Module-Author** | CSM 模块的贡献者 |\n"
+            "> |    └─ **CSM-Developer** | CSM 开发人员 |\n"
+            "> \n"
+            "> 团队分组权限不会主动提升，@NEVSTOP-LAB/csm-committee 会根据贡献"
+            "提高对应的项目权限。\n"
+            "> \n"
+            "> ---\n"
+            "> ### 💡 温馨提示\n"
+            "> \n"
+            "> - 💬 Q&A 中提问 CSM 相关问题，机器人会自动回复；你也可以创建仓库上传"
+            "你的 CSM 模块，在 Issue 中 @nevstop 或 @NEVSTOP-LAB/csm-committee，"
+            "我们会帮你 Review 并提出改进建议\n"
+            "> - 📋 [项目任务看板](https://github.com/orgs/NEVSTOP-LAB/projects/18) "
+            "中是主要需要完成的任务列表，欢迎认领并完成对应的 Issue\n"
+            "> - ⚠️ 成员需每月有公开贡献（commit / Issue / PR），"
+            "长期无贡献将被自动移出组织。请保持活跃，为社区做出贡献！"
+        )
+
     return "\n".join(lines)
 
 
@@ -925,7 +937,7 @@ def _handle_join(
                 if team_ok:
                     report += (
                         f"\n\n✅ 已邀请加入 **CSM-Community** 团队。"
-                        f"根据后续贡献会自动提升至 CSM-Module-Author / CSM-Developer。"
+                        f"更多权限说明见上方团队分组信息。"
                     )
                 else:
                     report += (

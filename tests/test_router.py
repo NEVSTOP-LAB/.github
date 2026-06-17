@@ -88,9 +88,15 @@ class TestBuildConditionReport:
         assert "正在发送邀请" in report
         assert "✅" in report
         assert "❌" not in report
+        # 全部通过时仍包含团队分组信息
         assert "CSM-Community" in report
         assert "CSM-Module-Author" in report
         assert "CSM-Developer" in report
+        # 新增温馨提示
+        assert "温馨提示" in report
+        assert "项目任务看板" in report
+        assert "csm-committee" in report
+        assert "团队分组权限不会主动提升" in report
 
     def test_partial_passed(self):
         results = [
@@ -102,7 +108,8 @@ class TestBuildConditionReport:
         assert "请再次发送申请" in report
         assert "✅" in report
         assert "❌" in report
-        assert "CSM-Community" in report
+        # 未全部通过时不应出现团队分组信息
+        assert "CSM-Community" not in report
 
     def test_none_passed(self):
         results = [
@@ -112,6 +119,7 @@ class TestBuildConditionReport:
         report = build_condition_report("testuser", False, results)
         assert "当前 0/2 项通过" in report
         assert "请再次发送申请" in report
+        assert "CSM-Community" not in report
 
     def test_star_repo_list_in_report(self):
         results = [
