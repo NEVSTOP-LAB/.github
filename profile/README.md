@@ -33,7 +33,7 @@
 > [!NOTE]
 > **AI-Wiki 机制, 自动收集更新 CSM 信息** --> [CSM-Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)<br/>
 > - [施工中] 由 AI 负责整理和更新 CSM 相关文档，确保信息的及时性和准确性 [CSM Wiki Repo](https://github.com/NEVSTOP-LAB/CSM-Wiki)
-> - [Discussion:Q&A分组](https://github.com/orgs/NEVSTOP-LAB/discussions/categories/q-a?discussions_q=) 中的问题，会得到 CSM-AI-Robot 的回复(deepseek-v4-pro) 
+> - [Discussion:Q&A分组](https://github.com/orgs/NEVSTOP-LAB/discussions/categories/q-a?discussions_q=) 中的问题，会得到 CSM-AI-Robot 的回复(deepseek-v4-pro)
 
 <!-- VIPM_DOWNLOADS_START -->
 ```mermaid
