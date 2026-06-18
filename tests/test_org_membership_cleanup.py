@@ -846,7 +846,7 @@ class TestRun:
         assert downgraded, f"Expected bob downgrade at boundary (14 days), got calls: {delete_calls}"
 
     def test_search_api_rate_limit_skips_user(self, monkeypatch, temp_state_file):
-        """Search API 403/429 → user skipped, NOT downgraded (safe fallback)."""
+        """Search API 429 rate limit → user skipped, NOT downgraded (safe fallback)."""
         now = datetime.now(timezone.utc)
         old = (now - timedelta(days=20)).isoformat()
 
@@ -873,9 +873,7 @@ class TestRun:
             if "/search/" in path:
                 resp = MagicMock()
                 resp.status_code = 429
-                http_error = requests.HTTPError(response=resp)
-                http_error.response = resp
-                raise http_error
+                raise requests.HTTPError(response=resp)
             return base_rest_get(token, path, **params)
 
         monkeypatch.setattr(_mod, "_rest_get", mock_rest_get_with_429)
@@ -903,6 +901,9 @@ class TestRun:
         run(dry_run=False)
         # Should log error and abort — no state file written
         assert "团队链过短" in caplog.text
+        assert not temp_state_file.exists(), (
+            "State file should not be created when chain is too short"
+        )
 
     def test_corrupt_state_and_removed_both_repaired(self, monkeypatch, temp_state_file):
         """User with BOTH corrupt last_check AND team=removed → both repaired in one run."""
@@ -966,7 +967,7 @@ class TestRun:
         )
 
     def test_legacy_state_missing_team_field(self, monkeypatch, temp_state_file):
-        """State entry without 'team' key should not crash, still get grace period."""
+        """State entry without 'team' key should not crash; normal expiry logic applies."""
         state = {
             "_comment": "test",
             "users": {

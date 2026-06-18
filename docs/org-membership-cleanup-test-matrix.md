@@ -95,15 +95,15 @@
 | 8.5 | **🆕 损坏状态修复** | bob | "NOT-A-DATE" | module-author | (不查) | 跳过，修复 last_check=now | ✅ |
 | 8.6 | **🆕 重新加入宽限期** | charlie | 60天前 | removed | (不查) | 跳过，team→community，last_check=now | ✅ |
 | 8.7 | **窗口内跳过** | bob | 3天前 | module-author | (不查) | 跳过，无操作 | ✅ |
-| 8.8 | **恰好 14 天边界** | bob | 14天前 | module-author | 无 | **触发检查 → 降级** | 🆕 |
+| 8.8 | **恰好 14 天边界** | bob | 14天前 | module-author | 无 | **触发检查 → 降级** | ✅ |
 | 8.9 | **过期无贡献降级** | bob | 20天前 | module-author | 无 | 降级到 community | ✅ |
 | 8.10 | **过期有贡献更新** | bob | 20天前 | module-author | 有 | 不降级，last_check 更新 | ✅ |
-| 8.11 | **🆕 API 限速跳过** | bob | 20天前 | module-author | API 429 | **跳过，不降级** | 🆕 |
-| 8.12 | **🆕 链过短中止** | — | — | 仅锚点 | — | 打印错误日志，中止 | 🆕 |
-| 8.13 | **🆕 损坏+移除组合修复** | charlie | "GARBAGE" | removed | (不查) | 跳过，team→community，last_check≈now | 🆕 |
-| 8.14 | **🆕 重新加入不同级别** | charlie | 60天前 | removed→module-author | (不查) | 跳过，team=module-author | 🆕 |
-| 8.15 | **🆕 旧格式缺少 team** | bob | 旧时间戳 | (无 team 字段) | 无 | 触发检查→降级，不崩溃 | 🆕 |
-| 8.16 | **🆕 多用户混合场景** | alice+bob+charlie+dave | 混合 | 混合 | 仅 bob 无 | 仅 bob 降级，其余正确处理 | 🆕 |
+| 8.11 | **API 限速跳过** | bob | 20天前 | module-author | API 429 | **跳过，不降级** | ✅ |
+| 8.12 | **链过短中止** | — | — | 仅锚点 | — | 打印错误日志，中止 | ✅ |
+| 8.13 | **损坏+移除组合修复** | charlie | "GARBAGE" | removed | (不查) | 跳过，team→community，last_check≈now | ✅ |
+| 8.14 | **重新加入不同级别** | charlie | 60天前 | removed→module-author | (不查) | 跳过，team=module-author | ✅ |
+| 8.15 | **旧格式缺少 team** | bob | 旧时间戳 | (无 team 字段) | 无 | 触发检查→降级，不崩溃 | ✅ |
+| 8.16 | **多用户混合场景** | alice+bob+charlie+dave | 混合 | 混合 | 仅 bob 无 | 仅 bob 降级，其余正确处理 | ✅ |
 
 ### 9. 常量验证 (TestConstants)
 
@@ -125,14 +125,14 @@
 - 链底移除组织（无其他团队）
 - 链底保留组织（有其他团队）
 
-### 🆕 本次新增覆盖
+### 本次 PR 全部新增覆盖（含早期 commit）
 - **新成员宽限期**：首次出现 → 14 天不检查
 - **重新加入宽限期**：team=removed → 重置考察期
 - **状态损坏修复**：不可解析 last_check → 自动修复
 - **组合修复**：同时损坏+removed → 全部修复
 - **重新加入不同级别**：team 更新为当前级别
 - **边界条件**：恰好 14 天触发检查
-- **API 限速**：403/429 → 跳过不降级（安全回退）
+- **API 限速**：429 → 跳过不降级（安全回退）
 - **链过短**：< 2 级 → 中止不崩溃
 - **旧格式兼容**：缺少 team 字段 → 正常工作
 - **多用户混合**：不同状态共存 → 各自正确处理
@@ -161,9 +161,9 @@ pytest tests/test_org_membership_cleanup.py --cov=scripts.org_membership_cleanup
 
 | 指标 | 值 |
 |------|-----|
-| 总测试数 | 31 |
-| 新增测试 | 8 |
-| 预期通过 | 31/31 |
+| 总测试数 | 38 |
+| 本次 commit 新增测试 | 7 |
+| 预期通过 | 38/38 |
 | 预期失败 | 0 |
 
 > ⚠️ 当前环境 Python 不可用，测试代码已通过 review 子 agent 审查验证。实际执行结果待补充。
