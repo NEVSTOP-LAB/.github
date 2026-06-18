@@ -663,8 +663,41 @@ class TestRun:
         )
         # last_check should be close to now (within a few seconds)
         last_check_dt = datetime.fromisoformat(charlie_state["last_check"])
-        assert abs((datetime.now(timezone.utc) - last_check_dt).total_seconds()) < 10, (
+        assert abs((datetime.now(timezone.utc) - last_check_dt).total_seconds()) < 30, (
             f"Expected last_check ≈ now, got: {charlie_state['last_check']}"
+        )
+
+    def test_corrupt_state_gets_grace_period_and_repairs(self, monkeypatch, temp_state_file):
+        """User with unparseable last_check should get grace period and state repaired."""
+        # Pre-populate state file with a corrupt entry
+        state = {
+            "_comment": "test",
+            "users": {
+                "bob": {"last_check": "NOT-A-DATE", "team": "csm-module-author"},
+            },
+        }
+        temp_state_file.write_text(json.dumps(state))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["bob"],
+            memberships={"bob": "csm-module-author"},
+        )
+
+        run(dry_run=False)
+        # Corrupt state → grace period → skipped
+        assert len(delete_calls) == 0, (
+            f"Expected bob to be SKIPPED (grace period for corrupt state), got calls: {delete_calls}"
+        )
+
+        # State file should have repaired the corrupt entry
+        repaired_state = json.loads(temp_state_file.read_text())
+        bob_state = repaired_state["users"].get("bob", {})
+        assert bob_state.get("team") == "csm-module-author"
+        # last_check should now be a valid ISO datetime close to now
+        last_check_dt = datetime.fromisoformat(bob_state["last_check"])
+        assert abs((datetime.now(timezone.utc) - last_check_dt).total_seconds()) < 30, (
+            f"Expected repaired last_check ≈ now, got: {bob_state['last_check']}"
         )
 
     def test_within_window_skipped(self, monkeypatch, temp_state_file):

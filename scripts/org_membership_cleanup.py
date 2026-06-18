@@ -446,10 +446,15 @@ def run(dry_run: bool = False) -> None:
             except (ValueError, TypeError):
                 # 状态文件被篡改或旧格式无时区 → 给予宽限期重新计时
                 logger.warning(
-                    "%s: last_check 解析失败 (%s)，给予宽限期重新计时",
-                    username, last_check_str,
+                    "%s: last_check 解析失败 (%s)，给予 %d 天宽限期重新计时",
+                    username, last_check_str, CHECK_INTERVAL_DAYS,
                 )
                 last_check = now
+                # 修复损坏的状态条目，防止无限宽限期
+                users_state[username] = {
+                    "last_check": last_check.isoformat(),
+                    "team": chain[level_idx],
+                }
         else:
             # 首次遇见 → 给予宽限期，从当前时间开始计时，避免新成员立即被降级
             last_check = now
