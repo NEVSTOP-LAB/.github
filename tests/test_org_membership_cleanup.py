@@ -820,6 +820,224 @@ class TestRun:
             f"Expected last_check around contribution time, got: {bob_state['last_check']}"
         )
 
+    def test_exactly_14_days_triggers_check(self, monkeypatch, temp_state_file):
+        """Exactly 14 days since last_check → check IS triggered (boundary)."""
+        now = datetime.now(timezone.utc)
+        exactly_14 = (now - timedelta(days=14)).isoformat()
+
+        state = {
+            "_comment": "test",
+            "users": {
+                "bob": {"last_check": exactly_14, "team": "csm-module-author"},
+            },
+        }
+        temp_state_file.write_text(json.dumps(state))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["bob"],
+            memberships={"bob": "csm-module-author"},
+            contributions={"bob": False},
+        )
+
+        run(dry_run=False)
+        # Exactly 14 days → should check → no contrib → downgrade
+        downgraded = any("csm-module-author/memberships/bob" in c for c in delete_calls)
+        assert downgraded, f"Expected bob downgrade at boundary (14 days), got calls: {delete_calls}"
+
+    def test_search_api_rate_limit_skips_user(self, monkeypatch, temp_state_file):
+        """Search API 403/429 → user skipped, NOT downgraded (safe fallback)."""
+        now = datetime.now(timezone.utc)
+        old = (now - timedelta(days=20)).isoformat()
+
+        state = {
+            "_comment": "test",
+            "users": {
+                "bob": {"last_check": old, "team": "csm-module-author"},
+            },
+        }
+        temp_state_file.write_text(json.dumps(state))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["bob"],
+            memberships={"bob": "csm-module-author"},
+            contributions={"bob": False},
+        )
+
+        # Override _rest_get to raise 429 only on search endpoints
+        import scripts.org_membership_cleanup as _mod
+        base_rest_get = _mod._rest_get  # the mock set up by _setup_mocks
+
+        def mock_rest_get_with_429(token, path, **params):
+            if "/search/" in path:
+                resp = MagicMock()
+                resp.status_code = 429
+                http_error = requests.HTTPError(response=resp)
+                http_error.response = resp
+                raise http_error
+            return base_rest_get(token, path, **params)
+
+        monkeypatch.setattr(_mod, "_rest_get", mock_rest_get_with_429)
+
+        run(dry_run=False)
+        # Should be SKIPPED (not downgraded) — search failed
+        assert len(delete_calls) == 0, (
+            f"Expected bob to be SKIPPED (API rate limit), got calls: {delete_calls}"
+        )
+
+    def test_chain_too_short_aborts(self, monkeypatch, temp_state_file, caplog):
+        """Chain with < 2 levels → run() should abort early."""
+        monkeypatch.setenv("SYNC_GITHUB_TOKEN", FAKE_TOKEN)
+
+        # Mock team chain: only anchor, no parent
+        def mock_rest_get(token, path, **params):
+            if path == f"/orgs/{ORG}/teams/csm-developer":
+                return {"slug": "csm-developer", "parent": None}
+            raise requests.HTTPError(response=MagicMock(status_code=404))
+
+        monkeypatch.setattr(
+            "scripts.org_membership_cleanup._rest_get", mock_rest_get
+        )
+
+        run(dry_run=False)
+        # Should log error and abort — no state file written
+        assert "团队链过短" in caplog.text
+
+    def test_corrupt_state_and_removed_both_repaired(self, monkeypatch, temp_state_file):
+        """User with BOTH corrupt last_check AND team=removed → both repaired in one run."""
+        state = {
+            "_comment": "test",
+            "users": {
+                "charlie": {"last_check": "GARBAGE-DATE", "team": "removed"},
+            },
+        }
+        temp_state_file.write_text(json.dumps(state))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["charlie"],
+            memberships={"charlie": "csm-community"},
+        )
+
+        run(dry_run=False)
+        # Should be skipped — both corrupt handler and rejoin give grace period
+        assert len(delete_calls) == 0, (
+            f"Expected charlie to be SKIPPED, got calls: {delete_calls}"
+        )
+
+        # State should be fully repaired
+        repaired_state = json.loads(temp_state_file.read_text())
+        charlie_state = repaired_state["users"].get("charlie", {})
+        assert charlie_state.get("team") == "csm-community", (
+            f"Expected team updated, got: {charlie_state}"
+        )
+        # last_check should be a valid datetime
+        last_check_dt = datetime.fromisoformat(charlie_state["last_check"])
+        assert abs((datetime.now(timezone.utc) - last_check_dt).total_seconds()) < 30
+
+    def test_rejoin_at_different_team_level(self, monkeypatch, temp_state_file):
+        """User removed from community, rejoins as module-author → team updated correctly."""
+        now = datetime.now(timezone.utc)
+        old = (now - timedelta(days=60)).isoformat()
+
+        state = {
+            "_comment": "test",
+            "users": {
+                "charlie": {"last_check": old, "team": "removed"},
+            },
+        }
+        temp_state_file.write_text(json.dumps(state))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["charlie"],
+            memberships={"charlie": "csm-module-author"},  # rejoined at higher level!
+        )
+
+        run(dry_run=False)
+        assert len(delete_calls) == 0
+
+        # Team should reflect the CURRENT level, not the old one
+        updated_state = json.loads(temp_state_file.read_text())
+        charlie_state = updated_state["users"].get("charlie", {})
+        assert charlie_state.get("team") == "csm-module-author", (
+            f"Expected team updated to current level, got: {charlie_state}"
+        )
+
+    def test_legacy_state_missing_team_field(self, monkeypatch, temp_state_file):
+        """State entry without 'team' key should not crash, still get grace period."""
+        state = {
+            "_comment": "test",
+            "users": {
+                "bob": {"last_check": "2025-01-01T00:00:00Z"},
+            },
+        }
+        temp_state_file.write_text(json.dumps(state))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["bob"],
+            memberships={"bob": "csm-module-author"},
+        )
+
+        # Should not crash
+        run(dry_run=False)
+        # Bob has old last_check (2025-01-01), > 14 days ago → check triggered
+        # No contributions mocked → downgrade expected
+        downgraded = any("csm-module-author/memberships/bob" in c for c in delete_calls)
+        assert downgraded, f"Expected bob downgrade (legacy state, no contrib), got: {delete_calls}"
+
+    def test_multiple_users_mixed_scenarios(self, monkeypatch, temp_state_file):
+        """Integration: multiple users with different states in one run."""
+        now = datetime.now(timezone.utc)
+        recent = (now - timedelta(days=3)).isoformat()
+        old = (now - timedelta(days=20)).isoformat()
+        removed_old = (now - timedelta(days=60)).isoformat()
+
+        # Mix of users with different states
+        state = {
+            "_comment": "test",
+            "users": {
+                "alice": {"last_check": recent, "team": "csm-developer"},       # anchor, skipped
+                "bob": {"last_check": old, "team": "csm-module-author"},        # expired, no contrib
+                "charlie": {"last_check": recent, "team": "csm-community"},     # within window
+                "dave": {"last_check": removed_old, "team": "removed"},         # rejoin
+            },
+        }
+        temp_state_file.write_text(json.dumps(state))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["alice", "bob", "charlie", "dave"],
+            memberships={
+                "alice": "csm-developer",
+                "bob": "csm-module-author",
+                "charlie": "csm-community",
+                "dave": "csm-community",  # rejoined at community level
+            },
+            contributions={"bob": False},
+        )
+
+        run(dry_run=False)
+        # Only bob should be downgraded (expired + no contrib)
+        # alice: anchor skipped
+        # charlie: within window skipped
+        # dave: rejoin grace period
+        assert len(delete_calls) == 1, (
+            f"Expected only 1 downgrade (bob), got calls: {delete_calls}"
+        )
+        assert any("csm-module-author/memberships/bob" in c for c in delete_calls), (
+            f"Expected bob downgrade, got: {delete_calls}"
+        )
+
+        # Verify state file
+        final_state = json.loads(temp_state_file.read_text())
+        assert "alice" not in final_state["users"]  # anchor not recorded
+        assert final_state["users"]["bob"]["team"] == "csm-community"  # downgraded
+        assert final_state["users"]["charlie"]["team"] == "csm-community"  # unchanged
+        assert final_state["users"]["dave"]["team"] == "csm-community"  # repaired from removed
+
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 
