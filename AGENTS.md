@@ -6,29 +6,38 @@
 - 在保证commit完整性的同时，尽可能多的提交
 - 每个commit，都要保证能够编译通过，并且通过所有的测试
 
-## 开发工作流
+## 需求开发入口
 
-按以下流程完成一个需求的开发，整个过程**自主执行，无需等待用户确认**：
+当用户引用 GitHub Issue（URL 或 `#编号`）并要求修复/实现时，**必须**通过 `github-issue-to-pr` 技能完成：
+```
+run_skill({ name: "github-issue-to-pr", arguments: "<Issue URL 或 #编号>" })
+```
+不要跳过技能直接手动修复，除非用户明确要求快速修复且无需完整流程。
 
-### 1. 分支创建
-- 收到需求后，先从 `main` 创建 `feature/<功能简述>` 分支
-- 在开始任何代码修改前完成
+## 运行环境
 
-### 2. 实现 + 频繁提交
-- 按功能模块拆分为多个小提交（类型定义 → 逻辑实现 → 配置注册 → 国际化 → 测试）
-- 每个提交保证：`tsc --noEmit` 通过 + `npm test`（单元测试）全部通过，`npm run lint` 无新增告警
-- 提交信息简洁描述变更内容，保持中英文混合风格
+### Shell 环境
+- **类型**：Git Bash (MinGW64)，非 WSL、非 Windows CMD
+- **路径格式**：使用 `/d/.github` 而非 `D:\.github` 或 `D:\`
+- **可用命令**：`git`、`gh`、`ls`、`cat`、`grep`、`find`、`head`、`tail`
+- **不可用**：`apt`、`apt-get`、`dpkg`（非 Linux）
 
-### 3. Review → 修复循环
-- 实现完成后调用 `review` 子 agent 审查当前分支
-- 根据 review 结果修复问题，再提交
-- **重复 review → fix → commit 直到 review 无阻塞项**
-- 每次修复后推送：`git push`
+### Python 环境
+- **当前状态**：Python **不可用**（仅有 Windows Store 空壳，无法运行）
+- **测试策略**：当无法运行 `pytest` 时，依靠 review 子 agent 验证代码正确性
+- **测试命令参考**：`pytest tests/test_org_membership_cleanup.py -v`
+- 本项目为 **Python** 项目，**不要**尝试 `tsc --noEmit`、`npm test`、`npm run lint`
 
-### 4. 提交 PR
-- 使用 `gh pr create` 创建 PR，包含概述、修改列表、关键设计决策
-- 若 `gh` 未认证，告诉用户 PR 链接
+### 校验命令
+- 主脚本为 Python，用 review 子 agent 替代本地测试
+- `gh` CLI 已认证（用户：nevstop），可直接使用 `gh pr create`、`gh issue comment` 等
+- Git 操作正常，push/pull/fetch 均可用
 
-### 5. 收尾
-- 切换回 `main` 并拉取：`git checkout main && git pull`
-- 等待用户指定下一个任务
+### 常见错误
+| 错误 | 原因 | 避免方式 |
+|------|------|---------|
+| `python` 返回 exit code 49 | Windows Store 空壳 | 不要调用 python，用 review 替代 |
+| `pip` command not found | 未安装 | 不要尝试 pip install |
+| `cd D:\` 失败 | Git Bash 用 `/d/` 格式 | 用 `cd /d/.github` |
+| `tsc --noEmit` 不存在 | 这是 Python 项目 | 不要用 Node.js 命令 |
+| `npm test` 不存在 | 同上 | 用 pytest 命令参考，或 review 替代 |
