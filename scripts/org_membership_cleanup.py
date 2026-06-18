@@ -461,7 +461,8 @@ def run(dry_run: bool = False) -> None:
             logger.info("%s: 首次记录，给予 %d 天宽限期", username, CHECK_INTERVAL_DAYS)
 
         # 4c-2. 曾被移除但已重新加入 → 重新给予考察期
-        if user_state.get("team") == "removed":
+        # 从 users_state 而非 user_state 读取，避免 corrupt handler 更新后的陈旧引用
+        if users_state.get(username, {}).get("team") == "removed":
             logger.info(
                 "%s: 曾移除但已重新加入，重新给予 %d 天考察期",
                 username, CHECK_INTERVAL_DAYS,

@@ -709,7 +709,7 @@ class TestRun:
         state = {
             "_comment": "test",
             "users": {
-                "charlie": {"last_check": old.isoformat(), "team": "removed"},
+                "charlie": {"last_check": old, "team": "removed"},
             },
         }
         temp_state_file.write_text(json.dumps(state))
