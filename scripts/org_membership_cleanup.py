@@ -460,6 +460,18 @@ def run(dry_run: bool = False) -> None:
             last_check = now
             logger.info("%s: 首次记录，给予 %d 天宽限期", username, CHECK_INTERVAL_DAYS)
 
+        # 4c-2. 曾被移除但已重新加入 → 重新给予考察期
+        if user_state.get("team") == "removed":
+            logger.info(
+                "%s: 曾移除但已重新加入，重新给予 %d 天考察期",
+                username, CHECK_INTERVAL_DAYS,
+            )
+            last_check = now
+            users_state[username] = {
+                "last_check": last_check.isoformat(),
+                "team": chain[level_idx],
+            }
+
         # 4d. 检查窗口判定
         days_since = (now - last_check).days
         if days_since < CHECK_INTERVAL_DAYS:

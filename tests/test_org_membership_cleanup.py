@@ -700,6 +700,44 @@ class TestRun:
             f"Expected repaired last_check ≈ now, got: {bob_state['last_check']}"
         )
 
+    def test_removed_user_rejoin_gets_grace_period(self, monkeypatch, temp_state_file):
+        """User previously removed (team=removed) who rejoins should get fresh grace period."""
+        now = datetime.now(timezone.utc)
+        old = (now - timedelta(days=60)).isoformat()
+
+        # Pre-populate state: user was removed 60 days ago
+        state = {
+            "_comment": "test",
+            "users": {
+                "charlie": {"last_check": old.isoformat(), "team": "removed"},
+            },
+        }
+        temp_state_file.write_text(json.dumps(state))
+
+        delete_calls = self._setup_mocks(
+            monkeypatch, temp_state_file,
+            members=["charlie"],
+            memberships={"charlie": "csm-community"},
+            contributions={"charlie": False},
+        )
+
+        run(dry_run=False)
+        # Should be skipped — rejoin triggers grace period reset
+        assert len(delete_calls) == 0, (
+            f"Expected charlie to be SKIPPED (rejoin grace period), got calls: {delete_calls}"
+        )
+
+        # State should be updated: team no longer "removed", last_check ≈ now
+        updated_state = json.loads(temp_state_file.read_text())
+        charlie_state = updated_state["users"].get("charlie", {})
+        assert charlie_state.get("team") == "csm-community", (
+            f"Expected team to be updated to csm-community, got: {charlie_state}"
+        )
+        last_check_dt = datetime.fromisoformat(charlie_state["last_check"])
+        assert abs((datetime.now(timezone.utc) - last_check_dt).total_seconds()) < 30, (
+            f"Expected last_check ≈ now, got: {charlie_state['last_check']}"
+        )
+
     def test_within_window_skipped(self, monkeypatch, temp_state_file):
         """User checked recently should be skipped."""
         now = datetime.now(timezone.utc)
