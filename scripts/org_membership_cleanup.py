@@ -14,6 +14,26 @@ workflow_dispatch 时调用。
 4. 有贡献 → ``last_check`` 更新为最近贡献时间，不降级。
 5. 无贡献 → 沿链降一级（链底则移出组织）→ ``last_check = now``。
 6. 状态持久化至 ``data/member_check_state.json``，由 workflow commit 回仓库。
+
+特殊场景处理
+────────────
+**新成员宽限期**
+  首次出现在组织中的用户（状态文件中无记录），将 ``last_check`` 设为当前时间，
+  给予完整的 14 天宽限期后再进行首次检查。避免新成员因尚无贡献记录而被立即降级。
+
+**已移除用户重新加入**
+  若用户曾被移出组织（状态文件中 ``team`` 为 ``"removed"``），之后重新加入，
+  将重置 ``last_check = now`` 并更新 ``team`` 为当前团队级别，重新给予 14 天
+  考察期。防止旧的时间戳立即触发降级。
+
+**状态文件损坏修复**
+  若状态文件中某用户的 ``last_check`` 字段无法解析为合法 ISO-8601 时间戳
+  （如人工篡改、旧格式无时区偏移等），将重置 ``last_check = now`` 并立即修复
+  状态条目，防止该用户陷入无限宽限期而永不被检查。
+
+**dry-run 模式**
+  通过 workflow_dispatch 传入 ``dry_run: true`` 时，仅输出操作日志，不执行
+  实际的降级/移除 API 调用，也不落盘状态文件（避免推进 last_check）。
 """
 
 from __future__ import annotations
