@@ -661,6 +661,11 @@ class TestRun:
         assert charlie_state.get("team") == "csm-community", (
             f"Expected charlie to be recorded in state, got: {charlie_state}"
         )
+        # last_check should be close to now (within a few seconds)
+        last_check_dt = datetime.fromisoformat(charlie_state["last_check"])
+        assert abs((datetime.now(timezone.utc) - last_check_dt).total_seconds()) < 10, (
+            f"Expected last_check ≈ now, got: {charlie_state['last_check']}"
+        )
 
     def test_within_window_skipped(self, monkeypatch, temp_state_file):
         """User checked recently should be skipped."""
