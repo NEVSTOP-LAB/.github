@@ -14,6 +14,26 @@ workflow_dispatch 时调用。
 4. 有贡献 → ``last_check`` 更新为最近贡献时间，不降级。
 5. 无贡献 → 沿链降一级（链底则移出组织）→ ``last_check = now``。
 6. 状态持久化至 ``data/member_check_state.json``，由 workflow commit 回仓库。
+
+特殊场景处理
+────────────
+**新成员宽限期**
+  首次出现在组织中的用户（状态文件中无记录），将 ``last_check`` 设为当前时间，
+  给予完整的 14 天宽限期后再进行首次检查。避免新成员因尚无贡献记录而被立即降级。
+
+**已移除用户重新加入**
+  若用户曾被移出组织（状态文件中 ``team`` 为 ``"removed"``），之后重新加入，
+  将重置 ``last_check = now`` 并更新 ``team`` 为当前团队级别，重新给予 14 天
+  考察期。防止旧的时间戳立即触发降级。
+
+**状态文件损坏修复**
+  若状态文件中某用户的 ``last_check`` 字段无法解析为合法 ISO-8601 时间戳
+  （如人工篡改、旧格式无时区偏移等），将重置 ``last_check = now`` 并立即修复
+  状态条目，防止该用户陷入无限宽限期而永不被检查。
+
+**dry-run 模式**
+  通过 workflow_dispatch 传入 ``dry_run: true`` 时，仅输出操作日志，不执行
+  实际的降级/移除 API 调用，也不落盘状态文件（避免推进 last_check）。
 """
 
 from __future__ import annotations
@@ -444,16 +464,34 @@ def run(dry_run: bool = False) -> None:
             try:
                 last_check = _parse_iso_datetime(last_check_str)
             except (ValueError, TypeError):
-                # 状态文件被篡改或旧格式无时区 → 按首次处理
+                # 状态文件被篡改或旧格式无时区 → 给予宽限期重新计时
                 logger.warning(
-                    "%s: last_check 解析失败 (%s)，按首次检查处理",
-                    username, last_check_str,
+                    "%s: last_check 解析失败 (%s)，给予 %d 天宽限期重新计时",
+                    username, last_check_str, CHECK_INTERVAL_DAYS,
                 )
-                last_check = now - timedelta(days=CHECK_INTERVAL_DAYS + 1)
+                last_check = now
+                # 修复损坏的状态条目，防止无限宽限期
+                users_state[username] = {
+                    "last_check": last_check.isoformat(),
+                    "team": chain[level_idx],
+                }
         else:
-            # 首次遇见 → 初始化为 14 天前，立即触发检查
-            last_check = now - timedelta(days=CHECK_INTERVAL_DAYS + 1)
-            logger.info("%s: 首次记录，设为需检查状态", username)
+            # 首次遇见 → 给予宽限期，从当前时间开始计时，避免新成员立即被降级
+            last_check = now
+            logger.info("%s: 首次记录，给予 %d 天宽限期", username, CHECK_INTERVAL_DAYS)
+
+        # 4c-2. 曾被移除但已重新加入 → 重新给予考察期
+        # 从 users_state 而非 user_state 读取，避免 corrupt handler 更新后的陈旧引用
+        if users_state.get(username, {}).get("team") == "removed":
+            logger.info(
+                "%s: 曾移除但已重新加入，重新给予 %d 天考察期",
+                username, CHECK_INTERVAL_DAYS,
+            )
+            last_check = now
+            users_state[username] = {
+                "last_check": last_check.isoformat(),
+                "team": chain[level_idx],
+            }
 
         # 4d. 检查窗口判定
         days_since = (now - last_check).days
