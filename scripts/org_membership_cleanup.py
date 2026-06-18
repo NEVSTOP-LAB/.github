@@ -451,9 +451,9 @@ def run(dry_run: bool = False) -> None:
                 )
                 last_check = now - timedelta(days=CHECK_INTERVAL_DAYS + 1)
         else:
-            # 首次遇见 → 初始化为 14 天前，立即触发检查
-            last_check = now - timedelta(days=CHECK_INTERVAL_DAYS + 1)
-            logger.info("%s: 首次记录，设为需检查状态", username)
+            # 首次遇见 → 给予宽限期，从当前时间开始计时，避免新成员立即被降级
+            last_check = now
+            logger.info("%s: 首次记录，给予 %d 天宽限期", username, CHECK_INTERVAL_DAYS)
 
         # 4d. 检查窗口判定
         days_since = (now - last_check).days

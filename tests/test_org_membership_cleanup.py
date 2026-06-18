@@ -640,8 +640,8 @@ class TestRun:
         run(dry_run=False)
         assert len(delete_calls) == 0
 
-    def test_first_time_user_triggers_check(self, monkeypatch, temp_state_file):
-        """New user with no state should be checked immediately."""
+    def test_first_time_user_gets_grace_period(self, monkeypatch, temp_state_file):
+        """New user with no state should get a grace period, not be checked immediately."""
         delete_calls = self._setup_mocks(
             monkeypatch, temp_state_file,
             members=["charlie"],
@@ -650,9 +650,17 @@ class TestRun:
         )
 
         run(dry_run=False)
-        # No contributions → should be removed from org
-        removed = any(f"memberships/charlie" in c for c in delete_calls)
-        assert removed, f"Expected charlie removal, got calls: {delete_calls}"
+        # New user gets last_check=now → days_since=0 < 14 → skipped (grace period)
+        assert len(delete_calls) == 0, (
+            f"Expected charlie to be SKIPPED (grace period), got calls: {delete_calls}"
+        )
+
+        # State file should record charlie with last_check ≈ now
+        state = json.loads(temp_state_file.read_text())
+        charlie_state = state["users"].get("charlie", {})
+        assert charlie_state.get("team") == "csm-community", (
+            f"Expected charlie to be recorded in state, got: {charlie_state}"
+        )
 
     def test_within_window_skipped(self, monkeypatch, temp_state_file):
         """User checked recently should be skipped."""
