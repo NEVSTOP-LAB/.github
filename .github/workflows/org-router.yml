@@ -193,9 +193,9 @@ jobs:
             .csm_llm_qa/vector_store
             csm-wiki/wiki_source.json
             csm-wiki/remote
-          key: ${{ runner.os }}-vectorstore-${{ steps.wiki-sha.outputs.sha }}
+          key: ${{ runner.os }}-vectorstore-${{ hashFiles('requirements-bot.txt') }}-${{ steps.wiki-sha.outputs.sha }}
           restore-keys: |
-            ${{ runner.os }}-vectorstore-
+            ${{ runner.os }}-vectorstore-${{ hashFiles('requirements-bot.txt') }}-
 
       - name: 💬 QA — RAG 问答
         if: steps.classify.outputs.result == 'QA'
@@ -237,8 +237,22 @@ jobs:
         id: check-vs-populated
         if: always() && steps.classify.outputs.result == 'QA' && steps.cache-vs.outputs.cache-hit != 'true'
         run: |
-          if [ -d ".csm_llm_qa/vector_store" ] && [ -n "$(ls -A .csm_llm_qa/vector_store 2>/dev/null)" ]; then
-            echo "populated=true" >> "$GITHUB_OUTPUT"
+          set -euo pipefail
+          if [ -d ".csm_llm_qa/vector_store" ] && [ -n "$(ls -A ".csm_llm_qa/vector_store" 2>/dev/null)" ]; then
+            EXPECTED_SHA="${{ steps.wiki-sha.outputs.sha }}"
+            WIKI_SOURCE="csm-wiki/wiki_source.json"
+            if [ ! -f "$WIKI_SOURCE" ]; then
+              echo "populated=false" >> "$GITHUB_OUTPUT"
+              echo "Skipping vector store cache save: $WIKI_SOURCE not found"
+            else
+              STORED_SHA=$(jq -r '.commit_id // ""' "$WIKI_SOURCE" 2>&1) || { echo "populated=false" >> "$GITHUB_OUTPUT"; echo "Skipping vector store cache save: failed to parse $WIKI_SOURCE: $STORED_SHA"; exit 0; }
+              if [ "$STORED_SHA" = "$EXPECTED_SHA" ]; then
+                echo "populated=true" >> "$GITHUB_OUTPUT"
+              else
+                echo "populated=false" >> "$GITHUB_OUTPUT"
+                echo "Skipping vector store cache save: commit_id mismatch (stored=${STORED_SHA:-<empty>}, expected=$EXPECTED_SHA)"
+              fi
+            fi
           else
             echo "populated=false" >> "$GITHUB_OUTPUT"
             echo "Skipping vector store cache save: .csm_llm_qa/vector_store missing or empty"
