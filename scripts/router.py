@@ -640,6 +640,7 @@ def _handle_qa(
     discussion_number: int,
     category_name: str,
     dry_run: bool,
+    comment_body: str = "",
 ) -> None:
     """处理 QA 意图：Q&A 分类下调用 CSM_QA 回答，否则引导。
 
@@ -653,10 +654,9 @@ def _handle_qa(
 
     # ── 模拟模式（discussion_number=0）───────────────────────────────────
     if discussion_number == 0:
-        # 从环境变量获取模拟问题（由 workflow 通过 ROUTER_COMMENT_BODY 传入）
-        simulate_question = os.environ.get("ROUTER_COMMENT_BODY", "").strip()
+        simulate_question = comment_body.strip()
         if not simulate_question:
-            logger.error("[SIMULATE] 模拟模式需要 ROUTER_COMMENT_BODY 环境变量")
+            logger.error("[SIMULATE] 模拟模式需要提供 --comment-body（提问正文）")
             return
         logger.info("[SIMULATE] QA 模拟模式：question=%s", simulate_question[:100])
 
@@ -900,6 +900,7 @@ def fetch_discussion(
           body
           url
           closed
+          author { login }
           category {
             id
             name
@@ -1009,7 +1010,7 @@ def _handle_join(
 
     try:
         gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
-    except ValueError:
+    except Exception:
         logger.exception("GitHubGraphQL 初始化失败（token 无效或未配置）")
         return
 
@@ -1294,7 +1295,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     if intent == "JOIN":
         _handle_join(token, args.discussion_number, args.comment_author, args.dry_run or is_simulate)
     elif intent == "QA":
-        _handle_qa(token, args.discussion_number, args.category_name, args.dry_run or is_simulate)
+        _handle_qa(token, args.discussion_number, args.category_name, args.dry_run or is_simulate, args.comment_body)
     else:
         _handle_other(token, args.discussion_number, args.dry_run or is_simulate)
 
