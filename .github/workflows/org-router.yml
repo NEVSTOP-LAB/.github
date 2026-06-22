@@ -245,16 +245,7 @@ jobs:
               echo "populated=false" >> "$GITHUB_OUTPUT"
               echo "Skipping vector store cache save: $WIKI_SOURCE not found"
             else
-              STORED_SHA=$(python -c "
-import json, sys
-try:
-    with open('$WIKI_SOURCE') as f:
-        d = json.load(f)
-    print(d.get('commit_id', ''))
-except json.JSONDecodeError as e:
-    print(f'ERROR: invalid JSON in $WIKI_SOURCE: {e}', file=sys.stderr)
-    sys.exit(1)
-" 2>&1) || { echo "populated=false" >> "$GITHUB_OUTPUT"; echo "Skipping vector store cache save: failed to parse $WIKI_SOURCE: $STORED_SHA"; exit 0; }
+              STORED_SHA=$(jq -r '.commit_id // ""' "$WIKI_SOURCE" 2>&1) || { echo "populated=false" >> "$GITHUB_OUTPUT"; echo "Skipping vector store cache save: failed to parse $WIKI_SOURCE: $STORED_SHA"; exit 0; }
               if [ "$STORED_SHA" = "$EXPECTED_SHA" ]; then
                 echo "populated=true" >> "$GITHUB_OUTPUT"
               else
