@@ -722,7 +722,6 @@ def _handle_qa(
     # 延迟导入 CSM_QA 和 discussion_bot 函数（JOIN/OTHER 路径不触发）
     try:
         from scripts.discussion_bot import (  # type: ignore[import-not-found]
-            GitHubGraphQL,
             SKIP_AUTHORS,
             compute_reply_plan,
             build_reply,
