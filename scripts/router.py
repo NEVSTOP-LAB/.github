@@ -641,39 +641,125 @@ def _handle_qa(
     category_name: str,
     dry_run: bool,
 ) -> None:
-    """处理 QA 意图：Q&A 分类下调用 CSM_QA 回答，否则引导。"""
+    """处理 QA 意图：Q&A 分类下调用 CSM_QA 回答，否则引导。
+
+    当 CSM_QA 初始化失败或生成回答出错时，发布错误提示回复而非崩溃，
+    确保 workflow 不会因临时故障（网络、模型下载等）整体失败。
+
+    模拟模式（discussion_number=0）时跳过 Discussion API 调用：
+    直接使用 --comment-body 作为问题，调用 CSM_QA 生成回答并打印到 stdout。
+    """
     source_owner, source_repo = _get_source_repo_parts()
+
+    # ── 模拟模式（discussion_number=0）───────────────────────────────────
+    if discussion_number == 0:
+        # 从环境变量获取模拟问题（由 workflow 通过 ROUTER_COMMENT_BODY 传入）
+        simulate_question = os.environ.get("ROUTER_COMMENT_BODY", "").strip()
+        if not simulate_question:
+            logger.error("[SIMULATE] 模拟模式需要 ROUTER_COMMENT_BODY 环境变量")
+            return
+        logger.info("[SIMULATE] QA 模拟模式：question=%s", simulate_question[:100])
+
+        # 延迟导入 CSM_QA
+        try:
+            from csm_llm_qa import CSM_QA  # noqa: F811
+        except Exception:
+            logger.exception("[SIMULATE] 导入 CSM_QA 失败")
+            return
+
+        try:
+            qa_engine = CSM_QA.from_env()
+        except Exception:
+            logger.exception("[SIMULATE] CSM_QA.from_env() 初始化失败")
+            return
+
+        try:
+            answer = qa_engine.ask(simulate_question)
+            # 模拟模式下将回答打印到 stdout，供 workflow 日志查看
+            print("=" * 60)
+            print("  SIMULATE QA Answer")
+            print("=" * 60)
+            print(f"Question: {simulate_question}")
+            print("-" * 40)
+            print(answer)
+            print("=" * 60)
+            logger.info("[SIMULATE] QA 回答已生成（%d chars）", len(answer))
+        except Exception:
+            logger.exception("[SIMULATE] 生成 QA 回答失败")
+        return
 
     if category_name != QA_CATEGORY_NAME:
         # 非 Q&A 分类 → 引导到 Q&A 区
+        try:
+            gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
+            discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
+            disc_id = discussion.get("id", "")
+            qa_url = f"https://github.com/orgs/{source_owner}/discussions/categories/q-a"
+            guide_body = (
+                f"💡 技术问题请在 [Q&A 分类]({qa_url}) 下提出，"
+                f"那里的 Bot 会自动为你解答。感谢理解！"
+            )
+            if not dry_run:
+                post_reply(token, disc_id, guide_body)
+            else:
+                logger.info("[DRY-RUN] 将引导至 Q&A 分类: discussion_id=%s", disc_id)
+        except Exception:
+            logger.exception("非 Q&A 引导回复失败")
+        return
+
+    # ── Q&A 分类 → 延迟导入并初始化 CSM_QA ──────────────────────────────
+    logger.info("Q&A 分类下的 QA 请求，初始化 CSM_QA…")
+
+    # 先尝试获取 discussion 元信息（失败时可发布错误回复）
+    try:
         gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
         discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
         disc_id = discussion.get("id", "")
-        qa_url = f"https://github.com/orgs/{source_owner}/discussions/categories/q-a"
-        guide_body = (
-            f"💡 技术问题请在 [Q&A 分类]({qa_url}) 下提出，"
-            f"那里的 Bot 会自动为你解答。感谢理解！"
-        )
-        if not dry_run:
-            post_reply(token, disc_id, guide_body)
-        else:
-            logger.info("[DRY-RUN] 将引导至 Q&A 分类: discussion_id=%s", disc_id)
+    except Exception:
+        logger.exception("获取 discussion #%d 失败", discussion_number)
         return
 
-    # Q&A 分类 → 延迟导入 CSM_QA 和 discussion_bot 函数
-    logger.info("Q&A 分类下的 QA 请求，初始化 CSM_QA…")
-    from scripts.discussion_bot import (  # type: ignore[import-not-found]
-        GitHubGraphQL,
-        SKIP_AUTHORS,
-        compute_reply_plan,
-        build_reply,
-        post_comment,
-        fetch_discussion as fetch_disc,
-    )
-    from csm_llm_qa import CSM_QA
+    # 延迟导入 CSM_QA 和 discussion_bot 函数（JOIN/OTHER 路径不触发）
+    try:
+        from scripts.discussion_bot import (  # type: ignore[import-not-found]
+            GitHubGraphQL,
+            SKIP_AUTHORS,
+            compute_reply_plan,
+            build_reply,
+            post_comment,
+            fetch_discussion as fetch_disc,
+        )
+        from csm_llm_qa import CSM_QA
+    except Exception:
+        logger.exception("导入 CSM_QA / discussion_bot 模块失败")
+        if not dry_run and disc_id:
+            try:
+                post_reply(
+                    token, disc_id,
+                    "⚠️ QA Bot 初始化失败（依赖模块导入错误），请稍后重试。"
+                    "若问题持续，请联系管理员。",
+                )
+            except Exception:
+                logger.exception("发布错误提示失败")
+        return
 
     client = GitHubGraphQL(token)
-    qa_engine = CSM_QA.from_env()
+
+    # 初始化 RAG 问答引擎（可能下载模型/构建向量库，耗时较长）
+    try:
+        qa_engine = CSM_QA.from_env()
+    except Exception:
+        logger.exception("CSM_QA.from_env() 初始化失败")
+        if not dry_run and disc_id:
+            try:
+                post_reply(
+                    token, disc_id,
+                    "⚠️ QA Bot 初始化失败（模型加载或向量库构建出错），请稍后重试。"
+                    "若问题持续，请联系管理员。",
+                )
+            except Exception:
+                logger.exception("发布错误提示失败")
+        return
 
     # 获取 Bot 自身的登录名（用于 compute_reply_plan 作者校验）
     try:
@@ -681,9 +767,6 @@ def _handle_qa(
         bot_login = viewer_data.get("viewer", {}).get("login")
     except Exception:
         bot_login = None
-
-    discussion = fetch_disc(client, source_owner, source_repo, discussion_number)
-    disc_id = discussion.get("id", "")
 
     # 检查 discussion 作者是否在跳过列表中（GitHub login 大小写不敏感）
     author_login = (discussion.get("author") or {}).get("login", "").casefold()
@@ -702,9 +785,19 @@ def _handle_qa(
     logger.info("生成回答中 (question=%s chars, history=%d turns)", len(question), len(history))
 
     if not dry_run:
-        answer = qa_engine.ask(question, history=history)
-        reply_body = build_reply(answer)  # build_reply 已含 footer + marker
-        post_comment(client, disc_id, reply_body)
+        try:
+            answer = qa_engine.ask(question, history=history)
+            reply_body = build_reply(answer)  # build_reply 已含 footer + marker
+            post_comment(client, disc_id, reply_body)
+        except Exception:
+            logger.exception("生成 QA 回答失败")
+            try:
+                post_reply(
+                    token, disc_id,
+                    "⚠️ 生成回答时出错，请稍后重试。若问题持续，请联系管理员。",
+                )
+            except Exception:
+                logger.exception("发布错误提示失败")
     else:
         logger.info("[DRY-RUN] 将生成 QA 回答: question=%.100s", question)
 
@@ -873,13 +966,52 @@ def _handle_join(
     comment_author: str,
     dry_run: bool,
 ) -> None:
-    """处理 JOIN 意图：条件检测 → 报告 → 通过则邀请。"""
+    """处理 JOIN 意图：条件检测 → 报告 → 通过则邀请。
+
+    模拟模式（discussion_number=0）时跳过所有 API 调用，仅打印检测报告。
+    """
+    source_owner, source_repo = _get_source_repo_parts()
+
+    # ── 模拟模式（discussion_number=0）：仅打印报告，不调用 API ────────
+    if discussion_number == 0:
+        if not comment_author:
+            logger.info("[SIMULATE] JOIN 模拟需要 comment_author 才能做条件检测，"
+                        "当前未提供，仅展示流程说明")
+            logger.info(
+                "[SIMULATE] JOIN 条件检测流程：\n"
+                "  1. 检查是否关注 @%s\n"
+                "  2. 检查是否 Star 以下仓库：%s\n"
+                "  3. 全部通过 → 发送组织邀请（%s）→ 添加团队（%s）\n"
+                "  4. 未通过 → 发布条件未满足报告",
+                JOIN_FOLLOW_ORG, ", ".join(JOIN_STAR_REPOS),
+                JOIN_FOLLOW_ORG, JOIN_DEFAULT_TEAM,
+            )
+            return
+        logger.info("[SIMULATE] JOIN 条件检测: username=%s org=%s star_repos=%s (跳过实际 API 调用)",
+                    comment_author, JOIN_FOLLOW_ORG, JOIN_STAR_REPOS)
+        # 生成模拟报告（假设条件通过）
+        results = [
+            {"name": f"关注 @{JOIN_FOLLOW_ORG}", "icon": "👀", "passed": True, "detail": "已关注（模拟）"},
+            {"name": "Star 指定仓库", "icon": "⭐", "passed": True, "detail": "已全部 Star（模拟）"},
+        ]
+        report = build_condition_report(comment_author, True, results)
+        report += (
+            "\n\n> ⚠️ 模拟模式：以上为模拟检测结果，未实际调用 API。"
+            "真实检测请提供有效的 discussion_number。"
+        )
+        logger.info("[SIMULATE] JOIN 报告:\n%s", report)
+        return
+
+    # ── 真实模式 ─────────────────────────────────────────────────────────
     if not comment_author:
         logger.warning("未提供 comment_author，无法执行 JOIN 检测")
         return
 
-    source_owner, source_repo = _get_source_repo_parts()
-    gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
+    try:
+        gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
+    except ValueError:
+        logger.exception("GitHubGraphQL 初始化失败（token 无效或未配置）")
+        return
 
     # 0. 获取 App installation token（用于 org membership 检查和邀请发送，
     #    CSM_QA_GH_TOKEN 是 fine-grained PAT，无 org 相关权限）
@@ -892,17 +1024,21 @@ def _handle_join(
         )
 
     # 1. 先检查是否已在组织内（使用 App token，PAT 无 org 权限）
-    if _is_org_member(effective_token, JOIN_FOLLOW_ORG, comment_author):
-        discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
-        disc_id = discussion.get("id", "")
-        body = (
-            f"👋 @{comment_author}，你已经是 **{JOIN_FOLLOW_ORG}** 组织的成员了，无需重复申请。\n\n"
-            "如有疑问，欢迎在 Q&A 分类下提出。"
-        )
-        if not dry_run:
-            post_reply(token, disc_id, body)
-        else:
-            logger.info("[DRY-RUN] 用户已是成员: %s", comment_author)
+    try:
+        if _is_org_member(effective_token, JOIN_FOLLOW_ORG, comment_author):
+            discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
+            disc_id = discussion.get("id", "")
+            body = (
+                f"👋 @{comment_author}，你已经是 **{JOIN_FOLLOW_ORG}** 组织的成员了，无需重复申请。\n\n"
+                "如有疑问，欢迎在 Q&A 分类下提出。"
+            )
+            if not dry_run:
+                post_reply(token, disc_id, body)
+            else:
+                logger.info("[DRY-RUN] 用户已是成员: %s", comment_author)
+            return
+    except Exception:
+        logger.exception("检查组织成员状态失败")
         return
 
     logger.info(
@@ -911,11 +1047,19 @@ def _handle_join(
     )
 
     # 条件检测
-    all_met, results = check_all_conditions(token, comment_author)
+    try:
+        all_met, results = check_all_conditions(token, comment_author)
+    except Exception:
+        logger.exception("JOIN 条件检测失败")
+        return
 
     # 拉取 discussion 获取 node ID（复用已创建的 gql_client）
-    discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
-    disc_id = discussion.get("id", "")
+    try:
+        discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
+        disc_id = discussion.get("id", "")
+    except Exception:
+        logger.exception("拉取 discussion #%d 失败", discussion_number)
+        return
 
     # 生成报告
     report = build_condition_report(comment_author, all_met, results)
@@ -946,7 +1090,7 @@ def _handle_join(
             else:
                 report += "\n\n⚠️ 邀请发送失败，请联系管理员。"
         except Exception as exc:
-            logger.error("邀请流程失败: %s", exc)
+            logger.exception("邀请流程失败")
             report += f"\n\n⚠️ 邀请发送失败（{exc}），请联系管理员。"
 
     if not dry_run:
@@ -962,9 +1106,6 @@ def _handle_other(
 ) -> None:
     """处理 OTHER 意图：友好引导回复。"""
     source_owner, source_repo = _get_source_repo_parts()
-    gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
-    discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
-    disc_id = discussion.get("id", "")
 
     body = (
         "👋 你好！我暂时无法识别你的意图。\n\n"
@@ -976,10 +1117,21 @@ def _handle_other(
         "感谢使用！"
     ).format(org=source_owner)
 
-    if not dry_run:
-        post_reply(token, disc_id, body)
-    else:
-        logger.info("[DRY-RUN] 将发布 OTHER 引导: discussion_id=%s", disc_id)
+    # 模拟模式（discussion_number=0）：仅打印，不调用 Discussion API
+    if discussion_number == 0:
+        logger.info("[SIMULATE] OTHER 引导回复:\n%s", body)
+        return
+
+    try:
+        gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
+        discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
+        disc_id = discussion.get("id", "")
+        if not dry_run:
+            post_reply(token, disc_id, body)
+        else:
+            logger.info("[DRY-RUN] 将发布 OTHER 引导: discussion_id=%s", disc_id)
+    except Exception:
+        logger.exception("OTHER 引导回复失败")
 
 
 # ── CLI ──────────────────────────────────────────────────────────────────────
@@ -990,8 +1142,8 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
     parser.add_argument(
         "--discussion-number",
         type=int,
-        required=True,
-        help="Discussion 编号",
+        default=0,
+        help="Discussion 编号（0 = 模拟模式，不触发 Discussion API 调用）",
     )
     parser.add_argument(
         "--comment-body",
@@ -1049,14 +1201,23 @@ def main(argv: Optional[list[str]] = None) -> int:
     configure_logging()
     args = parse_args(argv)
 
+    # ── 模拟模式检测 ─────────────────────────────────────────────────────
+    is_simulate = args.discussion_number == 0
+    if is_simulate:
+        logger.info("模拟模式：discussion_number=0，将跳过所有 Discussion API 调用")
+        if not args.comment_body.strip():
+            logger.error("模拟模式需要提供 --comment-body（提问正文）")
+            return 1
+
     logger.info(
-        "Router 启动: discussion=%d author=%s category=%s dry_run=%s classify_only=%s intent=%s",
+        "Router 启动: discussion=%d author=%s category=%s dry_run=%s classify_only=%s intent=%s simulate=%s",
         args.discussion_number,
         args.comment_author,
         args.category_name,
         args.dry_run,
         args.classify_only,
         args.intent,
+        is_simulate,
     )
 
     # ── 解析意图 ─────────────────────────────────────────────────────────
@@ -1067,9 +1228,10 @@ def main(argv: Optional[list[str]] = None) -> int:
         classify_input = f"{args.discussion_title.strip()}\n\n{args.comment_body}".strip()
 
     # 1b. 尝试获取 discussion thread 上下文，用于 LLM 分类时提供完整对话历史
+    #     模拟模式下跳过（无真实 Discussion 可拉取）
     thread_history: Optional[list[dict[str, str]]] = None
-    if not args.intent:
-        # 只有需要 LLM 分类时才构建上下文
+    if not args.intent and not is_simulate:
+        # 只有需要 LLM 分类且非模拟模式时才构建上下文
         token_early = os.environ.get("CSM_QA_GH_TOKEN", "")
         if token_early:
             try:
@@ -1105,8 +1267,8 @@ def main(argv: Optional[list[str]] = None) -> int:
             logger.info("短正文 + Q&A 分类 + discussion.created → 按 QA 处理")
             intent = "QA"
 
-        # 2c. 空评论的特殊处理
-        if not classify_input.strip() and args.event_type == "discussion":
+        # 2c. 空评论的特殊处理（模拟模式下跳过，由 2a 已检查）
+        if not is_simulate and not classify_input.strip() and args.event_type == "discussion":
             if args.category_name == QA_CATEGORY_NAME:
                 logger.info("空内容 + Q&A 分类 + discussion.created → 按 QA 处理")
                 intent = "QA"
@@ -1120,19 +1282,21 @@ def main(argv: Optional[list[str]] = None) -> int:
         return 0
 
     # ── 后续操作需要 token ────────────────────────────────────────────
+    #    模拟模式下 token 仅用于 LLM QA 的 GitHub API（wiki 克隆等），
+    #    不需要 Discussions 写权限；非模拟模式 token 为必需。
 
     token = os.environ.get("CSM_QA_GH_TOKEN", "")
-    if not token:
+    if not is_simulate and not token:
         logger.error("CSM_QA_GH_TOKEN 未配置")
         return 1
 
     # ── 按意图分派 ───────────────────────────────────────────────────────
     if intent == "JOIN":
-        _handle_join(token, args.discussion_number, args.comment_author, args.dry_run)
+        _handle_join(token, args.discussion_number, args.comment_author, args.dry_run or is_simulate)
     elif intent == "QA":
-        _handle_qa(token, args.discussion_number, args.category_name, args.dry_run)
+        _handle_qa(token, args.discussion_number, args.category_name, args.dry_run or is_simulate)
     else:
-        _handle_other(token, args.discussion_number, args.dry_run)
+        _handle_other(token, args.discussion_number, args.dry_run or is_simulate)
 
     logger.info("Router 完成")
     return 0
