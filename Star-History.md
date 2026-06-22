@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-17 23:38:53 UTC+8_  
-_Total stars: 316_
+_Last updated: 2026-06-23 01:31:24 UTC+8_  
+_Total stars: 317_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
     y-axis "Cumulative Stars" 0 --> 340
-    line [1, 12, 26, 40, 56, 82, 114, 199, 277]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 278]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-22 21:53:45+08:00 | [`NEVSTOP-LoginWindow`](https://github.com/NEVSTOP-LAB/NEVSTOP-LoginWindow) | [longhai1212](https://github.com/longhai1212) | ⭐ add |
 | 2026-06-17 21:15:21+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
 | 2026-06-17 21:15:11+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
 | 2026-06-17 21:15:03+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
