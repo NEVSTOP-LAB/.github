@@ -17,11 +17,12 @@ on:
   workflow_dispatch:
     inputs:
       discussion_number:
-        description: 'Discussion 编号'
-        required: true
+        description: 'Discussion 编号（填 0 或在模拟模式下可省略，仅分类并模拟处理而不发布回复）'
+        required: false
+        default: '0'
         type: string
       comment_body:
-        description: '评论正文（可选，用于手动模拟）'
+        description: '模拟提问正文（模拟模式必填；有 Discussion 时可选，用于覆盖事件正文）'
         required: false
         type: string
       comment_author:
@@ -137,12 +138,16 @@ jobs:
           JOIN_STAR_REPOS: ${{ vars.JOIN_STAR_REPOS || 'Communicable-State-Machine,CSM-API-String-Arguments-Support,CSM-MassData-Parameter-Support,CSM-INI-Static-Variable-Support' }}
           JOIN_DEFAULT_TEAM: ${{ vars.JOIN_DEFAULT_TEAM || 'csm-community' }}
           ROUTER_DISCUSSION_NUMBER: ${{ github.event.client_payload.discussion_number || github.event.discussion.number || github.event.inputs.discussion_number }}
+          ROUTER_COMMENT_BODY: ${{ github.event.client_payload.comment_body || github.event.comment.body || github.event.discussion.body || github.event.inputs.comment_body || '' }}
           ROUTER_COMMENT_AUTHOR: ${{ github.event.client_payload.comment_author || github.event.comment.user.login || github.event.discussion.user.login || github.event.inputs.comment_author || '' }}
+          ROUTER_EVENT_TYPE: ${{ github.event.client_payload.event_type || github.event_name || '' }}
         run: |
           python scripts/router.py \
             --intent JOIN \
             --discussion-number "${ROUTER_DISCUSSION_NUMBER}" \
+            --comment-body "${ROUTER_COMMENT_BODY}" \
             --comment-author "${ROUTER_COMMENT_AUTHOR}" \
+            --event-type "${ROUTER_EVENT_TYPE}" \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       # ════════════════════════════════════════════════════════════════════
@@ -202,15 +207,20 @@ jobs:
         env:
           CSM_QA_GH_TOKEN: ${{ secrets.CSM_QA_GH_TOKEN }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           DISCUSSION_SOURCE_REPO: ${{ github.repository_owner }}/.github
           ROUTER_DISCUSSION_NUMBER: ${{ github.event.client_payload.discussion_number || github.event.discussion.number || github.event.inputs.discussion_number }}
+          ROUTER_COMMENT_BODY: ${{ github.event.client_payload.comment_body || github.event.comment.body || github.event.discussion.body || github.event.inputs.comment_body || '' }}
           ROUTER_CATEGORY_NAME: ${{ github.event.client_payload.category_name || github.event.discussion.category.name || github.event.inputs.category_name || '' }}
+          ROUTER_EVENT_TYPE: ${{ github.event.client_payload.event_type || github.event_name || '' }}
         run: |
           python scripts/router.py \
             --intent QA \
             --discussion-number "${ROUTER_DISCUSSION_NUMBER}" \
+            --comment-body "${ROUTER_COMMENT_BODY}" \
             --category-name "${ROUTER_CATEGORY_NAME}" \
+            --event-type "${ROUTER_EVENT_TYPE}" \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       # QA 之后才保存 RAG 缓存
@@ -279,8 +289,12 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           DISCUSSION_SOURCE_REPO: ${{ github.repository_owner }}/.github
           ROUTER_DISCUSSION_NUMBER: ${{ github.event.client_payload.discussion_number || github.event.discussion.number || github.event.inputs.discussion_number }}
+          ROUTER_COMMENT_BODY: ${{ github.event.client_payload.comment_body || github.event.comment.body || github.event.discussion.body || github.event.inputs.comment_body || '' }}
+          ROUTER_EVENT_TYPE: ${{ github.event.client_payload.event_type || github.event_name || '' }}
         run: |
           python scripts/router.py \
             --intent OTHER \
             --discussion-number "${ROUTER_DISCUSSION_NUMBER}" \
+            --comment-body "${ROUTER_COMMENT_BODY}" \
+            --event-type "${ROUTER_EVENT_TYPE}" \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
