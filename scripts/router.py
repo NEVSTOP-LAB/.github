@@ -326,11 +326,12 @@ def classify_intent(comment_body: str, history: Optional[list[dict[str, str]]] =
 
 def _fallback_classify(text: str) -> str:
     # 第二人称建议加入模式（建议/邀请他人加入，不是评论者自己要加入）
+    # re.DOTALL：用户可能用换行分隔"你可以"和"加入"，跨行匹配避免漏判
     _RE_SUGGEST_JOIN = re.compile(
-        r"(你可以|建议你|推荐你|欢迎你|邀请你|你试试|你去|你能够)"
+        r"(你可以|建议你|推荐你|欢迎你|欢迎|邀请你|你试试|你去|你能够)"
         r".{0,15}?"
         r"(加入|申请|参与|成为成员)",
-        re.IGNORECASE,
+        re.IGNORECASE | re.DOTALL,
     )
     if _RE_SUGGEST_JOIN.search(text):
         logger.info("正则降级分类: OTHER（第二人称建议加入模式）")
