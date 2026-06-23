@@ -662,6 +662,9 @@ def _handle_qa(
 
     模拟模式（discussion_number=0）时跳过 Discussion API 调用：
     直接使用 --comment-body 作为问题，调用 CSM_QA 生成回答并打印到 stdout。
+
+    Args:
+        comment_author: 评论作者（当前仅透传，SKIP_AUTHORS 检查已在 main() 完成）。
     """
     source_owner, source_repo = _get_source_repo_parts()
 
@@ -1117,7 +1120,11 @@ def _handle_other(
     dry_run: bool,
     comment_author: str = "",
 ) -> None:
-    """处理 OTHER 意图：友好引导回复。"""
+    """处理 OTHER 意图：友好引导回复。
+
+    Args:
+        comment_author: 评论作者（当前仅透传，SKIP_AUTHORS 检查已在 main() 完成）。
+    """
     source_owner, source_repo = _get_source_repo_parts()
 
     body = (
