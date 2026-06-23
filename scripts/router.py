@@ -681,7 +681,7 @@ def _handle_qa(
             return
 
         try:
-            qa_engine = CSM_QA.from_env(temperature=0)
+            qa_engine = CSM_QA.from_env(temperature=0, max_tokens=2048)
         except Exception:
             logger.exception("[SIMULATE] CSM_QA.from_env() 初始化失败")
             return
