@@ -47,7 +47,7 @@ if _REPO_ROOT not in sys.path:
 
 from csm_llm_qa import CSM_QA  # noqa: E402
 
-from scripts._utils import configure_logging  # noqa: E402
+from scripts._utils import configure_logging, SKIP_AUTHORS  # noqa: E402
 from scripts._github import GitHubGraphQL  # noqa: E402
 
 logger = logging.getLogger("discussion_bot")
@@ -57,9 +57,6 @@ logger = logging.getLogger("discussion_bot")
 QA_CATEGORY_NAME = "Q&A"
 # 追加在 Bot 回复末尾的 HTML 注释，用于防重复检测（用户不可见）
 BOT_MARKER = "<!-- csm-qa-bot -->"
-# 需要跳过的 Discussion 作者登录名集合（不回复这些用户的讨论和评论）
-# 注意：GitHub login 大小写不敏感，所有值与比较均应统一 casefold。
-SKIP_AUTHORS: frozenset[str] = frozenset({"nevstop"})
 # Bot 回复页脚（可见文字）
 BOT_FOOTER = (
     "\n\n---\n"

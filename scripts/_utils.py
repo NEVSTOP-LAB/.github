@@ -18,6 +18,13 @@ import requests
 
 BEIJING_TZ = timezone(timedelta(hours=8))
 
+# ── Shared Constants ──────────────────────────────────────────────────────────
+
+# GitHub 登录名（已 casefold）集合：这些用户的 Discussion / 评论不应触发 Bot 回复。
+# 用于 router 分发前跳过 和 discussion_bot 追问检测/历史构建时过滤。
+# 注意：所有比较都应通过 .casefold() 进行，因为 GitHub login 大小写不敏感。
+SKIP_AUTHORS: frozenset[str] = frozenset({"nevstop"})
+
 # ── Logging ───────────────────────────────────────────────────────────────────
 
 

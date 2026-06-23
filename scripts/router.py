@@ -31,7 +31,7 @@ _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-from scripts._utils import configure_logging  # noqa: E402
+from scripts._utils import configure_logging, SKIP_AUTHORS  # noqa: E402
 from scripts._github import GitHubGraphQL  # noqa: E402
 
 logger = logging.getLogger("org_router")
@@ -734,7 +734,6 @@ def _handle_qa(
     # 延迟导入 CSM_QA 和 discussion_bot 函数（JOIN/OTHER 路径不触发）
     try:
         from scripts.discussion_bot import (  # type: ignore[import-not-found]
-            SKIP_AUTHORS,
             compute_reply_plan,
             build_reply,
             post_comment,
@@ -1305,7 +1304,6 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     # ── 跳过名单检查：评论作者在 SKIP_AUTHORS 中则直接返回 ───────────
     if args.comment_author:
-        from scripts.discussion_bot import SKIP_AUTHORS  # noqa: E402
         if args.comment_author.casefold() in SKIP_AUTHORS:
             logger.info(
                 "评论作者 %r 在跳过列表中，跳过处理", args.comment_author

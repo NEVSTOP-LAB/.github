@@ -16,7 +16,6 @@ if _REPO_ROOT not in sys.path:
 from scripts.discussion_bot import (
     BOT_MARKER,
     BOT_FOOTER,
-    SKIP_AUTHORS,
     build_reply,
     has_bot_replied,
     compute_reply_plan,
@@ -29,6 +28,8 @@ from scripts.discussion_bot import (
     scan_org_qa_discussions,
     run_scan_mode,
 )
+
+from scripts._utils import SKIP_AUTHORS
 
 
 # ── build_reply ───────────────────────────────────────────────────────────────
