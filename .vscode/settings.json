@@ -1,0 +1,13 @@
+{
+    "cSpell.words": [
+        "deepseek",
+        "modsets",
+        "quickdrop",
+        "tagdb",
+        "xcontrol",
+        "xychart"
+    ],
+    "markdownlint.config": {
+        "MD033": false
+    }
+}
