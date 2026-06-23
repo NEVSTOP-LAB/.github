@@ -111,6 +111,7 @@ jobs:
           ROUTER_DISCUSSION_TITLE: ${{ github.event.discussion.title || '' }}
           ROUTER_CATEGORY_NAME: ${{ github.event.client_payload.category_name || github.event.discussion.category.name || github.event.inputs.category_name || '' }}
           ROUTER_EVENT_TYPE: ${{ github.event.client_payload.event_type || github.event_name || '' }}
+          ROUTER_COMMENT_AUTHOR: ${{ github.event.client_payload.comment_author || github.event.comment.user.login || github.event.discussion.user.login || github.event.inputs.comment_author || '' }}
         run: |
           INTENT=$(python scripts/router.py \
             --classify-only \
@@ -118,7 +119,8 @@ jobs:
             --comment-body "${ROUTER_COMMENT_BODY}" \
             --discussion-title "${ROUTER_DISCUSSION_TITLE}" \
             --category-name "${ROUTER_CATEGORY_NAME}" \
-            --event-type "${ROUTER_EVENT_TYPE}")
+            --event-type "${ROUTER_EVENT_TYPE}" \
+            --comment-author "${ROUTER_COMMENT_AUTHOR}")
           echo "result=${INTENT}" >> "$GITHUB_OUTPUT"
           echo "Intent: ${INTENT}"
 
@@ -214,6 +216,7 @@ jobs:
           ROUTER_COMMENT_BODY: ${{ github.event.client_payload.comment_body || github.event.comment.body || github.event.discussion.body || github.event.inputs.comment_body || '' }}
           ROUTER_CATEGORY_NAME: ${{ github.event.client_payload.category_name || github.event.discussion.category.name || github.event.inputs.category_name || '' }}
           ROUTER_EVENT_TYPE: ${{ github.event.client_payload.event_type || github.event_name || '' }}
+          ROUTER_COMMENT_AUTHOR: ${{ github.event.client_payload.comment_author || github.event.comment.user.login || github.event.discussion.user.login || github.event.inputs.comment_author || '' }}
         run: |
           python scripts/router.py \
             --intent QA \
@@ -221,6 +224,7 @@ jobs:
             --comment-body "${ROUTER_COMMENT_BODY}" \
             --category-name "${ROUTER_CATEGORY_NAME}" \
             --event-type "${ROUTER_EVENT_TYPE}" \
+            --comment-author "${ROUTER_COMMENT_AUTHOR}" \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       # QA 之后才保存 RAG 缓存
@@ -291,10 +295,12 @@ jobs:
           ROUTER_DISCUSSION_NUMBER: ${{ github.event.client_payload.discussion_number || github.event.discussion.number || github.event.inputs.discussion_number }}
           ROUTER_COMMENT_BODY: ${{ github.event.client_payload.comment_body || github.event.comment.body || github.event.discussion.body || github.event.inputs.comment_body || '' }}
           ROUTER_EVENT_TYPE: ${{ github.event.client_payload.event_type || github.event_name || '' }}
+          ROUTER_COMMENT_AUTHOR: ${{ github.event.client_payload.comment_author || github.event.comment.user.login || github.event.discussion.user.login || github.event.inputs.comment_author || '' }}
         run: |
           python scripts/router.py \
             --intent OTHER \
             --discussion-number "${ROUTER_DISCUSSION_NUMBER}" \
             --comment-body "${ROUTER_COMMENT_BODY}" \
             --event-type "${ROUTER_EVENT_TYPE}" \
+            --comment-author "${ROUTER_COMMENT_AUTHOR}" \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}

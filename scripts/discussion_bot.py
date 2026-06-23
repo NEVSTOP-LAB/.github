@@ -930,7 +930,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         logger.warning("无法获取 Bot 账号，has_bot_replied 将仅按 marker 检测")
 
     try:
-        qa_engine = CSM_QA.from_env()
+        qa_engine = CSM_QA.from_env(temperature=0, max_tokens=2048)
     except Exception as exc:
         logger.error("CSM_QA 初始化失败: %s", exc)
         return 1
