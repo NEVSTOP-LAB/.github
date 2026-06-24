@@ -347,14 +347,13 @@ def compute_reply_plan(
 
     判定规则（评论默认按创建时间升序返回）：
 
+    * 若 ``SKIP_AUTHORS``（如 nevstop、yao0928）中的用户已在此 discussion 发表了评论，
+      视为人工已介入，Bot 不再处理此 thread → 返回 ``None``。
     * 若 discussion 中尚无 Bot 回复 → 视为新问题，``question = title + body``，``history = []``。
     * 若已有 Bot 回复，且最后一条 Bot 回复之后存在用户的新追问 → 取追问中最后一条作为
       ``question``，并把"原帖 + 中间所有评论（不含本次追问）"按 user/assistant 顺序
       组装为 ``history``。
     * 否则（已回复且无后续追问）→ 返回 ``None`` 表示无需回复。
-
-    来自 ``SKIP_AUTHORS`` 的评论（如 nevstop）在查找追问和构建历史时会被忽略，
-    如同 Bot 评论一样跳过。
 
     Returns:
         ``(question, history)`` 或 ``None``。``history`` 元素形如
@@ -365,6 +364,13 @@ def compute_reply_plan(
     original_question = f"{title}\n\n{body}".strip() if body else title
 
     comments = discussion.get("comments", {}).get("nodes", []) or []
+
+    # 如果 SKIP_AUTHORS 中的用户已在此 thread 发表了评论，视为人工已介入，Bot 退出。
+    if any(
+        (c.get("author") or {}).get("login", "").casefold() in SKIP_AUTHORS
+        for c in comments
+    ):
+        return None
 
     # 安全保护：若 bot_login 未知（viewer 查询失败），无法可靠区分 Bot 真实回复
     # 与用户伪造的 marker，故只要任意评论含 BOT_MARKER 就跳过整个 discussion，

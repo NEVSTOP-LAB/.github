@@ -709,7 +709,7 @@ def test_compute_reply_plan_no_bot_login_treats_clean_thread_as_new_question():
 
 
 def test_compute_reply_plan_skips_nevstop_followup():
-    """Bot 回复后 nevstop 留言 → 跳过，不将其视为追问（返回 None）。"""
+    """Bot 回复后 nevstop 留言 → 人工介入，整个 thread 跳过（返回 None）。"""
     assert "nevstop" in SKIP_AUTHORS  # 验证 SKIP_AUTHORS 配置正确
     disc = {
         "title": "T", "body": "B",
@@ -724,7 +724,7 @@ def test_compute_reply_plan_skips_nevstop_followup():
 
 
 def test_compute_reply_plan_normal_user_after_nevstop():
-    """nevstop 留言后，普通用户继续追问 → 应回复该用户追问，跳过 nevstop。"""
+    """nevstop 留言后，即使普通用户继续追问，Bot 也不应回复（人工已介入）。"""
     disc = {
         "title": "T", "body": "B",
         "comments": {
@@ -735,17 +735,11 @@ def test_compute_reply_plan_normal_user_after_nevstop():
             ]
         },
     }
-    plan = compute_reply_plan(disc, bot_login="bot")
-    assert plan is not None
-    question, history = plan
-    assert question == "用户追问"
-    # nevstop 的留言不应出现在 history 中
-    for h in history:
-        assert "nevstop" not in h.get("content", "")
+    assert compute_reply_plan(disc, bot_login="bot") is None
 
 
 def test_compute_reply_plan_nevstop_in_history_is_skipped():
-    """nevstop 留言在 history 中间位置 → 排除该留言，roles 连续正确。"""
+    """nevstop 留言在 thread 中任意位置 → 人工已介入，整个 thread 跳过（返回 None）。"""
     disc = {
         "title": "T", "body": "B",
         "comments": {
@@ -757,13 +751,48 @@ def test_compute_reply_plan_nevstop_in_history_is_skipped():
             ]
         },
     }
-    plan = compute_reply_plan(disc, bot_login="bot")
-    assert plan is not None
-    question, history = plan
-    assert question == "用户追问2"
-    # history 应不含 nevstop 的留言
-    for h in history:
-        assert "nevstop" not in h.get("content", "")
+    assert compute_reply_plan(disc, bot_login="bot") is None
+
+
+def test_compute_reply_plan_skips_when_yao0928_commented():
+    """yao0928 留言后，Bot 不再处理此 thread（人工已介入）。"""
+    assert "yao0928" in SKIP_AUTHORS  # 验证 SKIP_AUTHORS 配置正确
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment(f"答 {BOT_MARKER}", author="bot"),
+                _comment("yao0928 的回复", author="yao0928"),
+            ]
+        },
+    }
+    assert compute_reply_plan(disc, bot_login="bot") is None
+
+
+def test_compute_reply_plan_skips_when_expert_comments_before_bot():
+    """nevstop 在 Bot 回复前就已评论 → 同样视为人工介入，Bot 跳过（不发初始回答）。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment("nevstop 已经回答了", author="nevstop"),
+            ]
+        },
+    }
+    assert compute_reply_plan(disc, bot_login="bot") is None
+
+
+def test_compute_reply_plan_skips_expert_with_bot_login_none():
+    """bot_login=None 时，nevstop 评论也应触发人工介入检测，返回 None。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment("nevstop 的回答", author="nevstop"),
+            ]
+        },
+    }
+    assert compute_reply_plan(disc, bot_login=None) is None
 
 
 def test_is_bot_comment_fails_closed_without_bot_login():
