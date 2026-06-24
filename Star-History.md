@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-24 00:47:41 UTC+8_  
-_Total stars: 318_
+_Last updated: 2026-06-25 00:41:12 UTC+8_  
+_Total stars: 322_
 
 ## Star Growth Chart
 
@@ -10,23 +10,23 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
     y-axis "Cumulative Stars" 0 --> 340
-    line [1, 12, 26, 40, 56, 82, 114, 199, 279]
+    line [1, 12, 26, 40, 56, 82, 114, 199, 283]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 58 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 59 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 39 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 24 |
 | 4 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
-| 5 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 13 |
-| 6 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
-| 7 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
-| 8 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 11 |
-| 9 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
-| 10 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 10 |
+| 5 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 14 |
+| 6 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 12 |
+| 7 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
+| 8 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
+| 9 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 11 |
+| 10 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
 
 ## Top 10 Users by Stars Given
 
@@ -47,6 +47,10 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-24 17:26:22+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [freddy-yu](https://github.com/freddy-yu) | ⭐ add |
+| 2026-06-24 17:26:15+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [freddy-yu](https://github.com/freddy-yu) | ⭐ add |
+| 2026-06-24 17:26:07+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [freddy-yu](https://github.com/freddy-yu) | ⭐ add |
+| 2026-06-24 17:25:57+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [freddy-yu](https://github.com/freddy-yu) | ⭐ add |
 | 2026-06-23 13:17:02+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [zhaochenchen4](https://github.com/zhaochenchen4) | ⭐ add |
 | 2026-06-22 21:53:45+08:00 | [`NEVSTOP-LoginWindow`](https://github.com/NEVSTOP-LAB/NEVSTOP-LoginWindow) | [longhai1212](https://github.com/longhai1212) | ⭐ add |
 | 2026-06-17 21:15:21+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [paynechen521](https://github.com/paynechen521) | ⭐ add |
