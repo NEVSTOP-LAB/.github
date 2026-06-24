@@ -742,6 +742,7 @@ def _handle_qa(
             build_reply,
             post_comment,
             fetch_discussion as fetch_disc,
+            resolve_skip_logins,
         )
         from csm_llm_qa import CSM_QA
     except Exception:
@@ -782,15 +783,18 @@ def _handle_qa(
     except Exception:
         bot_login = None
 
+    # 解析完整跳过名单（SKIP_AUTHORS + csm-committee 团队成员）
+    effective_skip = resolve_skip_logins(client, source_owner)
+
     # 检查 discussion 作者是否在跳过列表中（GitHub login 大小写不敏感）
     author_login = (discussion.get("author") or {}).get("login", "").casefold()
-    if author_login in SKIP_AUTHORS:
+    if author_login in effective_skip:
         logger.info(
             "Discussion #%d 作者 %r 在跳过列表中，跳过", discussion_number, author_login
         )
         return
 
-    plan = compute_reply_plan(discussion, bot_login)
+    plan = compute_reply_plan(discussion, bot_login, skip_logins=effective_skip)
     if plan is None:
         logger.info("无需回复（已回复且无追问）")
         return

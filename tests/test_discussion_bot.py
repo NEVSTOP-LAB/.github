@@ -19,6 +19,7 @@ from scripts.discussion_bot import (
     build_reply,
     has_bot_replied,
     compute_reply_plan,
+    resolve_skip_logins,
     _fetch_more_comments,
     _process_discussion_dict,
     _get_source_repo_parts,
@@ -709,7 +710,7 @@ def test_compute_reply_plan_no_bot_login_treats_clean_thread_as_new_question():
 
 
 def test_compute_reply_plan_skips_nevstop_followup():
-    """Bot 回复后 nevstop 留言 → 跳过，不将其视为追问（返回 None）。"""
+    """Bot 回复后 nevstop 留言 → 人工介入，整个 thread 跳过（返回 None）。"""
     assert "nevstop" in SKIP_AUTHORS  # 验证 SKIP_AUTHORS 配置正确
     disc = {
         "title": "T", "body": "B",
@@ -724,7 +725,7 @@ def test_compute_reply_plan_skips_nevstop_followup():
 
 
 def test_compute_reply_plan_normal_user_after_nevstop():
-    """nevstop 留言后，普通用户继续追问 → 应回复该用户追问，跳过 nevstop。"""
+    """nevstop 留言后，即使普通用户继续追问，Bot 也不应回复（人工已介入）。"""
     disc = {
         "title": "T", "body": "B",
         "comments": {
@@ -735,17 +736,11 @@ def test_compute_reply_plan_normal_user_after_nevstop():
             ]
         },
     }
-    plan = compute_reply_plan(disc, bot_login="bot")
-    assert plan is not None
-    question, history = plan
-    assert question == "用户追问"
-    # nevstop 的留言不应出现在 history 中
-    for h in history:
-        assert "nevstop" not in h.get("content", "")
+    assert compute_reply_plan(disc, bot_login="bot") is None
 
 
 def test_compute_reply_plan_nevstop_in_history_is_skipped():
-    """nevstop 留言在 history 中间位置 → 排除该留言，roles 连续正确。"""
+    """nevstop 留言在 thread 中任意位置 → 人工已介入，整个 thread 跳过（返回 None）。"""
     disc = {
         "title": "T", "body": "B",
         "comments": {
@@ -757,13 +752,174 @@ def test_compute_reply_plan_nevstop_in_history_is_skipped():
             ]
         },
     }
-    plan = compute_reply_plan(disc, bot_login="bot")
+    assert compute_reply_plan(disc, bot_login="bot") is None
+
+
+def test_compute_reply_plan_skips_when_yao0928_commented():
+    """yao0928 留言后，Bot 不再处理此 thread（人工已介入）。"""
+    assert "yao0928" in SKIP_AUTHORS  # 验证 SKIP_AUTHORS 配置正确
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment(f"答 {BOT_MARKER}", author="bot"),
+                _comment("yao0928 的回复", author="yao0928"),
+            ]
+        },
+    }
+    assert compute_reply_plan(disc, bot_login="bot") is None
+
+
+def test_compute_reply_plan_skips_when_expert_comments_before_bot():
+    """nevstop 在 Bot 回复前就已评论 → 同样视为人工介入，Bot 跳过（不发初始回答）。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment("nevstop 已经回答了", author="nevstop"),
+            ]
+        },
+    }
+    assert compute_reply_plan(disc, bot_login="bot") is None
+
+
+def test_compute_reply_plan_skips_expert_with_bot_login_none():
+    """bot_login=None 时，nevstop 评论也应触发人工介入检测，返回 None。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment("nevstop 的回答", author="nevstop"),
+            ]
+        },
+    }
+    assert compute_reply_plan(disc, bot_login=None) is None
+
+
+def test_compute_reply_plan_skips_yao0928_with_bot_login_none():
+    """bot_login=None 时，yao0928 评论也应触发人工介入检测，返回 None。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment("yao0928 的回答", author="yao0928"),
+            ]
+        },
+    }
+    assert compute_reply_plan(disc, bot_login=None) is None
+
+
+# ── compute_reply_plan — custom skip_logins ─────────────────────────────────
+
+
+def test_compute_reply_plan_custom_skip_logins():
+    """skip_logins 传入自定义集合时应使用该集合而非 SKIP_AUTHORS。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment("Bot 回复", author="bot"),
+                _comment("testuser 追问", author="testuser"),
+            ]
+        },
+    }
+    # testuser 不在 SKIP_AUTHORS 中，默认应回复
+    assert compute_reply_plan(disc, bot_login="bot") is not None
+    # 但若 skip_logins 包含 testuser，应跳过
+    assert compute_reply_plan(disc, bot_login="bot", skip_logins=frozenset({"testuser"})) is None
+
+
+def test_compute_reply_plan_custom_skip_logins_case_insensitive():
+    """skip_logins 比较应大小写不敏感。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment("TestUser 评论", author="TestUser"),
+            ]
+        },
+    }
+    assert compute_reply_plan(disc, bot_login=None, skip_logins=frozenset({"testuser"})) is None
+
+
+def test_compute_reply_plan_empty_skip_logins():
+    """空 skip_logins 集合不应跳过任何人。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment("普通用户评论", author="regular"),
+            ]
+        },
+    }
+    # bot_login=None + 无 marker + 空 skip_logins → 视为新问题
+    plan = compute_reply_plan(disc, bot_login=None, skip_logins=frozenset())
     assert plan is not None
-    question, history = plan
-    assert question == "用户追问2"
-    # history 应不含 nevstop 的留言
-    for h in history:
-        assert "nevstop" not in h.get("content", "")
+
+
+# ── resolve_skip_logins ─────────────────────────────────────────────────────
+
+
+def test_resolve_skip_logins_returns_base_when_api_fails(monkeypatch):
+    """API 调用失败时应降级为仅返回 SKIP_AUTHORS。"""
+    from scripts.discussion_bot import _team_members_cache
+
+    # 防止缓存干扰：清除后重新测试
+    monkeypatch.setattr(
+        "scripts.discussion_bot._team_members_cache", {}
+    )
+
+    class _FakeClient:
+        def rest_get(self, path, *, timeout=30):
+            raise RuntimeError("simulated API failure")
+
+    result = resolve_skip_logins(_FakeClient(), "TEST-ORG")
+    assert "nevstop" in result
+    assert "yao0928" in result
+
+
+def test_resolve_skip_logins_merges_team_members(monkeypatch):
+    """正常 API 响应应合并 SKIP_AUTHORS + team 成员。"""
+    from scripts.discussion_bot import _team_members_cache
+
+    monkeypatch.setattr(
+        "scripts.discussion_bot._team_members_cache", {}
+    )
+
+    class _FakeClient:
+        def rest_get(self, path, *, timeout=30):
+            return [
+                {"login": "team_member_1"},
+                {"login": "Team_Member_2"},  # 大小写
+            ]
+
+    result = resolve_skip_logins(_FakeClient(), "TEST-ORG")
+    assert "nevstop" in result
+    assert "yao0928" in result
+    assert "team_member_1" in result
+    assert "team_member_2" in result  # casefold 后
+
+
+def test_resolve_skip_logins_caches_result(monkeypatch):
+    """同一 org/team 的第二次调用应使用缓存，不发起 API 请求。"""
+    from scripts.discussion_bot import _team_members_cache
+
+    monkeypatch.setattr(
+        "scripts.discussion_bot._team_members_cache", {}
+    )
+
+    call_count = 0
+
+    class _FakeClient:
+        def rest_get(self, path, *, timeout=30):
+            nonlocal call_count
+            call_count += 1
+            return [{"login": "expert"}]
+
+    result1 = resolve_skip_logins(_FakeClient(), "TEST-ORG")
+    result2 = resolve_skip_logins(_FakeClient(), "TEST-ORG")
+    assert call_count == 1  # 第二次走缓存
+    assert result1 == result2
 
 
 def test_is_bot_comment_fails_closed_without_bot_login():
