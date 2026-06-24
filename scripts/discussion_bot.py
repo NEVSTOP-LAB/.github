@@ -64,6 +64,49 @@ BOT_FOOTER = (
     "如有偏差，欢迎追问或修正。"
 )
 
+# ── 人工介入 team 配置 ───────────────────────────────────────────────────
+# 若此 team 中的任何成员在 discussion thread 中发表了评论，Bot 视为人工已介入，
+# 不再回复（包括后续普通用户的追问）。通过 REST API 动态获取成员列表并缓存。
+CSM_COMMITTEE_SLUG = "csm-committee"
+
+# 模块级缓存：key = f"{org}/{team_slug}", value = frozenset of casefold-ed logins
+_team_members_cache: dict[str, frozenset[str]] = {}
+
+
+def resolve_skip_logins(client: GitHubGraphQL, org: str) -> frozenset[str]:
+    """返回 ``SKIP_AUTHORS`` ∪ csm-committee 团队成员的登录名集合。
+
+    调用此函数前需要确保 client 的 token 具有 ``read:org`` 权限（团队可见）。
+    API 调用失败时降级为仅使用 ``SKIP_AUTHORS`` 并警告。
+    """
+    base = set(SKIP_AUTHORS)
+    cache_key = f"{org}/{CSM_COMMITTEE_SLUG}"
+    if cache_key not in _team_members_cache:
+        try:
+            members_data = client.rest_get(
+                f"/orgs/{org}/teams/{CSM_COMMITTEE_SLUG}/members?per_page=100"
+            )
+            if isinstance(members_data, list):
+                _team_members_cache[cache_key] = frozenset(
+                    (m.get("login") or "").casefold()
+                    for m in members_data
+                    if m.get("login")
+                )
+            else:
+                logger.warning(
+                    "获取 csm-committee 成员失败：非预期的响应格式 %s",
+                    type(members_data).__name__,
+                )
+                _team_members_cache[cache_key] = frozenset()
+        except Exception:
+            logger.exception(
+                "获取 csm-committee 团队 %s/%s 成员失败，将仅使用 SKIP_AUTHORS",
+                org, CSM_COMMITTEE_SLUG,
+            )
+            _team_members_cache[cache_key] = frozenset()
+    base.update(_team_members_cache.get(cache_key, frozenset()))
+    return frozenset(base)
+
 # 用于识别评论/回答末尾已经出现过的 Bot 页脚，以便剥离避免重复。
 # 兼容多种变体：
 #   * 是否带 ``---`` 分隔线、是否带前导空行；
@@ -341,33 +384,43 @@ def _is_bot_comment(comment: dict, bot_login: Optional[str]) -> bool:
 
 
 def compute_reply_plan(
-    discussion: dict, bot_login: Optional[str] = None
+    discussion: dict,
+    bot_login: Optional[str] = None,
+    *,
+    skip_logins: Optional[frozenset[str]] = None,
 ) -> Optional[tuple[str, list[dict[str, str]]]]:
     """决定是否需要回复，以及回复时的 question / history。
 
     判定规则（评论默认按创建时间升序返回）：
 
-    * 若 ``SKIP_AUTHORS``（如 nevstop、yao0928）中的用户已在此 discussion 发表了评论，
-      视为人工已介入，Bot 不再处理此 thread → 返回 ``None``。
+    * 若人工已介入（见 ``skip_logins`` 或 ``SKIP_AUTHORS``），Bot 不再处理此
+      thread → 返回 ``None``。
     * 若 discussion 中尚无 Bot 回复 → 视为新问题，``question = title + body``，``history = []``。
     * 若已有 Bot 回复，且最后一条 Bot 回复之后存在用户的新追问 → 取追问中最后一条作为
       ``question``，并把"原帖 + 中间所有评论（不含本次追问）"按 user/assistant 顺序
       组装为 ``history``。
     * 否则（已回复且无后续追问）→ 返回 ``None`` 表示无需回复。
 
+    Args:
+        skip_logins: 人工介入用户登录名集合（已 casefold）。未提供时退化为使用
+            :data:`SKIP_AUTHORS`。调用方可通过 :func:`resolve_skip_logins` 获得
+            包含 csm-committee 团队成员的完整集合。
+
     Returns:
         ``(question, history)`` 或 ``None``。``history`` 元素形如
         ``{"role": "user"|"assistant", "content": str}``。
     """
+    effective_skip = skip_logins if skip_logins is not None else SKIP_AUTHORS
+
     title = (discussion.get("title") or "").strip()
     body = (discussion.get("body") or "").strip()
     original_question = f"{title}\n\n{body}".strip() if body else title
 
     comments = discussion.get("comments", {}).get("nodes", []) or []
 
-    # 如果 SKIP_AUTHORS 中的用户已在此 thread 发表了评论，视为人工已介入，Bot 退出。
+    # 如果人工已介入（skip_logins 中任意用户在此 thread 发表了评论），Bot 退出。
     if any(
-        (c.get("author") or {}).get("login", "").casefold() in SKIP_AUTHORS
+        (c.get("author") or {}).get("login", "").casefold() in effective_skip
         for c in comments
     ):
         return None
@@ -396,7 +449,7 @@ def compute_reply_plan(
         i
         for i in range(last_bot_idx + 1, len(comments))
         if not _is_bot_comment(comments[i], bot_login)
-        and (comments[i].get("author") or {}).get("login", "").casefold() not in SKIP_AUTHORS
+        and (comments[i].get("author") or {}).get("login", "").casefold() not in effective_skip
     ]
     if not followup_user_indices:
         return None  # 已回复且无追问 → 跳过
@@ -662,8 +715,11 @@ def _process_discussion_dict(
         logger.info("Discussion #%d 已关闭，跳过", number)
         return False
 
+    source_owner, _ = _get_source_repo_parts()
+    effective_skip = resolve_skip_logins(client, source_owner)
+
     author_login = (discussion.get("author") or {}).get("login", "").casefold()
-    if author_login in SKIP_AUTHORS:
+    if author_login in effective_skip:
         logger.info(
             "Discussion #%d 作者 %r 在跳过列表中，跳过",
             number,
@@ -671,7 +727,7 @@ def _process_discussion_dict(
         )
         return False
 
-    plan = compute_reply_plan(discussion, bot_login=bot_login)
+    plan = compute_reply_plan(discussion, bot_login=bot_login, skip_logins=effective_skip)
     if plan is None:
         logger.info("Discussion #%d 未生成回复计划，跳过", number)
         return False

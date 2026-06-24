@@ -72,3 +72,38 @@ class GitHubGraphQL:
             messages = "; ".join(e.get("message", "") for e in result["errors"])
             raise RuntimeError(f"GitHub GraphQL errors: {messages}")
         return result.get("data", {})
+
+    def rest_get(self, path: str, *, timeout: int = 30) -> list | dict:
+        """Make a GitHub REST API GET request and return the parsed JSON body.
+
+        Args:
+            path: API path starting with ``/`` (e.g. ``/orgs/NEVSTOP-LAB/teams/csm-committee/members``).
+            timeout: Request timeout in seconds.
+
+        Returns:
+            Parsed JSON response (list or dict, depending on the endpoint).
+
+        Raises:
+            RuntimeError: On HTTP errors (non-2xx status).
+        """
+        url = f"https://api.github.com{path}"
+        req = urllib.request.Request(
+            url,
+            headers={
+                "Authorization": f"Bearer {self._token}",
+                "Accept": "application/vnd.github.v3+json",
+                "User-Agent": self._user_agent,
+            },
+            method="GET",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                raw = resp.read()
+                if not raw:
+                    return {}
+                return json.loads(raw)  # type: ignore[no-any-return]
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode("utf-8", errors="replace")
+            raise RuntimeError(
+                f"GitHub REST GET {path} HTTP {exc.code}: {body[:400]}"
+            ) from exc

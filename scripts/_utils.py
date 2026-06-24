@@ -24,6 +24,8 @@ BEIJING_TZ = timezone(timedelta(hours=8))
 # 用于 router 分发前跳过 和 discussion_bot 追问检测/历史构建时过滤。
 # 一旦列表中的用户在某个 discussion thread 发表了评论，Bot 即视为人工已介入，
 # 不再对该 thread 进行任何回复（包括后续用户的追问）。
+# 此外 ``csm-committee`` 团队成员也会通过 REST API 动态合并到此集合中
+# （见 ``discussion_bot.resolve_skip_logins``）。
 # 注意：所有比较都应通过 .casefold() 进行，因为 GitHub login 大小写不敏感。
 SKIP_AUTHORS: frozenset[str] = frozenset({"nevstop", "yao0928"})
 
