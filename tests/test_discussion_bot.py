@@ -795,6 +795,19 @@ def test_compute_reply_plan_skips_expert_with_bot_login_none():
     assert compute_reply_plan(disc, bot_login=None) is None
 
 
+def test_compute_reply_plan_skips_yao0928_with_bot_login_none():
+    """bot_login=None 时，yao0928 评论也应触发人工介入检测，返回 None。"""
+    disc = {
+        "title": "T", "body": "B",
+        "comments": {
+            "nodes": [
+                _comment("yao0928 的回答", author="yao0928"),
+            ]
+        },
+    }
+    assert compute_reply_plan(disc, bot_login=None) is None
+
+
 def test_is_bot_comment_fails_closed_without_bot_login():
     """_is_bot_comment 在 bot_login=None 时一律返回 False（不信任 marker）。"""
     from scripts.discussion_bot import _is_bot_comment
