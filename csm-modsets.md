@@ -1,6 +1,6 @@
 # CSM Modsets Repositories
 
-> 自动生成，最后更新时间：2026-06-24 16:40 UTC
+> 自动生成，最后更新时间：2026-06-25 16:43 UTC
 
 所有公开的、主题（topic）为 [`csm-modsets`](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) 的仓库列表。
 
@@ -29,4 +29,4 @@
 
 | 仓库 | ⭐ | 描述 |
 |------|:---:|------|
-| [Curve-Editor](https://github.com/LiXinxing77/Curve-Editor) |  | 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比 |
+| [Curve-Editor](https://github.com/LiXinxing77/Curve-Editor) | 1 | 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比 |
