@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-25 00:41:12 UTC+8_  
-_Total stars: 322_
+_Last updated: 2026-06-27 00:36:49 UTC+8_  
+_Total stars: 325_
 
 ## Star Growth Chart
 
@@ -9,8 +9,8 @@ _Total stars: 322_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
-    y-axis "Cumulative Stars" 0 --> 340
-    line [1, 12, 26, 40, 56, 82, 114, 199, 283]
+    y-axis "Cumulative Stars" 0 --> 350
+    line [1, 12, 26, 40, 56, 82, 114, 199, 285]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,10 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-27 00:36:22+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [huangyao15675150529](https://github.com/huangyao15675150529) | ❌ delete |
+| 2026-06-26 11:03:57+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [datadataup](https://github.com/datadataup) | ⭐ add |
+| 2026-06-26 11:03:56+08:00 | [`CSM-ModSets-TagDB-UI`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | [datadataup](https://github.com/datadataup) | ⭐ add |
+| 2026-06-26 11:03:56+08:00 | [`CSM-ModSets-TagRouter`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-06-24 17:26:22+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [freddy-yu](https://github.com/freddy-yu) | ⭐ add |
 | 2026-06-24 17:26:15+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [freddy-yu](https://github.com/freddy-yu) | ⭐ add |
 | 2026-06-24 17:26:07+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [freddy-yu](https://github.com/freddy-yu) | ⭐ add |
@@ -104,7 +108,7 @@ xychart-beta
 | 2026-04-22 23:52:11+08:00 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | [darren2023](https://github.com/darren2023) | ⭐ add |
 | 2026-04-22 23:46:17+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [darren2023](https://github.com/darren2023) | ⭐ add |
 | 2026-04-21 14:18:31+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [lf13051306139](https://github.com/lf13051306139) | ⭐ add |
-| 2026-04-21 09:58:59+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [huangyao15675150529](https://github.com/huangyao15675150529) | ⭐ add |
+| 2026-04-21 09:58:59+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [Wuliuqi0529](https://github.com/Wuliuqi0529) | ⭐ add |
 | 2026-04-20 15:07:36+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [FatUltraman](https://github.com/FatUltraman) | ⭐ add |
 | 2026-04-19 19:18:02+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [Alvin2110](https://github.com/Alvin2110) | ⭐ add |
 | 2026-04-18 15:43:37+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [zheng-sq](https://github.com/zheng-sq) | ⭐ add |
