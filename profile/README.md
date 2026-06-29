@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 8000
-    bar   [6910, 5381, 4570, 5064, 4173, 2735, 2026.06]
+    bar   [6917, 5388, 4570, 5071, 4173, 2742, 2026.06]
     bar   [6538, 5050, 4260, 4752, 3914, 2501, 2026.05]
     bar   [6142, 4736, 3956, 4445, 3678, 2271, 2026.04]
     bar   [5708, 4379, 3605, 4097, 3441, 2024, 2026.03]
@@ -78,19 +78,19 @@
 <!-- CSM_MODSETS_START -->
 <pre>
 <a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (9)
-  <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐24 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
-  <a href="https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App">CSM-TCP-Router-App</a> ⭐8 Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server.
-  <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay">CSM-Modsets-WaveformDisplay</a> ⭐6 CSM 模块: 显示 Waveform
-  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow">CSM-ModSets-SplashWindow</a> ⭐5 CSM Module: Splash Window
-  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter">CSM-ModSets-TagRouter</a> ⭐4 CSM Module: Waveform 转 TagDB 模块
+  <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐25 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
+  <a href="https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App">CSM-TCP-Router-App</a> ⭐9 Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server.
+  <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay">CSM-Modsets-WaveformDisplay</a> ⭐7 CSM 模块: 显示 Waveform
+  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow">CSM-ModSets-SplashWindow</a> ⭐6 CSM Module: Splash Window
+  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter">CSM-ModSets-TagRouter</a> ⭐5 CSM Module: Waveform 转 TagDB 模块
   <a href="https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md#NEVSTOP-LAB">更多请查看 csm-modsets.md</a>
 
 <a href="https://github.com/nevstop">nevstop</a> (2)
+  <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐5 复用VI，还未被纳入到CSM的安装包中
   <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐5 CSM Module: 模拟波形
-  <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐4 复用VI，还未被纳入到CSM的安装包中
 
 <a href="https://github.com/LiXinxing77">LiXinxing77</a> (1)
-  <a href="https://github.com/LiXinxing77/Curve-Editor">Curve-Editor</a> ⭐1 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比
+  <a href="https://github.com/LiXinxing77/CSM-Modsets-Curve-Editor">CSM-Modsets-Curve-Editor</a> ⭐1 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比
 </pre>
 <!-- CSM_MODSETS_END -->
 

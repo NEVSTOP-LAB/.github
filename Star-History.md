@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-06-27 00:36:49 UTC+8_  
-_Total stars: 325_
+_Last updated: 2026-06-30 00:58:03 UTC+8_  
+_Total stars: 333_
 
 ## Star Growth Chart
 
@@ -9,17 +9,17 @@ _Total stars: 325_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-02", "2020-08", "2021-08", "2023-03", "2024-01", "2025-01", "2025-10", "2026-06"]
-    y-axis "Cumulative Stars" 0 --> 350
-    line [1, 12, 26, 40, 56, 82, 114, 199, 285]
+    y-axis "Cumulative Stars" 0 --> 360
+    line [1, 12, 26, 40, 56, 82, 114, 199, 292]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 59 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 60 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 39 |
-| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 24 |
+| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 25 |
 | 4 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
 | 5 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 14 |
 | 6 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 12 |
@@ -39,14 +39,23 @@ xychart-beta
 | 5 | [shennnw](https://github.com/shennnw) | 9 |
 | 6 | [chenwm](https://github.com/chenwm) | 8 |
 | 7 | [junyang0412](https://github.com/junyang0412) | 8 |
-| 8 | [paynechen521](https://github.com/paynechen521) | 5 |
-| 9 | [yangkkokk](https://github.com/yangkkokk) | 5 |
-| 10 | [LiXinxing77](https://github.com/LiXinxing77) | 5 |
+| 8 | [chenjingfang123](https://github.com/chenjingfang123) | 7 |
+| 9 | [paynechen521](https://github.com/paynechen521) | 5 |
+| 10 | [yangkkokk](https://github.com/yangkkokk) | 5 |
 
 ## Star Log
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-06-30 00:57:37+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [Wuliuqi0529](https://github.com/Wuliuqi0529) | ❌ delete |
+| 2026-06-29 15:34:52+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [weirdweiwei](https://github.com/weirdweiwei) | ⭐ add |
+| 2026-06-29 14:16:48+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
+| 2026-06-29 14:16:46+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
+| 2026-06-29 14:16:46+08:00 | [`CSM-Module-Repo-Template`](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
+| 2026-06-29 14:16:45+08:00 | [`CSM-ModSets-TagRouter`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
+| 2026-06-29 14:16:45+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
+| 2026-06-29 13:52:45+08:00 | [`CSM-ModSets-FileSync`](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
+| 2026-06-29 13:52:45+08:00 | [`CSM-ModSets-SplashWindow`](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
 | 2026-06-27 00:36:22+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [huangyao15675150529](https://github.com/huangyao15675150529) | ❌ delete |
 | 2026-06-26 11:03:57+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-06-26 11:03:56+08:00 | [`CSM-ModSets-TagDB-UI`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | [datadataup](https://github.com/datadataup) | ⭐ add |
@@ -108,7 +117,7 @@ xychart-beta
 | 2026-04-22 23:52:11+08:00 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | [darren2023](https://github.com/darren2023) | ⭐ add |
 | 2026-04-22 23:46:17+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [darren2023](https://github.com/darren2023) | ⭐ add |
 | 2026-04-21 14:18:31+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [lf13051306139](https://github.com/lf13051306139) | ⭐ add |
-| 2026-04-21 09:58:59+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [Wuliuqi0529](https://github.com/Wuliuqi0529) | ⭐ add |
+| 2026-04-21 09:58:59+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [Pyrite6](https://github.com/Pyrite6) | ⭐ add |
 | 2026-04-20 15:07:36+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [FatUltraman](https://github.com/FatUltraman) | ⭐ add |
 | 2026-04-19 19:18:02+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [Alvin2110](https://github.com/Alvin2110) | ⭐ add |
 | 2026-04-18 15:43:37+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [zheng-sq](https://github.com/zheng-sq) | ⭐ add |
