@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-07-02 00:46:45 UTC+8_  
-_Total stars: 338_
+_Last updated: 2026-07-02 18:10:58 UTC+8_  
+_Total stars: 340_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-07"]
     y-axis "Cumulative Stars" 0 --> 360
-    line [1, 13, 28, 43, 65, 98, 165, 249, 297]
+    line [1, 13, 28, 43, 65, 98, 165, 249, 299]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -40,13 +40,15 @@ xychart-beta
 | 6 | [shennnw](https://github.com/shennnw) | 9 |
 | 7 | [chenwm](https://github.com/chenwm) | 8 |
 | 8 | [junyang0412](https://github.com/junyang0412) | 8 |
-| 9 | [paynechen521](https://github.com/paynechen521) | 5 |
-| 10 | [yangkkokk](https://github.com/yangkkokk) | 5 |
+| 9 | [datadataup](https://github.com/datadataup) | 6 |
+| 10 | [paynechen521](https://github.com/paynechen521) | 5 |
 
 ## Star Log
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-07-02 16:21:03+08:00 | [`G-Web-Development-with-CSM`](https://github.com/NEVSTOP-LAB/G-Web-Development-with-CSM) | [datadataup](https://github.com/datadataup) | ⭐ add |
+| 2026-07-02 16:21:00+08:00 | [`csm-vsc-extension`](https://github.com/NEVSTOP-LAB/csm-vsc-extension) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-01 16:49:38+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
 | 2026-07-01 16:49:36+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
 | 2026-07-01 16:49:34+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |

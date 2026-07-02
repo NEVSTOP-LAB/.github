@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 8000
-    bar   [6942, 5406, 4595, 5089, 4191, 2755, 2026.07]
+    bar   [6942, 5415, 4595, 5098, 4198, 2755, 2026.07]
     bar   [6917, 5388, 4570, 5071, 4173, 2742, 2026.06]
     bar   [6538, 5050, 4260, 4752, 3914, 2501, 2026.05]
     bar   [6142, 4736, 3956, 4445, 3678, 2271, 2026.04]
@@ -87,11 +87,14 @@
   <a href="https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md#NEVSTOP-LAB">更多请查看 csm-modsets.md</a>
 
 <a href="https://github.com/nevstop">nevstop</a> (2)
+  <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐6 CSM Module: 模拟波形
   <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐5 复用VI，还未被纳入到CSM的安装包中
-  <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐5 CSM Module: 模拟波形
 
 <a href="https://github.com/LiXinxing77">LiXinxing77</a> (1)
-  <a href="https://github.com/LiXinxing77/CSM-Modsets-Curve-Editor">CSM-Modsets-Curve-Editor</a> ⭐1 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比
+  <a href="https://github.com/LiXinxing77/CSM-Modsets-Curve-Editor">CSM-Modsets-Curve-Editor</a> ⭐2 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比
+
+<a href="https://github.com/datadataup">datadataup</a> (1)
+  <a href="https://github.com/datadataup/CSM-MDI-ViewManager">CSM-MDI-ViewManager</a> ⭐1 基于LabVIEW CSM框架下的MDI模块，运行时对页面进行自定义布局管理
 </pre>
 <!-- CSM_MODSETS_END -->
 
