@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-07-02 18:10:58 UTC+8_  
-_Total stars: 340_
+_Last updated: 2026-07-05 00:51:31 UTC+8_  
+_Total stars: 346_
 
 ## Star Growth Chart
 
@@ -9,8 +9,8 @@ _Total stars: 340_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-07"]
-    y-axis "Cumulative Stars" 0 --> 360
-    line [1, 13, 28, 43, 65, 98, 165, 249, 299]
+    y-axis "Cumulative Stars" 0 --> 370
+    line [1, 13, 28, 43, 65, 98, 165, 249, 305]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -18,7 +18,7 @@ xychart-beta
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
 | 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 61 |
-| 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 39 |
+| 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 40 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 26 |
 | 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 15 |
 | 5 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
@@ -35,18 +35,24 @@ xychart-beta
 | 1 | [ghwang-Harries](https://github.com/ghwang-Harries) | 17 |
 | 2 | [DK-666-6](https://github.com/DK-666-6) | 14 |
 | 3 | [hanzihua123](https://github.com/hanzihua123) | 13 |
-| 4 | [chenjingfang123](https://github.com/chenjingfang123) | 11 |
-| 5 | [wyxfhb](https://github.com/wyxfhb) | 9 |
-| 6 | [shennnw](https://github.com/shennnw) | 9 |
-| 7 | [chenwm](https://github.com/chenwm) | 8 |
-| 8 | [junyang0412](https://github.com/junyang0412) | 8 |
-| 9 | [datadataup](https://github.com/datadataup) | 6 |
+| 4 | [datadataup](https://github.com/datadataup) | 11 |
+| 5 | [chenjingfang123](https://github.com/chenjingfang123) | 11 |
+| 6 | [wyxfhb](https://github.com/wyxfhb) | 9 |
+| 7 | [shennnw](https://github.com/shennnw) | 9 |
+| 8 | [chenwm](https://github.com/chenwm) | 8 |
+| 9 | [junyang0412](https://github.com/junyang0412) | 8 |
 | 10 | [paynechen521](https://github.com/paynechen521) | 5 |
 
 ## Star Log
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-07-04 17:22:41+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [FatUltraman](https://github.com/FatUltraman) | ⭐ add |
+| 2026-07-04 15:20:43+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [datadataup](https://github.com/datadataup) | ⭐ add |
+| 2026-07-04 15:20:42+08:00 | [`CSM-Module-Repo-Template`](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) | [datadataup](https://github.com/datadataup) | ⭐ add |
+| 2026-07-04 15:20:41+08:00 | [`CSM-Modsets-ScheduledCmdWindow`](https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow) | [datadataup](https://github.com/datadataup) | ⭐ add |
+| 2026-07-04 13:51:41+08:00 | [`mqtt-LabVIEW`](https://github.com/NEVSTOP-LAB/mqtt-LabVIEW) | [datadataup](https://github.com/datadataup) | ⭐ add |
+| 2026-07-04 10:44:01+08:00 | [`CSM-ModSets-FileSync`](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-02 16:21:03+08:00 | [`G-Web-Development-with-CSM`](https://github.com/NEVSTOP-LAB/G-Web-Development-with-CSM) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-02 16:21:00+08:00 | [`csm-vsc-extension`](https://github.com/NEVSTOP-LAB/csm-vsc-extension) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-01 16:49:38+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
