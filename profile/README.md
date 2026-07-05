@@ -8,6 +8,20 @@
 [![PyPI](https://img.shields.io/badge/PyPI-NEVSTOP--LAB-3775A9?logo=pypi)](https://pypi.org/user/NEVSTOP-LAB/)
 [![Marketplace](https://img.shields.io/badge/Marketplace-NEVSTOP--LAB-007ACC?logo=visualstudio)](https://marketplace.visualstudio.com/publishers/NEVSTOP-LAB)
 
+> [!IMPORTANT]
+> **📬 申请加入 NEVSTOP-LAB**
+>
+> 欢迎通过 [Organization Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions?discussions_q=) 提交加入申请，CSM-AI-Robot 将自动审核并发出邀请加入 `csm-community` 团队。
+>
+> 额外说明：
+>
+> - 加入后可以访问组织的私有仓库和讨论区，参与 CSM 生态的建设。
+> - 可以参与 NEVSTOP-LAB 项目开发，贡献代码和文档。
+> - 可以获得组织内部的代码审查和技术支持，提升个人技能。
+> - 需要在每两周内至少参与一次讨论或提交 PR，以保持活跃状态。
+> - 活跃的参与者，将有机会成为组织的核心成员，参与更核心的项目和决策。
+> - CSM-AI-Robot 会定期清理不活跃成员，以保持社区活力。
+
 ## CSM Framework
 
 **CSM Framework 目标是成长为一个多语言支持的测试系统基础框架**
@@ -21,9 +35,9 @@
 3. LabVIEW 插件: [mermaid Tool](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin)
 4. Github CSM 复用模块: github topic: [csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories)
 5. 应用场景的案例展示: <br/>
-[DAQ-Application](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging)
-| [TCP-Application](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App)
-| [WebServer-Application](https://github.com/NEVSTOP-LAB/G-Web-Development-with-CSM)
+[数据采集](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging)
+| [TCP通讯](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App)
+| [Web服务器应用](https://github.com/NEVSTOP-LAB/G-Web-Development-with-CSM)
 
 <!-- VIPM_DOWNLOADS_START -->
 ```mermaid
