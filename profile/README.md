@@ -9,18 +9,18 @@
 [![Marketplace](https://img.shields.io/badge/Marketplace-NEVSTOP--LAB-007ACC?logo=visualstudio)](https://marketplace.visualstudio.com/publishers/NEVSTOP-LAB)
 
 > [!IMPORTANT]
-> **📬 申请加入 NEVSTOP-LAB**
+> **📬 欢迎加入 NEVSTOP-LAB**
 >
-> 欢迎通过 [Organization Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions?discussions_q=) 提交加入申请，CSM-AI-Robot 将自动审核并发出邀请加入 `csm-community` 团队。
+> 欢迎通过 [Organization Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions?discussions_q=) 提交加入申请，CSM-AI-Robot 将自动审核并发出邀请加入 [`csm-community`](https://github.com/orgs/NEVSTOP-LAB/teams/csm-community) 团队。
 >
 > 额外说明：
 >
-> - 加入后可以访问组织的私有仓库和讨论区，参与 CSM 生态的建设。
-> - 可以参与 NEVSTOP-LAB 项目开发，贡献代码和文档。
-> - 可以获得组织内部的代码审查和技术支持，提升个人技能。
-> - 需要在每两周内至少参与一次讨论或提交 PR，以保持活跃状态。
-> - 活跃的参与者，将有机会成为组织的核心成员，参与更核心的项目和决策。
-> - CSM-AI-Robot 会定期清理不活跃成员，以保持社区活力。
+> - ✨ 加入后可以访问组织的私有仓库和讨论区，参与 CSM 生态的建设。
+> - ✨ 可以参与 NEVSTOP-LAB 项目开发，贡献代码和文档。
+> - ✨ 可以获得组织内部的代码审查和技术支持，提升个人技能。
+> - ✨ 活跃的参与者，将有机会成为组织的核心成员，参与更核心的项目和决策。
+> - ⚠️ 需要在每两周内至少参与一次讨论或提交 PR，以保持活跃状态。
+> - ⚠️ CSM-AI-Robot 会定期清理不活跃成员，以保持社区活力。
 
 ## CSM Framework
 
