@@ -17,9 +17,9 @@
 | [API-String](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support)
 | [MassData](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support)
 | [INI-Variable](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support)
-2. VSCode 插件：[csm-vsc-extension](https://github.com/NEVSTOP-LAB/csm-vsc-extension)
-3. LabVIEW 插件：[mermaid Tool](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin)
-4. Github CSM 复用模块: github topic:[csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories)
+2. VSCode 插件: [csm-vsc-extension](https://github.com/NEVSTOP-LAB/csm-vsc-extension)
+3. LabVIEW 插件: [mermaid Tool](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin)
+4. Github CSM 复用模块: github topic: [csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories)
 5. 应用场景的案例展示: <br/>
 [DAQ-Application](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging)
 | [TCP-Application](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App)
@@ -139,7 +139,6 @@
 [`tagdb(2)`](https://github.com/search?q=topic:tagdb%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`transformer(2)`](https://github.com/search?q=topic:transformer%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`typescript(2)`](https://github.com/search?q=topic:typescript%20org:NEVSTOP-LAB%20is:public&type=Repositories)
-[`utilites(2)`](https://github.com/search?q=topic:utilites%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 <!-- SORTED_TAGS_END -->
 
 <!--
