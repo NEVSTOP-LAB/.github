@@ -22,7 +22,7 @@
 > - ⚠️ 需要在每两周内至少参与一次讨论或提交 PR，以保持活跃状态。
 > - ⚠️ CSM-AI-Robot 会定期清理不活跃成员，以保持社区活力。
 
-## CSM Framework
+## 🏗️ CSM Framework
 
 **CSM Framework 目标是成长为一个多语言支持的测试系统基础框架**
 
@@ -75,7 +75,7 @@
 ```
 <!-- VIPM_DOWNLOADS_END -->
 
-## 社区交流
+## 💬 社区交流
 
 **促进社区的分享和交流，形成良好的社区氛围，推动 CSM 生态的持续发展**
 
@@ -83,7 +83,7 @@
 - [NEVSTOP-LAB Organization](https://github.com/NEVSTOP-LAB) 组织具有开发能力的核心成员开发
 - [NEVSTOP-LAB Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions) 作为问答平台，回复 `LabVIEW`/`CSM`/`项目设计`等的讨论平台
 
-## AI-Wiki
+## 🤖 AI-Wiki
 
 **AI-Wiki 机制, 自动收集更新 CSM 信息** → [CSM-Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)
 
