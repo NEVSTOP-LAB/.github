@@ -25,21 +25,6 @@
 | [TCP-Application](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App)
 | [WebServer-Application](https://github.com/NEVSTOP-LAB/G-Web-Development-with-CSM)
 
-## 社区交流
-
-**促进社区的分享和交流，形成良好的社区氛围，推动 CSM 生态的持续发展**
-
-- [zhihu 专栏](https://www.zhihu.com/column/c_1681072169147342848) 作为信息发布的窗口
-- [NEVSTOP-LAB Organization](https://github.com/NEVSTOP-LAB) 组织具有开发能力的核心成员开发
-- [NEVSTOP-LAB Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions) 作为问答平台，回复 `LabVIEW`/`CSM`/`项目设计`等的讨论平台
-
-## AI-Wiki
-
-**AI-Wiki 机制, 自动收集更新 CSM 信息** → [CSM-Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)
-
-- [施工中] 由 AI 负责整理和更新 CSM 相关文档，确保信息的及时性和准确性 [CSM Wiki Repo](https://github.com/NEVSTOP-LAB/CSM-Wiki)
-- [Discussion:Q&A分组](https://github.com/orgs/NEVSTOP-LAB/discussions/categories/q-a?discussions_q=) 中的问题，会得到 CSM-AI-Robot 的回复(deepseek-v4-pro)
-
 <!-- VIPM_DOWNLOADS_START -->
 ```mermaid
     xychart-beta
@@ -75,6 +60,21 @@
     bar   [698, 412, 402, 341, 344, 0, 2024.05]
 ```
 <!-- VIPM_DOWNLOADS_END -->
+
+## 社区交流
+
+**促进社区的分享和交流，形成良好的社区氛围，推动 CSM 生态的持续发展**
+
+- [zhihu 专栏](https://www.zhihu.com/column/c_1681072169147342848) 作为信息发布的窗口
+- [NEVSTOP-LAB Organization](https://github.com/NEVSTOP-LAB) 组织具有开发能力的核心成员开发
+- [NEVSTOP-LAB Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions) 作为问答平台，回复 `LabVIEW`/`CSM`/`项目设计`等的讨论平台
+
+## AI-Wiki
+
+**AI-Wiki 机制, 自动收集更新 CSM 信息** → [CSM-Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)
+
+- [施工中] 由 AI 负责整理和更新 CSM 相关文档，确保信息的及时性和准确性 [CSM Wiki Repo](https://github.com/NEVSTOP-LAB/CSM-Wiki)
+- [Discussion:Q&A分组](https://github.com/orgs/NEVSTOP-LAB/discussions/categories/q-a?discussions_q=) 中的问题，会得到 CSM-AI-Robot 的回复(deepseek-v4-pro)
 
 ## 🧩 **CSM 可复用模块 (CSM Modsets)**
 
