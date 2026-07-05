@@ -33,8 +33,8 @@
 | [INI-Variable](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support)
 2. VSCode 插件: [csm-vsc-extension](https://github.com/NEVSTOP-LAB/csm-vsc-extension)
 3. LabVIEW 插件: [mermaid Tool](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin)
-4. Github CSM 复用模块: github topic: [csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories)
-5. 应用场景的案例展示: <br/>
+4. Github CSM 复用模块: [csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories)
+5. 应用场景的案例展示:
 [数据采集](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging)
 | [TCP通讯](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App)
 | [Web服务器应用](https://github.com/NEVSTOP-LAB/G-Web-Development-with-CSM)
