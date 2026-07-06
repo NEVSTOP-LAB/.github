@@ -66,7 +66,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .venv
-          key: ${{ runner.os }}-venv-py3.11-${{ hashFiles('requirements-bot.txt') }}
+          key: ${{ runner.os }}-venv-py3.11-${{ hashFiles('requirements-bot.txt') }}-${{ steps.qa-sha.outputs.sha }}
 
       - name: Restore HuggingFace models cache
         id: cache-hf
@@ -106,6 +106,26 @@ jobs:
           echo "csm-wiki ($SLUG) default branch: $DEFAULT_BRANCH, HEAD: $SHA"
           echo "sha=$SHA" >> "$GITHUB_OUTPUT"
 
+      - name: Resolve csm-llm-qa latest commit SHA
+        id: qa-sha
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          SLUG="NEVSTOP-LAB/CSM-LLM-QA"
+          REPO_API_URL="https://api.github.com/repos/${SLUG}"
+          DEFAULT_BRANCH=$(curl -fsSL \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            "$REPO_API_URL" | python -c "import sys,json; print(json.load(sys.stdin)['default_branch'])")
+          API_URL="https://api.github.com/repos/${SLUG}/commits/${DEFAULT_BRANCH}"
+          SHA=$(curl -fsSL \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            "$API_URL" | python -c "import sys,json; print(json.load(sys.stdin)['sha'])")
+          echo "csm-llm-qa ($SLUG) default branch: $DEFAULT_BRANCH, HEAD: $SHA"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+
       - name: Restore vector store cache
         id: cache-vs
         uses: actions/cache/restore@v4
@@ -116,8 +136,9 @@ jobs:
             .csm_llm_qa/vector_store
             csm-wiki/wiki_source.json
             csm-wiki/remote
-          key: ${{ runner.os }}-vectorstore-${{ hashFiles('requirements-bot.txt') }}-${{ steps.wiki-sha.outputs.sha }}
+          key: ${{ runner.os }}-vectorstore-${{ hashFiles('requirements-bot.txt') }}-${{ steps.wiki-sha.outputs.sha }}-${{ steps.qa-sha.outputs.sha }}
           restore-keys: |
+            ${{ runner.os }}-vectorstore-${{ hashFiles('requirements-bot.txt') }}-${{ steps.wiki-sha.outputs.sha }}-
             ${{ runner.os }}-vectorstore-${{ hashFiles('requirements-bot.txt') }}-
 
       - name: Install dependencies
