@@ -55,6 +55,7 @@ jobs:
     permissions:
       contents: read
       discussions: write
+      actions: write
     steps:
       # ── 基础环境 ──────────────────────────────────────────────────────
 
@@ -62,13 +63,13 @@ jobs:
         with:
           token: ${{ secrets.CSM_QA_GH_TOKEN }}
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
       - name: Restore venv cache
         id: cache-venv
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: .venv
           key: ${{ runner.os }}-venv-py3.11-${{ hashFiles('requirements-bot.txt') }}
@@ -90,7 +91,7 @@ jobs:
 
       - name: Save venv cache
         if: always() && steps.install-deps.outcome == 'success' && steps.cache-venv.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: .venv
           key: ${{ steps.cache-venv.outputs.cache-primary-key }}
@@ -115,12 +116,7 @@ jobs:
         run: |
           INTENT=$(python scripts/router.py \
             --classify-only \
-            --discussion-number "${ROUTER_DISCUSSION_NUMBER}" \
-            --comment-body "${ROUTER_COMMENT_BODY}" \
-            --discussion-title "${ROUTER_DISCUSSION_TITLE}" \
-            --category-name "${ROUTER_CATEGORY_NAME}" \
-            --event-type "${ROUTER_EVENT_TYPE}" \
-            --comment-author "${ROUTER_COMMENT_AUTHOR}")
+            --discussion-number "${ROUTER_DISCUSSION_NUMBER}")
           echo "result=${INTENT}" >> "$GITHUB_OUTPUT"
           echo "Intent: ${INTENT}"
 
@@ -147,9 +143,6 @@ jobs:
           python scripts/router.py \
             --intent JOIN \
             --discussion-number "${ROUTER_DISCUSSION_NUMBER}" \
-            --comment-body "${ROUTER_COMMENT_BODY}" \
-            --comment-author "${ROUTER_COMMENT_AUTHOR}" \
-            --event-type "${ROUTER_EVENT_TYPE}" \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       # ════════════════════════════════════════════════════════════════════
@@ -161,7 +154,7 @@ jobs:
       - name: Restore HuggingFace models cache
         id: cache-hf
         if: steps.classify.outputs.result == 'QA'
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: ~/.cache/huggingface
           key: ${{ runner.os }}-hf-BAAI-bge-small-zh-v1.5
@@ -194,7 +187,7 @@ jobs:
       - name: Restore vector store cache
         id: cache-vs
         if: steps.classify.outputs.result == 'QA'
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: |
             .csm_llm_qa/vector_store
@@ -221,10 +214,6 @@ jobs:
           python scripts/router.py \
             --intent QA \
             --discussion-number "${ROUTER_DISCUSSION_NUMBER}" \
-            --comment-body "${ROUTER_COMMENT_BODY}" \
-            --category-name "${ROUTER_CATEGORY_NAME}" \
-            --event-type "${ROUTER_EVENT_TYPE}" \
-            --comment-author "${ROUTER_COMMENT_AUTHOR}" \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       # QA 之后才保存 RAG 缓存
@@ -242,7 +231,7 @@ jobs:
 
       - name: Save HuggingFace models cache
         if: always() && steps.classify.outputs.result == 'QA' && steps.cache-hf.outputs.cache-hit != 'true' && steps.check-hf-populated.outputs.populated == 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: ~/.cache/huggingface
           key: ${{ steps.cache-hf.outputs.cache-primary-key }}
@@ -274,7 +263,7 @@ jobs:
 
       - name: Save vector store cache
         if: always() && steps.classify.outputs.result == 'QA' && steps.cache-vs.outputs.cache-hit != 'true' && steps.check-vs-populated.outputs.populated == 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: |
             .csm_llm_qa/vector_store
@@ -300,7 +289,4 @@ jobs:
           python scripts/router.py \
             --intent OTHER \
             --discussion-number "${ROUTER_DISCUSSION_NUMBER}" \
-            --comment-body "${ROUTER_COMMENT_BODY}" \
-            --event-type "${ROUTER_EVENT_TYPE}" \
-            --comment-author "${ROUTER_COMMENT_AUTHOR}" \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}

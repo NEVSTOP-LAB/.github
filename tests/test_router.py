@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import logging
+
 import pytest
 from unittest.mock import patch, MagicMock
 
@@ -948,6 +950,7 @@ class TestMainHumanIntervention:
 
     def test_other_skipped_when_human_intervention(self, monkeypatch, caplog):
         """OTHER 路径下，thread 已有人工介入 → 跳过回复。"""
+        caplog.set_level(logging.INFO, logger="org_router")
         monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
         monkeypatch.setenv("CSM_QA_GH_TOKEN", "fake-token")
         monkeypatch.setattr(
@@ -976,6 +979,7 @@ class TestMainHumanIntervention:
 
     def test_qa_guide_skipped_when_human_intervention(self, monkeypatch, caplog):
         """_handle_qa 非 Q&A 引导路径下，thread 已有人工介入 → 跳过回复。"""
+        caplog.set_level(logging.INFO, logger="org_router")
         monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
         monkeypatch.setenv("CSM_QA_GH_TOKEN", "fake-token")
         monkeypatch.setattr(
@@ -1041,6 +1045,7 @@ class TestMainHumanIntervention:
 
     def test_join_skipped_when_human_intervention(self, monkeypatch, caplog):
         """JOIN 路径下，thread 已有人工介入 → 跳过处理。"""
+        caplog.set_level(logging.INFO, logger="org_router")
         monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
         monkeypatch.setenv("CSM_QA_GH_TOKEN", "fake-token")
         monkeypatch.setattr(

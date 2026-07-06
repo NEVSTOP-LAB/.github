@@ -1265,26 +1265,26 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
     parser.add_argument(
         "--comment-body",
         type=str,
-        default="",
-        help="评论正文（Webhook 传入，最大 800 字符）",
+        default=os.environ.get("ROUTER_COMMENT_BODY", ""),
+        help="评论正文（Webhook 传入，最大 800 字符；缺省时从 ROUTER_COMMENT_BODY 环境变量读取）",
     )
     parser.add_argument(
         "--discussion-title",
         type=str,
-        default="",
-        help="Discussion 标题（discussion 事件时用于拼接分类输入）",
+        default=os.environ.get("ROUTER_DISCUSSION_TITLE", ""),
+        help="Discussion 标题（discussion 事件时用于拼接分类输入；缺省时从 ROUTER_DISCUSSION_TITLE 环境变量读取）",
     )
     parser.add_argument(
         "--comment-author",
         type=str,
-        default="",
-        help="评论作者用户名",
+        default=os.environ.get("ROUTER_COMMENT_AUTHOR", ""),
+        help="评论作者用户名（缺省时从 ROUTER_COMMENT_AUTHOR 环境变量读取）",
     )
     parser.add_argument(
         "--category-name",
         type=str,
-        default="",
-        help="Discussion 所属分类名",
+        default=os.environ.get("ROUTER_CATEGORY_NAME", ""),
+        help="Discussion 所属分类名（缺省时从 ROUTER_CATEGORY_NAME 环境变量读取）",
     )
     parser.add_argument(
         "--dry-run",
@@ -1295,8 +1295,8 @@ def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
     parser.add_argument(
         "--event-type",
         type=str,
-        default="",
-        help="GitHub 事件类型（discussion / discussion_comment）",
+        default=os.environ.get("ROUTER_EVENT_TYPE", ""),
+        help="GitHub 事件类型（discussion / discussion_comment；缺省时从 ROUTER_EVENT_TYPE 环境变量读取）",
     )
     parser.add_argument(
         "--classify-only",
@@ -1395,7 +1395,11 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     # 3. --classify-only：仅输出意图供 workflow 捕获（token 仅用于获取讨论上下文，非必需）
     if args.classify_only:
-        print(intent)
+        try:
+            print(intent)
+        except Exception:
+            logger.exception("classify-only 模式输出异常")
+            print("OTHER")
         return 0
 
     # ── 后续操作需要 token ────────────────────────────────────────────
@@ -1428,4 +1432,9 @@ def main(argv: Optional[list[str]] = None) -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except Exception:
+        logger.exception("Router 执行异常，输出 fallback 结果")
+        print("OTHER")
+        sys.exit(0)
