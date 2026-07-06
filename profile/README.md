@@ -90,6 +90,8 @@
 
 ## 🧩 **CSM 可复用模块 (CSM Modsets)**
 
+_每日自动扫描 github `csm-modsets` topics更新，更多信息查看 [csm-modsets.md](https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md)_
+
 <!-- CSM_MODSETS_START -->
 <pre>
 <a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (9)
