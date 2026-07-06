@@ -1169,7 +1169,11 @@ def _has_human_intervention(
         gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
         discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
     except Exception:
-        logger.warning("检查人工介入失败，默认不拦截 discussion #%d", discussion_number)
+        logger.warning(
+            "检查人工介入失败，默认不拦截 discussion #%d",
+            discussion_number,
+            exc_info=True,
+        )
         return False
 
     exclude_cf = exclude_author.casefold() if exclude_author else ""
