@@ -1,4 +1,4 @@
-csm-llm-qa==0.1.0
+csm-llm-qa @ git+https://github.com/NEVSTOP-LAB/CSM-LLM-QA.git@main
 pytest>=7.0
 PyJWT>=2.0
 cryptography
