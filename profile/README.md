@@ -9,11 +9,9 @@
 [![Marketplace](https://img.shields.io/badge/Marketplace-NEVSTOP--LAB-007ACC?logo=visualstudio)](https://marketplace.visualstudio.com/publishers/NEVSTOP-LAB)
 
 > [!IMPORTANT]
-> **📬 欢迎加入 NEVSTOP-LAB**
+> **📬 加入 NEVSTOP-LAB**
 >
 > 欢迎通过 [Organization Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions?discussions_q=) 提交加入申请，CSM-AI-Robot 将自动审核并发出邀请加入 [`csm-community`](https://github.com/orgs/NEVSTOP-LAB/teams/csm-community) 团队。
->
-> 额外说明：
 >
 > - ✨ 加入后可以访问组织的私有仓库和讨论区，参与 CSM 生态的建设。
 > - ✨ 可以参与 NEVSTOP-LAB 项目开发，贡献代码和文档。
