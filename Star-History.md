@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-07-05 00:51:31 UTC+8_  
-_Total stars: 346_
+_Last updated: 2026-07-06 13:45:21 UTC+8_  
+_Total stars: 347_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-07"]
     y-axis "Cumulative Stars" 0 --> 370
-    line [1, 13, 28, 43, 65, 98, 165, 249, 305]
+    line [1, 13, 28, 43, 65, 98, 165, 249, 306]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -35,7 +35,7 @@ xychart-beta
 | 1 | [ghwang-Harries](https://github.com/ghwang-Harries) | 17 |
 | 2 | [DK-666-6](https://github.com/DK-666-6) | 14 |
 | 3 | [hanzihua123](https://github.com/hanzihua123) | 13 |
-| 4 | [datadataup](https://github.com/datadataup) | 11 |
+| 4 | [datadataup](https://github.com/datadataup) | 12 |
 | 5 | [chenjingfang123](https://github.com/chenjingfang123) | 11 |
 | 6 | [wyxfhb](https://github.com/wyxfhb) | 9 |
 | 7 | [shennnw](https://github.com/shennnw) | 9 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-07-06 11:25:08+08:00 | [`LabVIEW-TagDB`](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-04 17:22:41+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [FatUltraman](https://github.com/FatUltraman) | ⭐ add |
 | 2026-07-04 15:20:43+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-04 15:20:42+08:00 | [`CSM-Module-Repo-Template`](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) | [datadataup](https://github.com/datadataup) | ⭐ add |
