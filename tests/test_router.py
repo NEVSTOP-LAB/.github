@@ -362,6 +362,164 @@ class TestIsOrgMember:
         assert _is_org_member("fake-token", "NEVSTOP-LAB", "testuser") is False
 
 
+# ── _has_human_intervention ───────────────────────────────────────────────────
+
+
+class TestHasHumanIntervention:
+    """测试 _has_human_intervention thread 人工介入检测。"""
+
+    def test_no_skip_authors_returns_false(self, monkeypatch):
+        """thread 中没有 SKIP_AUTHORS 用户的评论 → False。"""
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        mock_discussion = {
+            "author": {"login": "normaluser"},
+            "comments": {
+                "nodes": [
+                    {"body": "评论1", "author": {"login": "user1"}},
+                    {"body": "评论2", "author": {"login": "user2"}},
+                ]
+            },
+        }
+        monkeypatch.setattr(
+            "scripts.router.fetch_discussion",
+            lambda *args, **kwargs: mock_discussion,
+        )
+
+        from scripts.router import _has_human_intervention
+
+        result = _has_human_intervention("fake-token", 1, "test-org", ".github")
+        assert result is False
+
+    def test_discussion_author_is_skip(self, monkeypatch):
+        """discussion 作者在 SKIP_AUTHORS 中 → True。"""
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        mock_discussion = {
+            "author": {"login": "nevstop"},
+            "comments": {"nodes": []},
+        }
+        monkeypatch.setattr(
+            "scripts.router.fetch_discussion",
+            lambda *args, **kwargs: mock_discussion,
+        )
+
+        from scripts.router import _has_human_intervention
+
+        assert _has_human_intervention("fake-token", 1, "test-org", ".github") is True
+
+    def test_comment_author_is_skip(self, monkeypatch):
+        """评论作者在 SKIP_AUTHORS 中 → True。"""
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        mock_discussion = {
+            "author": {"login": "normaluser"},
+            "comments": {
+                "nodes": [
+                    {"body": "我来看一下", "author": {"login": "nevstop"}},
+                ]
+            },
+        }
+        monkeypatch.setattr(
+            "scripts.router.fetch_discussion",
+            lambda *args, **kwargs: mock_discussion,
+        )
+
+        from scripts.router import _has_human_intervention
+
+        assert _has_human_intervention("fake-token", 1, "test-org", ".github") is True
+
+    def test_exclude_author_skips_self(self, monkeypatch):
+        """exclude_author 匹配 SKIP_AUTHORS 时不将该人计入介入。"""
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        mock_discussion = {
+            "author": {"login": "nevstop"},
+            "comments": {
+                "nodes": [
+                    {"body": "谢谢", "author": {"login": "longhai1212"}},
+                ]
+            },
+        }
+        monkeypatch.setattr(
+            "scripts.router.fetch_discussion",
+            lambda *args, **kwargs: mock_discussion,
+        )
+
+        from scripts.router import _has_human_intervention
+
+        # exclude_author='nevstop' → discussion 作者是 nevstop 但被排除
+        # 没有其他 SKIP_AUTHORS 用户 → False
+        assert (
+            _has_human_intervention(
+                "fake-token", 1, "test-org", ".github",
+                exclude_author="nevstop",
+            )
+            is False
+        )
+
+    def test_exclude_author_other_skip_still_detected(self, monkeypatch):
+        """exclude_author 排除一人，但 thread 中有另一 SKIP_AUTHORS 用户 → True。"""
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        mock_discussion = {
+            "author": {"login": "normaluser"},
+            "comments": {
+                "nodes": [
+                    {"body": "我来看一下", "author": {"login": "nevstop"}},
+                    {"body": "补充一下", "author": {"login": "yao0928"}},
+                ]
+            },
+        }
+        monkeypatch.setattr(
+            "scripts.router.fetch_discussion",
+            lambda *args, **kwargs: mock_discussion,
+        )
+
+        from scripts.router import _has_human_intervention
+
+        # exclude_author='yao0928' → yao0928 被排除，但 nevstop 仍在 → True
+        assert (
+            _has_human_intervention(
+                "fake-token", 1, "test-org", ".github",
+                exclude_author="yao0928",
+            )
+            is True
+        )
+
+    def test_simulate_mode_returns_false(self, monkeypatch):
+        """模拟模式（discussion_number=0）→ False，不调用 API。"""
+        from scripts.router import _has_human_intervention
+
+        assert _has_human_intervention("fake-token", 0, "test-org", ".github") is False
+
+    def test_api_failure_graceful(self, monkeypatch):
+        """fetch_discussion 异常 → False（优雅降级，不拦截）。"""
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+
+        def mock_fetch(*args, **kwargs):
+            raise RuntimeError("API 失败")
+
+        monkeypatch.setattr("scripts.router.fetch_discussion", mock_fetch)
+
+        from scripts.router import _has_human_intervention
+
+        assert _has_human_intervention("fake-token", 1, "test-org", ".github") is False
+
+
 # ── classify_intent 带上下文 ─────────────────────────────────────────────────
 
 
@@ -759,3 +917,155 @@ class TestMainClassifyContextFallback:
         assert exit_code == 0
         # token 未配置 → 不应调用 _build_classify_history
         assert call_count[0] == 0
+
+
+# ── main() 人工介入检查集成测试 ────────────────────────────────────────────
+
+
+class TestMainHumanIntervention:
+    """测试 main() 中人工介入检查在 OTHER / QA 路径下的拦截效果。"""
+
+    @staticmethod
+    def _argv_other(**overrides) -> list[str]:
+        """构造 OTHER 路由场景的 argv 列表，overrides 可覆盖默认值。"""
+        base = {
+            "router.py": "",
+            "--discussion-number": "42",
+            "--comment-body": "谢谢",
+            "--comment-author": "longhai1212",
+            "--event-type": "discussion_comment",
+            "--category-name": "General",
+            "--intent": "OTHER",
+        }
+        base.update(overrides)
+        args = []
+        for k, v in base.items():
+            if k.endswith(".py"):
+                args.append(k)
+            else:
+                args.extend([k, v])
+        return args
+
+    def test_other_skipped_when_human_intervention(self, monkeypatch, caplog):
+        """OTHER 路径下，thread 已有人工介入 → 跳过回复。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
+        monkeypatch.setenv("CSM_QA_GH_TOKEN", "fake-token")
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        monkeypatch.setattr(
+            "scripts.router._has_human_intervention",
+            lambda *a, **kw: True,
+        )
+        post_calls = []
+
+        def mock_post(*args, **kwargs):
+            post_calls.append(1)
+
+        monkeypatch.setattr("scripts.router.post_reply", mock_post)
+        monkeypatch.setattr("scripts.router.fetch_discussion", mock_post)
+        monkeypatch.setattr("sys.argv", self._argv_other())
+
+        from scripts.router import main
+
+        exit_code = main()
+        assert exit_code == 0
+        assert len(post_calls) == 0
+        assert "已有 SKIP_AUTHORS 用户介入" in caplog.text
+
+    def test_qa_guide_skipped_when_human_intervention(self, monkeypatch, caplog):
+        """_handle_qa 非 Q&A 引导路径下，thread 已有人工介入 → 跳过回复。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
+        monkeypatch.setenv("CSM_QA_GH_TOKEN", "fake-token")
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        monkeypatch.setattr(
+            "scripts.router._has_human_intervention",
+            lambda *a, **kw: True,
+        )
+        post_calls = []
+
+        def mock_post(*args, **kwargs):
+            post_calls.append(1)
+
+        monkeypatch.setattr("scripts.router.post_reply", mock_post)
+        monkeypatch.setattr("scripts.router.fetch_discussion", mock_post)
+        # QA 意图 + 非 Q&A 分类 → 走引导路径
+        monkeypatch.setattr("sys.argv", self._argv_other(
+            **{"--intent": "QA", "--category-name": "General"},
+        ))
+
+        from scripts.router import main
+
+        exit_code = main()
+        assert exit_code == 0
+        assert len(post_calls) == 0
+        assert "已有 SKIP_AUTHORS 用户介入" in caplog.text
+
+    def test_no_intervention_proceeds_normally(self, monkeypatch, caplog):
+        """thread 无人介入 → 正常执行路由处理。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
+        monkeypatch.setenv("CSM_QA_GH_TOKEN", "fake-token")
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        monkeypatch.setattr(
+            "scripts.router._has_human_intervention",
+            lambda *a, **kw: False,
+        )
+        mock_disc = MagicMock()
+        mock_disc.get.return_value = "D_abc"
+        monkeypatch.setattr(
+            "scripts.router.fetch_discussion",
+            lambda *a, **kw: mock_disc,
+        )
+        post_calls = []
+
+        def mock_post(*args, **kwargs):
+            post_calls.append(1)
+
+        monkeypatch.setattr("scripts.router.post_reply", mock_post)
+        monkeypatch.setattr("sys.argv", self._argv_other())
+
+        from scripts.router import main
+
+        exit_code = main()
+        assert exit_code == 0
+        # 应正常调用 post_reply（OTHER 引导回复）
+        assert len(post_calls) == 1
+        assert "已有 SKIP_AUTHORS" not in caplog.text
+
+    def test_join_skipped_when_human_intervention(self, monkeypatch, caplog):
+        """JOIN 路径下，thread 已有人工介入 → 跳过处理。"""
+        monkeypatch.setattr("scripts.router.LLM_API_KEY", "")
+        monkeypatch.setenv("CSM_QA_GH_TOKEN", "fake-token")
+        monkeypatch.setattr(
+            "scripts.router._get_source_repo_parts",
+            lambda: ("test-org", ".github"),
+        )
+        monkeypatch.setattr(
+            "scripts.router._has_human_intervention",
+            lambda *a, **kw: True,
+        )
+        # 确保 post_reply / fetch_discussion 不被调用
+        post_calls = []
+
+        def mock_post(*args, **kwargs):
+            post_calls.append(1)
+
+        monkeypatch.setattr("scripts.router.post_reply", mock_post)
+        monkeypatch.setattr("scripts.router.fetch_discussion", mock_post)
+        monkeypatch.setattr("sys.argv", self._argv_other(
+            **{"--intent": "JOIN", "--comment-author": "join-user"},
+        ))
+
+        from scripts.router import main
+
+        exit_code = main()
+        assert exit_code == 0
+        assert len(post_calls) == 0
+        assert "已有 SKIP_AUTHORS 用户介入" in caplog.text
