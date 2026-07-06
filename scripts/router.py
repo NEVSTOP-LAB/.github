@@ -705,6 +705,16 @@ def _handle_qa(
         return
 
     if category_name != QA_CATEGORY_NAME:
+        # 检查 thread 中是否已有 Skip 用户介入
+        if _has_human_intervention(
+            token, discussion_number, source_owner, source_repo,
+        ):
+            logger.info(
+                "Discussion #%d 已有 SKIP_AUTHORS 用户介入，跳过 Q&A 引导回复",
+                discussion_number,
+            )
+            return
+
         # 非 Q&A 分类 → 引导到 Q&A 区
         try:
             gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
@@ -991,6 +1001,16 @@ def _handle_join(
     """
     source_owner, source_repo = _get_source_repo_parts()
 
+    # 检查 thread 中是否已有 Skip 用户介入
+    if _has_human_intervention(
+        token, discussion_number, source_owner, source_repo,
+    ):
+        logger.info(
+            "Discussion #%d 已有 SKIP_AUTHORS 用户介入，跳过 JOIN 处理",
+            discussion_number,
+        )
+        return
+
     # ── 模拟模式（discussion_number=0）：仅打印报告，不调用 API ────────
     if discussion_number == 0:
         if not comment_author:
@@ -1118,6 +1138,64 @@ def _handle_join(
         logger.info("[DRY-RUN] 将发布 JOIN 报告:\n%s", report)
 
 
+def _has_human_intervention(
+    token: str,
+    discussion_number: int,
+    source_owner: str,
+    source_repo: str,
+    *,
+    exclude_author: str = "",
+) -> bool:
+    """检查 discussion thread 中是否已有 SKIP_AUTHORS 用户介入。
+
+    遍历 discussion 作者和所有顶级评论的 author，若发现有登录名（除
+    ``exclude_author`` 外）在 ``SKIP_AUTHORS`` 中，则视为人工已介入，
+    Bot 不应再回复此 thread。
+
+    .. note::
+
+        本函数当前仅检查顶级评论（top-level comments），不检查嵌套回复
+        （nested replies）。这是因为 ``fetch_discussion`` 的 GraphQL 查询
+        未包含 ``replies`` 字段。若 SKIP_AUTHORS 用户仅通过嵌套回复介入，
+        Bot 可能仍会回复。此限制可在未来通过扩展 GQL 查询解决。
+
+    Returns:
+        True 表示已有 Skip 用户介入，应跳过 Bot 回复。
+    """
+    if discussion_number == 0:
+        return False  # 模拟模式不检查
+
+    try:
+        gql_client = GitHubGraphQL(token, user_agent="org-router/1.0")
+        discussion = fetch_discussion(gql_client, source_owner, source_repo, discussion_number)
+    except Exception:
+        logger.warning("检查人工介入失败，默认不拦截 discussion #%d", discussion_number)
+        return False
+
+    exclude_cf = exclude_author.casefold() if exclude_author else ""
+
+    # 检查 discussion 作者
+    author_login = (discussion.get("author") or {}).get("login", "").casefold()
+    if author_login and author_login != exclude_cf and author_login in SKIP_AUTHORS:
+        logger.info(
+            "Discussion #%d 作者 %r 在 SKIP_AUTHORS 中，视为人工已介入",
+            discussion_number, author_login,
+        )
+        return True
+
+    # 检查所有评论的 author
+    for c in discussion.get("comments", {}).get("nodes", []) or []:
+        c_author = (c.get("author") or {}).get("login", "").casefold()
+        if c_author and c_author != exclude_cf and c_author in SKIP_AUTHORS:
+            logger.info(
+                "Discussion #%d 评论作者 %r 在 SKIP_AUTHORS 中，视为人工已介入",
+                discussion_number, c_author,
+            )
+            return True
+
+    return False
+
+
 def _handle_other(
     token: str,
     discussion_number: int,
@@ -1130,6 +1208,17 @@ def _handle_other(
         comment_author: 评论作者（当前仅透传，SKIP_AUTHORS 检查已在 main() 完成）。
     """
     source_owner, source_repo = _get_source_repo_parts()
+
+    # 检查 thread 中是否已有 Skip 用户介入（如 nevstop 已回复则 Bot 不应再回复）
+    if _has_human_intervention(
+        token, discussion_number, source_owner, source_repo,
+        exclude_author=comment_author,
+    ):
+        logger.info(
+            "Discussion #%d 已有 SKIP_AUTHORS 用户介入，跳过 OTHER 引导回复",
+            discussion_number,
+        )
+        return
 
     body = (
         "👋 你好！我暂时无法识别你的意图。\n\n"
