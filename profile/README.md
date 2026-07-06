@@ -11,7 +11,7 @@
 > [!IMPORTANT]
 > **📬 加入 NEVSTOP-LAB**
 >
-> 欢迎通过 [Organization Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions?discussions_q=) 提交加入申请，CSM-AI-Robot 将自动审核并发出邀请加入 [`csm-community`](https://github.com/orgs/NEVSTOP-LAB/teams/csm-community) 团队。
+> 如果您对 CSM 生态感兴趣，并愿意参与贡献，欢迎通过 [Organization Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions?discussions_q=) 提交加入申请，CSM-AI-Robot 将自动审核并发出邀请加入 [`csm-community`](https://github.com/orgs/NEVSTOP-LAB/teams/csm-community) 团队。
 >
 > - ✨ 加入后可以访问组织的私有仓库和讨论区，参与 CSM 生态的建设。
 > - ✨ 可以参与 NEVSTOP-LAB 项目开发，贡献代码和文档。
@@ -31,8 +31,7 @@
 | [INI-Variable](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support)
 2. VSCode 插件: [csm-vsc-extension](https://github.com/NEVSTOP-LAB/csm-vsc-extension)
 3. LabVIEW 插件: [mermaid Tool](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin)
-4. Github CSM 复用模块: [csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories)
-5. 应用场景的案例展示:
+4. 应用场景的案例展示:
 [数据采集](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging)
 | [TCP通讯](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App)
 | [Web服务器应用](https://github.com/NEVSTOP-LAB/G-Web-Development-with-CSM)
@@ -73,6 +72,13 @@
 ```
 <!-- VIPM_DOWNLOADS_END -->
 
+## 🤖 AI-Wiki 机制
+
+**AI-Wiki 机制, 自动收集更新 CSM 信息** → [CSM-Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)
+
+- [施工中] 由 AI 负责整理和更新 CSM 相关文档，确保信息的及时性和准确性 [CSM Wiki Repo](https://github.com/NEVSTOP-LAB/CSM-Wiki)
+- [Discussion:Q&A分组](https://github.com/orgs/NEVSTOP-LAB/discussions/categories/q-a?discussions_q=) 中的问题，会得到 CSM-AI-Robot 的回复(deepseek-v4-pro)
+
 ## 💬 社区交流
 
 **促进社区的分享和交流，形成良好的社区氛围，推动 CSM 生态的持续发展**
@@ -81,16 +87,9 @@
 - [NEVSTOP-LAB Organization](https://github.com/NEVSTOP-LAB) 组织具有开发能力的核心成员开发
 - [NEVSTOP-LAB Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions) 作为问答平台，回复 `LabVIEW`/`CSM`/`项目设计`等的讨论平台
 
-## 🤖 AI-Wiki
-
-**AI-Wiki 机制, 自动收集更新 CSM 信息** → [CSM-Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)
-
-- [施工中] 由 AI 负责整理和更新 CSM 相关文档，确保信息的及时性和准确性 [CSM Wiki Repo](https://github.com/NEVSTOP-LAB/CSM-Wiki)
-- [Discussion:Q&A分组](https://github.com/orgs/NEVSTOP-LAB/discussions/categories/q-a?discussions_q=) 中的问题，会得到 CSM-AI-Robot 的回复(deepseek-v4-pro)
-
 ## 🧩 **CSM 可复用模块 (CSM Modsets)**
 
-_每日自动扫描 github `csm-modsets` topics更新，更多信息查看 [csm-modsets.md](https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md)_
+_每日自动扫描 github [csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) topics更新，更多信息查看 [csm-modsets.md](https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md)_
 
 <!-- CSM_MODSETS_START -->
 <pre>
@@ -115,6 +114,8 @@ _每日自动扫描 github `csm-modsets` topics更新，更多信息查看 [csm-
 <!-- CSM_MODSETS_END -->
 
 ## 👩‍💻 **Sorted By Topics**
+
+_每日自动扫描 NEVSTOP-LAB 仓库, 并根据 topics 分类更新_
 
 <!-- SORTED_TAGS_START -->
 [`labview(65)`](https://github.com/search?q=topic:labview%20org:NEVSTOP-LAB%20is:public&type=Repositories)
