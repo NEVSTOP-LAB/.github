@@ -74,6 +74,8 @@
 ```
 <!-- VIPM_DOWNLOADS_END -->
 
+_每日由github action自动更新_
+
 ## 🤖 AI-Wiki 机制
 
 **AI-Wiki 机制, 自动收集更新 CSM 信息** → [CSM-Wiki Website](https://nevstop-lab.github.io/CSM-Wiki/)
@@ -90,8 +92,6 @@
 - [NEVSTOP-LAB Discussion](https://github.com/orgs/NEVSTOP-LAB/discussions) 作为问答平台，回复 `LabVIEW`/`CSM`/`项目设计`等的讨论平台
 
 ## 🧩 **CSM 可复用模块 (CSM Modsets)**
-
-_每日自动扫描 github [csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) topics更新，更多信息查看 [csm-modsets.md](https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md)_
 
 <!-- CSM_MODSETS_START -->
 <pre>
@@ -115,9 +115,9 @@ _每日自动扫描 github [csm-modsets](https://github.com/search?q=topic%3Acsm
 </pre>
 <!-- CSM_MODSETS_END -->
 
-## 👩‍💻 **Sorted By Topics**
+_每日扫描 github [csm-modsets](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) topics更新，更多信息查看 [csm-modsets.md](https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md)_
 
-_每日自动扫描 NEVSTOP-LAB 仓库, 并根据 topics 分类更新_
+## 👩‍💻 **Sorted By Topics**
 
 <!-- SORTED_TAGS_START -->
 [`labview(65)`](https://github.com/search?q=topic:labview%20org:NEVSTOP-LAB%20is:public&type=Repositories)
@@ -157,6 +157,8 @@ _每日自动扫描 NEVSTOP-LAB 仓库, 并根据 topics 分类更新_
 [`transformer(2)`](https://github.com/search?q=topic:transformer%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`typescript(2)`](https://github.com/search?q=topic:typescript%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 <!-- SORTED_TAGS_END -->
+
+_每日自动扫描 NEVSTOP-LAB 仓库, 并根据 topics 分类更新_
 
 <!--
 
