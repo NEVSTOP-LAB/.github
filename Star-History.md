@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-07-08 01:50:26 UTC+8_  
-_Total stars: 349_
+_Last updated: 2026-07-11 01:39:57 UTC+8_  
+_Total stars: 353_
 
 ## Star Growth Chart
 
@@ -9,21 +9,21 @@ _Total stars: 349_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-07"]
-    y-axis "Cumulative Stars" 0 --> 370
-    line [1, 13, 28, 43, 65, 98, 165, 249, 308]
+    y-axis "Cumulative Stars" 0 --> 380
+    line [1, 13, 28, 43, 65, 98, 165, 249, 312]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 61 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 62 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 40 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 27 |
-| 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 15 |
+| 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 16 |
 | 5 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
-| 6 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 13 |
-| 7 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 12 |
+| 6 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 14 |
+| 7 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 13 |
 | 8 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 11 |
 | 9 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
 | 10 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
@@ -47,6 +47,10 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-07-10 22:44:53+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [MySU1](https://github.com/MySU1) | ⭐ add |
+| 2026-07-10 22:44:48+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [MySU1](https://github.com/MySU1) | ⭐ add |
+| 2026-07-10 22:44:35+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [MySU1](https://github.com/MySU1) | ⭐ add |
+| 2026-07-10 22:44:26+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [MySU1](https://github.com/MySU1) | ⭐ add |
 | 2026-07-07 16:52:03+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [huipeng8](https://github.com/huipeng8) | ⭐ add |
 | 2026-07-07 16:14:40+08:00 | [`LabVIEW-Hashlib`](https://github.com/NEVSTOP-LAB/LabVIEW-Hashlib) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-06 11:25:08+08:00 | [`LabVIEW-TagDB`](https://github.com/NEVSTOP-LAB/LabVIEW-TagDB) | [datadataup](https://github.com/datadataup) | ⭐ add |
