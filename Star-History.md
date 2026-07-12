@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-07-12 00:41:41 UTC+8_  
-_Total stars: 354_
+_Last updated: 2026-07-13 00:43:37 UTC+8_  
+_Total stars: 355_
 
 ## Star Growth Chart
 
@@ -10,14 +10,14 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-07"]
     y-axis "Cumulative Stars" 0 --> 380
-    line [1, 13, 28, 43, 65, 98, 165, 249, 313]
+    line [1, 13, 28, 43, 65, 98, 165, 249, 314]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 62 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 63 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 40 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 27 |
 | 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 16 |
@@ -33,8 +33,8 @@ xychart-beta
 | Rank | User | Stars Given |
 |:----:|:-----|------------:|
 | 1 | [ghwang-Harries](https://github.com/ghwang-Harries) | 17 |
-| 2 | [DK-666-6](https://github.com/DK-666-6) | 14 |
-| 3 | [datadataup](https://github.com/datadataup) | 13 |
+| 2 | [datadataup](https://github.com/datadataup) | 14 |
+| 3 | [DK-666-6](https://github.com/DK-666-6) | 14 |
 | 4 | [hanzihua123](https://github.com/hanzihua123) | 13 |
 | 5 | [chenjingfang123](https://github.com/chenjingfang123) | 12 |
 | 6 | [wyxfhb](https://github.com/wyxfhb) | 9 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-07-12 15:56:32+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-11 16:41:55+08:00 | `CSM-ModSet****-983922434` | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
 | 2026-07-10 22:44:53+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [MySU1](https://github.com/MySU1) | ⭐ add |
 | 2026-07-10 22:44:48+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [MySU1](https://github.com/MySU1) | ⭐ add |
