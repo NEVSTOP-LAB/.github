@@ -42,12 +42,6 @@ EXCLUDE_USERS = {
 TOP_N = int(os.environ.get("TOP_N", "10"))
 OUTPUT_FILE = os.environ.get("OUTPUT_FILE", "Star-History.md")
 
-# 即使仓库是私有的，也显示完整名称（不遮盖）的仓库名集合
-PUBLIC_DISPLAY_REPOS = {
-    "CSM-ModSets-DAQmx",
-    "CSM-ModSets-csmStand-OI",
-}
-
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
 if not GITHUB_TOKEN:
     print("ERROR: Set GITHUB_TOKEN or GH_TOKEN environment variable.", file=sys.stderr)
@@ -86,15 +80,14 @@ def get_repo_stars(repo_name):
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
-def mask_private(name, repo_id):
-    """Show only a safe prefix of a private repo name, then ****-<id>.
+def mask_private(name, repo_id=None):
+    """Show only a safe prefix of a private repo name, then ****(private repo).
 
-    The numeric repo_id suffix ensures that two private repos sharing the same
-    first PRIVATE_VISIBLE_CHARS characters produce distinct display names so
-    star counts and log entries are never merged across repos.
+    Unlike the old format that included a numeric repo_id suffix, all private
+    repos now share the same suffix to avoid leaking any internal identifiers.
     """
     visible_chars = min(PRIVATE_VISIBLE_CHARS, max(len(name) - 1, 0))
-    return f"{name[:visible_chars]}****-{repo_id}"
+    return f"{name[:visible_chars]}****(private repo)"
 
 
 # ── Markdown generation ────────────────────────────────────────────────────────
@@ -297,7 +290,7 @@ def main(output_file=OUTPUT_FILE):
     for repo in repos:
         name = repo["name"]
         is_private = repo.get("private", False)
-        display = name if (is_private and name in PUBLIC_DISPLAY_REPOS) else (mask_private(name, repo["id"]) if is_private else name)
+        display = mask_private(name, repo.get("id")) if is_private else name
 
         label = f"{name} (private)" if is_private else name
         print(f"  Fetching stars for {label} …")

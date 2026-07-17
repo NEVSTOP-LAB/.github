@@ -50,9 +50,9 @@ xychart-beta
 | 2026-07-16 10:37:19+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-16 10:37:14+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-16 10:37:10+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [datadataup](https://github.com/datadataup) | ⭐ add |
-| 2026-07-15 20:25:56+08:00 | [`CSM-ModSets-DAQmx`](https://github.com/NEVSTOP-LAB/CSM-ModSets-DAQmx) | [MySU1](https://github.com/MySU1) | ⭐ add |
+| 2026-07-15 20:25:56+08:00 | `CSM-ModSet****(private repo)` | [MySU1](https://github.com/MySU1) | ⭐ add |
 | 2026-07-12 15:56:32+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [datadataup](https://github.com/datadataup) | ⭐ add |
-| 2026-07-11 16:41:55+08:00 | [`CSM-ModSets-csmStand-OI`](https://github.com/NEVSTOP-LAB/CSM-ModSets-csmStand-OI) | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
+| 2026-07-11 16:41:55+08:00 | `CSM-ModSet****(private repo)` | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
 | 2026-07-10 22:44:53+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [MySU1](https://github.com/MySU1) | ⭐ add |
 | 2026-07-10 22:44:48+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [MySU1](https://github.com/MySU1) | ⭐ add |
 | 2026-07-10 22:44:35+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [MySU1](https://github.com/MySU1) | ⭐ add |
