@@ -291,7 +291,7 @@ def main(output_file=OUTPUT_FILE):
     for repo in repos:
         name = repo["name"]
         is_private = repo.get("private", False)
-        display = mask_private(name, repo.get("id")) if is_private else name
+        display = name if (not is_private or name in PUBLIC_DISPLAY_REPOS) else mask_private(name, repo["id"])
 
         label = f"{name} (private)" if is_private else name
         print(f"  Fetching stars for {label} …")
