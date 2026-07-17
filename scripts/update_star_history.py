@@ -42,6 +42,12 @@ EXCLUDE_USERS = {
 TOP_N = int(os.environ.get("TOP_N", "10"))
 OUTPUT_FILE = os.environ.get("OUTPUT_FILE", "Star-History.md")
 
+# Private repos whose full names should be publicly visible (not masked)
+PUBLIC_DISPLAY_REPOS = {
+    "CSM-ModSets-DAQmx",
+    "CSM-ModSets-csmStand-OI",
+}
+
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
 if not GITHUB_TOKEN:
     print("ERROR: Set GITHUB_TOKEN or GH_TOKEN environment variable.", file=sys.stderr)
@@ -291,7 +297,7 @@ def main(output_file=OUTPUT_FILE):
     for repo in repos:
         name = repo["name"]
         is_private = repo.get("private", False)
-        display = mask_private(name, repo["id"]) if is_private else name
+        display = name if (not is_private or name in PUBLIC_DISPLAY_REPOS) else mask_private(name, repo["id"])
 
         label = f"{name} (private)" if is_private else name
         print(f"  Fetching stars for {label} …")
