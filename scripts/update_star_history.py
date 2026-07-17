@@ -42,6 +42,12 @@ EXCLUDE_USERS = {
 TOP_N = int(os.environ.get("TOP_N", "10"))
 OUTPUT_FILE = os.environ.get("OUTPUT_FILE", "Star-History.md")
 
+# Private repos whose full names should be publicly visible (not masked)
+PUBLIC_DISPLAY_REPOS = {
+    "CSM-ModSets-DAQmx",
+    "CSM-ModSets-csmStand-OI",
+}
+
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
 if not GITHUB_TOKEN:
     print("ERROR: Set GITHUB_TOKEN or GH_TOKEN environment variable.", file=sys.stderr)
@@ -80,15 +86,15 @@ def get_repo_stars(repo_name):
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
-def mask_private(name, repo_id=None):
-    """Show only a safe prefix of a private repo name, then *(private repo).
+def mask_private(name, repo_id):
+    """Show only a safe prefix of a private repo name, then ****-<id>.
 
-    The number of asterisks equals the number of masked characters so that
-    ``prefix + asterisks`` has the same visible length as the original repo name.
+    The numeric repo_id suffix ensures that two private repos sharing the same
+    first PRIVATE_VISIBLE_CHARS characters produce distinct display names so
+    star counts and log entries are never merged across repos.
     """
     visible_chars = min(PRIVATE_VISIBLE_CHARS, max(len(name) - 1, 0))
-    masked_len = max(len(name) - visible_chars, 0)
-    return f"{name[:visible_chars]}{'*' * masked_len}(private repo)"
+    return f"{name[:visible_chars]}****-{repo_id}"
 
 
 # ── Markdown generation ────────────────────────────────────────────────────────
