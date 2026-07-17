@@ -81,13 +81,14 @@ def get_repo_stars(repo_name):
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
 def mask_private(name, repo_id=None):
-    """Show only a safe prefix of a private repo name, then ****(private repo).
+    """Show only a safe prefix of a private repo name, then *(private repo).
 
-    Unlike the old format that included a numeric repo_id suffix, all private
-    repos now share the same suffix to avoid leaking any internal identifiers.
+    The number of asterisks equals the number of masked characters so that
+    ``prefix + asterisks`` has the same visible length as the original repo name.
     """
     visible_chars = min(PRIVATE_VISIBLE_CHARS, max(len(name) - 1, 0))
-    return f"{name[:visible_chars]}****(private repo)"
+    masked_len = max(len(name) - visible_chars, 0)
+    return f"{name[:visible_chars]}{'*' * masked_len}(private repo)"
 
 
 # ── Markdown generation ────────────────────────────────────────────────────────
