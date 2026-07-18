@@ -1,6 +1,6 @@
 # CSM Modsets Repositories
 
-> 自动生成，最后更新时间：2026-07-17 16:57 UTC
+> 自动生成，最后更新时间：2026-07-18 16:42 UTC
 
 所有公开的、主题（topic）为 [`csm-modsets`](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) 的仓库列表。
 
@@ -29,7 +29,7 @@
 
 | 仓库 | ⭐ | 描述 |
 |------|:---:|------|
-| [CSM-MDI-ViewManager](https://github.com/datadataup/CSM-MDI-ViewManager) | 6 | 基于LabVIEW CSM框架下的MDI模块，运行时对页面进行自定义布局管理 |
+| [CSM-MDI-ViewManager](https://github.com/datadataup/CSM-MDI-ViewManager) | 7 | 基于LabVIEW CSM框架下的MDI模块，运行时对页面进行自定义布局管理 |
 
 ## <a id="LiXinxing77"></a>[LiXinxing77](https://github.com/LiXinxing77) (1)
 

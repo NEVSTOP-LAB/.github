@@ -108,7 +108,7 @@ _每日由github action自动更新_
   <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐5 复用VI，还未被纳入到CSM的安装包中
 
 <a href="https://github.com/datadataup">datadataup</a> (1)
-  <a href="https://github.com/datadataup/CSM-MDI-ViewManager">CSM-MDI-ViewManager</a> ⭐6 基于LabVIEW CSM框架下的MDI模块，运行时对页面进行自定义布局管理
+  <a href="https://github.com/datadataup/CSM-MDI-ViewManager">CSM-MDI-ViewManager</a> ⭐7 基于LabVIEW CSM框架下的MDI模块，运行时对页面进行自定义布局管理
 
 <a href="https://github.com/LiXinxing77">LiXinxing77</a> (1)
   <a href="https://github.com/LiXinxing77/CSM-Modsets-Curve-Editor">CSM-Modsets-Curve-Editor</a> ⭐2 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比
