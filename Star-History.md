@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-07-18 00:58:01 UTC+8_  
-_Total stars: 360_
+_Last updated: 2026-07-21 14:35:05 UTC+8_  
+_Total stars: 361_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-07"]
     y-axis "Cumulative Stars" 0 --> 390
-    line [1, 13, 28, 43, 65, 98, 165, 249, 320]
+    line [1, 13, 28, 43, 65, 98, 165, 249, 321]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -21,8 +21,8 @@ xychart-beta
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 40 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 27 |
 | 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 17 |
-| 5 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 15 |
-| 6 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 14 |
+| 5 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 15 |
+| 6 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 15 |
 | 7 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 14 |
 | 8 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 12 |
 | 9 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
@@ -32,7 +32,7 @@ xychart-beta
 
 | Rank | User | Stars Given |
 |:----:|:-----|------------:|
-| 1 | [datadataup](https://github.com/datadataup) | 18 |
+| 1 | [datadataup](https://github.com/datadataup) | 19 |
 | 2 | [ghwang-Harries](https://github.com/ghwang-Harries) | 17 |
 | 3 | [DK-666-6](https://github.com/DK-666-6) | 14 |
 | 4 | [hanzihua123](https://github.com/hanzihua123) | 13 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-07-21 11:01:35+08:00 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-17 10:38:04+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [MavisTok](https://github.com/MavisTok) | ⭐ add |
 | 2026-07-17 09:24:01+08:00 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-16 10:37:19+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [datadataup](https://github.com/datadataup) | ⭐ add |
