@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-07-21 14:35:05 UTC+8_  
-_Total stars: 361_
+_Last updated: 2026-07-22 17:42:01 UTC+8_  
+_Total stars: 364_
 
 ## Star Growth Chart
 
@@ -10,14 +10,14 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-07"]
     y-axis "Cumulative Stars" 0 --> 390
-    line [1, 13, 28, 43, 65, 98, 165, 249, 321]
+    line [1, 13, 28, 43, 65, 98, 165, 249, 324]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 64 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 65 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 40 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 27 |
 | 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 17 |
@@ -47,6 +47,9 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-07-22 15:11:45+08:00 | [`CSM-ModSets-FileSync`](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
+| 2026-07-22 15:11:45+08:00 | [`CSM-Module-Repo-Template`](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
+| 2026-07-22 10:49:54+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
 | 2026-07-21 11:01:35+08:00 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-17 10:38:04+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [MavisTok](https://github.com/MavisTok) | ⭐ add |
 | 2026-07-17 09:24:01+08:00 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | [datadataup](https://github.com/datadataup) | ⭐ add |
