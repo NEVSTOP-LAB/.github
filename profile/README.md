@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 8000
-    bar   [7238, 5616, 4846, 5283, 4422, 2940, 2026.07]
+    bar   [7264, 5625, 4858, 5293, 4435, 2950, 2026.07]
     bar   [6917, 5388, 4570, 5071, 4173, 2742, 2026.06]
     bar   [6538, 5050, 4260, 4752, 3914, 2501, 2026.05]
     bar   [6142, 4736, 3956, 4445, 3678, 2271, 2026.04]
@@ -96,7 +96,7 @@ _每日由github action自动更新_
 <!-- CSM_MODSETS_START -->
 <pre>
 <a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (9)
-  <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐27 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
+  <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐28 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
   <a href="https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App">CSM-TCP-Router-App</a> ⭐10 Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server.
   <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay">CSM-Modsets-WaveformDisplay</a> ⭐7 CSM 模块: 显示 Waveform
   <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync">CSM-ModSets-FileSync</a> ⭐7 基于 CSM 的文件同步模块
