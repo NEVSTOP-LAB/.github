@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-07-25 01:19:56 UTC+8_  
-_Total stars: 359_
+_Last updated: 2026-07-27 00:44:09 UTC+8_  
+_Total stars: 360_
 
 ## Star Growth Chart
 
@@ -10,14 +10,14 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-07"]
     y-axis "Cumulative Stars" 0 --> 390
-    line [1, 13, 28, 43, 64, 97, 162, 244, 319]
+    line [1, 13, 28, 43, 64, 97, 162, 244, 320]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 65 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 66 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 40 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 28 |
 | 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 17 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-07-26 23:01:38+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [Renties](https://github.com/Renties) | ⭐ add |
 | 2026-07-24 23:17:38+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [Renties](https://github.com/Renties) | ⭐ add |
 | 2026-07-22 15:11:45+08:00 | [`CSM-ModSets-FileSync`](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
 | 2026-07-22 15:11:45+08:00 | [`CSM-Module-Repo-Template`](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
