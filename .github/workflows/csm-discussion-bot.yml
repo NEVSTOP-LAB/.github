@@ -39,13 +39,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # 使用 Fine-grained PAT 与 secrets.CSM_QA_GH_TOKEN 保持一致鉴权来源
           token: ${{ secrets.CSM_QA_GH_TOKEN }}
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.11'
 
@@ -63,14 +63,14 @@ jobs:
       # 的依赖，污染运行时环境。要么完全命中（key 精确匹配）跳过安装，要么彻底重建。
       - name: Restore venv cache
         id: cache-venv
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: .venv
           key: ${{ runner.os }}-venv-py3.11-${{ hashFiles('requirements-bot.txt') }}-${{ steps.qa-sha.outputs.sha }}
 
       - name: Restore HuggingFace models cache
         id: cache-hf
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: ~/.cache/huggingface
           key: ${{ runner.os }}-hf-BAAI-bge-small-zh-v1.5
@@ -128,7 +128,7 @@ jobs:
 
       - name: Restore vector store cache
         id: cache-vs
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           # 同时缓存 wiki_source.json 与 wiki 克隆目录，
           # 使得 check_and_update_wiki 在缓存命中后能识别"已是最新"并跳过重建。
@@ -166,7 +166,7 @@ jobs:
       # 仅在 install 步骤成功且未命中时保存，避免污染缓存为不完整状态。
       - name: Save venv cache
         if: always() && steps.install-deps.outcome == 'success' && steps.cache-venv.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: .venv
           key: ${{ steps.cache-venv.outputs.cache-primary-key }}
@@ -219,7 +219,7 @@ jobs:
 
       - name: Save HuggingFace models cache
         if: always() && steps.cache-hf.outputs.cache-hit != 'true' && steps.check-hf-populated.outputs.populated == 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: ~/.cache/huggingface
           key: ${{ steps.cache-hf.outputs.cache-primary-key }}
@@ -251,7 +251,7 @@ jobs:
 
       - name: Save vector store cache
         if: always() && steps.cache-vs.outputs.cache-hit != 'true' && steps.check-vs-populated.outputs.populated == 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: |
             .csm_llm_qa/vector_store
