@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-07-27 00:44:09 UTC+8_  
-_Total stars: 360_
+_Last updated: 2026-07-31 16:25:14 UTC+8_  
+_Total stars: 368_
 
 ## Star Growth Chart
 
@@ -9,24 +9,24 @@ _Total stars: 360_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-07"]
-    y-axis "Cumulative Stars" 0 --> 390
-    line [1, 13, 28, 43, 64, 97, 162, 244, 320]
+    y-axis "Cumulative Stars" 0 --> 400
+    line [1, 13, 28, 43, 64, 97, 162, 244, 328]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 66 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 67 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 40 |
-| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 28 |
+| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 29 |
 | 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 17 |
 | 5 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 15 |
 | 6 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 15 |
 | 7 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 14 |
 | 8 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 12 |
 | 9 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 11 |
-| 10 | [`LabVIEW-OPCUA-XML-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-OPCUA-XML-Library) | 10 |
+| 10 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | 11 |
 
 ## Top 10 Users by Stars Given
 
@@ -37,16 +37,24 @@ xychart-beta
 | 3 | [hanzihua123](https://github.com/hanzihua123) | 13 |
 | 4 | [DK-666-6](https://github.com/DK-666-6) | 12 |
 | 5 | [chenjingfang123](https://github.com/chenjingfang123) | 11 |
-| 6 | [wyxfhb](https://github.com/wyxfhb) | 9 |
-| 7 | [shennnw](https://github.com/shennnw) | 8 |
-| 8 | [junyang0412](https://github.com/junyang0412) | 8 |
-| 9 | [chenwm](https://github.com/chenwm) | 7 |
-| 10 | [MySU1](https://github.com/MySU1) | 5 |
+| 6 | [highland-gy](https://github.com/highland-gy) | 10 |
+| 7 | [wyxfhb](https://github.com/wyxfhb) | 9 |
+| 8 | [shennnw](https://github.com/shennnw) | 8 |
+| 9 | [junyang0412](https://github.com/junyang0412) | 8 |
+| 10 | [chenwm](https://github.com/chenwm) | 7 |
 
 ## Star Log
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-07-31 15:49:28+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
+| 2026-07-31 15:49:27+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
+| 2026-07-31 15:49:26+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
+| 2026-07-31 15:49:25+08:00 | [`CSM-ModSets-TagRouter`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
+| 2026-07-31 15:49:24+08:00 | [`CSM-ModSets-TagDB-UI`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
+| 2026-07-31 15:49:23+08:00 | [`CSM-ModSets-SplashWindow`](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
+| 2026-07-31 15:49:21+08:00 | [`CSM-Modsets-ScheduledCmdWindow`](https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
+| 2026-07-31 08:13:37+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [TheDomcio](https://github.com/TheDomcio) | ⭐ add |
 | 2026-07-26 23:01:38+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [Renties](https://github.com/Renties) | ⭐ add |
 | 2026-07-24 23:17:38+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [Renties](https://github.com/Renties) | ⭐ add |
 | 2026-07-22 15:11:45+08:00 | [`CSM-ModSets-FileSync`](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | [highland-gy](https://github.com/highland-gy) | ⭐ add |

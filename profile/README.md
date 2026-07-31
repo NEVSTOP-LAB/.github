@@ -96,22 +96,22 @@ _每日由github action自动更新_
 <!-- CSM_MODSETS_START -->
 <pre>
 <a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (9)
-  <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐28 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
-  <a href="https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App">CSM-TCP-Router-App</a> ⭐10 Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server.
-  <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay">CSM-Modsets-WaveformDisplay</a> ⭐7 CSM 模块: 显示 Waveform
+  <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐29 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
+  <a href="https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App">CSM-TCP-Router-App</a> ⭐11 Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server.
+  <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay">CSM-Modsets-WaveformDisplay</a> ⭐8 CSM 模块: 显示 Waveform
+  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow">CSM-ModSets-SplashWindow</a> ⭐7 CSM Module: Splash Window
   <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync">CSM-ModSets-FileSync</a> ⭐7 基于 CSM 的文件同步模块
-  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow">CSM-ModSets-SplashWindow</a> ⭐6 CSM Module: Splash Window
   <a href="https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md#NEVSTOP-LAB">更多请查看 csm-modsets.md</a>
 
 <a href="https://github.com/nevstop">nevstop</a> (2)
-  <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐6 CSM Module: 模拟波形
-  <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐5 复用VI，还未被纳入到CSM的安装包中
+  <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐7 CSM Module: 模拟波形
+  <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐6 复用VI，还未被纳入到CSM的安装包中
 
 <a href="https://github.com/datadataup">datadataup</a> (1)
   <a href="https://github.com/datadataup/CSM-MDI-ViewManager">CSM-MDI-ViewManager</a> ⭐9 基于LabVIEW CSM框架下的MDI模块，运行时对页面进行自定义布局管理
 
 <a href="https://github.com/LiXinxing77">LiXinxing77</a> (1)
-  <a href="https://github.com/LiXinxing77/CSM-Modsets-Curve-Editor">CSM-Modsets-Curve-Editor</a> ⭐2 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比
+  <a href="https://github.com/LiXinxing77/CSM-Modsets-Curve-Editor">CSM-Modsets-Curve-Editor</a> ⭐3 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比
 </pre>
 <!-- CSM_MODSETS_END -->
 
