@@ -1,16 +1,16 @@
 # Star History
 
-_Last updated: 2026-07-31 16:25:14 UTC+8_  
-_Total stars: 368_
+_Last updated: 2026-08-04 19:08:03 UTC+8_  
+_Total stars: 369_
 
 ## Star Growth Chart
 
 ```mermaid
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
-    x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-07"]
+    x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-08"]
     y-axis "Cumulative Stars" 0 --> 400
-    line [1, 13, 28, 43, 64, 97, 162, 244, 328]
+    line [1, 13, 28, 43, 64, 97, 162, 244, 329]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -32,7 +32,7 @@ xychart-beta
 
 | Rank | User | Stars Given |
 |:----:|:-----|------------:|
-| 1 | [datadataup](https://github.com/datadataup) | 19 |
+| 1 | [datadataup](https://github.com/datadataup) | 20 |
 | 2 | [ghwang-Harries](https://github.com/ghwang-Harries) | 17 |
 | 3 | [hanzihua123](https://github.com/hanzihua123) | 13 |
 | 4 | [DK-666-6](https://github.com/DK-666-6) | 12 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-08-04 16:46:43+08:00 | [`LabVIEW-Version-Selector`](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-31 15:49:28+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
 | 2026-07-31 15:49:27+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
 | 2026-07-31 15:49:26+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
