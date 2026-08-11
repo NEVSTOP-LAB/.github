@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-08-10 00:19:58 UTC+8_  
-_Total stars: 371_
+_Last updated: 2026-08-11 16:42:17 UTC+8_  
+_Total stars: 372_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-08"]
     y-axis "Cumulative Stars" 0 --> 400
-    line [1, 13, 28, 43, 64, 97, 162, 244, 331]
+    line [1, 13, 28, 43, 64, 97, 162, 244, 332]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-08-11 15:33:40+08:00 | [`csm-keynotes-collection`](https://github.com/NEVSTOP-LAB/csm-keynotes-collection) | [tsaibing](https://github.com/tsaibing) | ⭐ add |
 | 2026-08-09 17:19:41+08:00 | [`csm-vsc-extension`](https://github.com/NEVSTOP-LAB/csm-vsc-extension) | [lypaser](https://github.com/lypaser) | ⭐ add |
 | 2026-08-05 09:38:43+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [quwei04](https://github.com/quwei04) | ⭐ add |
 | 2026-08-04 16:46:43+08:00 | [`LabVIEW-Version-Selector`](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector) | [datadataup](https://github.com/datadataup) | ⭐ add |
