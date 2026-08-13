@@ -1,6 +1,6 @@
 # CSM Modsets Repositories
 
-> 自动生成，最后更新时间：2026-08-12 16:43 UTC
+> 自动生成，最后更新时间：2026-08-13 05:56 UTC
 
 所有公开的、主题（topic）为 [`csm-modsets`](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) 的仓库列表。
 
@@ -10,9 +10,9 @@
 |------|:---:|------|
 | [CSMScript-Lite](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 29 | CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本 |
 | [CSM-TCP-Router-App](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | 11 | Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server. |
+| [CSM-ModSets-SplashWindow](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | 8 | CSM Module: Splash Window |
 | [CSM-Modsets-WaveformDisplay](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | 8 | CSM 模块: 显示 Waveform |
-| [CSM-ModSets-SplashWindow](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | 7 | CSM Module: Splash Window |
-| [CSM-ModSets-FileSync](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | 7 | 基于 CSM 的文件同步模块 |
+| [CSM-ModSets-FileSync](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | 8 | 基于 CSM 的文件同步模块 |
 | [CSM-ModSets-TagRouter](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | 6 | CSM Module: Waveform 转 TagDB 模块 |
 | [CSM-ModSets-TagDB-UI](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | 5 | CSM 模块：围绕 TagDB 显示的 UI |
 | [CSM-Modsets-ScheduledCmdWindow](https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow) | 3 | CSM模块：计划命令窗口 |
@@ -22,7 +22,7 @@
 
 | 仓库 | ⭐ | 描述 |
 |------|:---:|------|
-| [CSM-Modsets-SimWaveform](https://github.com/nevstop/CSM-Modsets-SimWaveform) | 7 | CSM Module: 模拟波形 |
+| [CSM-Modsets-SimWaveform](https://github.com/nevstop/CSM-Modsets-SimWaveform) | 8 | CSM Module: 模拟波形 |
 | [CSM-Utils](https://github.com/nevstop/CSM-Utils) | 6 | 复用VI，还未被纳入到CSM的安装包中 |
 
 ## <a id="datadataup"></a>[datadataup](https://github.com/datadataup) (1)

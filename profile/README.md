@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 8000
-    bar   [7525, 5777, 5046, 5443, 4608, 3092, 2026.08]
+    bar   [7542, 5782, 5054, 5443, 4616, 3102, 2026.08]
     bar   [7328, 5673, 4918, 5343, 4484, 2989, 2026.07]
     bar   [6917, 5388, 4570, 5071, 4173, 2742, 2026.06]
     bar   [6538, 5050, 4260, 4752, 3914, 2501, 2026.05]
@@ -99,13 +99,13 @@ _每日由github action自动更新_
 <a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (9)
   <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐29 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
   <a href="https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App">CSM-TCP-Router-App</a> ⭐11 Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server.
+  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow">CSM-ModSets-SplashWindow</a> ⭐8 CSM Module: Splash Window
   <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay">CSM-Modsets-WaveformDisplay</a> ⭐8 CSM 模块: 显示 Waveform
-  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow">CSM-ModSets-SplashWindow</a> ⭐7 CSM Module: Splash Window
-  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync">CSM-ModSets-FileSync</a> ⭐7 基于 CSM 的文件同步模块
+  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync">CSM-ModSets-FileSync</a> ⭐8 基于 CSM 的文件同步模块
   <a href="https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md#NEVSTOP-LAB">更多请查看 csm-modsets.md</a>
 
 <a href="https://github.com/nevstop">nevstop</a> (2)
-  <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐7 CSM Module: 模拟波形
+  <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐8 CSM Module: 模拟波形
   <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐6 复用VI，还未被纳入到CSM的安装包中
 
 <a href="https://github.com/datadataup">datadataup</a> (1)
