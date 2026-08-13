@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 8000
-    bar   [7542, 5782, 5054, 5443, 4616, 3102, 2026.08]
+    bar   [7542, 5782, 5054, 5449, 4616, 3102, 2026.08]
     bar   [7328, 5673, 4918, 5343, 4484, 2989, 2026.07]
     bar   [6917, 5388, 4570, 5071, 4173, 2742, 2026.06]
     bar   [6538, 5050, 4260, 4752, 3914, 2501, 2026.05]
@@ -106,7 +106,7 @@ _每日由github action自动更新_
 
 <a href="https://github.com/nevstop">nevstop</a> (2)
   <a href="https://github.com/nevstop/CSM-Modsets-SimWaveform">CSM-Modsets-SimWaveform</a> ⭐8 CSM Module: 模拟波形
-  <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐6 复用VI，还未被纳入到CSM的安装包中
+  <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐7 复用VI，还未被纳入到CSM的安装包中
 
 <a href="https://github.com/datadataup">datadataup</a> (1)
   <a href="https://github.com/datadataup/CSM-MDI-ViewManager">CSM-MDI-ViewManager</a> ⭐9 基于LabVIEW CSM框架下的MDI模块，运行时对页面进行自定义布局管理
