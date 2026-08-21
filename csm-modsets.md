@@ -1,6 +1,6 @@
 # CSM Modsets Repositories
 
-> 自动生成，最后更新时间：2026-08-21 07:41 UTC
+> 自动生成，最后更新时间：2026-08-21 16:18 UTC
 
 所有公开的、主题（topic）为 [`csm-modsets`](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) 的仓库列表。
 
@@ -8,13 +8,13 @@
 
 | 仓库 | ⭐ | 描述 |
 |------|:---:|------|
-| [CSMScript-Lite](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 29 | CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本 |
-| [CSM-TCP-Router-App](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | 11 | Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server. |
-| [CSM-Modsets-WaveformDisplay](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | 8 | CSM 模块: 显示 Waveform |
-| [CSM-ModSets-SplashWindow](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | 8 | CSM Module: Splash Window |
-| [CSM-ModSets-FileSync](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | 8 | 基于 CSM 的文件同步模块 |
+| [CSMScript-Lite](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 30 | CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本 |
+| [CSM-TCP-Router-App](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | 12 | Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server. |
+| [CSM-Modsets-WaveformDisplay](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | 9 | CSM 模块: 显示 Waveform |
+| [CSM-ModSets-SplashWindow](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | 9 | CSM Module: Splash Window |
+| [CSM-ModSets-FileSync](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | 9 | 基于 CSM 的文件同步模块 |
+| [CSM-ModSets-TagDB-UI](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | 6 | CSM 模块：围绕 TagDB 显示的 UI |
 | [CSM-ModSets-TagRouter](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | 6 | CSM Module: Waveform 转 TagDB 模块 |
-| [CSM-ModSets-TagDB-UI](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | 5 | CSM 模块：围绕 TagDB 显示的 UI |
 | [CSM-Modsets-ScheduledCmdWindow](https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow) | 3 | CSM模块：计划命令窗口 |
 | [CSM-Module-Repo-Template](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) | 3 | 基于 CSM（可通信状态机） 框架的模块仓库模板 |
 
