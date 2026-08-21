@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-08-20 23:37:11 UTC+8_  
-_Total stars: 380_
+_Last updated: 2026-08-21 15:41:46 UTC+8_  
+_Total stars: 382_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-08"]
     y-axis "Cumulative Stars" 0 --> 410
-    line [1, 13, 28, 43, 64, 97, 162, 244, 337]
+    line [1, 13, 28, 43, 64, 97, 162, 244, 338]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -21,7 +21,7 @@ xychart-beta
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 40 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 29 |
 | 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 18 |
-| 5 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 16 |
+| 5 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 17 |
 | 6 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 15 |
 | 7 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 15 |
 | 8 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 13 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-08-21 10:23:18+08:00 | [`NEVSTOP-LoginWindow`](https://github.com/NEVSTOP-LAB/NEVSTOP-LoginWindow) | [ChouPeng11](https://github.com/ChouPeng11) | ⭐ add |
 | 2026-08-20 22:55:06+08:00 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | [cht-ink](https://github.com/cht-ink) | ⭐ add |
 | 2026-08-19 13:29:00+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [AnobodyNewbie](https://github.com/AnobodyNewbie) | ⭐ add |
 | 2026-08-19 13:25:54+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [AnobodyNewbie](https://github.com/AnobodyNewbie) | ⭐ add |
