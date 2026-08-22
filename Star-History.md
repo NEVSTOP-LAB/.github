@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-08-22 00:18:52 UTC+8_  
-_Total stars: 394_
+_Last updated: 2026-08-23 00:10:46 UTC+8_  
+_Total stars: 395_
 
 ## Star Growth Chart
 
@@ -9,15 +9,15 @@ _Total stars: 394_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-08"]
-    y-axis "Cumulative Stars" 0 --> 420
-    line [1, 13, 28, 43, 64, 97, 162, 244, 350]
+    y-axis "Cumulative Stars" 0 --> 430
+    line [1, 13, 28, 43, 64, 97, 162, 244, 351]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 70 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 71 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 40 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 30 |
 | 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 19 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-08-22 08:02:34+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [cqlinzhifu](https://github.com/cqlinzhifu) | ⭐ add |
 | 2026-08-21 16:34:42+08:00 | [`CSM-ModSets-TagDB-UI`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | [ChouPeng11](https://github.com/ChouPeng11) | ⭐ add |
 | 2026-08-21 16:34:37+08:00 | [`CSM-ModSets-FileSync`](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | [ChouPeng11](https://github.com/ChouPeng11) | ⭐ add |
 | 2026-08-21 16:34:33+08:00 | [`CSM-ModSets-SplashWindow`](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | [ChouPeng11](https://github.com/ChouPeng11) | ⭐ add |
