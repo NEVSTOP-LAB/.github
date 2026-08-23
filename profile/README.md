@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 8000
-    bar   [7645, 5843, 5128, 5505, 4682, 3162, 2026.08]
+    bar   [7651, 5848, 5134, 5511, 4691, 3170, 2026.08]
     bar   [7328, 5673, 4918, 5343, 4484, 2989, 2026.07]
     bar   [6917, 5388, 4570, 5071, 4173, 2742, 2026.06]
     bar   [6538, 5050, 4260, 4752, 3914, 2501, 2026.05]
@@ -99,8 +99,8 @@ _每日由github action自动更新_
 <a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (9)
   <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐30 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
   <a href="https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App">CSM-TCP-Router-App</a> ⭐12 Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server.
-  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow">CSM-ModSets-SplashWindow</a> ⭐9 CSM Module: Splash Window
   <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay">CSM-Modsets-WaveformDisplay</a> ⭐9 CSM 模块: 显示 Waveform
+  <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow">CSM-ModSets-SplashWindow</a> ⭐9 CSM Module: Splash Window
   <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync">CSM-ModSets-FileSync</a> ⭐9 基于 CSM 的文件同步模块
   <a href="https://github.com/NEVSTOP-LAB/.github/blob/HEAD/csm-modsets.md#NEVSTOP-LAB">更多请查看 csm-modsets.md</a>
 
@@ -146,7 +146,11 @@ _每日扫描 github [csm-modsets](https://github.com/search?q=topic%3Acsm-modse
 [`archived(2)`](https://github.com/search?q=topic:archived%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`base-function(2)`](https://github.com/search?q=topic:base-function%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`c(2)`](https://github.com/search?q=topic:c%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`cordis(2)`](https://github.com/search?q=topic:cordis%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`daq(2)`](https://github.com/search?q=topic:daq%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`deepseek-harness(2)`](https://github.com/search?q=topic:deepseek-harness%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`dsh(2)`](https://github.com/search?q=topic:dsh%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`dsh-plugin(2)`](https://github.com/search?q=topic:dsh-plugin%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`exe(2)`](https://github.com/search?q=topic:exe%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`github-actions(2)`](https://github.com/search?q=topic:github-actions%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`labview-xcontrol(2)`](https://github.com/search?q=topic:labview-xcontrol%20org:NEVSTOP-LAB%20is:public&type=Repositories)
