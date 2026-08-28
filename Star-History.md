@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-08-26 00:23:15 UTC+8_  
-_Total stars: 398_
+_Last updated: 2026-08-28 08:40:30 UTC+8_  
+_Total stars: 402_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-08"]
     y-axis "Cumulative Stars" 0 --> 430
-    line [1, 13, 28, 43, 64, 97, 162, 244, 353]
+    line [1, 13, 28, 43, 64, 97, 162, 244, 351]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,8 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-08-28 08:39:32+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [liuyang1936](https://github.com/liuyang1936) | ❌ delete |
+| 2026-08-28 08:39:32+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [liuyang1936](https://github.com/liuyang1936) | ❌ delete |
 | 2026-08-25 22:26:49+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [moving-hawk](https://github.com/moving-hawk) | ⭐ add |
 | 2026-08-25 11:45:04+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [wewqasd](https://github.com/wewqasd) | ⭐ add |
 | 2026-08-22 08:02:34+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [cqlinzhifu](https://github.com/cqlinzhifu) | ⭐ add |
@@ -228,14 +230,14 @@ xychart-beta
 | 2025-09-15 21:25:41+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [lypaser](https://github.com/lypaser) | ⭐ add |
 | 2025-09-15 21:24:53+08:00 | [`NEVSTOP-Programming-Palette`](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette) | [lypaser](https://github.com/lypaser) | ⭐ add |
 | 2025-09-09 18:00:20+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [yangkkokk](https://github.com/yangkkokk) | ⭐ add |
-| 2025-09-05 21:21:27+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [liuyang1936](https://github.com/liuyang1936) | ⭐ add |
+| 2025-09-05 21:21:27+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [lyoyl666](https://github.com/lyoyl666) | ⭐ add |
 | 2025-09-05 09:06:35+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [cht-ink](https://github.com/cht-ink) | ⭐ add |
 | 2025-09-03 14:17:37+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [zhangfgwis](https://github.com/zhangfgwis) | ⭐ add |
 | 2025-09-02 17:40:27+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [chenwm](https://github.com/chenwm) | ⭐ add |
 | 2025-09-01 23:10:36+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [imeteorite](https://github.com/imeteorite) | ⭐ add |
 | 2025-08-27 11:05:55+08:00 | [`NEVSTOP-LoginWindow`](https://github.com/NEVSTOP-LAB/NEVSTOP-LoginWindow) | [Oh-Doo-Yong](https://github.com/Oh-Doo-Yong) | ⭐ add |
 | 2025-08-27 10:28:39+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [Oh-Doo-Yong](https://github.com/Oh-Doo-Yong) | ⭐ add |
-| 2025-08-22 16:55:21+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [liuyang1936](https://github.com/liuyang1936) | ⭐ add |
+| 2025-08-22 16:55:21+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [lyoyl666](https://github.com/lyoyl666) | ⭐ add |
 | 2025-08-21 12:45:04+08:00 | [`NEVSTOP-LoginWindow`](https://github.com/NEVSTOP-LAB/NEVSTOP-LoginWindow) | [WillsHuang2022](https://github.com/WillsHuang2022) | ⭐ add |
 | 2025-08-20 10:48:05+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [chenwm](https://github.com/chenwm) | ⭐ add |
 | 2025-08-20 10:47:58+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [chenwm](https://github.com/chenwm) | ⭐ add |
