@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-08-28 08:40:30 UTC+8_  
-_Total stars: 402_
+_Last updated: 2026-08-29 08:12:49 UTC+8_  
+_Total stars: 403_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-08"]
     y-axis "Cumulative Stars" 0 --> 430
-    line [1, 13, 28, 43, 64, 97, 162, 244, 351]
+    line [1, 13, 28, 43, 64, 97, 162, 244, 352]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-08-28 19:02:11+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [the-beating-light-of-the-nail](https://github.com/the-beating-light-of-the-nail) | ⭐ add |
 | 2026-08-28 08:39:32+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [liuyang1936](https://github.com/liuyang1936) | ❌ delete |
 | 2026-08-28 08:39:32+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [liuyang1936](https://github.com/liuyang1936) | ❌ delete |
 | 2026-08-25 22:26:49+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [moving-hawk](https://github.com/moving-hawk) | ⭐ add |
