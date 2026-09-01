@@ -1,16 +1,16 @@
 # Star History
 
-_Last updated: 2026-09-01 05:12:13 UTC+8_  
-_Total stars: 404_
+_Last updated: 2026-09-02 02:56:44 UTC+8_  
+_Total stars: 405_
 
 ## Star Growth Chart
 
 ```mermaid
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
-    x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-08"]
+    x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-09"]
     y-axis "Cumulative Stars" 0 --> 430
-    line [1, 13, 28, 43, 64, 97, 162, 244, 353]
+    line [1, 13, 28, 43, 64, 97, 162, 244, 354]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -36,8 +36,8 @@ xychart-beta
 | 2 | [ghwang-Harries](https://github.com/ghwang-Harries) | 17 |
 | 3 | [ChouPeng11](https://github.com/ChouPeng11) | 13 |
 | 4 | [hanzihua123](https://github.com/hanzihua123) | 13 |
-| 5 | [DK-666-6](https://github.com/DK-666-6) | 12 |
-| 6 | [chenjingfang123](https://github.com/chenjingfang123) | 11 |
+| 5 | [chenjingfang123](https://github.com/chenjingfang123) | 12 |
+| 6 | [DK-666-6](https://github.com/DK-666-6) | 12 |
 | 7 | [highland-gy](https://github.com/highland-gy) | 10 |
 | 8 | [wyxfhb](https://github.com/wyxfhb) | 9 |
 | 9 | [shennnw](https://github.com/shennnw) | 8 |
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-09-01 09:35:18+08:00 | `CSM-HAL-Se****-1322908000` | [chenjingfang123](https://github.com/chenjingfang123) | ⭐ add |
 | 2026-08-31 11:38:41+08:00 | [`GitHub-Gitee-Sync`](https://github.com/NEVSTOP-LAB/GitHub-Gitee-Sync) | [Elicy04](https://github.com/Elicy04) | ⭐ add |
 | 2026-08-28 19:02:11+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [the-beating-light-of-the-nail](https://github.com/the-beating-light-of-the-nail) | ⭐ add |
 | 2026-08-28 08:39:32+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [liuyang1936](https://github.com/liuyang1936) | ❌ delete |
