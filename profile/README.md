@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 8000
-    bar   [7769, 5923, 5224, 5599, 4772, 3226, 2026.09]
+    bar   [7784, 5936, 5243, 5609, 4793, 3244, 2026.09]
     bar   [7727, 5891, 5185, 5558, 4747, 3202, 2026.08]
     bar   [7328, 5673, 4918, 5343, 4484, 2989, 2026.07]
     bar   [6917, 5388, 4570, 5071, 4173, 2742, 2026.06]
@@ -110,7 +110,7 @@ _每日由github action自动更新_
   <a href="https://github.com/nevstop/CSM-Utils">CSM-Utils</a> ⭐7 复用VI，还未被纳入到CSM的安装包中
 
 <a href="https://github.com/datadataup">datadataup</a> (1)
-  <a href="https://github.com/datadataup/CSM-MDI-ViewManager">CSM-MDI-ViewManager</a> ⭐9 基于LabVIEW CSM框架下的MDI模块，运行时对页面进行自定义布局管理
+  <a href="https://github.com/datadataup/CSM-MDI-ViewManager">CSM-MDI-ViewManager</a> ⭐10 基于LabVIEW CSM框架下的MDI模块，运行时对页面进行自定义布局管理
 
 <a href="https://github.com/LiXinxing77">LiXinxing77</a> (2)
   <a href="https://github.com/LiXinxing77/CSM-Modsets-Curve-Editor">CSM-Modsets-Curve-Editor</a> ⭐4 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比
