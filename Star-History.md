@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-09-07 01:50:53 UTC+8_  
-_Total stars: 419_
+_Last updated: 2026-09-08 03:28:29 UTC+8_  
+_Total stars: 420_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-09"]
     y-axis "Cumulative Stars" 0 --> 450
-    line [1, 13, 28, 43, 65, 98, 165, 249, 368]
+    line [1, 13, 28, 43, 65, 98, 165, 249, 369]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -25,7 +25,7 @@ xychart-beta
 | 6 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 17 |
 | 7 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 16 |
 | 8 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 13 |
-| 9 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 12 |
+| 9 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 13 |
 | 10 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | 12 |
 
 ## Top 10 Users by Stars Given
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-09-07 05:39:41+08:00 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | [emckiller](https://github.com/emckiller) | ⭐ add |
 | 2026-09-06 05:19:03+08:00 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | [Marslauncher](https://github.com/Marslauncher) | ⭐ add |
 | 2026-09-05 21:34:39+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [gausszhou](https://github.com/gausszhou) | ⭐ add |
 | 2026-09-03 17:16:31+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [northingooo](https://github.com/northingooo) | ⭐ add |
