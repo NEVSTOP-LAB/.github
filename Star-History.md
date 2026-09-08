@@ -1,6 +1,6 @@
 # Star History
 
-_Last updated: 2026-09-08 03:28:29 UTC+8_  
+_Last updated: 2026-09-09 03:07:15 UTC+8_  
 _Total stars: 420_
 
 ## Star Growth Chart
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-09"]
     y-axis "Cumulative Stars" 0 --> 450
-    line [1, 13, 28, 43, 65, 98, 165, 249, 369]
+    line [1, 13, 28, 43, 65, 98, 165, 249, 368]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-09-09 03:06:45+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [1003727982](https://github.com/1003727982) | ❌ delete |
 | 2026-09-07 05:39:41+08:00 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | [emckiller](https://github.com/emckiller) | ⭐ add |
 | 2026-09-06 05:19:03+08:00 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | [Marslauncher](https://github.com/Marslauncher) | ⭐ add |
 | 2026-09-05 21:34:39+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [gausszhou](https://github.com/gausszhou) | ⭐ add |
@@ -269,7 +270,7 @@ xychart-beta
 | 2025-07-27 14:51:51+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
 | 2025-07-27 14:41:17+08:00 | [`CSM-ModSets-FileSync`](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | [ghwang-Harries](https://github.com/ghwang-Harries) | ⭐ add |
 | 2025-07-22 18:25:38+08:00 | [`NEVSTOP-Programming-Palette`](https://github.com/NEVSTOP-LAB/NEVSTOP-Programming-Palette) | [Ali6114](https://github.com/Ali6114) | ⭐ add |
-| 2025-07-06 15:39:25+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [1003727982](https://github.com/1003727982) | ⭐ add |
+| 2025-07-06 15:39:25+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [JunChao-C](https://github.com/JunChao-C) | ⭐ add |
 | 2025-07-04 09:01:01+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [Automan-wfq](https://github.com/Automan-wfq) | ⭐ add |
 | 2025-06-29 00:10:59+08:00 | [`NEVSTOP-LoginWindow`](https://github.com/NEVSTOP-LAB/NEVSTOP-LoginWindow) | [IkunYoung](https://github.com/IkunYoung) | ⭐ add |
 | 2025-06-29 00:03:47+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [IkunYoung](https://github.com/IkunYoung) | ⭐ add |
