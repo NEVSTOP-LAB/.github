@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-09-21 02:22:03 UTC+8_  
-_Total stars: 424_
+_Last updated: 2026-09-22 04:10:45 UTC+8_  
+_Total stars: 426_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-09"]
     y-axis "Cumulative Stars" 0 --> 450
-    line [1, 13, 28, 43, 65, 98, 165, 249, 369]
+    line [1, 13, 28, 43, 65, 98, 165, 249, 371]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,8 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-09-22 00:05:00+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [cchamm](https://github.com/cchamm) | ⭐ add |
+| 2026-09-21 22:25:19+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [Soley911](https://github.com/Soley911) | ⭐ add |
 | 2026-09-17 15:39:47+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [2233070031](https://github.com/2233070031) | ⭐ add |
 | 2026-09-17 14:26:41+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [8053833](https://github.com/8053833) | ⭐ add |
 | 2026-09-10 02:54:25+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [wewqasd](https://github.com/wewqasd) | ❌ delete |
