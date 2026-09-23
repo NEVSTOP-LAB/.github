@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 11000
-    bar   [8022, 6096, 5417, 5753, 4949, 3350, 2026.09]
+    bar   [8033, 6113, 5424, 5760, 4956, 3359, 2026.09]
     bar   [7727, 5891, 5185, 5558, 4747, 3202, 2026.08]
     bar   [7328, 5673, 4918, 5343, 4484, 2989, 2026.07]
     bar   [6917, 5388, 4570, 5071, 4173, 2742, 2026.06]
@@ -113,7 +113,7 @@ _每日由github action自动更新_
   <a href="https://github.com/datadataup/CSM-MDI-ViewManager">CSM-MDI-ViewManager</a> ⭐11 基于LabVIEW CSM框架下的MDI模块，运行时对页面进行自定义布局管理
 
 <a href="https://github.com/LiXinxing77">LiXinxing77</a> (2)
-  <a href="https://github.com/LiXinxing77/CSM-Modsets-Grouped-UI">CSM-Modsets-Grouped-UI</a> ⭐4 一种可以分组折叠的导航界面
+  <a href="https://github.com/LiXinxing77/CSM-Modsets-Grouped-UI">CSM-Modsets-Grouped-UI</a> ⭐5 一种可以分组折叠的导航界面
   <a href="https://github.com/LiXinxing77/CSM-Modsets-Curve-Editor">CSM-Modsets-Curve-Editor</a> ⭐4 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比
 </pre>
 <!-- CSM_MODSETS_END -->

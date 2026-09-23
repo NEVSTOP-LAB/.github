@@ -1,6 +1,6 @@
 # CSM Modsets Repositories
 
-> 自动生成，最后更新时间：2026-09-22 19:19 UTC
+> 自动生成，最后更新时间：2026-09-23 19:17 UTC
 
 所有公开的、主题（topic）为 [`csm-modsets`](https://github.com/search?q=topic%3Acsm-modsets&type=repositories) 的仓库列表。
 
@@ -35,5 +35,5 @@
 
 | 仓库 | ⭐ | 描述 |
 |------|:---:|------|
-| [CSM-Modsets-Grouped-UI](https://github.com/LiXinxing77/CSM-Modsets-Grouped-UI) | 4 | 一种可以分组折叠的导航界面 |
+| [CSM-Modsets-Grouped-UI](https://github.com/LiXinxing77/CSM-Modsets-Grouped-UI) | 5 | 一种可以分组折叠的导航界面 |
 | [CSM-Modsets-Curve-Editor](https://github.com/LiXinxing77/CSM-Modsets-Curve-Editor) | 4 | 一个CSM框架的曲线编程器，同时也保留了QHM框架的程序可供对比 |
