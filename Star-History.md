@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-09-22 04:10:45 UTC+8_  
-_Total stars: 426_
+_Last updated: 2026-09-26 03:39:42 UTC+8_  
+_Total stars: 424_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-09"]
     y-axis "Cumulative Stars" 0 --> 450
-    line [1, 13, 28, 43, 65, 98, 165, 249, 371]
+    line [1, 13, 28, 43, 65, 97, 164, 248, 369]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-09-26 03:39:08+08:00 | [`CSM-Icon-Editor-Glyphs`](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs) | [AntoineChalons](https://github.com/AntoineChalons) | ❌ delete |
 | 2026-09-22 00:05:00+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [cchamm](https://github.com/cchamm) | ⭐ add |
 | 2026-09-21 22:25:19+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [Soley911](https://github.com/Soley911) | ⭐ add |
 | 2026-09-17 15:39:47+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [2233070031](https://github.com/2233070031) | ⭐ add |
@@ -335,7 +336,6 @@ xychart-beta
 | 2024-08-02 04:50:34+08:00 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | [Jend4s](https://github.com/Jend4s) | ⭐ add |
 | 2024-08-01 09:29:06+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
 | 2024-06-28 19:46:35+08:00 | [`CSM-Icon-Editor-Glyphs`](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs) | [achuthaperumal](https://github.com/achuthaperumal) | ⭐ add |
-| 2024-06-28 17:39:48+08:00 | [`CSM-Icon-Editor-Glyphs`](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs) | [AntoineChalons](https://github.com/AntoineChalons) | ⭐ add |
 | 2024-06-19 15:21:04+08:00 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | [chenduxiu01](https://github.com/chenduxiu01) | ⭐ add |
 | 2024-05-30 22:37:44+08:00 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | [hanzihua123](https://github.com/hanzihua123) | ⭐ add |
 | 2024-05-30 22:37:15+08:00 | [`CSM-Wiki`](https://github.com/NEVSTOP-LAB/CSM-Wiki) | [hanzihua123](https://github.com/hanzihua123) | ⭐ add |

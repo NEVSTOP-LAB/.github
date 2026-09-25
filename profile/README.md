@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 11000
-    bar   [8043, 6120, 5433, 5770, 4964, 3366, 2026.09]
+    bar   [8051, 6123, 5435, 5775, 4964, 3368, 2026.09]
     bar   [7727, 5891, 5185, 5558, 4747, 3202, 2026.08]
     bar   [7328, 5673, 4918, 5343, 4484, 2989, 2026.07]
     bar   [6917, 5388, 4570, 5071, 4173, 2742, 2026.06]
@@ -139,10 +139,6 @@ _每日扫描 github [csm-modsets](https://github.com/search?q=topic%3Acsm-modse
 [`html(4)`](https://github.com/search?q=topic:html%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`javascript(4)`](https://github.com/search?q=topic:javascript%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`template(4)`](https://github.com/search?q=topic:template%20org:NEVSTOP-LAB%20is:public&type=Repositories)
-[`cordis(3)`](https://github.com/search?q=topic:cordis%20org:NEVSTOP-LAB%20is:public&type=Repositories)
-[`deepseek-harness(3)`](https://github.com/search?q=topic:deepseek-harness%20org:NEVSTOP-LAB%20is:public&type=Repositories)
-[`dsh(3)`](https://github.com/search?q=topic:dsh%20org:NEVSTOP-LAB%20is:public&type=Repositories)
-[`dsh-plugin(3)`](https://github.com/search?q=topic:dsh-plugin%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`environments(3)`](https://github.com/search?q=topic:environments%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`lv-csm-app(3)`](https://github.com/search?q=topic:lv-csm-app%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`ui(3)`](https://github.com/search?q=topic:ui%20org:NEVSTOP-LAB%20is:public&type=Repositories)
@@ -151,7 +147,11 @@ _每日扫描 github [csm-modsets](https://github.com/search?q=topic%3Acsm-modse
 [`archived(2)`](https://github.com/search?q=topic:archived%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`base-function(2)`](https://github.com/search?q=topic:base-function%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`c(2)`](https://github.com/search?q=topic:c%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`cordis(2)`](https://github.com/search?q=topic:cordis%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`daq(2)`](https://github.com/search?q=topic:daq%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`deepseek-harness(2)`](https://github.com/search?q=topic:deepseek-harness%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`dsh(2)`](https://github.com/search?q=topic:dsh%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`dsh-plugin(2)`](https://github.com/search?q=topic:dsh-plugin%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`exe(2)`](https://github.com/search?q=topic:exe%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`github-actions(2)`](https://github.com/search?q=topic:github-actions%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`labview-xcontrol(2)`](https://github.com/search?q=topic:labview-xcontrol%20org:NEVSTOP-LAB%20is:public&type=Repositories)
