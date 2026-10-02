@@ -1,16 +1,16 @@
 # Star History
 
-_Last updated: 2026-09-29 05:27:51 UTC+8_  
-_Total stars: 425_
+_Last updated: 2026-10-03 04:13:51 UTC+8_  
+_Total stars: 426_
 
 ## Star Growth Chart
 
 ```mermaid
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
-    x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-09"]
+    x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-10"]
     y-axis "Cumulative Stars" 0 --> 450
-    line [1, 13, 28, 43, 65, 97, 164, 248, 370]
+    line [1, 13, 28, 43, 65, 97, 164, 248, 371]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-10-02 10:15:46+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [yinghuo302](https://github.com/yinghuo302) | ⭐ add |
 | 2026-09-28 10:35:27+08:00 | [`CSM-Mermaid-Plugin`](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | [northingooo](https://github.com/northingooo) | ⭐ add |
 | 2026-09-26 03:39:08+08:00 | [`CSM-Icon-Editor-Glyphs`](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs) | [AntoineChalons](https://github.com/AntoineChalons) | ❌ delete |
 | 2026-09-22 00:05:00+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [cchamm](https://github.com/cchamm) | ⭐ add |
