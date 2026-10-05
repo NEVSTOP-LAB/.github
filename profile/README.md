@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 11000
-    bar   [8108, 6161, 5477, 5810, 5004, 3397, 2026.10]
+    bar   [8112, 6164, 5481, 5814, 5004, 3401, 2026.10]
     bar   [8080, 6134, 5449, 5787, 4979, 3377, 2026.09]
     bar   [7727, 5891, 5185, 5558, 4747, 3202, 2026.08]
     bar   [7328, 5673, 4918, 5343, 4484, 2989, 2026.07]
@@ -99,7 +99,7 @@ _每日由github action自动更新_
 <!-- CSM_MODSETS_START -->
 <pre>
 <a href="https://github.com/NEVSTOP-LAB">NEVSTOP-LAB</a> (9)
-  <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐33 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
+  <a href="https://github.com/NEVSTOP-LAB/CSMScript-Lite">CSMScript-Lite</a> ⭐34 CSMScript Lite版本，一款轻量级脚本执行引擎，用于执行灵活的 CSM 测试脚本
   <a href="https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App">CSM-TCP-Router-App</a> ⭐12 Application Example to show how to setup a TCP Server and Client using CSM and JKI TCP Server.
   <a href="https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay">CSM-Modsets-WaveformDisplay</a> ⭐11 CSM 模块: 显示 Waveform
   <a href="https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow">CSM-ModSets-SplashWindow</a> ⭐9 CSM Module: Splash Window

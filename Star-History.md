@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-10-03 04:13:51 UTC+8_  
-_Total stars: 426_
+_Last updated: 2026-10-06 06:14:45 UTC+8_  
+_Total stars: 431_
 
 ## Star Growth Chart
 
@@ -9,8 +9,8 @@ _Total stars: 426_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-10"]
-    y-axis "Cumulative Stars" 0 --> 450
-    line [1, 13, 28, 43, 65, 97, 164, 248, 371]
+    y-axis "Cumulative Stars" 0 --> 460
+    line [1, 13, 28, 43, 65, 97, 164, 248, 376]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -19,7 +19,7 @@ xychart-beta
 |:----:|:-----------|------:|
 | 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 72 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 41 |
-| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 33 |
+| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 34 |
 | 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 20 |
 | 5 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 19 |
 | 6 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 17 |
@@ -35,11 +35,11 @@ xychart-beta
 | 1 | [datadataup](https://github.com/datadataup) | 20 |
 | 2 | [ghwang-Harries](https://github.com/ghwang-Harries) | 17 |
 | 3 | [DK-666-6](https://github.com/DK-666-6) | 14 |
-| 4 | [chenjingfang123](https://github.com/chenjingfang123) | 13 |
-| 5 | [ChouPeng11](https://github.com/ChouPeng11) | 13 |
-| 6 | [hanzihua123](https://github.com/hanzihua123) | 13 |
-| 7 | [highland-gy](https://github.com/highland-gy) | 10 |
-| 8 | [wyxfhb](https://github.com/wyxfhb) | 9 |
+| 4 | [wyxfhb](https://github.com/wyxfhb) | 13 |
+| 5 | [chenjingfang123](https://github.com/chenjingfang123) | 13 |
+| 6 | [ChouPeng11](https://github.com/ChouPeng11) | 13 |
+| 7 | [hanzihua123](https://github.com/hanzihua123) | 13 |
+| 8 | [highland-gy](https://github.com/highland-gy) | 10 |
 | 9 | [shennnw](https://github.com/shennnw) | 9 |
 | 10 | [chenwm](https://github.com/chenwm) | 8 |
 
@@ -47,6 +47,11 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-10-05 20:42:35+08:00 | [`CSM-Mermaid-Plugin`](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
+| 2026-10-05 19:45:20+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
+| 2026-10-05 19:42:28+08:00 | [`LabVIEW-Class-Plugin-Example`](https://github.com/NEVSTOP-LAB/LabVIEW-Class-Plugin-Example) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
+| 2026-10-05 19:03:37+08:00 | [`csm-keynotes-collection`](https://github.com/NEVSTOP-LAB/csm-keynotes-collection) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
+| 2026-10-05 03:52:37+08:00 | `CSM-Python****-1359888571` | [emckiller](https://github.com/emckiller) | ⭐ add |
 | 2026-10-02 10:15:46+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [yinghuo302](https://github.com/yinghuo302) | ⭐ add |
 | 2026-09-28 10:35:27+08:00 | [`CSM-Mermaid-Plugin`](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | [northingooo](https://github.com/northingooo) | ⭐ add |
 | 2026-09-26 03:39:08+08:00 | [`CSM-Icon-Editor-Glyphs`](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs) | [AntoineChalons](https://github.com/AntoineChalons) | ❌ delete |
