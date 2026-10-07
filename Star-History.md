@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-10-06 06:14:45 UTC+8_  
-_Total stars: 431_
+_Last updated: 2026-10-07 21:40:40 UTC+8_  
+_Total stars: 432_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-10"]
     y-axis "Cumulative Stars" 0 --> 460
-    line [1, 13, 28, 43, 65, 97, 164, 248, 376]
+    line [1, 13, 28, 43, 65, 97, 164, 248, 377]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-10-07 19:36:24+08:00 | [`NEVSTOP-LoginWindow`](https://github.com/NEVSTOP-LAB/NEVSTOP-LoginWindow) | [Lua4LV](https://github.com/Lua4LV) | ⭐ add |
 | 2026-10-05 20:42:35+08:00 | [`CSM-Mermaid-Plugin`](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
 | 2026-10-05 19:45:20+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
 | 2026-10-05 19:42:28+08:00 | [`LabVIEW-Class-Plugin-Example`](https://github.com/NEVSTOP-LAB/LabVIEW-Class-Plugin-Example) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
