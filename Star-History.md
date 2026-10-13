@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-10-07 21:40:40 UTC+8_  
-_Total stars: 432_
+_Last updated: 2026-10-13 18:08:17 UTC+8_  
+_Total stars: 426_
 
 ## Star Growth Chart
 
@@ -9,8 +9,8 @@ _Total stars: 432_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-10"]
-    y-axis "Cumulative Stars" 0 --> 460
-    line [1, 13, 28, 43, 65, 97, 164, 248, 377]
+    y-axis "Cumulative Stars" 0 --> 440
+    line [1, 13, 28, 43, 65, 97, 164, 248, 361]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -19,14 +19,14 @@ xychart-beta
 |:----:|:-----------|------:|
 | 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 72 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 41 |
-| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 34 |
-| 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 20 |
-| 5 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 19 |
-| 6 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 17 |
+| 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 33 |
+| 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 21 |
+| 5 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 20 |
+| 6 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 18 |
 | 7 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 16 |
 | 8 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 13 |
 | 9 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 13 |
-| 10 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | 12 |
+| 10 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | 11 |
 
 ## Top 10 Users by Stars Given
 
@@ -39,14 +39,28 @@ xychart-beta
 | 5 | [chenjingfang123](https://github.com/chenjingfang123) | 13 |
 | 6 | [ChouPeng11](https://github.com/ChouPeng11) | 13 |
 | 7 | [hanzihua123](https://github.com/hanzihua123) | 13 |
-| 8 | [highland-gy](https://github.com/highland-gy) | 10 |
-| 9 | [shennnw](https://github.com/shennnw) | 9 |
-| 10 | [chenwm](https://github.com/chenwm) | 8 |
+| 8 | [shennnw](https://github.com/shennnw) | 9 |
+| 9 | [chenwm](https://github.com/chenwm) | 8 |
+| 10 | [junyang0412](https://github.com/junyang0412) | 8 |
 
 ## Star Log
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-10-13 18:07:30+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
+| 2026-10-13 18:07:30+08:00 | [`CSM-ModSets-FileSync`](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
+| 2026-10-13 18:07:30+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
+| 2026-10-13 18:07:30+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
+| 2026-10-13 18:07:30+08:00 | [`CSM-Module-Repo-Template`](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
+| 2026-10-13 18:07:30+08:00 | [`CSM-ModSets-TagDB-UI`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
+| 2026-10-13 18:07:30+08:00 | [`CSM-ModSets-SplashWindow`](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
+| 2026-10-13 18:07:30+08:00 | [`CSM-ModSets-TagRouter`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
+| 2026-10-13 18:07:30+08:00 | [`CSM-Modsets-ScheduledCmdWindow`](https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
+| 2026-10-13 18:07:30+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
+| 2026-10-13 09:38:31+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [1944919231](https://github.com/1944919231) | ⭐ add |
+| 2026-10-13 09:38:24+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [1944919231](https://github.com/1944919231) | ⭐ add |
+| 2026-10-13 09:38:15+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [1944919231](https://github.com/1944919231) | ⭐ add |
+| 2026-10-13 09:38:09+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [1944919231](https://github.com/1944919231) | ⭐ add |
 | 2026-10-07 19:36:24+08:00 | [`NEVSTOP-LoginWindow`](https://github.com/NEVSTOP-LAB/NEVSTOP-LoginWindow) | [Lua4LV](https://github.com/Lua4LV) | ⭐ add |
 | 2026-10-05 20:42:35+08:00 | [`CSM-Mermaid-Plugin`](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
 | 2026-10-05 19:45:20+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
@@ -101,19 +115,9 @@ xychart-beta
 | 2026-08-09 17:19:41+08:00 | [`csm-vsc-extension`](https://github.com/NEVSTOP-LAB/csm-vsc-extension) | [lypaser](https://github.com/lypaser) | ⭐ add |
 | 2026-08-05 09:38:43+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [quwei04](https://github.com/quwei04) | ⭐ add |
 | 2026-08-04 16:46:43+08:00 | [`LabVIEW-Version-Selector`](https://github.com/NEVSTOP-LAB/LabVIEW-Version-Selector) | [datadataup](https://github.com/datadataup) | ⭐ add |
-| 2026-07-31 15:49:28+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
-| 2026-07-31 15:49:27+08:00 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
-| 2026-07-31 15:49:26+08:00 | [`CSM-Modsets-WaveformDisplay`](https://github.com/NEVSTOP-LAB/CSM-Modsets-WaveformDisplay) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
-| 2026-07-31 15:49:25+08:00 | [`CSM-ModSets-TagRouter`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagRouter) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
-| 2026-07-31 15:49:24+08:00 | [`CSM-ModSets-TagDB-UI`](https://github.com/NEVSTOP-LAB/CSM-ModSets-TagDB-UI) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
-| 2026-07-31 15:49:23+08:00 | [`CSM-ModSets-SplashWindow`](https://github.com/NEVSTOP-LAB/CSM-ModSets-SplashWindow) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
-| 2026-07-31 15:49:21+08:00 | [`CSM-Modsets-ScheduledCmdWindow`](https://github.com/NEVSTOP-LAB/CSM-Modsets-ScheduledCmdWindow) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
 | 2026-07-31 08:13:37+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [TheDomcio](https://github.com/TheDomcio) | ⭐ add |
 | 2026-07-26 23:01:38+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [Renties](https://github.com/Renties) | ⭐ add |
 | 2026-07-24 23:17:38+08:00 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | [Renties](https://github.com/Renties) | ⭐ add |
-| 2026-07-22 15:11:45+08:00 | [`CSM-ModSets-FileSync`](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
-| 2026-07-22 15:11:45+08:00 | [`CSM-Module-Repo-Template`](https://github.com/NEVSTOP-LAB/CSM-Module-Repo-Template) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
-| 2026-07-22 10:49:54+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [highland-gy](https://github.com/highland-gy) | ⭐ add |
 | 2026-07-21 11:01:35+08:00 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | [datadataup](https://github.com/datadataup) | ⭐ add |
 | 2026-07-17 10:38:04+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [MavisTok](https://github.com/MavisTok) | ⭐ add |
 | 2026-07-17 09:24:01+08:00 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | [datadataup](https://github.com/datadataup) | ⭐ add |
