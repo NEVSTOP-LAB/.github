@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 11000
-    bar   [8238, 6275, 5541, 5930, 5104, 3444, 2026.10]
+    bar   [8252, 6301, 5576, 5930, 5113, 3467, 2026.10]
     bar   [8080, 6134, 5449, 5787, 4979, 3377, 2026.09]
     bar   [7727, 5891, 5185, 5558, 4747, 3202, 2026.08]
     bar   [7328, 5673, 4918, 5343, 4484, 2989, 2026.07]
