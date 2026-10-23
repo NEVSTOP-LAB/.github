@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-10-22 03:45:27 UTC+8_  
-_Total stars: 429_
+_Last updated: 2026-10-24 03:36:45 UTC+8_  
+_Total stars: 430_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-10"]
     y-axis "Cumulative Stars" 0 --> 440
-    line [1, 13, 28, 43, 65, 97, 164, 248, 362]
+    line [1, 13, 28, 43, 65, 97, 164, 248, 363]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -24,8 +24,8 @@ xychart-beta
 | 5 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 20 |
 | 6 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 18 |
 | 7 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 16 |
-| 8 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 13 |
-| 9 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 13 |
+| 8 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 14 |
+| 9 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 13 |
 | 10 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | 11 |
 
 ## Top 10 Users by Stars Given
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-10-23 09:18:45+08:00 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | [FatUltraman](https://github.com/FatUltraman) | ⭐ add |
 | 2026-10-21 20:46:17+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [Love-002-Forever](https://github.com/Love-002-Forever) | ⭐ add |
 | 2026-10-13 18:07:30+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
 | 2026-10-13 18:07:30+08:00 | [`CSM-ModSets-FileSync`](https://github.com/NEVSTOP-LAB/CSM-ModSets-FileSync) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
