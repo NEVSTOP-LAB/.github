@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-10-24 03:36:45 UTC+8_  
-_Total stars: 430_
+_Last updated: 2026-10-28 04:17:45 UTC+8_  
+_Total stars: 434_
 
 ## Star Growth Chart
 
@@ -9,20 +9,20 @@ _Total stars: 430_
 xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-10"]
-    y-axis "Cumulative Stars" 0 --> 440
-    line [1, 13, 28, 43, 65, 97, 164, 248, 363]
+    y-axis "Cumulative Stars" 0 --> 450
+    line [1, 13, 28, 43, 65, 97, 164, 248, 367]
 ```
 
 ## Top 10 Most Starred Repositories
 
 | Rank | Repository | Stars |
 |:----:|:-----------|------:|
-| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 72 |
+| 1 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | 73 |
 | 2 | [`LabVIEW-UI-XCtl`](https://github.com/NEVSTOP-LAB/LabVIEW-UI-XCtl) | 41 |
 | 3 | [`CSMScript-Lite`](https://github.com/NEVSTOP-LAB/CSMScript-Lite) | 33 |
-| 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 21 |
-| 5 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 20 |
-| 6 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 18 |
+| 4 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | 22 |
+| 5 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 21 |
+| 6 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 19 |
 | 7 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 16 |
 | 8 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 14 |
 | 9 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 13 |
@@ -47,6 +47,10 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-10-27 16:14:05+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [Kinsenxs](https://github.com/Kinsenxs) | ⭐ add |
+| 2026-10-27 16:13:58+08:00 | [`CSM-MassData-Parameter-Support`](https://github.com/NEVSTOP-LAB/CSM-MassData-Parameter-Support) | [Kinsenxs](https://github.com/Kinsenxs) | ⭐ add |
+| 2026-10-27 16:13:50+08:00 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | [Kinsenxs](https://github.com/Kinsenxs) | ⭐ add |
+| 2026-10-27 16:13:41+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [Kinsenxs](https://github.com/Kinsenxs) | ⭐ add |
 | 2026-10-23 09:18:45+08:00 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | [FatUltraman](https://github.com/FatUltraman) | ⭐ add |
 | 2026-10-21 20:46:17+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [Love-002-Forever](https://github.com/Love-002-Forever) | ⭐ add |
 | 2026-10-13 18:07:30+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [highland-gy](https://github.com/highland-gy) | ❌ delete |
