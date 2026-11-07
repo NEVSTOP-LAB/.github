@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-11-04 05:20:56 UTC+8_  
-_Total stars: 437_
+_Last updated: 2026-11-08 03:42:57 UTC+8_  
+_Total stars: 439_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-11"]
     y-axis "Cumulative Stars" 0 --> 450
-    line [1, 13, 28, 43, 65, 97, 164, 248, 369]
+    line [1, 13, 28, 43, 65, 97, 164, 248, 371]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -24,7 +24,7 @@ xychart-beta
 | 5 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | 21 |
 | 6 | [`CSM-API-String-Arguments-Support`](https://github.com/NEVSTOP-LAB/CSM-API-String-Arguments-Support) | 19 |
 | 7 | [`LabVIEW-GlobalStop-Library`](https://github.com/NEVSTOP-LAB/LabVIEW-GlobalStop-Library) | 16 |
-| 8 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 14 |
+| 8 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | 15 |
 | 9 | [`LabVIEW-QuickDrops-Manager`](https://github.com/NEVSTOP-LAB/LabVIEW-QuickDrops-Manager) | 13 |
 | 10 | [`CSM-TCP-Router-App`](https://github.com/NEVSTOP-LAB/CSM-TCP-Router-App) | 11 |
 
@@ -47,6 +47,8 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-11-07 17:58:36+08:00 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | [yuweihou168-hue](https://github.com/yuweihou168-hue) | ⭐ add |
+| 2026-11-07 16:44:23+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [Allinonelearning](https://github.com/Allinonelearning) | ⭐ add |
 | 2026-11-03 17:25:10+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [Yorick-zp](https://github.com/Yorick-zp) | ⭐ add |
 | 2026-10-30 22:05:24+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [louhuahua](https://github.com/louhuahua) | ⭐ add |
 | 2026-10-27 16:14:05+08:00 | [`CSM-INI-Static-Variable-Support`](https://github.com/NEVSTOP-LAB/CSM-INI-Static-Variable-Support) | [Kinsenxs](https://github.com/Kinsenxs) | ⭐ add |
