@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-11-11 05:32:09 UTC+8_  
-_Total stars: 441_
+_Last updated: 2026-11-12 06:21:28 UTC+8_  
+_Total stars: 443_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-11"]
     y-axis "Cumulative Stars" 0 --> 450
-    line [1, 13, 28, 43, 65, 97, 164, 248, 371]
+    line [1, 13, 28, 43, 65, 97, 164, 248, 372]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-11-11 21:21:13+08:00 | [`dsh-net-opt`](https://github.com/NEVSTOP-LAB/dsh-net-opt) | [YangZeCN](https://github.com/YangZeCN) | ⭐ add |
 | 2026-11-07 17:58:36+08:00 | [`CSM-Continuous-Meausrement-and-Logging`](https://github.com/NEVSTOP-LAB/CSM-Continuous-Meausrement-and-Logging) | [yuweihou168-hue](https://github.com/yuweihou168-hue) | ⭐ add |
 | 2026-11-07 16:44:23+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [Allinonelearning](https://github.com/Allinonelearning) | ⭐ add |
 | 2026-11-03 17:25:10+08:00 | [`Communicable-State-Machine`](https://github.com/NEVSTOP-LAB/Communicable-State-Machine) | [Yorick-zp](https://github.com/Yorick-zp) | ⭐ add |
