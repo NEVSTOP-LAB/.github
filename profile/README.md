@@ -44,7 +44,7 @@
     title "Communicable State Machine(CSM) Framework VIPM Download"
     x-axis [Core, API String, MassData, INI-Variable, DAQ-Example, TCP-Example]
     y-axis "Download" 0 --> 11000
-    bar   [8611, 6551, 5757, 6180, 5333, 3587, 2026.11]
+    bar   [8611, 6566, 5768, 6180, 5350, 3587, 2026.11]
     bar   [8442, 6436, 5667, 6074, 5239, 3524, 2026.10]
     bar   [8080, 6134, 5449, 5787, 4979, 3377, 2026.09]
     bar   [7727, 5891, 5185, 5558, 4747, 3202, 2026.08]
@@ -138,12 +138,12 @@ _每日扫描 github [csm-modsets](https://github.com/search?q=topic%3Acsm-modse
 [`jkism(6)`](https://github.com/search?q=topic:jkism%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`application(5)`](https://github.com/search?q=topic:application%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`ai(4)`](https://github.com/search?q=topic:ai%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`deepseek-harness(4)`](https://github.com/search?q=topic:deepseek-harness%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`dsh(4)`](https://github.com/search?q=topic:dsh%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`dsh-plugin(4)`](https://github.com/search?q=topic:dsh-plugin%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`html(4)`](https://github.com/search?q=topic:html%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`javascript(4)`](https://github.com/search?q=topic:javascript%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`template(4)`](https://github.com/search?q=topic:template%20org:NEVSTOP-LAB%20is:public&type=Repositories)
-[`deepseek-harness(3)`](https://github.com/search?q=topic:deepseek-harness%20org:NEVSTOP-LAB%20is:public&type=Repositories)
-[`dsh(3)`](https://github.com/search?q=topic:dsh%20org:NEVSTOP-LAB%20is:public&type=Repositories)
-[`dsh-plugin(3)`](https://github.com/search?q=topic:dsh-plugin%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`environments(3)`](https://github.com/search?q=topic:environments%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`lv-csm-app(3)`](https://github.com/search?q=topic:lv-csm-app%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`ui(3)`](https://github.com/search?q=topic:ui%20org:NEVSTOP-LAB%20is:public&type=Repositories)
