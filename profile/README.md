@@ -1,6 +1,4 @@
-<!-------
-本组织围绕可通讯状态机框架(CSM)架构、AI，提供LabVIEW/Python/C#语言下的自动化测试方案。
------>
+本组织围绕可通讯状态机框架(CSM)架构、DeepSeek Harness(DSH)，提供LabVIEW/Python/C#语言下的智能自动化测试方案。
 
 [![org_stars](https://shields.io/github/stars/NEVSTOP-LAB)](https://github.com/orgs/NEVSTOP-LAB/repositories?q=sort%3Astars)
 [![org_followers](https://img.shields.io/github/followers/NEVSTOP-LAB)](https://github.com/orgs/NEVSTOP-LAB/followers)
