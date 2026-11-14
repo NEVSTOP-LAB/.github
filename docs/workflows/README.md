@@ -7,12 +7,11 @@
 
 | Workflow 文件 | 维护文档 | 主要用途 |
 |---------------|----------|----------|
-| [`csm-discussion-bot.yml`](../../.github/workflows/csm-discussion-bot.yml) | [csm-discussion-bot.md](./csm-discussion-bot.md) | 组织级 Discussion 自动问答 bot |
-| [`sync-to-gitee.yml`](../../.github/workflows/sync-to-gitee.yml)           | [sync-to-gitee.md](./sync-to-gitee.md)           | GitHub → Gitee 镜像同步 |
-| [`update-sorted-tags.yml`](../../.github/workflows/update-sorted-tags.yml) | [update-sorted-tags.md](./update-sorted-tags.md) | 按 topic 聚合仓库列表写入 profile |
-| [`update-star-history.yml`](../../.github/workflows/update-star-history.yml) | [update-star-history.md](./update-star-history.md) | 维护 `Star-History.md` |
-| [`update-vipm-downloads.yml`](../../.github/workflows/update-vipm-downloads.yml) | [update-vipm-downloads.md](./update-vipm-downloads.md) | 抓取 VIPM 下载数刷新 profile |
-| [`org-membership-cleanup.yml`](../../.github/workflows/org-membership-cleanup.yml) | [org-membership-cleanup.md](./org-membership-cleanup.md) | 自动降级不活跃组织成员 |
+| [`csm-discussion-bot.yml`](../../.github/workflows/csm-discussion-bot.yml) | [csm-discussion-bot.md](./csm-discussion-bot.md) | 组织级 Q&A 全量扫描与回滚通道；实时问答由 `org-router.yml` 接管 |
+| [`org-router.yml`](../../.github/workflows/org-router.yml) | [org-router.md](./org-router.md) | 组织级 Discussion 意图分类与 JOIN / QA / OTHER 分派 |
+| [`org-membership-cleanup.yml`](../../.github/workflows/org-membership-cleanup.yml) | [org-membership-cleanup.md](./org-membership-cleanup.md) | 不活跃组织成员逐级降级；当前在 Actions 中为禁用状态 |
+| [`sync-to-gitee.yml`](../../.github/workflows/sync-to-gitee.yml) | [sync-to-gitee.md](./sync-to-gitee.md) | GitHub → Gitee 镜像同步 |
+| [`update-profile-readme.yml`](../../.github/workflows/update-profile-readme.yml) | [update-profile-readme.md](./update-profile-readme.md) | 串行刷新 VIPM 下载量、Topics 聚合、CSM Modsets、Star History |
 
 ## 通用约定
 
@@ -20,7 +19,7 @@
 
 1. **统一鉴权**：checkout 与 push 均使用 `secrets.SYNC_GITHUB_TOKEN`，避免使用默认 `GITHUB_TOKEN` 导致提交被忽略 workflow 触发器。
 2. **并发互斥**：每个 workflow 都使用 `concurrency.group` 锁同名任务，`cancel-in-progress: true`（数据更新类）确保不会出现两次写入打架；discussion bot 使用 `cancel-in-progress: false` 以免漏回复。
-3. **重试推送**：`update-*` workflow 在 `git push` 失败时会执行 `git fetch origin main && git rebase origin/main` 后重试，最多 3 次再判定失败，避免与并发的人工提交冲突。
+3. **重试推送**：`update-profile-readme` workflow 在 `git push` 失败时会执行 `git fetch origin main && git rebase origin/main` 后重试，最多 3 次再判定失败，避免与并发的人工提交冲突。
 4. **最小提交**：脚本写完文件后由 workflow 检测 `git diff --staged --quiet`，无变更直接退出，不产生空提交。
 5. **手动触发**：所有 workflow 都保留 `workflow_dispatch` 入口，便于在 Actions 页面手动重跑或调试。
 
