@@ -1,20 +1,20 @@
-# Update Profile README
+# Update Profile Docs
 
 - **Workflow 文件**：[`.github/workflows/update-profile-readme.yml`](../../.github/workflows/update-profile-readme.yml)
-- **写入目标**：[`profile/README.md`](../../profile/README.md)、[`csm-modsets.md`](../../csm-modsets.md)、[`Star-History.md`](../../Star-History.md)
+- **写入目标**：[`csm-framework.md`](../../csm-framework.md)、[`csm-modsets.md`](../../csm-modsets.md)、[`Star-History.md`](../../Star-History.md)
 
 ## 1. 功能概述
 
-一次运行按固定顺序执行四个脚本，把组织页上的自动区块全部刷新，最后一次性提交推送：
+一次运行按固定顺序执行四个脚本，把 [CSM Framework 详解](../../csm-framework.md) 与 `Star-History.md` 里的自动区块全部刷新，最后一次性提交推送。组织主页 `profile/README.md` 是手写内容，不由本 workflow 修改。
 
 | 顺序 | 脚本 | 写入文件 | 内容 |
 |------|------|----------|------|
-| 1 | [`update_vipm_downloads.py`](../../scripts/update_vipm_downloads.py) | `profile/README.md` | `VIPM_DOWNLOADS` 区块：当月安装量图表 + 历史快照表 |
-| 2 | [`update_sorted_tags.py`](../../scripts/update_sorted_tags.py) | `profile/README.md` | `SORTED_TAGS` 区块：按 topic 聚合的仓库数量 |
-| 3 | [`update_csm_modsets.py`](../../scripts/update_csm_modsets.py) | `profile/README.md`、`csm-modsets.md` | `CSM_MODSETS` 区块：CSM 可复用模块列表 |
+| 1 | [`update_vipm_downloads.py`](../../scripts/update_vipm_downloads.py) | `csm-framework.md` | `VIPM_DOWNLOADS` 区块：当月安装量图表 + 历史快照表 |
+| 2 | [`update_sorted_tags.py`](../../scripts/update_sorted_tags.py) | `csm-framework.md` | `SORTED_TAGS` 区块：按 topic 聚合的仓库数量 |
+| 3 | [`update_csm_modsets.py`](../../scripts/update_csm_modsets.py) | `csm-framework.md`、`csm-modsets.md` | `CSM_MODSETS` 区块：CSM 可复用模块列表 |
 | 4 | [`update_star_history.py`](../../scripts/update_star_history.py) | `Star-History.md` | 累计 star 增长曲线与 Top N 排行 |
 
-写入位置由 README 里的 `<!-- *_START/END -->` 标记块定位，不要手工删除或改动这些注释。
+写入位置由 `csm-framework.md` 里的 `<!-- *_START/END -->` 标记块定位，不要手工删除或改动这些注释。
 
 > [!NOTE]
 > `VIPM_DOWNLOADS` 区块由脚本整体重建：
@@ -52,9 +52,9 @@ VIPM 步骤只访问 VIPM 站点，不需要 `GITHUB_TOKEN`；包列表与 READM
 
 ## 5. 提交流程
 
-1. `git add profile/README.md csm-modsets.md Star-History.md`
+1. `git add csm-framework.md csm-modsets.md Star-History.md`
 2. `git diff --staged --quiet` 时直接退出，不产生空提交。
-3. 有变更时提交 `chore: update profile README`。
+3. 有变更时提交 `chore: update profile docs`。
 4. `git push` 失败时执行 `git fetch origin main && git rebase origin/main`，**最多重试 3 次**，仍失败则 job fail。
 
 > [!WARNING]
@@ -79,7 +79,7 @@ concurrency:
 | 想隐藏小众 topic | 调高 `MIN_TAG_COUNT` |
 | 星标排行不准 / 想增加排除人员 | 改 `EXCLUDE_USERS`，逗号分隔且不要加空格 |
 | 私有仓库名露出 | 调小 `PRIVATE_VISIBLE_CHARS` |
-| 新发布的 VIPM 包没有下载数 | 在脚本中追加包条目，并在 `profile/README.md` 加对应锚点 |
+| 新发布的 VIPM 包没有下载数 | 在脚本中追加包条目，并在 `csm-framework.md` 加对应锚点 |
 | VIPM 数字不动或为 0 | VIPM 页面改版导致解析失败，查看脚本日志最后输出并更新解析逻辑 |
 | Mermaid 图渲染异常 | VIPM 区块由脚本整体重建，不要手改图表代码；`Star-History.md` 可直接删除后重跑重建 |
 | API 限流 | 换配额更高的 PAT；GitHub App token 单小时配额更高 |

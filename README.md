@@ -10,7 +10,8 @@
 
 | 路径 | 说明 |
 |------|------|
-| [`profile/README.md`](./profile/README.md) | 组织 Profile 页面，展示项目矩阵、社区入口、AI-Wiki 等 |
+| [`profile/README.md`](./profile/README.md) | 组织 Profile 页面：定位、徽章、社区入口与加入方式 |
+| [`csm-framework.md`](./csm-framework.md) | 组织主页的详细内容：框架组成、DSH 工具链、VIPM 下载量、模块与 topic 统计 |
 | [`.github/workflows/`](./.github/workflows) | 本仓库运行的所有 GitHub Actions workflow，详见下文 |
 | [`scripts/`](./scripts) | workflow 调用的 Python 脚本（discussion bot、统计脚本等） |
 | [`tests/`](./tests) | discussion bot 的 pytest 单元测试 |
@@ -20,7 +21,7 @@
 | [`docs/workflows/`](./docs/workflows) | **各 workflow 的详细维护文档**（运维、排错、密钥说明） |
 | [`docs/调研/`](./docs/调研) | csm_qa RAG 问答 SDK 的技术调研报告 |
 
-> 顶层的 `Group-*.md`、`Star-History.md` 等文件由 [`profile/README.md`](./profile/README.md) 间接引用或由自动化 workflow 维护，请勿手工编辑被自动覆盖的部分。
+> 顶层的 `Group-*.md`、`Star-History.md`、`csm-framework.md` 等文件由 [`csm-framework.md`](./csm-framework.md) 或组织主页引用，其中被自动化 workflow 覆盖的区块请勿手工编辑。
 
 ## 🤖 自动化 Workflow 概览
 
@@ -30,7 +31,7 @@
 |----------|------|----------|----------|----------|
 | [Org Discussion Router](./docs/workflows/org-router.md) | [`org-router.yml`](./.github/workflows/org-router.yml) | 组织级 Discussion 的 LLM 意图分类与分派：JOIN 做加入条件检测并发邀请，QA 用 RAG 回答，OTHER 友好引导 | `discussion` / `discussion_comment` 事件、`repository_dispatch`（Worker 中继 `org_msg_router`）、`workflow_dispatch`（分类 + dry-run） | 事件驱动（实时）+ 手动 |
 | [CSM Q&A Discussion Bot](./docs/workflows/csm-discussion-bot.md) | [`csm-discussion-bot.yml`](./.github/workflows/csm-discussion-bot.yml) | 组织级 Q&A 的全量扫描与回滚通道，实时问答由 Org Discussion Router 接管 | `workflow_dispatch`（手动全量扫描，可 dry-run）、`repository_dispatch`（旧 `org_discussion_created`，仅回滚） | 手动 / 回滚 |
-| [Update Profile README](./docs/workflows/update-profile-readme.md) | [`update-profile-readme.yml`](./.github/workflows/update-profile-readme.yml) | 串行刷新四类自动区块：VIPM 下载量、Topics 聚合、CSM Modsets、Star History | 定时 + `workflow_dispatch` | 每天 00:00（北京时间，UTC 16:00） |
+| [Update Profile Docs](./docs/workflows/update-profile-readme.md) | [`update-profile-readme.yml`](./.github/workflows/update-profile-readme.yml) | 串行刷新四类自动区块（写入 `csm-framework.md` 与 `Star-History.md`）：VIPM 下载量、Topics 聚合、CSM Modsets、Star History | 定时 + `workflow_dispatch` | 每天 00:00（北京时间，UTC 16:00） |
 | [Sync GitHub to Gitee](./docs/workflows/sync-to-gitee.md) | [`sync-to-gitee.yml`](./.github/workflows/sync-to-gitee.yml) | 将 NEVSTOP-LAB 组织下的所有仓库（含 releases、wiki）同步到 Gitee 镜像 | 定时 + `workflow_dispatch` | 每天 02:00（北京时间） |
 | [Org Membership Cleanup](./docs/workflows/org-membership-cleanup.md) | [`org-membership-cleanup.yml`](./.github/workflows/org-membership-cleanup.yml) | 检查组织成员活跃度，14 天无贡献者逐级降级（CSM-Developer 豁免）直至移出组织 | 定时 + `workflow_dispatch` | 每天 09:00（北京时间），当前禁用 |
 
@@ -53,7 +54,8 @@
 
 | 文档 | 简介 |
 |------|------|
-| [`profile/README.md`](./profile/README.md) | NEVSTOP-LAB 组织主页，介绍 CSM 框架、配套插件、社区入口、AI-Wiki，以及 star/topic 统计表格 |
+| [`profile/README.md`](./profile/README.md) | NEVSTOP-LAB 组织主页：组织定位、徽章、CSM 框架一句话介绍与详解入口、社区交流、加入方式 |
+| [`csm-framework.md`](./csm-framework.md) | CSM Framework 详解：框架组成、DSH 工具链、VIPM 下载量、可复用模块、topic 统计、AI-Wiki |
 | [`webhook/README.md`](./webhook/README.md) | Cloudflare Worker 中继的部署与配置说明：把组织级 Discussion 的 webhook 转发为 `repository_dispatch`，让 bot 实时响应而非等待定时扫描 |
 | [`docs/workflows/README.md`](./docs/workflows/README.md) | Workflow 维护文档索引，按需查阅每个 workflow 的密钥、修改清单、常见故障 |
 | [`docs/调研/README.md`](./docs/调研/README.md) | csm_qa RAG SDK 整体架构与各方向调研报告（LLM 接入、向量库、Token 优化、费用评估）入口 |
