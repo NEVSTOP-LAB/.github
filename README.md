@@ -24,16 +24,18 @@
 
 ## 🤖 自动化 Workflow 概览
 
-下表汇总了本仓库当前运行的 6 个 workflow，详细维护说明请点击对应文档链接。
+下表汇总了本仓库当前运行的 5 个 workflow，详细维护说明请点击对应文档链接。
 
 | Workflow | 文件 | 功能简介 | 触发条件 | 运行频率 |
 |----------|------|----------|----------|----------|
-| [CSM Q&A Discussion Bot](./docs/workflows/csm-discussion-bot.md) | [`csm-discussion-bot.yml`](./.github/workflows/csm-discussion-bot.yml) | 基于 RAG + LLM 自动回复组织级 Discussion 中 Q&A 分类下的提问与追问 | `discussion` / `discussion_comment` 事件、`repository_dispatch`（来自 Cloudflare Worker 实时中继）、`workflow_dispatch`（手动全量扫描，可 dry-run） | 事件驱动（实时） + 手动 |
+| [Org Discussion Router](./docs/workflows/org-router.md) | [`org-router.yml`](./.github/workflows/org-router.yml) | 组织级 Discussion 的 LLM 意图分类与分派：JOIN 做加入条件检测并发邀请，QA 用 RAG 回答，OTHER 友好引导 | `discussion` / `discussion_comment` 事件、`repository_dispatch`（Worker 中继 `org_msg_router`）、`workflow_dispatch`（分类 + dry-run） | 事件驱动（实时）+ 手动 |
+| [CSM Q&A Discussion Bot](./docs/workflows/csm-discussion-bot.md) | [`csm-discussion-bot.yml`](./.github/workflows/csm-discussion-bot.yml) | 组织级 Q&A 的全量扫描与回滚通道，实时问答由 Org Discussion Router 接管 | `workflow_dispatch`（手动全量扫描，可 dry-run）、`repository_dispatch`（旧 `org_discussion_created`，仅回滚） | 手动 / 回滚 |
+| [Update Profile README](./docs/workflows/update-profile-readme.md) | [`update-profile-readme.yml`](./.github/workflows/update-profile-readme.yml) | 串行刷新四类自动区块：VIPM 下载量、Topics 聚合、CSM Modsets、Star History | 定时 + `workflow_dispatch` | 每天 00:00（北京时间，UTC 16:00） |
 | [Sync GitHub to Gitee](./docs/workflows/sync-to-gitee.md) | [`sync-to-gitee.yml`](./.github/workflows/sync-to-gitee.yml) | 将 NEVSTOP-LAB 组织下的所有仓库（含 releases、wiki）同步到 Gitee 镜像 | 定时 + `workflow_dispatch` | 每天 02:00（北京时间） |
-| [Update Sorted Tags](./docs/workflows/update-sorted-tags.md) | [`update-sorted-tags.yml`](./.github/workflows/update-sorted-tags.yml) | 拉取组织所有仓库 topic 信息，按标签聚合后写回 `profile/README.md` | 定时 + `workflow_dispatch` | 每周日 00:00 UTC |
-| [Update Star History](./docs/workflows/update-star-history.md) | [`update-star-history.yml`](./.github/workflows/update-star-history.yml) | 统计组织 star 历史与 Top 仓库排行，更新 `Star-History.md`（含 Mermaid 图表） | 定时 + `workflow_dispatch` | 每 8 小时一次（00:00 / 08:00 / 16:00 UTC） |
-| [Org Membership Cleanup](./docs/workflows/org-membership-cleanup.md) | [`org-membership-cleanup.yml`](./.github/workflows/org-membership-cleanup.yml) | 每日检查组织成员活跃度，14 天无贡献者逐级降级（CSM-Developer 豁免）直至移出组织 | 定时 + `workflow_dispatch` | 每天 09:00（北京时间） |
-| [Update VIPM Downloads](./docs/workflows/update-vipm-downloads.md) | [`update-vipm-downloads.yml`](./.github/workflows/update-vipm-downloads.yml) | 抓取 VIPM 包下载量并刷新 `profile/README.md` 中相关徽章数据 | 定时 + `workflow_dispatch` | 每天 01:00（北京时间） |
+| [Org Membership Cleanup](./docs/workflows/org-membership-cleanup.md) | [`org-membership-cleanup.yml`](./.github/workflows/org-membership-cleanup.yml) | 检查组织成员活跃度，14 天无贡献者逐级降级（CSM-Developer 豁免）直至移出组织 | 定时 + `workflow_dispatch` | 每天 09:00（北京时间），当前禁用 |
+
+> [!WARNING]
+> `Org Membership Cleanup` 目前在 Actions 中处于手动禁用状态（`disabled_manually`），每日定时不会运行，需要时在 Actions 页面启用该 workflow。
 
 > [!NOTE]
 > **组织成员活跃度管理说明**
@@ -55,16 +57,17 @@
 | [`webhook/README.md`](./webhook/README.md) | Cloudflare Worker 中继的部署与配置说明：把组织级 Discussion 的 webhook 转发为 `repository_dispatch`，让 bot 实时响应而非等待定时扫描 |
 | [`docs/workflows/README.md`](./docs/workflows/README.md) | Workflow 维护文档索引，按需查阅每个 workflow 的密钥、修改清单、常见故障 |
 | [`docs/调研/README.md`](./docs/调研/README.md) | csm_qa RAG SDK 整体架构与各方向调研报告（LLM 接入、向量库、Token 优化、费用评估）入口 |
-| [`Star-History.md`](./Star-History.md) | 由 `update-star-history.yml` 自动维护的组织 star 增长曲线与 Top 10 仓库排行 |
+| [`Star-History.md`](./Star-History.md) | 由 `update-profile-readme.yml` 自动维护的组织 star 增长曲线与 Top 10 仓库排行 |
 | `Group-*.md`（[CSM Framework](./Group-Communicable%20State%20Machine%28CSM%29%20Framework.md) · [Libraries](./Group-Libraries.md) · [Programming Environments](./Group-Programming%20Environments.md) · [Supplement of Base Functions](./Group-Supplement%20of%20Base%20Functions.md)） | 按主题分组列出组织内仓库的索引页（CSM 框架、库、编程环境、基础功能补充等） |
 
 ## 🔐 涉及的 Secrets
 
 | Secret | 用于 |
 |--------|------|
-| `SYNC_GITHUB_TOKEN` | `update-*`、`sync-to-gitee` 与 `org-membership-cleanup` workflow 的 checkout / push / GitHub API |
+| `SYNC_GITHUB_TOKEN` | `update-profile-readme`、`sync-to-gitee` 与 `org-membership-cleanup` workflow 的 checkout / push / GitHub API |
 | `SYNC_GITEE_TOKEN`  | `sync-to-gitee` 推送到 Gitee 的鉴权 |
-| `CSM_QA_GH_TOKEN`   | discussion bot 读写组织级 Q&A discussions（Fine-grained PAT） |
-| `LLM_API_KEY`       | discussion bot 调用 LLM（默认 deepseek-chat）所需的 API Key |
+| `CSM_QA_GH_TOKEN`   | `org-router` 与 discussion bot 读写组织级 Q&A discussions（Fine-grained PAT） |
+| `LLM_API_KEY`       | `org-router` 与 discussion bot 调用 LLM（默认 deepseek-chat）所需的 API Key |
+| `WEBHOOK_APP_ID` / `WEBHOOK_APP_PRIVATE_KEY` | `org-router` 以 GitHub App 身份发出组织邀请 |
 
 各 secret 的具体权限要求与轮换说明请见 [`docs/workflows/`](./docs/workflows) 下对应文档。

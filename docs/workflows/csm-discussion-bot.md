@@ -8,13 +8,13 @@
 
 ## 1. 功能概述
 
-为 NEVSTOP-LAB **组织级 Discussions**（`/orgs/NEVSTOP-LAB/discussions`）的 Q&A 分类提供基于 RAG + LLM 的自动回复。流程概览：
+为 NEVSTOP-LAB **组织级 Discussions**（`/orgs/NEVSTOP-LAB/discussions`）提供基于 RAG + LLM 的问答能力。实时事件已由 [`org-router.yml`](./org-router.md) 统一接管，本 workflow 保留**手动全量扫描**与**回滚通道**。流程概览：
 
 ```
 Discussion 创建 / 评论
    │
-   ├─ ① GitHub 仓库级事件 → 直接触发 workflow
-   ├─ ② 组织级事件 → Cloudflare Worker（webhook/）→ repository_dispatch → workflow
+   ├─ ① 原生事件 → org-router.yml → 意图分类（JOIN / QA / OTHER）
+   ├─ ② 回滚通道：Worker 改发 org_discussion_created → 本 workflow 直接回答
    └─ ③ 手动 workflow_dispatch → 全量扫描所有未答复 / 有新追问的 discussion
    │
    ▼
@@ -28,18 +28,20 @@ RAG 检索 CSM-Wiki（ChromaDB + BGE-small-zh-v1.5 embedding）
 
 | 事件 | 何时触发 | 说明 |
 |------|----------|------|
-| `discussion: [created]`               | 本仓库新 Discussion | 主要用于本仓库内调试，组织级 discussion 不会进入这条路径 |
-| `discussion_comment: [created]`       | 本仓库 Discussion 新评论 | 跳过 bot 自身评论以防无限循环（在脚本中通过 sender/author type 过滤） |
-| `repository_dispatch: org_discussion_created` | 组织级 webhook 中继 | `client_payload.discussion_number` 必填，Worker 已做去重 |
-| `workflow_dispatch`                   | 手动触发 | 输入 `dry_run=true` 时只打印，不发布评论；用于回归测试 |
+| `repository_dispatch: org_discussion_created` | Worker 改发旧 `event_type` 的回滚场景 | `client_payload.discussion_number` 必填，Worker 已做去重 |
+| `workflow_dispatch`                   | 手动触发 | 输入 `dry_run=true` 时只打印，不发布评论；用于回归测试与全量扫描 |
 
-> **运行频率**：事件驱动，无 cron。手动全量扫描按需运行。
+> [!NOTE]
+> `discussion` / `discussion_comment` 原生事件已由 [`org-router.yml`](./org-router.md) 接管，本 workflow 不再监听这两个事件。
+
+> **运行频率**：无 cron，仅在手动触发或回滚通道下运行。
 
 ## 3. 关键 Secrets
 
 | Secret | 作用 | 备注 |
 |--------|------|------|
 | `CSM_QA_GH_TOKEN` | checkout、读写组织级 Discussions | 见下方说明 |
+| `LLM_API_KEY`     | 调用 LLM API | 默认 deepseek-chat，可在脚本/环境变量中切换 OpenAI 兼容 provider |
 
 `CSM_QA_GH_TOKEN` 必须是 **Fine-grained PAT**，至少授予：
 
@@ -47,7 +49,6 @@ RAG 检索 CSM-Wiki（ChromaDB + BGE-small-zh-v1.5 embedding）
 - 组织级 `Discussions: Read & Write`（组织级 discussion 归属于源仓库 `<org>/.github`）
 
 **不要**改成默认 `GITHUB_TOKEN`，后者无法访问组织级 discussion API。
-| `LLM_API_KEY`     | 调用 LLM API | 默认 deepseek-chat，可在脚本/环境变量中切换 OpenAI 兼容 provider |
 
 ## 4. 缓存策略（重要）
 
@@ -58,17 +59,17 @@ workflow 使用 **拆分式 `actions/cache/restore` + `actions/cache/save`** 而
 
 | 缓存 | Key | 内容 |
 |------|-----|------|
-| `pip` | `${{ runner.os }}-pip-${{ hashFiles('requirements-bot.txt') }}` | Python 依赖 |
-| `huggingface` | `${{ runner.os }}-hf-BAAI-bge-small-zh-v1.5` | embedding 模型 |
-| `vector store` | `${{ runner.os }}-vectorstore-<csm-wiki HEAD SHA>` | ChromaDB 向量库 + `csm-wiki/wiki_source.json` + `csm-wiki/remote` |
+| `venv` | `<os>-venv-py3.11-<requirements-bot.txt 哈希>-<csm-llm-qa HEAD SHA>` | 已安装依赖的 `.venv`，精确命中时跳过安装 |
+| `huggingface` | `<os>-hf-BAAI-bge-small-zh-v1.5` | embedding 模型 |
+| `vector store` | `<os>-vectorstore-<requirements 哈希>-<csm-wiki HEAD SHA>-<csm-llm-qa HEAD SHA>` | ChromaDB 向量库 + `csm-wiki/wiki_source.json` + `csm-wiki/remote` |
 
-向量库 key 中的 SHA 通过在 `actions/cache` **之前**单独调用 GitHub API 解析得到（`Resolve csm-wiki latest commit SHA` 步骤）；该步骤通过仓库 `default_branch` 字段动态发现分支名（`main` / `master` 兜底），**不要硬编码**为 `main`。
+Key 中的两个 SHA 都在 `actions/cache` **之前**通过 GitHub API 解析（`Resolve csm-wiki latest commit SHA`、`Resolve csm-llm-qa latest commit SHA` 步骤）；分支名取自仓库 `default_branch`（`main` / `master` 兜底），**不要硬编码**为 `main`。venv 缓存不配 `restore-keys`：只接受精确命中，避免旧依赖污染运行时。
 
 ## 5. 并发控制
 
 ```yaml
 concurrency:
-  group: csm-qa-bot-${{ github.event.discussion.number || github.event.client_payload.discussion_number || 'scan' }}
+  group: csm-qa-bot-${{ ... discussion_number || 'scan' }}
   cancel-in-progress: false
 ```
 
@@ -80,9 +81,9 @@ concurrency:
 
 | 场景 | 排查/操作 |
 |------|-----------|
-| Bot 不回复新 discussion | ① 查 Actions 是否被触发；② 若组织级且未触发，检查 Cloudflare Worker 日志（`webhook/`）和 `CSM_QA_GH_TOKEN` 是否过期；③ 用 `workflow_dispatch` + `dry_run=true` 复现 |
+| 实时问答不回复 | 实时问答由 [`org-router.yml`](./org-router.md) 负责，先查该 workflow；本 workflow 只在手动扫描或回滚通道下运行 |
 | 回复内容明显过时 | 强制使新 wiki 缓存失效：手动改一次 `csm-wiki/wiki_source.json`（或等下一次 CSM-Wiki commit），cache key 自动变化即触发重建 |
-| 出现"无限循环回复" | 确认评论过滤逻辑生效：workflow 中 `discussion_comment` 步骤的 `if` 条件已包含 `github.event.comment.user.type != 'bot'`；同时 Worker 端会过滤防重标记 |
+| 出现"无限循环回复" | 过滤依据是评论正文里的 `<!-- csm-qa-bot -->` 标记（`org-router` 的 `if` 与本 workflow 的脚本都依赖它），不要改动该标记 |
 | LLM 报 401/403 | 轮换 `LLM_API_KEY`；如更换 provider，同步更新脚本中的 base_url |
 | 缓存大小膨胀 | 在 Actions → Caches 页面手动清理旧 `vectorstore-*` key，下一次运行会按当前 SHA 重新构建 |
 
