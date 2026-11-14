@@ -9,12 +9,20 @@
 
 | 顺序 | 脚本 | 写入文件 | 内容 |
 |------|------|----------|------|
-| 1 | [`update_vipm_downloads.py`](../../scripts/update_vipm_downloads.py) | `profile/README.md` | `VIPM_DOWNLOADS` 区块：VIPM 包累计下载量图表 |
+| 1 | [`update_vipm_downloads.py`](../../scripts/update_vipm_downloads.py) | `profile/README.md` | `VIPM_DOWNLOADS` 区块：当月安装量图表 + 历史快照表 |
 | 2 | [`update_sorted_tags.py`](../../scripts/update_sorted_tags.py) | `profile/README.md` | `SORTED_TAGS` 区块：按 topic 聚合的仓库数量 |
 | 3 | [`update_csm_modsets.py`](../../scripts/update_csm_modsets.py) | `profile/README.md`、`csm-modsets.md` | `CSM_MODSETS` 区块：CSM 可复用模块列表 |
 | 4 | [`update_star_history.py`](../../scripts/update_star_history.py) | `Star-History.md` | 累计 star 增长曲线与 Top N 排行 |
 
 写入位置由 README 里的 `<!-- *_START/END -->` 标记块定位，不要手工删除或改动这些注释。
+
+> [!NOTE]
+> `VIPM_DOWNLOADS` 区块由脚本整体重建：
+>
+> - 图表只画**当月**各包的累计安装量，月份写在标题里；`bar` 的值与 `x-axis` 类目一一对应，月份不再作为数据值混进数组。
+> - 历史快照在 `<details>` 折叠表里，默认显示最近 24 个月，可用 `--visible-months` 调整。
+> - 超过 24 个月的快照保留在文件中的 HTML 注释里，数据不删除；脚本会连同注释里的行一起解析。
+> - 同月重复运行只覆盖当月那一行，跨月才新增。
 
 ## 2. 触发条件与频率
 
@@ -73,7 +81,7 @@ concurrency:
 | 私有仓库名露出 | 调小 `PRIVATE_VISIBLE_CHARS` |
 | 新发布的 VIPM 包没有下载数 | 在脚本中追加包条目，并在 `profile/README.md` 加对应锚点 |
 | VIPM 数字不动或为 0 | VIPM 页面改版导致解析失败，查看脚本日志最后输出并更新解析逻辑 |
-| Mermaid 图渲染异常 | 数据点与坐标轴不匹配；`Star-History.md` 可直接删除后重跑重建，VIPM 区块由脚本整体重写 |
+| Mermaid 图渲染异常 | VIPM 区块由脚本整体重建，不要手改图表代码；`Star-History.md` 可直接删除后重跑重建 |
 | API 限流 | 换配额更高的 PAT；GitHub App token 单小时配额更高 |
 | push 冲突 3 次 | 与人工提交改了同一文件，手动 rebase 后重跑一次 |
 
