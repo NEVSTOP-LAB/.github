@@ -156,7 +156,7 @@ _每日扫描 github [csm-modsets](https://github.com/search?q=topic%3Acsm-modse
 [`typescript(2)`](https://github.com/search?q=topic:typescript%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 <!-- SORTED_TAGS_END -->
 
-_每日自动扫描 NEVSTOP-LAB 仓库, 并根据 topics 分类更新_
+_每日自动扫描 NEVSTOP-LAB 公开仓库, 并根据 topics 分类更新；私有仓库不计入统计（例如 `archived` 只反映公开归档仓库数）_
 
 ## 🤖 AI-Wiki 机制
 
