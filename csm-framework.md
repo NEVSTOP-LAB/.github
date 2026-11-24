@@ -36,7 +36,7 @@ DeepSeek Harness(DSH) 是本组织维护的插件化开发运行时：编辑、�
     title "Communicable State Machine(CSM) Framework VIPM Download (2026.11)"
     x-axis ["Core", "API String", "MassData", "INI-Variable", "DAQ-Example", "TCP-Example"]
     y-axis "Download" 0 --> 11000
-    bar   [8722, 6635, 5826, 6255, 5412, 3631]
+    bar   [8730, 6648, 5826, 6266, 5422, 3636]
 ```
 
 <details>
@@ -44,7 +44,7 @@ DeepSeek Harness(DSH) 是本组织维护的插件化开发运行时：编辑、�
 
 | 月份 | Core | API String | MassData | INI-Variable | DAQ-Example | TCP-Example | 合计 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 2026.11 | 8722 | 6635 | 5826 | 6255 | 5412 | 3631 | 36481 |
+| 2026.11 | 8730 | 6648 | 5826 | 6266 | 5422 | 3636 | 36528 |
 | 2026.10 | 8442 | 6436 | 5667 | 6074 | 5239 | 3524 | 35382 |
 | 2026.09 | 8080 | 6134 | 5449 | 5787 | 4979 | 3377 | 33806 |
 | 2026.08 | 7727 | 5891 | 5185 | 5558 | 4747 | 3202 | 32310 |
@@ -114,7 +114,7 @@ _每日扫描 github [csm-modsets](https://github.com/search?q=topic%3Acsm-modse
 ## 👩‍💻 Sorted By Topics
 
 <!-- SORTED_TAGS_START -->
-[`labview(66)`](https://github.com/search?q=topic:labview%20org:NEVSTOP-LAB%20is:public&type=Repositories)
+[`labview(67)`](https://github.com/search?q=topic:labview%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`labview-csm(27)`](https://github.com/search?q=topic:labview-csm%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`vipm(15)`](https://github.com/search?q=topic:vipm%20org:NEVSTOP-LAB%20is:public&type=Repositories)
 [`cicd(13)`](https://github.com/search?q=topic:cicd%20org:NEVSTOP-LAB%20is:public&type=Repositories)
