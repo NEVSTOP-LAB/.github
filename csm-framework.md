@@ -36,7 +36,7 @@ DeepSeek Harness(DSH) 是本组织维护的插件化开发运行时：编辑、�
     title "Communicable State Machine(CSM) Framework VIPM Download (2026.11)"
     x-axis ["Core", "API String", "MassData", "INI-Variable", "DAQ-Example", "TCP-Example"]
     y-axis "Download" 0 --> 11000
-    bar   [8730, 6648, 5842, 6266, 5430, 3636]
+    bar   [8758, 6663, 5842, 6282, 5430, 3645]
 ```
 
 <details>
@@ -44,7 +44,7 @@ DeepSeek Harness(DSH) 是本组织维护的插件化开发运行时：编辑、�
 
 | 月份 | Core | API String | MassData | INI-Variable | DAQ-Example | TCP-Example | 合计 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 2026.11 | 8730 | 6648 | 5842 | 6266 | 5430 | 3636 | 36552 |
+| 2026.11 | 8758 | 6663 | 5842 | 6282 | 5430 | 3645 | 36620 |
 | 2026.10 | 8442 | 6436 | 5667 | 6074 | 5239 | 3524 | 35382 |
 | 2026.09 | 8080 | 6134 | 5449 | 5787 | 4979 | 3377 | 33806 |
 | 2026.08 | 7727 | 5891 | 5185 | 5558 | 4747 | 3202 | 32310 |

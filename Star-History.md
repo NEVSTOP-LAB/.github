@@ -1,7 +1,7 @@
 # Star History
 
-_Last updated: 2026-11-25 08:13:23 UTC+8_  
-_Total stars: 448_
+_Last updated: 2026-11-26 07:51:35 UTC+8_  
+_Total stars: 447_
 
 ## Star Growth Chart
 
@@ -10,7 +10,7 @@ xychart-beta
     title "NEVSTOP-LAB Star Growth"
     x-axis ["2016-06", "2019-04", "2020-12", "2022-05", "2023-08", "2024-08", "2025-07", "2026-05", "2026-11"]
     y-axis "Cumulative Stars" 0 --> 450
-    line [1, 13, 28, 43, 65, 97, 164, 248, 375]
+    line [1, 13, 28, 43, 65, 97, 164, 248, 373]
 ```
 
 ## Top 10 Most Starred Repositories
@@ -47,6 +47,7 @@ xychart-beta
 
 | Time (UTC+8) | Repository | User | Action |
 |:-----------|:-----------|:-----|:------:|
+| 2026-11-26 07:51:01+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [yinghuo302](https://github.com/yinghuo302) | ❌ delete |
 | 2026-11-24 11:52:43+08:00 | [`dsh-net-opt`](https://github.com/NEVSTOP-LAB/dsh-net-opt) | [w605672534](https://github.com/w605672534) | ⭐ add |
 | 2026-11-13 10:33:12+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [alice112358133aa0](https://github.com/alice112358133aa0) | ⭐ add |
 | 2026-11-12 11:02:17+08:00 | [`CSM-Mermaid-Plugin`](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | [stevenccc62](https://github.com/stevenccc62) | ⭐ add |
@@ -81,7 +82,6 @@ xychart-beta
 | 2026-10-05 19:42:28+08:00 | [`LabVIEW-Class-Plugin-Example`](https://github.com/NEVSTOP-LAB/LabVIEW-Class-Plugin-Example) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
 | 2026-10-05 19:03:37+08:00 | [`csm-keynotes-collection`](https://github.com/NEVSTOP-LAB/csm-keynotes-collection) | [wyxfhb](https://github.com/wyxfhb) | ⭐ add |
 | 2026-10-05 03:52:37+08:00 | `CSM-Python****-1359888571` | [emckiller](https://github.com/emckiller) | ⭐ add |
-| 2026-10-02 10:15:46+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [yinghuo302](https://github.com/yinghuo302) | ⭐ add |
 | 2026-09-28 10:35:27+08:00 | [`CSM-Mermaid-Plugin`](https://github.com/NEVSTOP-LAB/CSM-Mermaid-Plugin) | [northingooo](https://github.com/northingooo) | ⭐ add |
 | 2026-09-26 03:39:08+08:00 | [`CSM-Icon-Editor-Glyphs`](https://github.com/NEVSTOP-LAB/CSM-Icon-Editor-Glyphs) | [AntoineChalons](https://github.com/AntoineChalons) | ❌ delete |
 | 2026-09-22 00:05:00+08:00 | [`dsh-approval-mode`](https://github.com/NEVSTOP-LAB/dsh-approval-mode) | [cchamm](https://github.com/cchamm) | ⭐ add |
